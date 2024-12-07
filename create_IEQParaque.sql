@@ -1,14 +1,14 @@
 create database IEQParque;
 use IEQParque;
 
-create table ieqparque.tbTipoMembro(
-    tpm_cod int auto_increment,
+create table ieqparque.tb_tipoMembro(
+    tpm_id int auto_increment,
     tpm_tipo varchar(20) not null unique,
     tpm_descricao   varchar(50) not null unique,
-    primary key(tpm_cod)
+    primary key(tpm_id)
 );
 
-create table ieqparque.tbMembro(
+create table ieqparque.tb_membro(
     mem_id int auto_increment unique,
     mem_nome varchar(50) not null,
     mem_telefone varchar(15) not null,
@@ -17,30 +17,30 @@ create table ieqparque.tbMembro(
     mem_senha varchar(40) not null,
     mem_dataNasc date not null,
     primary key(mem_id),
-    tpm_cod int not null REFERENCES tbTipoMembro(tpm_cod)
+    tpm_id int not null REFERENCES tbTipoMembro(tpm_id)
 );
 
-create table ieqparque.tbFuncoes(
-    fun_cod int auto_increment unique,
+create table ieqparque.tb_funcoes(
+    fun_id int auto_increment unique,
     fun_nome varchar(50) not null unique,
     fun_descricao varchar(100) not null unique,
-    primary key(fun_cod)
+    primary key(fun_id)
 );
 
-create table tbFuncoesMembro(
+create table tb_funcoesMembro(
     fmb_id int AUTO_INCREMENT,
     mem_id int not null REFERENCES tbMembro(mem_id),
-    fun_cod int not null REFERENCES tbFuncoes(fun_cod),
+    fun_id int not null REFERENCES tbFuncoes(fun_id),
     primary key(fmb_id)
 );
 
-create table tbTipoAtividade(
+create table tb_tipoAtividade(
     tat_id int AUTO_INCREMENT PRIMARY KEY,
     tat_nome varchar(50) not null unique,
     tat_descricao varchar(100) not null unique
 );
 
-create table tbAtividade(
+create table tb_atividade(
     atv_id int AUTO_INCREMENT PRIMARY KEY,
     atv_planejamento int not null,
     atv_data date not null,
@@ -49,20 +49,20 @@ create table tbAtividade(
     tat_id int not null REFERENCES tbTipoAtividade(tat_id)
 );
 
-create table tbAusencia(
+create table tb_ausencia(
     aus_id int AUTO_INCREMENT PRIMARY KEY,
     aus_justificativa text not null,
     mem_id int not null REFERENCES tbMembro(mem_id),
     atv_id int not null REFERENCES tbAtividade(atv_id)
 );
 
-create table tbTonalidade(
+create table tb_tonalidade(
     ton_id int AUTO_INCREMENT PRIMARY KEY,
     ton_maiorTom varchar(3) not null,
     ton_menorTom varchar(3) not null
 );
 
-create table tbMusica(
+create table tb_musica(
     mus_id int AUTO_INCREMENT PRIMARY KEY,
     mus_nome varchar(50) not null,
     mus_interprete varchar(60) not null,

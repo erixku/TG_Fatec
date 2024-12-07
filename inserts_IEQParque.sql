@@ -1,6 +1,6 @@
 use ieqparque;
 
-insert into tbTonalidade(ton_maiorTom, ton_menorTom) 
+insert into tb_tonalidade(ton_maiorTom, ton_menorTom) 
 values('C', 'Am'),
       ('C#', 'A#m'),
       ('D', 'Bm'),
@@ -14,37 +14,37 @@ values('C', 'Am'),
       ('A#', 'Gm'),
       ('B', 'G#m');
 
-INSERT INTO tbTipoMembro (tpm_tipo, tpm_descricao) VALUES
+INSERT INTO tb_tipoMembro (tpm_tipo, tpm_descricao) VALUES
 ('Líder', 'Membro que lidera um grupo ou ministério'),
 ('Membro', 'Membro regular da igreja'),
 ('Visitante', 'Pessoa que visita a igreja');
 
-INSERT INTO tbMembro (mem_nome, mem_telefone, mem_email, mem_login, mem_senha, mem_dataNasc, tpm_cod) VALUES
+INSERT INTO tb_membro (mem_nome, mem_telefone, mem_email, mem_login, mem_senha, mem_dataNasc, tpm_id) VALUES
 ('João Silva', '11987654321', 'joao.silva@email.com', 'joaosilva', 'senha123', '1985-05-15', 1),
 ('Maria Oliveira', '11912345678', 'maria.oliveira@email.com', 'mariaoliveira', 'senha456', '1990-08-20', 2),
 ('Carlos Pereira', '11998765432', 'carlos.pereira@email.com', 'carlospereira', 'senha789', '2000-12-30', 3);
 
-INSERT INTO tbFuncoes (fun_nome, fun_descricao) VALUES
+INSERT INTO tb_funcoes (fun_nome, fun_descricao) VALUES
 ('Líder de Louvor', 'Responsável por coordenar o ministério de louvor e dirigir os ensaios'),
 ('Vocalista', 'Membro que canta em grupo ou solo durante os cultos e eventos'),
 ('Instrumentista', 'Músico que toca instrumentos durante os louvores'),
 ('Compositor', 'Membro que cria músicas originais para o ministério de louvor'),
 ('Técnico de Som', 'Responsável pela parte técnica de som e iluminação durante os cultos');
 
-INSERT INTO tbfuncoesmembro(mem_id, fun_cod) VALUES
+INSERT INTO tb_funcoesmembro(mem_id, fun_id) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
 (3, 5);
 
-INSERT INTO tbTipoAtividade (tat_nome, tat_descricao) VALUES
+INSERT INTO tb_tipoAtividade (tat_nome, tat_descricao) VALUES
 ('Culto de Louvor', 'Reunião semanal dedicada à adoração e louvor a Deus'),
 ('Ensaios de Louvor', 'Reuniões regulares para ensaiar músicas e preparar o ministério'),
 ('Apresentação Especial', 'Eventos especiais onde o ministério de louvor se apresenta'),
 ('Retiro Espiritual', 'Encontro para aprofundamento espiritual e musical do ministério'),
 ('Workshop de Música', 'Oficinas para aprimoramento de habilidades musicais e vocais');
 
-INSERT INTO tbAtividade (atv_planejamento, atv_data, atv_horarioInicio, atv_horarioFim, tat_id) VALUES
+INSERT INTO tb_atividade (atv_planejamento, atv_data, atv_horarioInicio, atv_horarioFim, tat_id) VALUES
 (1, '2023-10-01', '18:00:00', '20:00:00', 1),
 (2, '2023-10-03', '19:00:00', '21:00:00', 2),
 (3, '2023-10-15', '19:00:00', '20:30:00', 3),
@@ -54,7 +54,7 @@ INSERT INTO tbAtividade (atv_planejamento, atv_data, atv_horarioInicio, atv_hora
 (7, '2023-10-10', '19:00:00', '21:00:00', 2),
 (8, '2023-10-22', '19:00:00', '20:30:00', 3);
 
-INSERT INTO tbAusencia (aus_justificativa, mem_id, atv_id) VALUES
+INSERT INTO tb_ausencia (aus_justificativa, mem_id, atv_id) VALUES
 ('Doença', 1, 1),
 ('Viagem', 2, 2),
 ('Feriado', 3, 3),
@@ -63,7 +63,7 @@ INSERT INTO tbAusencia (aus_justificativa, mem_id, atv_id) VALUES
 ('Viagem', 3, 6),
 ('Feriado', 1, 7);
 
-INSERT INTO tbMusica (mus_nome, mus_interprete, mus_capa, mus_link, mus_bpm, mus_descricao, ton_id) VALUES
+INSERT INTO tb_musica (mus_nome, mus_interprete, mus_capa, mus_link, mus_bpm, mus_descricao, ton_id) VALUES
 ('Santo, Santo, Santo', 'Reginaldo Veloso', 'capa_santo_santo_santo.jpg', 'https://link-para-musica.com/santo_santo_santo', 75, 'Uma canção de adoração que exalta a santidade de Deus.', 1),  -- C
 ('Te Louvarei', 'Davi Sacer', 'capa_te_louvarei.jpg', 'https://link-para-musica.com/te_louvarei', 80, 'Uma música que expressa gratidão e louvor a Deus.', 2),                -- C#
 ('Apenas um Toque', 'Anderson Freire', 'capa_apenas_um_toque.jpg', 'https://link-para-musica.com/apenas_um_toque', 85, 'Uma canção que fala sobre o poder do toque de Deus.', 3),      -- D
