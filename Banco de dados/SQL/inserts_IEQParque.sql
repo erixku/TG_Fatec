@@ -70,3 +70,46 @@ INSERT INTO tb_musica (mus_nome, mus_interprete, mus_capa, mus_link, mus_bpm, mu
 ('Eu Sou Teu', 'Leonardo Gonçalves', 'capa_eu_sou_teu.jpg', 'https://link-para-musica.com/eu_sou_teu', 90, 'Uma declaração de entrega total a Deus.', 4),         -- D#
 ('Ousado Amor', 'Hillsong', 'capa_ousado_amor.jpg', 'https://link-para-musica.com/ousado_amor', 70, 'Uma canção que fala sobre o amor incondicional de Deus.', 5),                  -- E
 ('Como é Bom Te Adorar', 'Ana Paula Valadão', 'capa_como_e_bom_te_adorar.jpg', 'https://link-para-musica.com/como_e_bom_te_adorar', 78, 'Uma música que celebra a alegria de adorar a Deus.', 6); -- F
+
+INSERT INTO tb_tipoTrechoMusica (ttm_tipo, ttm_descricao) VALUES
+('Verso', 'Parte da música que apresenta a história ou mensagem.'),
+('Refrão', 'Parte repetitiva e cativante da música.'),
+('Ponte', 'Parte que conecta diferentes seções da música.'),
+('Intro', 'Parte inicial da música que prepara o ouvinte.'),
+('Final', 'Parte que encerra a música.');
+
+INSERT INTO tb_trechosMusica (ttm_id, mus_id) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2),
+(1, 3),
+(2, 3),
+(1, 4),
+(2, 4),
+(1, 5),
+(2, 5),
+(1, 6),
+(2, 6);
+
+INSERT INTO tb_tomTrechoMusica (trm_id, ton_id) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 3),
+(7, 4),
+(8, 4),
+(9, 5),
+(10, 5),
+(11, 6),
+(12, 6);
+
+INSERT INTO tb_medley (med_nome, med_capa, med_link, med_descricao) VALUES
+('Medley de Adoração', 'capa_medley_adoracao.jpg', 'https://link-para-medley.com/medley_adoracao', 'Um medley que reúne canções de adoração.');
+
+INSERT INTO tb_trechosMedley (med_id, mus_id, ton_id) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 3);

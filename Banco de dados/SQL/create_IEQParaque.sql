@@ -17,7 +17,7 @@ create table ieqparque.tb_membro(
     mem_senha varchar(40) not null,
     mem_dataNasc date not null,
     primary key(mem_id),
-    tpm_id int not null REFERENCES tbTipoMembro(tpm_id)
+    tpm_id int not null REFERENCES tb_tipoMembro(tpm_id)
 );
 
 create table ieqparque.tb_funcoes(
@@ -29,8 +29,8 @@ create table ieqparque.tb_funcoes(
 
 create table tb_funcoesMembro(
     fmb_id int AUTO_INCREMENT,
-    mem_id int not null REFERENCES tbMembro(mem_id),
-    fun_id int not null REFERENCES tbFuncoes(fun_id),
+    mem_id int not null REFERENCES tb_membro(mem_id),
+    fun_id int not null REFERENCES tb_funcoes(fun_id),
     primary key(fmb_id)
 );
 
@@ -46,14 +46,14 @@ create table tb_atividade(
     atv_data date not null,
     atv_horarioInicio time not null,
     atv_horarioFim time not null,
-    tat_id int not null REFERENCES tbTipoAtividade(tat_id)
+    tat_id int not null REFERENCES tb_tipoAtividade(tat_id)
 );
 
 create table tb_ausencia(
     aus_id int AUTO_INCREMENT PRIMARY KEY,
     aus_justificativa text not null,
-    mem_id int not null REFERENCES tbMembro(mem_id),
-    atv_id int not null REFERENCES tbAtividade(atv_id)
+    mem_id int not null REFERENCES tb_membro(mem_id),
+    atv_id int not null REFERENCES tb_atividade(atv_id)
 );
 
 create table tb_tonalidade(
@@ -70,5 +70,38 @@ create table tb_musica(
     mus_link varchar(100) not null,
     mus_bpm int not null,
     mus_descricao text not null,
-    ton_id int not null REFERENCES tbTonalidade(ton_id)
+    ton_id int not null REFERENCES tb_tonalidade(ton_id)
+);
+
+create table tb_tipoTrechoMusica(
+    ttm_id int primary key auto_increment,
+    ttm_tipo varchar(20) not null,
+    ttm_descricao text not null
+);
+
+create table tb_trechosMusica(
+    trm_id int primary key auto_increment,
+    ttm_id int REFERENCEs tb_tipoTrechoMusica(ttm_id),
+    mus_id int REFERENCES tb_musica(mus_id)
+);
+
+create table tb_tomTrechoMusica(
+    tdm_id int primary key auto_increment,
+    trm_id int REFERENCES tb_trechosMusica(trm_int),
+    ton_id int REFERENCES tb_tonalidade(ton_id)
+);
+
+create table tb_medley(
+    med_id int primary key auto_increment,
+    med_nome varchar(70) not null,
+    med_capa varchar(100) not null,
+    med_link varchar(100) not null,
+    med_descricao text
+);
+
+create table tb_trechosMedley(
+    tmd_id int primary key auto_increment,
+    med_id int REFERENCES tb_medley(med_id),
+    mus_id int REFERENCES tb_musica(mus_id),
+    ton_id int REFERENCES tb_tonalidade(ton_id)
 );
