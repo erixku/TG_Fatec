@@ -1,0 +1,25 @@
+ATA DE ALTERAÇÕES:
+
+# TABELA DE MEMBROS
+- Adicionado um campo "mem_status".
+
+# TABELA DE TIPODEINSTRUMENTO
+- Adicionado campo "tdi_descricao";
+- Campo "tdi_tipoDeInstrumento" renomeado para "tdi_tipo".
+
+# TABELA INSTRUMENTO
+- Adicionado o campo "ins_status"
+
+# RELACIONAMENTO ADICIONADO ENTRE "MEMBRO" E "INSTRUMENTO"
+
+# TABELA "TIPODECOMIDA"
+- Campo "tdc_tipoDeComida" alterado para "tdc_tipo".
+
+# TABELA "LISTADECOMIDA"
+- Adicionado o campo "lic_quantidade".
+
+# TABELA "TIPOTRECHO"
+- Campo "tpt_tipoDoTrecho" renomeado para "tpt_tipo"
+
+3TABELA ATIVIDADE
+- Campo "atv_duracaoAtividade" excluído.
