@@ -9,7 +9,7 @@ CREATE TABLE auth.tb_endereco (
 
   -- dados de endereço
   cep    CHAR(8)      NOT NULL,
-  uf     CHAR(2)      NOT NULL,
+  uf     domain_uf    NOT NULL,
   cidade VARCHAR(100) NOT NULL,
   bairro VARCHAR(100) NOT NULL,
   rua    VARCHAR(100) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE auth.tb_usuario (
 
   CONSTRAINT fk_usuario_foto_id
       FOREIGN KEY (schema_storage_arquivo_foto)
-      REFERENCES storage.tb_arquivo (id)
+      REFERENCES storage.tb_arquivo (uuid)
       ON UPDATE RESTRICT
       ON DELETE RESTRICT
 );
@@ -79,7 +79,7 @@ CREATE TABLE auth.tb_registro_ausencia (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_usuario_lev
     FOREIGN KEY (schema_auth_usuario_lev)
-    REFERENCES auth.tb_usuario
+    REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
 );
