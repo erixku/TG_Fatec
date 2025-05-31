@@ -15,8 +15,8 @@ CREATE TABLE storage.tb_arquivo (
   -- dados do arquivo
   deletado         BOOLEAN                                  NOT NULL DEFAULT false,
   caminho          TEXT                                     NOT NULL,
-  mime_type        schema_storage_tb_arquivo_enum_mime_type NOT NULL,
-  extensao         schema_storage_tb_arquivo_enum_extensao  NOT NULL,
+  mime_type        enum_schema_storage_tb_arquivo_mime_type NOT NULL,
+  extensao         enum_schema_storage_tb_arquivo_extensao  NOT NULL,
   tamanho_em_bytes INTEGER                                  NOT NULL,
 );
 
