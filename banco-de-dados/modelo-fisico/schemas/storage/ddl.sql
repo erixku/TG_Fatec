@@ -3,13 +3,6 @@ CREATE SCHEMA storage;
 
 
 
-CREATE TABLE storage.tb_bucket (
-  id   INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  nome VARCHAR(30) NOT NULL
-);
-
-
-
 CREATE TABLE storage.tb_arquivo (
   -- chaves primárias
   id   INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -20,20 +13,11 @@ CREATE TABLE storage.tb_arquivo (
   deleted_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados do arquivo
-  deletado     BOOLEAN                                 NOT NULL DEFAULT false,
-  caminho      TEXT                                    NOT NULL,
-  extensao     schema_storage_tb_arquivo_enum_extensao NOT NULL,
-  tamanho_byte INTEGER                                 NOT NULL,
-
-  -- chaves estrangeiras
-  buc_id INTEGER NOT NULL,
-
-  -- declaração de chaves estrangeiras
-  CONSTRAINT fk_buc_id
-    FOREIGN KEY (buc_id)
-    REFERENCES storage.tb_bucket (id)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
+  deletado         BOOLEAN                                  NOT NULL DEFAULT false,
+  caminho          TEXT                                     NOT NULL,
+  mime_type        schema_storage_tb_arquivo_enum_mime_type NOT NULL,
+  extensao         schema_storage_tb_arquivo_enum_extensao  NOT NULL,
+  tamanho_em_bytes INTEGER                                  NOT NULL,
 );
 
 
