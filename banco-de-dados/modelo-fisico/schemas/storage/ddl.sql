@@ -17,7 +17,7 @@ CREATE TABLE storage.tb_arquivo (
   caminho          TEXT                                     NOT NULL,
   mime_type        enum_schema_storage_tb_arquivo_mime_type NOT NULL,
   extensao         enum_schema_storage_tb_arquivo_extensao  NOT NULL,
-  tamanho_em_bytes INTEGER                                  NOT NULL,
+  tamanho_em_bytes INTEGER                                  NOT NULL
 );
 
 
