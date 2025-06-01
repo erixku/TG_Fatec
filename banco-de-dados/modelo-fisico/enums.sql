@@ -51,3 +51,9 @@ AS ENUM (
   'Wesleyana',
   'Zion Church'
 );
+
+CREATE TYPE
+enum_schema_church_tb_usuario_funcao_funcao
+AS ENUM (
+  'Líder', 'Ministro', 'Levita'
+);
