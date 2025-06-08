@@ -1,5 +1,19 @@
 -- SCHEMA STORAGE
 CREATE TYPE
+enum_schema_storage_tb_bucket_nome
+AS ENUM (
+  'foto-perfil-usuario',
+  'foto-perfil-igreja',
+  'foto-perfil-ministerio',
+  'icone-instrumento',
+  'audio',
+  'pdf',
+  'sistema-icone-instrumento',
+  'sistema-imagem',
+  'sistema-audio'
+);
+
+CREATE TYPE
 enum_schema_storage_tb_arquivo_mime_type
 AS ENUM (
   'image/png',  'image/jpeg', 'image/svg+xml',
@@ -14,6 +28,8 @@ AS ENUM (
   'mp3', 'wav', 'ogg',  'flac', 'm4a', 'alac',
   'pdf'
 );
+
+
 
 -- SCHEMA CHURCH
 CREATE TYPE
