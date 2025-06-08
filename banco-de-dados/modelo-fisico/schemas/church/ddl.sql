@@ -77,8 +77,11 @@ CREATE TABLE church.tb_administrador (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
   -- chaves estrangeiras
-  igr_id                  UUID NOT NULL,
+  igr_uuid                UUID NOT NULL,
   schema_auth_usuario_adm UUID NOT NULL,
+
+  -- chaves únicas compostas
+  UNIQUE (igr_uuid, schema_auth_usuario_adm),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_igreja_uuid
@@ -155,12 +158,15 @@ CREATE TABLE church.tb_ministerio_louvor (
   deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
   
   -- dados do ministério de louvor
-  deletado BOOLEAN NOT NULL DEFAULT false,
+  deletado BOOLEAN      NOT NULL DEFAULT false,
   nome     VARCHAR(100) NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid                    UUID NOT NULL,
   schema_storage_arquivo_foto UUID NOT NULL,
+
+  -- chaves únicas compostas
+  UNIQUE (nome, igr_uuid),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_igreja_uuid
@@ -246,6 +252,9 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
   -- chaves estrangeiras
   ins_id                  INTEGER NOT NULL,
   schema_auth_usuario_lev UUID    NOT NULL,
+
+  -- chaves únicas compostas
+  UNIQUE (ins_id, schema_auth_usuario_lev),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_instrumento_id
