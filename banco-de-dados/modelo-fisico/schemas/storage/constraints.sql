@@ -16,8 +16,8 @@ ADD CONSTRAINT
 check_schema_storage_tb_bucket_tamanho_minimo_e_maximo
 CHECK (
   tamanho_minimo > 0 AND
-  tamanho_minimo <= 1073741824 AND
+  tamanho_minimo <= get_tamanho_em_mb(1000) AND
   tamanho_maximo > 0 AND
-  tamanho_maximo <= 1073741824 AND
+  tamanho_maximo <= get_tamanho_em_mb(1000) AND
   tamanho_maximo >= tamanho_minimo
 );
