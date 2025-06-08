@@ -13,10 +13,11 @@ CREATE TABLE storage.tb_bucket (
   deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
 
   -- dados do bucket
-  nome                               VARCHAR(20) NOT NULL UNIQUE,
-  tempo_expiracao_upload_em_segundos SMALLINT    NOT NULL DEFAULT 30,
-  tamanho_minimo                     INTEGER     NOT NULL DEFAULT 1,
-  tamanho_maximo                     INTEGER     NOT NULL DEFAULT 1073741824
+  deletado                           BOOLEAN                            NOT NULL DEFAULT false,
+  nome                               enum_schema_storage_tb_bucket_nome NOT NULL UNIQUE,
+  tempo_expiracao_upload_em_segundos SMALLINT                           NOT NULL DEFAULT 30,
+  tamanho_minimo                     INTEGER                            NOT NULL DEFAULT 1,
+  tamanho_maximo                     INTEGER                            NOT NULL DEFAULT get_tamanho_em_mb(1000)
 );
 
 
