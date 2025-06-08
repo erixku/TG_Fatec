@@ -1,0 +1,18 @@
+TUDO JUNTO (STRING DE CONEXÃO):
+postgres://postgres:[YOUR-PASSWORD]@mwbewrdrimoilktroisc.db.sa-east-1.nhost.run:5432/mwbewrdrimoilktroisc
+
+
+
+SEPARADO:
+
+HOST:
+mwbewrdrimoilktroisc.db.sa-east-1.nhost.run
+
+PORT:
+5432
+
+NOME DO BANCO DE DADOS:
+mwbewrdrimoilktroisc
+
+NOME DO USUÁRIO:
+postgres
