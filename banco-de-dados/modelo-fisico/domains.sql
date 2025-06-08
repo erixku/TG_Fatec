@@ -7,3 +7,10 @@ CHECK (
     'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'
   )
 );
+
+CREATE DOMAIN domain_cep
+AS VARCHAR(8)
+CHECK (
+  char_length(VALUE) = 8 AND
+  VALUE ~ '^[0-9]{8}$'
+);

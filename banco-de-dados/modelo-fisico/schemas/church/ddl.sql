@@ -8,7 +8,7 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
   -- dados do endereço
-  cep    CHAR(8)      NOT NULL,
+  cep    domain_cep   NOT NULL,
   uf     domain_uf    NOT NULL,
   cidade VARCHAR(100) NOT NULL,
   bairro VARCHAR(100) NOT NULL,
