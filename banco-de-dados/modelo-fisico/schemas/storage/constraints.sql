@@ -2,7 +2,7 @@
 -- dure de mais que zero a no máximo 5 minutos
 ALTER TABLE storage.tb_bucket
 ADD CONSTRAINT
-check_schema_storage_tb_bucket_tempo_expiracao_upload_em_segundos
+check_schema_storage_tb_bucket_tempo_expiracao
 CHECK (
   tempo_expiracao_upload_em_segundos > 0 AND
   tempo_expiracao_upload_em_segundos <= 300
