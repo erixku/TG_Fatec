@@ -12,7 +12,7 @@ values('C', 'Am'),
       ('G#', 'Fm'),
       ('A', 'F#m'),
       ('A#', 'Gm'),
-      ('B', 'G#m');
+      ('B', 'G#m');     
 
 INSERT INTO tb_tipoMembro (tpm_tipo, tpm_descricao) VALUES
 ('Líder', 'Membro que lidera um grupo ou ministério'),
@@ -112,4 +112,4 @@ INSERT INTO tb_medley (med_nome, med_capa, med_link, med_descricao) VALUES
 INSERT INTO tb_trechosMedley (med_id, mus_id, ton_id) VALUES
 (7000, 4000, 375),  -- "Santo, Santo, Santo" no Medley de Adoração (C)
 (7000, 4001, 376),  -- "Te Louvarei" no Medley de Adoração (C#)
-(7000, 4002, 377);  -- "Apenas um Toque" no Medley de Adoração (D)
+(7000, 4002, 377);  -- "Apenas um Toque" no Medley de Adoração (D)      
