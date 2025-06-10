@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".InicioActivity">
 
     <ImageView
@@ -19,10 +20,39 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="205dp"
-        android:layout_height="150dp"
-        android:text="Seja muito bem vindo ao Harppia! Seu sistema de gerenciamento de louvores e auxílio para músicos de Igrejas."
+        android:layout_width="202dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="15dp"
+        android:text="Seja muito bem vindo ao Harppia! Seu sistema de gerenciamento de louvores e auxílio para músicos de Igrejas. Nossa aplicação conta com funcionalidades para o gerenciamento de escalas e também auxílio de músicos, como metrônomo e alteração de músicas"
         android:textAlignment="center"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="231dp" />
+        android:textColor="@color/contrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/btEntrar"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:backgroundTint="#0050C2"
+        android:text="Entrar"
+        android:textColor="@color/background"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/btCadastrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btCadastrar"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:backgroundTint="#0050C2"
+        android:text="Cadastrar"
+        android:textColor="@color/background"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btEntrar"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
