@@ -9,17 +9,17 @@
     tools:context=".Cadastro2Activity">
 
     <Button
-        android:id="@+id/btEntrar2"
+        android:id="@+id/btProximo2"
         android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#0050C2"
         android:text="Próximo"
         android:textColor="@color/background"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -44,24 +44,26 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="256dp"
-        android:layout_height="432dp"
-        android:layout_marginTop="33dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.100000024">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/component"
-                android:hint="Digite seu nome"
+                android:hint="Digite seu E-mail"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
@@ -71,11 +73,11 @@
                 app:hintTextColor="@color/component">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNome"
+                    android:id="@+id/edEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:inputType="textPersonName"
+                    android:inputType="textEmailAddress"
                     android:padding="16dp"
                     android:textColor="@color/contrast" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/component"
-                android:hint="Digite seu nome social"
+                android:hint="Confirme seu E-mail"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
@@ -95,11 +97,11 @@
                 app:hintTextColor="@color/component">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNomeSocial"
+                    android:id="@+id/edConfirmEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:inputType="textPersonName"
+                    android:inputType="textEmailAddress"
                     android:padding="16dp"
                     android:textColor="@color/contrast" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -109,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/component"
-                android:hint="Digite seu CPF"
+                android:hint="Digite sua Senha"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
@@ -119,11 +121,11 @@
                 app:hintTextColor="@color/component">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edCPF"
+                    android:id="@+id/edSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:inputType="textAutoComplete"
+                    android:inputType="textPassword"
                     android:padding="16dp"
                     android:textColor="@color/contrast" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -133,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/component"
-                android:hint="Digite sua Data de Nascimento"
+                android:hint="Confirme sua Senha"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
@@ -143,16 +145,43 @@
                 app:hintTextColor="@color/component">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNascimento"
+                    android:id="@+id/edConfirmSenha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:inputType="date|text"
+                    android:inputType="textPassword"
                     android:padding="16dp"
                     android:textColor="@color/contrast" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:contentDescription="Mostrar senha"
+        android:padding="12dp"
+        android:src="@mipmap/ic_eye_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scrollView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <ImageView
+        android:id="@+id/btnMostrarSenha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:contentDescription="Mostrar senha"
+        android:padding="12dp"
+        android:src="@mipmap/ic_eye_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scrollView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.565" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
