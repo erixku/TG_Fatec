@@ -1,6 +1,7 @@
 package com.example.harppia;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,16 +12,20 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 public class Cadastrar1Activity extends AppCompatActivity {
 
     ImageView ivVoltar;
     AutoCompleteTextView ddSexo;
     Button btProximo;
+    TextInputEditText edNome, edNomeSocial, edCPF, edNascimento, edCEP, edRua, edNumero, edBairro, edCidade, edEstado, edTelefone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class Cadastrar1Activity extends AppCompatActivity {
         });
 
         btProximo.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
             public void onClick(View v) {
                 Intent prox = new Intent(Cadastrar1Activity.this, Cadastro2Activity.class);

@@ -12,14 +12,14 @@
         android:id="@+id/btProximo"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#0050C2"
         android:text="Próximo"
         android:textColor="@color/background"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/component"
-                android:hint="Digite seu nome"
+                android:hint="Digite seu Nome"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/component"
-                android:hint="Digite seu nome social"
+                android:hint="Digite seu Nome Social"
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
