@@ -33,7 +33,7 @@ CREATE TABLE church.tb_igreja (
 
   -- dados da igreja
   deletado          BOOLEAN                                  NOT NULL DEFAULT false,
-  cnpj              CHAR(14)                                 NOT NULL UNIQUE,
+  cnpj              VARCHAR(14)                              NOT NULL UNIQUE,
   nome              VARCHAR(100)                             NOT NULL,
   denominacao       enum_schema_church_tb_igreja_denominacao     NULL,
   outra_denominacao VARCHAR(100)                                 NULL,

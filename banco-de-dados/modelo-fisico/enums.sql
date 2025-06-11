@@ -1,6 +1,6 @@
 -- SCHEMA STORAGE
 CREATE TYPE
-enum_schema_storage_tb_bucket_nome
+enum_schema_storage_tb_bucket_campo_nome
 AS ENUM (
   'foto-perfil-usuario',
   'foto-perfil-igreja',
@@ -14,7 +14,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-enum_schema_storage_tb_arquivo_mime_type
+enum_schema_storage_tb_arquivo_campo_mime_type
 AS ENUM (
   'image/png',  'image/jpeg', 'image/svg+xml',
   'audio/mpeg', 'audio/wav',  'audio/ogg', 'audio/flac', 'audio/mp4', 'audio/x-alac',
@@ -22,7 +22,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-enum_schema_storage_tb_arquivo_extensao
+enum_schema_storage_tb_arquivo_campo_extensao
 AS ENUM (
   'png', 'jpg', 'jpeg', 'svg',
   'mp3', 'wav', 'ogg',  'flac', 'm4a', 'alac',
@@ -33,7 +33,7 @@ AS ENUM (
 
 -- SCHEMA CHURCH
 CREATE TYPE
-enum_schema_church_tb_igreja_denominacao
+enum_schema_church_tb_igreja_campo_denominacao
 AS ENUM (
   'Adventista',
   'Assembleia de Deus',
@@ -69,7 +69,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-enum_schema_church_tb_usuario_funcao_funcao
+enum_schema_church_tb_usuario_funcao_campo_funcao
 AS ENUM (
   'Líder', 'Ministro', 'Levita'
 );

@@ -5,7 +5,7 @@ CREATE SCHEMA auth;
 
 CREATE TABLE auth.tb_endereco (
   -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de endereço
   cep    domain_cep   NOT NULL,
@@ -13,15 +13,18 @@ CREATE TABLE auth.tb_endereco (
   cidade VARCHAR(100) NOT NULL,
   bairro VARCHAR(100) NOT NULL,
   rua    VARCHAR(100) NOT NULL,
-  numero VARCHAR(5)   NOT NULL
+  numero VARCHAR(5)   NOT NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_schema_auth_tb_endereco PRIMARY KEY (id)
 );
 
 
 
 CREATE TABLE auth.tb_usuario (
   -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  uuid UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+  uuid UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
   created_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,33 +34,42 @@ CREATE TABLE auth.tb_usuario (
 
   -- dados do usuário
   deletado         BOOLEAN      NOT NULL DEFAULT false,
-  cpf              CHAR(11)     NOT NULL UNIQUE,
+  cpf              VARCHAR(11)  NOT NULL,
   nome             VARCHAR(20)  NOT NULL,
   sobrenome        VARCHAR(50)  NOT NULL,
   nome_social      VARCHAR(20)      NULL,
   sobrenome_social VARCHAR(50)      NULL,
   sexo             CHAR(1)      NOT NULL,
-  data_aniversario DATE         NOT NULL,
-  email            VARCHAR(50)  NOT NULL UNIQUE,
-  telefone         VARCHAR(25)  NOT NULL UNIQUE,
-  senha            CHAR(128)    NOT NULL,
+  data_nascimento  DATE         NOT NULL,
+  email            VARCHAR(50)  NOT NULL,
+  telefone         VARCHAR(25)  NOT NULL,
+  senha            VARCHAR(128) NOT NULL,
 
   -- chaves estrangeiras
   end_id                      INTEGER NOT NULL,
-  schema_storage_arquivo_foto UUID    NOT NULL,
+  schema_storage_arquivo_foto UUID        NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_schema_auth_tb_usuario PRIMARY KEY (id),
+
+  -- declaração de chaves únicas
+  CONSTRAINT uq_schema_auth_tb_usuario_campo_uuid     UNIQUE (uuid),
+  CONSTRAINT uq_schema_auth_tb_usuario_campo_cpf      UNIQUE (cpf),
+  CONSTRAINT uq_schema_auth_tb_usuario_campo_email    UNIQUE (email),
+  CONSTRAINT uq_schema_auth_tb_usuario_campo_telefone UNIQUE (telefone),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_endereco_id
-      FOREIGN KEY (end_id)
-      REFERENCES auth.tb_endereco (id)
-      ON UPDATE RESTRICT
-      ON DELETE RESTRICT,
+  CONSTRAINT fk_schema_auth_tb_usuario_campo_end_id
+    FOREIGN KEY (end_id)
+    REFERENCES auth.tb_endereco (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT,
 
-  CONSTRAINT fk_usuario_foto_id
-      FOREIGN KEY (schema_storage_arquivo_foto)
-      REFERENCES storage.tb_arquivo (uuid)
-      ON UPDATE RESTRICT
-      ON DELETE RESTRICT
+  CONSTRAINT fk_schema_auth_tb_usuario_campo_foto
+    FOREIGN KEY (schema_storage_arquivo_foto)
+    REFERENCES storage.tb_arquivo (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
 );
 
 
@@ -75,6 +87,9 @@ CREATE TABLE auth.tb_registro_ausencia (
 
   -- chaves estrangeiras
   schema_auth_usuario_lev UUID NOT NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_schema_auth_tb_registro_ausencia PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_usuario_lev
