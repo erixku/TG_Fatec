@@ -9,12 +9,12 @@
     tools:context=".Cadastrar1Activity">
 
     <Button
-        android:id="@+id/btEntrar2"
+        android:id="@+id/btProximo"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:backgroundTint="#0050C2"
-        android:text="Entrar"
+        android:text="Próximo"
         android:textColor="@color/background"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +46,7 @@
         android:layout_width="256dp"
         android:layout_height="432dp"
         android:layout_marginTop="33dp"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
@@ -60,42 +61,290 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/component"
                 android:hint="Digite seu nome"
-                app:hintEnabled="true"
                 android:textColorHint="@color/background_component"
-                app:counterTextColor="@color/contrast"
-                app:hintTextColor="@color/component"
-                app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/component"
-                app:boxStrokeWidthFocused="2dp">
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
                     android:id="@+id/edNome"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:inputType="textPersonName"
-                    android:textColor="@color/contrast"
                     android:padding="16dp"
-                    android:background="@null" />
+                    android:textColor="@color/contrast" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/component"
                 android:hint="Digite seu nome social"
-                app:hintEnabled="true"
                 android:textColorHint="@color/background_component"
-                app:counterTextColor="@color/contrast"
-                app:hintTextColor="@color/component"
-                app:hintAnimationEnabled="true"
                 app:boxStrokeColor="@color/component"
-                app:boxStrokeWidthFocused="2dp">
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
                     android:id="@+id/edNomeSocial"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:inputType="textPersonName"
-                    android:textColor="@color/contrast"
                     android:padding="16dp"
-                    android:background="@null" />
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite seu CPF"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edCPF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="textAutoComplete"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite sua Data de Nascimento"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edNascimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="date|text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDropdown"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Selecione seu Sexo"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component"
+                app:boxBackgroundColor="@color/background"
+                app:endIconTint="@color/component"
+                app:startIconTint="@color/contrast">
+
+                <AutoCompleteTextView
+                    android:id="@+id/ddSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="none"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite seu CEP"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edCEP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="number|text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite sua Rua"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edRua"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite o Número da sua Casa"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edNumero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite seu Bairro"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edBairro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite sua Cidade"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edCidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite seu Estado"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edEstado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/component"
+                android:hint="Digite seu Telefone"
+                android:textColorHint="@color/background_component"
+                app:boxStrokeColor="@color/component"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterTextColor="@color/contrast"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:hintTextColor="@color/component">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:inputType="numberSigned"
+                    android:padding="16dp"
+                    android:textColor="@color/contrast" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
