@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Cadastro3Activity extends AppCompatActivity {
 
+    ImageView ivVoltar;
     TextInputEditText edMinisterio;
     Button btCadastrar;
 
@@ -26,6 +28,15 @@ public class Cadastro3Activity extends AppCompatActivity {
 
         edMinisterio = findViewById(R.id.edMinisterio);
         btCadastrar = findViewById(R.id.btCadastrar);
+        ivVoltar = findViewById(R.id.ivVoltar);
+
+        ivVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+            }
+        });
 
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
