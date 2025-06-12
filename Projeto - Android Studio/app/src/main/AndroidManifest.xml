@@ -13,9 +13,21 @@
         android:theme="@style/Theme.Harppia"
         tools:targetApi="31">
         <activity
+            android:name=".FimActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RedefinirActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RedefinrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EntrarActivity"
+            android:exported="false" />
+        <activity
             android:name=".Cadastro3Activity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Auth2Activity"
             android:exported="false" />
