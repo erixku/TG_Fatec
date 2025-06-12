@@ -27,15 +27,17 @@ public class InicioActivity extends AppCompatActivity {
         btEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent entrar = new Intent(InicioActivity.this, EntrarActivity.class);
+                startActivity(entrar);
+                overridePendingTransition(R.anim.entrada_direita, R.anim.saida_esquerda);
             }
         });
 
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent entrar = new Intent(InicioActivity.this, Cadastrar1Activity.class);
-                startActivity(entrar);
+                Intent cadastrar = new Intent(InicioActivity.this, Cadastrar1Activity.class);
+                startActivity(cadastrar);
                 overridePendingTransition(R.anim.entrada_direita, R.anim.saida_esquerda);
             }
         });
