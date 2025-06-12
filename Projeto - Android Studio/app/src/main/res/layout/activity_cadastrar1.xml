@@ -88,6 +88,8 @@
                 android:textColorHint="@color/background_component"
                 app:boxStrokeColor="@color/component"
                 app:boxStrokeWidthFocused="2dp"
+                app:placeholderText="Uso opcional"
+                app:placeholderTextColor="@color/background_component"
                 app:counterTextColor="@color/contrast"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
