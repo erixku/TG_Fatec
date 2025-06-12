@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Auth1Activity extends AppCompatActivity {
 
+    ImageView ivVoltar;
     TextView tvSMS;
     Button btProximo3;
     TextInputEditText edCodigo;
@@ -29,11 +31,23 @@ public class Auth1Activity extends AppCompatActivity {
         tvSMS = findViewById(R.id.tvSMS);
         btProximo3 = findViewById(R.id.btProximo3);
         edCodigo = findViewById(R.id.edCodigo);
+        ivVoltar = findViewById(R.id.ivVoltar);
+
+        String tipoAuth = getIntent().getStringExtra("tipo_auth");
+
+        ivVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+            }
+        });
 
         tvSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent email = new Intent(Auth1Activity.this, Auth2Activity.class);
+                email.putExtra("tipo_auth", tipoAuth);
                 startActivity(email);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -45,9 +59,15 @@ public class Auth1Activity extends AppCompatActivity {
                 if(edCodigo.getText().toString().isEmpty()){
                     edCodigo.setError("Informe o código");
                 }else{
-                    Intent church = new Intent(Auth1Activity.this, Cadastro3Activity.class);
-                    startActivity(church);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    if (tipoAuth.equals("cadastro")) {
+                        Intent church = new Intent(Auth1Activity.this, Cadastro3Activity.class);
+                        startActivity(church);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    } else if (tipoAuth.equals("esqueci")) {
+                        Intent redefinr = new Intent(Auth1Activity.this, RedefinirActivity.class);
+                        startActivity(redefinr);
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
                 }
             }
         });

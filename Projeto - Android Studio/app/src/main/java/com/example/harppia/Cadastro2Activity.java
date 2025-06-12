@@ -82,21 +82,8 @@ public class Cadastro2Activity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
             @Override
             public void onClick(View v) {
-                if(edEmail.getText().isEmpty()){
-                    edEmail.setError("Campo obrigatório");
-                } else if(edConfirmEmail.getText().isEmpty()){
-                    edConfirmEmail.setError("Campo obrigatório");
-                } else if(!edEmail.getText().toString().equals(edConfirmEmail.getText().toString())){
-                    edConfirmEmail.setError("E-mails não coincidem");
-                } else if(edSenha.getText().isEmpty()){
-                    edSenha.setError("Campo obrigatório");
-                } else if(edConfirmSenha.getText().isEmpty()){
-                    edConfirmSenha.setError("Campo obrigatório");
-                } else if(!edSenha.getText().toString().equals(edConfirmSenha.getText().toString())) {
-                    edConfirmSenha.setError("Senhas não coincidem");
-                } else {
+                if (emailValido(edEmail.getText().toString().trim(), edConfirmEmail.getText().toString().trim()) && senhaValida(edSenha.getText().toString().trim(), edConfirmSenha.getText().toString().trim()))
                     avancar();
-                }
             }
         });
 
@@ -108,7 +95,44 @@ public class Cadastro2Activity extends AppCompatActivity {
     }
     private void avancar() {
         Intent auth = new Intent(Cadastro2Activity.this, Auth1Activity.class);
+        auth.putExtra("tipo_auth", "cadastro");
         startActivity(auth);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private Boolean emailValido(String email, String confirmEmail) {
+        if(email.isEmpty())
+            edEmail.setError("Campo obrigatório");
+        else if (!email.matches(".+@.+\\..+"))
+            edEmail.setError("E-mail inválido");
+        else if(confirmEmail.isEmpty())
+            edConfirmEmail.setError("Campo obrigatório");
+        else if(!email.equals(confirmEmail))
+            edConfirmEmail.setError("E-mails não coincidem");
+        else if(!confirmEmail.matches(".+@.+\\..+"))
+            edConfirmEmail.setError("E-mail inválido");
+        else
+            return true;
+        return false;
+    }
+
+    private Boolean senhaValida(String senha, String confirmSenha) {
+        if(senha.isEmpty())
+            edSenha.setError("Campo obrigatório");
+        else if (senha.length() < 8)
+            edSenha.setError("A senha deve ter no mínimo 8 caracteres");
+        else if(!senha.matches(".*\\d.*"))
+            edSenha.setError("A senha deve conter ao menos um número");
+        else if (!senha.matches(".*[!@#$%^&*()_+=\\\\[\\\\]{};':\\\"\\\\\\\\|,.<>/?`~\\\\-].*"))
+            edSenha.setError("A senha deve conter ao menos um caractere especial");
+        else if (!senha.matches(".*[A-Z].*"))
+            edSenha.setError("A senha deve ter ao menos uma letra maiúscula");
+        else if(confirmSenha.isEmpty())
+            edConfirmSenha.setError("Campo obrigatório");
+        else if(!senha.equals(confirmSenha))
+            edConfirmSenha.setError("Senhas não coincidem");
+        else
+            return true;
+        return false;
     }
 }
