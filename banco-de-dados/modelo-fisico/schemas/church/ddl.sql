@@ -5,7 +5,7 @@ CREATE SCHEMA church;
 
 CREATE TABLE church.tb_endereco (
   -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados do endereço
   cep    domain_cep   NOT NULL,
@@ -16,15 +16,18 @@ CREATE TABLE church.tb_endereco (
   numero VARCHAR(5)   NOT NULL,
 
   -- chaves estrangeiras
-  igr_uuid UUID NOT NULL
+  igr_uuid UUID NOT NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_s_church_t_tb_endereco PRIMARY KEY (id)
 );
 
 
 
 CREATE TABLE church.tb_igreja (
   -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  uuid UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+  uuid UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -33,18 +36,25 @@ CREATE TABLE church.tb_igreja (
 
   -- dados da igreja
   deletado          BOOLEAN                                  NOT NULL DEFAULT false,
-  cnpj              VARCHAR(14)                              NOT NULL UNIQUE,
+  cnpj              VARCHAR(14)                              NOT NULL,
   nome              VARCHAR(100)                             NOT NULL,
-  denominacao       enum_schema_church_tb_igreja_denominacao     NULL,
+  denominacao       enum_s_church_t_tb_igreja_c_denominacao      NULL,
   outra_denominacao VARCHAR(100)                                 NULL,
 
   -- chaves estrangeiras
-  end_endereco_principal_id   INTEGER NOT NULL,
-  schema_storage_arquivo_foto UUID    NOT NULL,
+  end_endereco_principal_id     INTEGER NOT NULL,
+  s_storage_t_tb_arquivo_c_foto UUID    NOT NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (id),
+
+  -- declaração de chaves únicas
+  CONSTRAINT uq_s_church_t_tb_igreja_c_uuid UNIQUE (uuid),
+  CONSTRAINT uq_s_church_t_tb_igreja_c_cnpj UNIQUE (cnpj),
 
   -- declaração das chaves estrangeiras
-  CONSTRAINT fk_foto_uuid
-    FOREIGN KEY (schema_storage_arquivo_foto)
+  CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
+    FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
@@ -55,7 +65,7 @@ CREATE TABLE church.tb_igreja (
 -- declaração de relacionamento cíclico entre
 -- church.tb_endereco e church.tb_igreja
 ALTER TABLE church.tb_endereco
-  ADD CONSTRAINT fk_igreja_uuid
+  ADD CONSTRAINT fk_s_church_t_tb_endereco_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE NO ACTION
@@ -63,8 +73,8 @@ ALTER TABLE church.tb_endereco
     DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE church.tb_igreja
-  ADD CONSTRAINT fK_endereco_principal_id
-    FOREIGN KEY (end_endereco_principal_id)
+  ADD CONSTRAINT fk_s_church_t_tb_igreja_c_end_endereco_principal_id
+    FOREIGN KEY (s_church_t_tb_igreja_c_end_endereco_principal_id)
     REFERENCES church.tb_endereco (id)
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
