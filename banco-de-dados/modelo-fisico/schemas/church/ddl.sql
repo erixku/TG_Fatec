@@ -288,14 +288,14 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
 
   -- chaves estrangeiras
   ins_id                  INTEGER NOT NULL,
-  s_auth_t_tb_usuario_lev UUID    NOT NULL,
+  s_auth_t_tb_usuario_c_lev UUID    NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento_ass_usuario PRIMARY KEY (id),
 
   -- declaração de chaves únicas compostas
   CONSTRAINT uq_s_church_t_tb_instrumento_ass_usuario_c_ins_id_c_lev
-  UNIQUE (ins_id, s_auth_t_tb_usuario_lev),
+  UNIQUE (ins_id, s_auth_t_tb_usuario_c_lev),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_church_t_tb_instrumento_ass_usuario_c_ins_id
@@ -304,8 +304,8 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
     ON UPDATE RESTRICT
     ON DELETE RESTRICT,
 
-  CONSTRAINT fk_s_auth_t_tb_usuario_lev
-    FOREIGN KEY (s_auth_t_tb_usuario_lev)
+  CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
+    FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
