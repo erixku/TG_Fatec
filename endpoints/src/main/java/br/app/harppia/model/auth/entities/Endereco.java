@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.model.auth.entities;
+package br.app.harppia.model.auth.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -7,7 +7,7 @@
  */
 
 
-package br.app.harppia.endpoints.model.auth.entities;
+package br.app.harppia.model.auth.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

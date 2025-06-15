@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.controllers.auth.usuario;
+package br.app.harppia.controllers.auth.usuario;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.app.harppia.endpoints.model.auth.dto.UsuarioCadastroDTO;
+import br.app.harppia.model.auth.dto.UsuarioCadastroDTO;
 import jakarta.validation.Valid;
 
 @RestController

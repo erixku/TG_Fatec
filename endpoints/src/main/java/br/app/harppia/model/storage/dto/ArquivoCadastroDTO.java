@@ -1,7 +1,9 @@
-package br.app.harppia.endpoints.model.storage.dto;
+package br.app.harppia.model.storage.dto;
 
-import br.app.harppia.endpoints.model.enums.ExtensaoArquivo;
-import br.app.harppia.endpoints.model.enums.MimeTypeArquivo;
+import br.app.harppia.model.enums.ExtensaoArquivo;
+import br.app.harppia.model.enums.MimeTypeArquivo;
+import br.app.harppia.model.storage.entities.Arquivo;
+import br.app.harppia.model.storage.entities.Bucket;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -94,5 +96,15 @@ public class ArquivoCadastroDTO {
 		this.bucketArquivo = bucketArquivo;
 	}
 	
-	
+	public Arquivo parseToArquivo() {
+		Arquivo arq = new Arquivo();
+		
+		arq.setCaminho			(this.getCaminho() 			== null ? null : this.getCaminho());
+		arq.setExtensao			(this.getExtensaoArquivo() 	== null ? null : this.getExtensaoArquivo());
+		arq.setMimeType			(this.getTipoArquivo() 		== null ? null : this.getTipoArquivo());
+		arq.setTamanhoEmBytes	(this.getTamanhoEmBytes() 	== null ? null : this.getTamanhoEmBytes());
+		arq.setBucId			(this.getBucketArquivo() 	== null ? null : this.getBucketArquivo().parseToBucket());
+		
+		return arq;
+	}
 }

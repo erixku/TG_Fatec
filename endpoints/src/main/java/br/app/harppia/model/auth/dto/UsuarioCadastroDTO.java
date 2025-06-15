@@ -1,8 +1,9 @@
-package br.app.harppia.endpoints.model.auth.dto;
+package br.app.harppia.model.auth.dto;
 
 import java.time.LocalDate;
 
-import br.app.harppia.endpoints.model.storage.dto.ArquivoCadastroDTO;
+import br.app.harppia.model.storage.dto.ArquivoCadastroDTO;
+import br.app.harppia.model.storage.entities.Arquivo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -231,5 +232,4 @@ public class UsuarioCadastroDTO {
 	public void setArquivo(ArquivoCadastroDTO arquivo) {
 		this.arquivo = arquivo;
 	}
-
 }

@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.model.auth.entities;
+package br.app.harppia.model.auth.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.app.harppia.endpoints.model.storage.entities.Arquivo;
+import br.app.harppia.model.storage.entities.Arquivo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
@@ -29,29 +29,31 @@ import jakarta.persistence.OneToOne;
 @Entity(name = "tb_usuario")
 @Table(name = "tb_usuario", schema = "auth")
 public class Usuario implements UserDetails {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
-	@Column(columnDefinition = "uuid", unique = true, updatable = false, insertable = false, nullable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
 	private UUID uuid;
 
-	@Column(name = "created_at", insertable = false, updatable = false)
+	@Column(nullable = false, unique = true, insertable = false, updatable = false)
+	private Long id;
+
+	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private LocalDateTime criadoEm;
 
-	@Column(name = "updated_at", insertable = false)
+	@Column(name = "updated_at", nullable = false, insertable = false)
 	private LocalDateTime atualizadoEm;
 
-	@Column(name = "deleted_at", insertable = false)
+	@Column(name = "deleted_at", nullable = false, insertable = false)
 	private LocalDateTime deletadoEm;
 
-	@Column(name = "ultimo_acesso", insertable = false)
+	@Column(name = "ultimo_acesso", nullable = false, insertable = false)
 	private LocalDateTime ultimoAcesso;
 
-	@Column(insertable = false, nullable = false)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime deletado;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false, unique = true, updatable = false)
 	private String cpf;
 
 	@Column(nullable = false)
@@ -60,10 +62,10 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false)
 	private String sobrenome;
 
-	@Column(nullable = false)
+	@Column
 	private String nomeSocial;
 
-	@Column(nullable = false)
+	@Column
 	private String sobrenomeSocial;
 
 	@Column(nullable = false)
@@ -87,8 +89,8 @@ public class Usuario implements UserDetails {
 	@JoinColumn(name = "end_id", nullable = false)
 	private Endereco endId;
 
-	@OneToOne(cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "schema_storage_arquivo_foto", referencedColumnName = "uuid", nullable = false)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", referencedColumnName = "uuid")
 	private Arquivo arquivoUUID;
 
 	/**

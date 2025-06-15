@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints;
+package br.app.harppia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

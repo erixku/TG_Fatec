@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.controllers.test;
+package br.app.harppia.controllers.test;
 
 
 import java.sql.Connection;

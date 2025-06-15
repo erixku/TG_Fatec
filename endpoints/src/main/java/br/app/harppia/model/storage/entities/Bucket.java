@@ -1,8 +1,8 @@
-package br.app.harppia.endpoints.model.storage.entities;
+package br.app.harppia.model.storage.entities;
 
 import java.sql.Timestamp;
 
-import br.app.harppia.endpoints.model.enums.NomeBucket;
+import br.app.harppia.model.enums.NomeBucket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,10 +37,10 @@ public class Bucket {
 	private Integer tempoLimiteUpload;
 	
 	@Column(nullable = false, columnDefinition = "DEFAULT '1'")
-	private Integer tamanhoMinimo;
+	private Long tamanhoMinimo;
 
 	@Column(nullable = false, columnDefinition = "DEFAULT '1073741824'")
-	private Integer tamanhoMaximo;
+	private Long tamanhoMaximo;
 
 	/**
 	 * @return the id
@@ -143,28 +143,28 @@ public class Bucket {
 	/**
 	 * @return the tamanhoMinimo
 	 */
-	public Integer getTamanhoMinimo() {
+	public Long getTamanhoMinimo() {
 		return tamanhoMinimo;
 	}
 
 	/**
 	 * @param tamanhoMinimo the tamanhoMinimo to set
 	 */
-	public void setTamanhoMinimo(Integer tamanhoMinimo) {
+	public void setTamanhoMinimo(Long tamanhoMinimo) {
 		this.tamanhoMinimo = tamanhoMinimo;
 	}
 
 	/**
 	 * @return the tamanhoMaximo
 	 */
-	public Integer getTamanhoMaximo() {
+	public Long getTamanhoMaximo() {
 		return tamanhoMaximo;
 	}
 
 	/**
 	 * @param tamanhoMaximo the tamanhoMaximo to set
 	 */
-	public void setTamanhoMaximo(Integer tamanhoMaximo) {
+	public void setTamanhoMaximo(Long tamanhoMaximo) {
 		this.tamanhoMaximo = tamanhoMaximo;
 	}
 	

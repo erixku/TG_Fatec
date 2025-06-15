@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.model.enums;
+package br.app.harppia.model.enums;
 
 public enum UserRoles {
 	ADMINISTRADOR ("Administrador"),

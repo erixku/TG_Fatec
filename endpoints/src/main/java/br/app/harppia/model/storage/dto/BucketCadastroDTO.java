@@ -1,6 +1,7 @@
-package br.app.harppia.endpoints.model.storage.dto;
+package br.app.harppia.model.storage.dto;
 
-import br.app.harppia.endpoints.model.enums.NomeBucket;
+import br.app.harppia.model.enums.NomeBucket;
+import br.app.harppia.model.storage.entities.Bucket;
 import jakarta.validation.constraints.NotNull;
 
 public class BucketCadastroDTO {
@@ -9,7 +10,7 @@ public class BucketCadastroDTO {
 	private NomeBucket nome;
 	
 	private Integer tempoLimiteUpload;
-	private Integer tamanhoMinimo;
+	private Long tamanhoMinimo;
 	private Long tamanhoMaximo;
 	
 	/**
@@ -39,13 +40,13 @@ public class BucketCadastroDTO {
 	/**
 	 * @return the tamanhoMinimo
 	 */
-	public Integer getTamanhoMinimo() {
+	public Long getTamanhoMinimo() {
 		return tamanhoMinimo;
 	}
 	/**
 	 * @param tamanhoMinimo the tamanhoMinimo to set
 	 */
-	public void setTamanhoMinimo(Integer tamanhoMinimo) {
+	public void setTamanhoMinimo(Long tamanhoMinimo) {
 		this.tamanhoMinimo = tamanhoMinimo;
 	}
 	/**
@@ -59,5 +60,16 @@ public class BucketCadastroDTO {
 	 */
 	public void setTamanhoMaximo(Long tamanhoMaximo) {
 		this.tamanhoMaximo = tamanhoMaximo;
+	}
+	
+	public Bucket parseToBucket() {
+		Bucket bucket = new Bucket();
+		
+		bucket.setNome				(this.getNome() 				== null ? null : this.getNome());
+		bucket.setTempoLimiteUpload	(this.getTempoLimiteUpload() 	== null ? null : this.getTempoLimiteUpload());
+		bucket.setTamanhoMaximo		(this.getTamanhoMaximo() 		== null ? null : this.getTamanhoMaximo());
+		bucket.setTamanhoMinimo		(this.getTamanhoMinimo() 		== null ? null : this.getTamanhoMinimo());
+		
+		return bucket;
 	}
 }

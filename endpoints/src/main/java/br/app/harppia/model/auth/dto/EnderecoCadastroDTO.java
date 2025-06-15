@@ -1,6 +1,6 @@
-package br.app.harppia.endpoints.model.auth.dto;
+package br.app.harppia.model.auth.dto;
 
-import br.app.harppia.endpoints.model.auth.entities.Endereco;
+import br.app.harppia.model.auth.entities.Endereco;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

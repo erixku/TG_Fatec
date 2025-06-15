@@ -1,13 +1,13 @@
-package br.app.harppia.endpoints.controllers.auth.usuario;
+package br.app.harppia.controllers.auth.usuario;
 
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
-import br.app.harppia.endpoints.model.auth.dto.UsuarioCadastroDTO;
-import br.app.harppia.endpoints.model.auth.entities.Usuario;
-import br.app.harppia.endpoints.model.storage.entities.Arquivo;
-import br.app.harppia.endpoints.persistence.auth.UsuarioRepository;
+import br.app.harppia.model.auth.dto.UsuarioCadastroDTO;
+import br.app.harppia.model.auth.entities.Usuario;
+import br.app.harppia.model.storage.entities.Arquivo;
+import br.app.harppia.persistence.auth.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -47,15 +47,9 @@ public class UsuarioService {
 	    usuario.setEndId(dto.getEndereco().getEnderecoComoEntidade());
 	    
 	    
-        Arquivo fotoUsuario = new Arquivo();
-        if(dto.getArquivo() == null) {
-        	// popular arquivo de foto guest
+        if(!(dto.getArquivo() == null)) {
+        	usuario.setArquivoUUID(dto.getArquivo().parseToArquivo());
         }
-        else {
-        	// popular arquivo com dados do dto
-        	fotoUsuario.setCaminho("foto_padrao_" + dto.getCpf().concat(dto.getArquivo().getExtensaoArquivo().getExtension()));
-        }
-        usuario.setArquivoUUID(fotoUsuario);
 
 	    return usuarioRepository.cadastrarUsuario(usuario);
 	}

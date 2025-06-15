@@ -1,10 +1,10 @@
-package br.app.harppia.endpoints.model.storage.entities;
+package br.app.harppia.model.storage.entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import br.app.harppia.endpoints.model.enums.ExtensaoArquivo;
-import br.app.harppia.endpoints.model.enums.MimeTypeArquivo;
+import br.app.harppia.model.enums.ExtensaoArquivo;
+import br.app.harppia.model.enums.MimeTypeArquivo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,35 +20,36 @@ import jakarta.persistence.Table;
 public class Arquivo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(columnDefinition = "uuid", unique = true, insertable = false, updatable = false)
 	private UUID uuid;
 	
-	@Column(name = "created_at", insertable = false, updatable = false)
+	@Column(unique = true, insertable = false, updatable = false)
+	private Long id;
+	
+	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private LocalDateTime criadoEm;
 
-	@Column(name = "deleted_at", insertable = false)
+	@Column(name = "deleted_at", nullable = false, insertable = false)
 	private LocalDateTime deletadoEm;
 
-	@Column(insertable = false, nullable = false)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime deletado;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private String caminho;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private MimeTypeArquivo mimeType;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private ExtensaoArquivo extensao;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private Long tamanhoEmBytes;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST, optional = false)
-	@JoinColumn(name = "bucket")
+	@JoinColumn(name = "buc_id", nullable = false)
 	private Bucket bucId;
 
 	/**

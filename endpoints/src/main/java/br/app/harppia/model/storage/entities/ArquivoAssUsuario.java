@@ -1,6 +1,6 @@
-package br.app.harppia.endpoints.model.storage.entities;
+package br.app.harppia.model.storage.entities;
 
-import br.app.harppia.endpoints.model.auth.entities.Usuario;
+import br.app.harppia.model.auth.entities.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

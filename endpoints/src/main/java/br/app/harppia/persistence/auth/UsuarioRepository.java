@@ -1,8 +1,8 @@
-package br.app.harppia.endpoints.persistence.auth;
+package br.app.harppia.persistence.auth;
 
 import org.springframework.stereotype.Repository;
 
-import br.app.harppia.endpoints.model.auth.entities.Usuario;
+import br.app.harppia.model.auth.entities.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 

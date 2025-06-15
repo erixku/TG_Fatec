@@ -1,4 +1,4 @@
-package br.app.harppia.endpoints.model.enums;
+package br.app.harppia.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
