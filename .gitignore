@@ -1,0 +1,12 @@
+# OTHERS
+.metadata/
+
+# STS PACKAGES 
+.settings/
+target/
+
+# STS FILES
+.classpath
+.env
+.factorypath
+.project
