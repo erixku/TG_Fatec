@@ -1,0 +1,2 @@
+DROP SCHEMA IF EXISTS app_utils;
+CREATE SCHEMA app_utils;
