@@ -8,12 +8,12 @@ CREATE TABLE auth.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de endereço
-  cep    domain_cep   NOT NULL,
-  uf     domain_uf    NOT NULL,
-  cidade VARCHAR(100) NOT NULL,
-  bairro VARCHAR(100) NOT NULL,
-  rua    VARCHAR(100) NOT NULL,
-  numero VARCHAR(5)   NOT NULL,
+  cep    app_utils.domain_cep   NOT NULL,
+  uf     app_utils.domain_uf    NOT NULL,
+  cidade VARCHAR(100)           NOT NULL,
+  bairro VARCHAR(100)           NOT NULL,
+  rua    VARCHAR(100)           NOT NULL,
+  numero VARCHAR(5)             NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (id)
@@ -23,8 +23,8 @@ CREATE TABLE auth.tb_endereco (
 
 CREATE TABLE auth.tb_usuario (
   -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -50,10 +50,10 @@ CREATE TABLE auth.tb_usuario (
   s_storage_t_tb_arquivo_c_foto UUID        NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (id),
+  CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_auth_t_tb_usuario_c_uuid     UNIQUE (uuid),
+  CONSTRAINT uq_s_auth_t_tb_usuario_c_id       UNIQUE (id),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_cpf      UNIQUE (cpf),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_email    UNIQUE (email),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_telefone UNIQUE (telefone),

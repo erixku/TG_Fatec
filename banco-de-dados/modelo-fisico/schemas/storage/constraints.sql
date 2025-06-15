@@ -2,7 +2,7 @@
 -- dure de mais que zero a no máximo 5 minutos
 ALTER TABLE storage.tb_bucket
 ADD CONSTRAINT
-check_schema_storage_tb_bucket_tempo_expiracao
+check_s_storage_t_tb_bucket_c_tempo_expiracao
 CHECK (
   tempo_expiracao_upload_em_segundos > 0 AND
   tempo_expiracao_upload_em_segundos <= 300
@@ -13,7 +13,7 @@ CHECK (
 -- 1 byte a 1 gigabyte
 ALTER TABLE storage.tb_bucket
 ADD CONSTRAINT
-check_schema_storage_tb_bucket_tamanho_minimo_e_maximo
+check_s_storage_t_tb_bucket_c_tamanho_minimo_e_maximo
 CHECK (
   tamanho_minimo > 0 AND
   tamanho_minimo <= get_tamanho_em_mb(1000) AND
