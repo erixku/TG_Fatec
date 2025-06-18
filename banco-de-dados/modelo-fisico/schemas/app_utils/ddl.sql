@@ -1,0 +1,2 @@
+DROP SCHEMA IF EXISTS app_utils CASCADE;
+CREATE SCHEMA app_utils;
