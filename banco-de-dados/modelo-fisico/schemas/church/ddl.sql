@@ -49,7 +49,7 @@ CREATE TABLE church.tb_igreja (
   CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_igreja_c_id UNIQUE (id),
+  CONSTRAINT uq_s_church_t_tb_igreja_c_id   UNIQUE (id),
   CONSTRAINT uq_s_church_t_tb_igreja_c_cnpj UNIQUE (cnpj),
 
   -- declaração das chaves estrangeiras
@@ -287,7 +287,7 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- chaves estrangeiras
-  ins_id                  INTEGER NOT NULL,
+  ins_id                    INTEGER NOT NULL,
   s_auth_t_tb_usuario_c_lev UUID    NOT NULL,
 
   -- declaração de chaves primárias
