@@ -3,11 +3,20 @@ package br.app.harppia.model.storage.entities;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.ColumnTransformer;
+
+import br.app.harppia.app.utils.converters.ConversorEnumPadrao;
+import br.app.harppia.app.utils.converters.enums.extensaoarquivo.ConversorEnumExtensaoArquivo;
+import br.app.harppia.app.utils.converters.enums.mimetypearquivo.ConversorEnumMimeTypeArquivo;
 import br.app.harppia.model.enums.ExtensaoArquivo;
 import br.app.harppia.model.enums.MimeTypeArquivo;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,18 +48,22 @@ public class Arquivo {
 	@Column(nullable = false, updatable = false)
 	private String caminho;
 	
+	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
 	@Column(nullable = false, updatable = false)
+    @ColumnTransformer(write = "CAST(? AS app_utils.enum_s_storage_t_tb_arquivo_c_mime_type)")
 	private MimeTypeArquivo mimeType;
 	
+	@Convert(converter = ConversorEnumExtensaoArquivo.class)
 	@Column(nullable = false, updatable = false)
+    @ColumnTransformer(write = "CAST(? AS app_utils.enum_s_storage_t_tb_arquivo_c_extensao)")
 	private ExtensaoArquivo extensao;
 	
 	@Column(nullable = false, updatable = false)
 	private Long tamanhoEmBytes;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST, optional = false)
-	@JoinColumn(name = "buc_id", nullable = false)
-	private Bucket bucId;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "buc_id", nullable = false, updatable = false)
+	private Bucket bucket;
 
 	/**
 	 * @return the id
@@ -181,15 +194,15 @@ public class Arquivo {
 	/**
 	 * @return the bucId
 	 */
-	public Bucket getBucId() {
-		return bucId;
+	public Bucket getBucket() {
+		return bucket;
 	}
 
 	/**
 	 * @param bucId the bucId to set
 	 */
-	public void setBucId(Bucket bucId) {
-		this.bucId = bucId;
+	public void setBucket(Bucket bucId) {
+		this.bucket = bucId;
 	}
 	
 	

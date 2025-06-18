@@ -103,7 +103,7 @@ public class ArquivoCadastroDTO {
 		arq.setExtensao			(this.getExtensaoArquivo() 	== null ? null : this.getExtensaoArquivo());
 		arq.setMimeType			(this.getTipoArquivo() 		== null ? null : this.getTipoArquivo());
 		arq.setTamanhoEmBytes	(this.getTamanhoEmBytes() 	== null ? null : this.getTamanhoEmBytes());
-		arq.setBucId			(this.getBucketArquivo() 	== null ? null : this.getBucketArquivo().parseToBucket());
+		arq.setBucket			(this.getBucketArquivo() 	== null ? null : this.getBucketArquivo().parseToBucket());
 		
 		return arq;
 	}

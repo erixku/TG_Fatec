@@ -3,7 +3,9 @@ package br.app.harppia.model.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum ExtensaoArquivo {
+import br.app.harppia.app.utils.rules.EnumPersistivel;
+
+public enum ExtensaoArquivo implements EnumPersistivel {
 	PNG     ("png"),
 	JPG     ("jpg"),
 	JPEG    ("jpeg"),
@@ -36,4 +38,9 @@ public enum ExtensaoArquivo {
         }
         throw new IllegalArgumentException("Extensão inválida: " + value);
     }
+
+	@Override
+	public String getValorCustomizado() {
+		return this.extensao;
+	}
 }

@@ -2,8 +2,11 @@ package br.app.harppia.model.storage.entities;
 
 import java.sql.Timestamp;
 
+import br.app.harppia.app.utils.converters.ConversorEnumPadrao;
+import br.app.harppia.app.utils.converters.enums.nomebucket.ConversorEnumNomeBucket;
 import br.app.harppia.model.enums.NomeBucket;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,22 +21,23 @@ public class Bucket {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(insertable = false, nullable = false)
+	@Column(name = "created_at", insertable = false, nullable = false)
 	private Timestamp criadoEm;
 	
-	@Column(insertable = false, nullable = false)
+	@Column(name = "updated_at", insertable = false, nullable = false)
 	private Timestamp atualizadoEm;
 	
-	@Column(insertable = false, columnDefinition = "DEFAULT NULL")
+	@Column(name = "deleted_at", insertable = false)
 	private Timestamp deletadoEm;
 	
 	@Column(insertable = false, nullable = false)
 	private Boolean deletado;
 	
+	@Convert(converter = ConversorEnumNomeBucket.class)
 	@Column(nullable = false, unique = true)
 	private NomeBucket nome;
 	
-	@Column(nullable = false, columnDefinition = "DEFAULT '30'")
+	@Column(name = "tempo_expiracao_upload_em_segundos", nullable = false, columnDefinition = "DEFAULT '30'")
 	private Integer tempoLimiteUpload;
 	
 	@Column(nullable = false, columnDefinition = "DEFAULT '1'")

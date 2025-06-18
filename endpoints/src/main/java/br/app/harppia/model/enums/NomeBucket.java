@@ -3,7 +3,9 @@ package br.app.harppia.model.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum NomeBucket {
+import br.app.harppia.app.utils.rules.EnumPersistivel;
+
+public enum NomeBucket implements EnumPersistivel {
 	FOTO_PERFIL_USUARIO   ("foto-perfil-usuario"),
 	FOTO_PERFIL_IGREJA    ("foto-perfil-igreja"),
 	FOTO_PERFIL_MINISTERIO("foto-perfil-ministerio"),
@@ -35,4 +37,9 @@ public enum NomeBucket {
 
         throw new IllegalArgumentException("Invalid NomeBucket name: " + nome);
     }
+
+	@Override
+	public String getValorCustomizado() {
+		return this.nome;
+	}
 }

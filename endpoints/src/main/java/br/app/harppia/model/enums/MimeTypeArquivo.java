@@ -3,7 +3,9 @@ package br.app.harppia.model.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum MimeTypeArquivo {
+import br.app.harppia.app.utils.rules.EnumPersistivel;
+
+public enum MimeTypeArquivo implements EnumPersistivel {
 	IMAGE_PNG           ("image/png"),
 	IMAGE_JPEG          ("image/jpeg"),
 	IMAGE_SVG_PLUS_XML  ("image/svg+xml"),
@@ -35,4 +37,9 @@ public enum MimeTypeArquivo {
         }
         throw new IllegalArgumentException("Tipo MIME inválido: " + value);
     }
+
+	@Override
+	public String getValorCustomizado() {
+		return this.mimeType;
+	}
 }

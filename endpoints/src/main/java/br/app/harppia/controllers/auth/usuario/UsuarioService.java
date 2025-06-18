@@ -6,21 +6,26 @@ import org.springframework.stereotype.Service;
 
 import br.app.harppia.model.auth.dto.UsuarioCadastroDTO;
 import br.app.harppia.model.auth.entities.Usuario;
+import br.app.harppia.model.enums.NomeBucket;
 import br.app.harppia.model.storage.entities.Arquivo;
+import br.app.harppia.model.storage.entities.Bucket;
 import br.app.harppia.persistence.auth.UsuarioRepository;
+import br.app.harppia.persistence.storage.BucketRepository;
 import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
 
 	private final UsuarioRepository usuarioRepository;
+	private final BucketRepository bucketRepository;
 	
-	public UsuarioService(UsuarioRepository usuarioRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository, BucketRepository bucketRepository) {
 		this.usuarioRepository = usuarioRepository;
+		this.bucketRepository = bucketRepository;
 	}
 	
 	@Transactional
-	public int cadastrarUsuario(UsuarioCadastroDTO dto) {
+	public Usuario cadastrarUsuario(UsuarioCadastroDTO dto) {
 	    Usuario usuario = new Usuario();
 
 	    usuario.setCpf(dto.getCpf());
@@ -47,11 +52,20 @@ public class UsuarioService {
 	    usuario.setEndId(dto.getEndereco().getEnderecoComoEntidade());
 	    
 	    
+	    /* ÊNFASE AQUI NESTE MÉTODO */
         if(!(dto.getArquivo() == null)) {
-        	usuario.setArquivoUUID(dto.getArquivo().parseToArquivo());
+        	Arquivo archive = dto.getArquivo().parseToArquivo();
+        	NomeBucket nome = archive.getBucket().getNome();
+        	
+        	Bucket bucket = bucketRepository.findByNome(nome.getValorCustomizado())
+        			.orElseThrow( () -> new IllegalStateException("Nome de bucket inválido: ".concat(nome.getNome())) );
+        	
+        	archive.setBucket(bucket);
+        	
+        	usuario.setArquivoUUID(archive);
         }
 
-	    return usuarioRepository.cadastrarUsuario(usuario);
+	    return usuarioRepository.save(usuario);
 	}
 
 }
