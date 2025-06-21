@@ -1,4 +1,4 @@
-### DOCKERFILE DEFAULT/BASE
+### DOCKERFILE DEFAULT/BASE, por enquanto
 ## Autor: Lucas Mateus Braga de Souza
 ## Data: 20/06/2025
 ## - - - - - - - - - - - - - - - - - -
@@ -8,10 +8,10 @@ FROM openjdk:23-jdk-slim AS build
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY mvnw .
+COPY pom.xml mvnw ./
 COPY .mvn .mvn
 
+RUN  chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline -B
 
 COPY src ./src
