@@ -1,0 +1,29 @@
+# Diretórios e arquivos de build/IDE
+target/
+.settings/
+.classpath
+.project
+.factorypath
+*.iml
+*.iws
+*.ipr
+*.launch
+
+# Controle de versão e arquivos de sistema
+.git/
+.gitignore
+.DS_Store
+.vscode/
+
+# Arquivos de log e cache
+logs/
+*.log
+npm-debug.log
+.cache/
+
+# Arquivos de configuração sensíveis ou específicos de ambiente (se existirem)
+*.env
+
+# Arquivos temporários
+tmp/
+temp/

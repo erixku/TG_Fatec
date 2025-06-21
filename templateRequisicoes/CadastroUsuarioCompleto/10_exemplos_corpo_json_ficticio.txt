@@ -1,0 +1,292 @@
+[
+  {
+    "cpf": "13345678901",
+    "nome": "Lucinda",
+    "sobrenome": "Pereira",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "1950-09-30",
+    "email": "lucireira@example.com",
+    "telefone": "+55 (11) 24374-4324",
+    "senha": "0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75xdBwTQMcEXNpZujD1oi2n5KvLYqFbzt6rcWAOJbzt6rcWAOJ",
+    "endereco": {
+      "cep": "12345400",
+      "uf": "SP",
+      "cidade": "São Paulo",
+      "bairro": "Centro",
+      "rua": "Rua das Flores",
+      "numero": "79"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/exemplo.png",
+      "tipoArquivo": "image/jpeg",
+      "extensaoArquivo": "png",
+      "tamanhoEmBytes": "13712322",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "98765432109",
+    "nome": "Carlos",
+    "sobrenome": "Silva",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "M",
+    "dataNascimento": "1985-03-15",
+    "email": "carlos.silva@example.com",
+    "telefone": "+55 (21) 98765-4321",
+    "senha": "aBcD1234eFgH5678iJkL9012mNoP3456qRsT7890uVwX1234yZz0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3y",
+    "endereco": {
+      "cep": "20000000",
+      "uf": "RJ",
+      "cidade": "Rio de Janeiro",
+      "bairro": "Copacabana",
+      "rua": "Avenida Atlântica",
+      "numero": "123"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/carlos.jpg",
+      "tipoArquivo": "image/jpeg",
+      "extensaoArquivo": "jpg",
+      "tamanhoEmBytes": "5000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "12345098765",
+    "nome": "Mariana",
+    "sobrenome": "Santos",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "1992-11-22",
+    "email": "mariana.santos@example.com",
+    "telefone": "+55 (31) 55555-4444",
+    "senha": "pQrsT9876UvWxY2345ZzAbCdEfGhIjKlMnOpQrStUvWxYz0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "30112000",
+      "uf": "MG",
+      "cidade": "Belo Horizonte",
+      "bairro": "Savassi",
+      "rua": "Rua Pernambuco",
+      "numero": "456"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/mariana.png",
+      "tipoArquivo": "image/png",
+      "extensaoArquivo": "png",
+      "tamanhoEmBytes": "7000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "45678912300",
+    "nome": "Pedro",
+    "sobrenome": "Souza",
+    "nomeSocial": "Pedrão",
+    "sobrenomeSocial": "",
+    "sexo": "M",
+    "dataNascimento": "1978-07-01",
+    "email": "pedro.souza@example.com",
+    "telefone": "+55 (51) 99999-8888",
+    "senha": "zYxWvUtSrQpOnMlKjIhGfEdCbAqPpOoIiUuYyTtRrEeWwQq0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75",
+    "endereco": {
+      "cep": "90000000",
+      "uf": "RS",
+      "cidade": "Porto Alegre",
+      "bairro": "Moinhos de Vento",
+      "rua": "Rua 24 de Outubro",
+      "numero": "789"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/pedro.jpeg",
+      "tipoArquivo": "image/jpeg",
+      "extensaoArquivo": "jpeg",
+      "tamanhoEmBytes": "6500000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "78901234567",
+    "nome": "Ana",
+    "sobrenome": "Oliveira",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "2000-01-05",
+    "email": "ana.oliveira@example.com",
+    "telefone": "+55 (81) 77777-6666",
+    "senha": "fGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYz0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "50000000",
+      "uf": "PE",
+      "cidade": "Recife",
+      "bairro": "Boa Viagem",
+      "rua": "Avenida Boa Viagem",
+      "numero": "1010"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/ana.gif",
+      "tipoArquivo": "image/gif",
+      "extensaoArquivo": "gif",
+      "tamanhoEmBytes": "2000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "32109876543",
+    "nome": "Fernanda",
+    "sobrenome": "Martins",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "1995-04-10",
+    "email": "fernanda.martins@example.com",
+    "telefone": "+55 (61) 33333-2222",
+    "senha": "LmNoPqrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYzAbCdEf0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "70000000",
+      "uf": "DF",
+      "cidade": "Brasília",
+      "bairro": "Asa Sul",
+      "rua": "SQS 100",
+      "numero": "Bl. A"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/fernanda.webp",
+      "tipoArquivo": "image/webp",
+      "extensaoArquivo": "webp",
+      "tamanhoEmBytes": "4500000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "65432109876",
+    "nome": "Gabriel",
+    "sobrenome": "Lima",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "M",
+    "dataNascimento": "1990-08-25",
+    "email": "gabriel.lima@example.com",
+    "telefone": "+55 (41) 11111-0000",
+    "senha": "QrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKl0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75",
+    "endereco": {
+      "cep": "80000000",
+      "uf": "PR",
+      "cidade": "Curitiba",
+      "bairro": "Centro Cívico",
+      "rua": "Rua Cândido de Abreu",
+      "numero": "200"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/gabriel.tiff",
+      "tipoArquivo": "image/tiff",
+      "extensaoArquivo": "tiff",
+      "tamanhoEmBytes": "8000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "90123456789",
+    "nome": "Patrícia",
+    "sobrenome": "Costa",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "1988-02-18",
+    "email": "patricia.costa@example.com",
+    "telefone": "+55 (71) 00000-9999",
+    "senha": "AbCdEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrSt0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "40000000",
+      "uf": "BA",
+      "cidade": "Salvador",
+      "bairro": "Barra",
+      "rua": "Avenida Oceânica",
+      "numero": "500"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/patricia.bmp",
+      "tipoArquivo": "image/bmp",
+      "extensaoArquivo": "bmp",
+      "tamanhoEmBytes": "3000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "23456789012",
+    "nome": "Lucas",
+    "sobrenome": "Pereira",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "M",
+    "dataNascimento": "1997-06-30",
+    "email": "lucas.pereira@example.com",
+    "telefone": "+55 (91) 66666-5555",
+    "senha": "VwXyZzAbCdEfGhIjKlMnOpQrStUvWxYzAbCdEfGhIjKlMn0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "66000000",
+      "uf": "PA",
+      "cidade": "Belém",
+      "bairro": "Nazaré",
+      "rua": "Avenida Nazaré",
+      "numero": "300"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/lucas.svg",
+      "tipoArquivo": "image/svg+xml",
+      "extensaoArquivo": "svg",
+      "tamanhoEmBytes": "1000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  },
+  {
+    "cpf": "56789012345",
+    "nome": "Sofia",
+    "sobrenome": "Ferreira",
+    "nomeSocial": "",
+    "sobrenomeSocial": "",
+    "sexo": "F",
+    "dataNascimento": "1980-12-12",
+    "email": "sofia.ferreira@example.com",
+    "telefone": "+55 (11) 99887-7654",
+    "senha": "OjKlMnOpQrStUvWxYzAbCdEfGhIjKlMnOpQrStUvWxYzAb0016rcWAOJbzt6rcWAOJx4f9TJY7qvK82w1FbGzQMWPlUrJECniRpaHmt9OYbNLkZAXRUe6Hg0s3yV75x",
+    "endereco": {
+      "cep": "01000000",
+      "uf": "SP",
+      "cidade": "São Paulo",
+      "bairro": "Higienópolis",
+      "rua": "Rua Piauí",
+      "numero": "150"
+    },
+    "arquivo": {
+      "caminho": "um/caminho/qualquer/sofia.heic",
+      "tipoArquivo": "image/heic",
+      "extensaoArquivo": "heic",
+      "tamanhoEmBytes": "9000000",
+      "bucketArquivo": {
+        "nome": "foto-perfil-usuario"
+      }
+    }
+  }
+]

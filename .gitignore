@@ -1,12 +1,44 @@
-# OTHERS
-.metadata/
+## Arquivos e Diretórios de IDEs
 
-# STS PACKAGES 
+# Eclipse / STS
+.metadata/
 .settings/
+.classpath
+.project
+.factorypath
+*.launch
+*.sublime-project
+*.sublime-workspace
+
+# VS Code
+.vscode/
+
+# Maven
+# Diretório de build do Maven, onde o JAR e os arquivos compilados são gerados
 target/
 
-# STS FILES
-.classpath
+# Maven Wrapper (o JAR em si não precisa ser versionado)
+.mvn/wrapper/maven-wrapper.jar
+
+## Arquivos e Diretórios de Sistema e Temporários
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Arquivos de log
+logs/
+*.log
+*.log.*
+
+# Arquivos de cache e temporários
+.cache/
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+## Configurações e Segredos
+# Variáveis de ambiente locais ou arquivos de propriedades com segredos
 .env
-.factorypath
-.project
+.env.*

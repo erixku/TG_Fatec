@@ -1,0 +1,26 @@
+### DOCKER COMPOSE DO AMBIENTE DE PRODUÇÃO
+## Autor: Lucas Mateus Braga de Souza
+## Data: 20/06/2025
+## - - - - - - - - - - - - - - - - - -
+
+# Versão da sintaxe do Docker Compose
+version: '3.8'
+
+# Definição dos serviços da aplicação
+services:
+
+  # Serviço da API Spring Boot
+  app:
+    # Constrói a imagem de acordo com o Dockerfile.dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    
+    # Mapeia portas do host para o contêiner
+    # O Render vai lidar com isso, mas se você rodar localmente ou em uma VM, é necessário.
+    ports:
+      - "8080:8080" # Porta externa:Porta interna do contêiner
+    
+    # Define as variáveis de ambiente que sua aplicação vai usar
+    environment:
+      TZ: America/Sao_Paulo # Exemplo de variável que você pode querer setar (Timezone)
