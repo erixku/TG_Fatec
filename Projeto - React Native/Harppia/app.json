@@ -12,9 +12,16 @@
         {
           "origin": "https://n"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "name": "Harppia",
-    "slug": "Harppia"
+    "slug": "Harppia",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "backgroundColor": "#e0e0e0"
+      }
+    }
   }
 }
