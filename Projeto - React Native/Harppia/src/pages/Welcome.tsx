@@ -10,7 +10,7 @@ export default function Welcome() {
 
     return(
         <View className="flex flex-1 items-center justify-center w-[80%]">
-            <View className="flex p-10 justify-center rounded-xl bg-slate-50 dark:bg-slate-700 shadow-md dark:shadow-slate-400">
+            <View className="flex p-10 justify-center rounded-xl bg-slate-50 shadow-md dark:bg-slate-700 dark:shadow-slate-400">
                 <View className="flex items-center justify-center gap-y-2">
                     <Text className="text-center font-nunito text-slate-900 dark:text-blue-100">Seja bem-vindo ao</Text>
                     <ThemedHarppiaLogo baseColor={baseColor} contrastColor={contrastColor}/>
