@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Harppia"
+        tools:targetApi="31">
+        <activity
+            android:name=".FimActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RedefinirActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RedefinrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EntrarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastro3Activity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Auth2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Auth1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastro2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Cadastrar1Activity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".InicioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>
