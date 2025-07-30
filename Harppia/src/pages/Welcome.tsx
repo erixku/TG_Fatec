@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, useColorScheme } from "react-native";
 import ThemedHarppiaLogo from '@/components/ThemedHarppiaLogo'
+import CustomButton from "@/components/CustomButtom";
 
 export default function Welcome() {
     const colorScheme = useColorScheme();
@@ -10,10 +11,10 @@ export default function Welcome() {
 
     return(
         <View className="flex flex-1 items-center justify-center w-[80%]">
-            <View className="flex p-10 justify-center rounded-xl bg-slate-50 shadow-md dark:bg-slate-700 dark:shadow-slate-400">
+            <View className="flex p-10 justify-center gap-y-4 rounded-xl bg-slate-50 shadow-md dark:bg-slate-700 dark:shadow-slate-400">
                 <View className="flex items-center justify-center gap-y-2">
                     <Text className="text-center font-nunito text-slate-900 dark:text-blue-100">Seja bem-vindo ao</Text>
-                    <ThemedHarppiaLogo baseColor={baseColor} contrastColor={contrastColor}/>
+                    <ThemedHarppiaLogo baseColor={baseColor} contrastColor={contrastColor} className=""/>
                 </View>
                 <View className="flex items-center justify-center gap-y-3 mt-4">
                     <Text className="text-center font-nunito-light text-slate-900 dark:text-blue-100"> 
@@ -25,6 +26,10 @@ export default function Welcome() {
                     <Text className="text-center font-nunito-light text-slate-900 dark:text-blue-100"> 
                         Se já possui uma conta, entre em nossa aplicação com sua conta registrada, caso seja novo na aplicação, cadastre-se e desfrute de nosso sistema!
                     </Text>
+                </View>
+                <View className="flex justify-center flex-row gap-x-4 mt-5">
+                    <CustomButton label="Entrar"/>
+                    <CustomButton label="Cadastrar"/>
                 </View>
             </View>
         </View>

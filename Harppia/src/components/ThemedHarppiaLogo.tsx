@@ -1,4 +1,5 @@
 import * as React from "react"
+import { View } from "react-native"
 import Svg, { SvgProps, Path } from "react-native-svg"
 
 interface ThemedHarppiaLogoProps extends SvgProps {
