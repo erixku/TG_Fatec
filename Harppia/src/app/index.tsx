@@ -1,8 +1,9 @@
-import Welcome from "@/pages/Welcome";
+import Welcome from "@/pages/Intro";
 import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native"
 
 export default function Page() {
   return (
