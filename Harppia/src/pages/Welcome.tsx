@@ -29,7 +29,7 @@ export default function Welcome({onNavigate}) {
             </View>
             <View className="flex justify-center flex-row gap-x-4 mt-5">
                 <CustomButton label="Entrar" onPress={() => onNavigate('login')}/>
-                <CustomButton label="Cadastrar" onPress={() => onNavigate('signin')}/>
+                <CustomButton label="Cadastrar" onPress={() => onNavigate('register')}/>
             </View>
         </Animated.View>
     );

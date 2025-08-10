@@ -5,7 +5,7 @@ import CustomButton from "@/components/CustomButtom";
 import Animated, { SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { ArrowLeftIcon } from "react-native-heroicons/solid"
 
-export default function Login({onBack}) {
+export default function Login({onBack, onNavigate}) {
     const colorScheme = useColorScheme();
     
     const baseColor = colorScheme === 'dark' ? '#dbeafe' : '#0f172a'
