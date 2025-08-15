@@ -8,12 +8,13 @@ CREATE TABLE auth.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de endereço
-  cep    app_utils.domain_cep   NOT NULL,
-  uf     app_utils.domain_uf    NOT NULL,
-  cidade VARCHAR(100)           NOT NULL,
-  bairro VARCHAR(100)           NOT NULL,
-  rua    VARCHAR(100)           NOT NULL,
-  numero VARCHAR(5)             NOT NULL,
+  cep         app_utils.domain_cep   NOT NULL,
+  uf          app_utils.domain_uf    NOT NULL,
+  cidade      VARCHAR(100)           NOT NULL,
+  bairro      VARCHAR(100)           NOT NULL,
+  rua         VARCHAR(100)           NOT NULL,
+  numero      VARCHAR(5)             NOT NULL,
+  complemento VARCHAR(30)                NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (id)

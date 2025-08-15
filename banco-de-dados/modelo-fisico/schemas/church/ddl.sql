@@ -8,12 +8,13 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados do endereço
-  cep    app_utils.domain_cep   NOT NULL,
-  uf     app_utils.domain_uf    NOT NULL,
-  cidade VARCHAR(100)           NOT NULL,
-  bairro VARCHAR(100)           NOT NULL,
-  rua    VARCHAR(100)           NOT NULL,
-  numero VARCHAR(5)             NOT NULL,
+  cep         app_utils.domain_cep   NOT NULL,
+  uf          app_utils.domain_uf    NOT NULL,
+  cidade      VARCHAR(100)           NOT NULL,
+  bairro      VARCHAR(100)           NOT NULL,
+  rua         VARCHAR(100)           NOT NULL,
+  numero      VARCHAR(5)             NOT NULL,
+  complemento VARCHAR(30)                NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -86,6 +87,9 @@ CREATE TABLE church.tb_administrador (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
   -- chaves estrangeiras
   igr_uuid                  UUID NOT NULL,
   s_auth_t_tb_usuario_c_adm UUID NOT NULL,
@@ -117,9 +121,15 @@ CREATE TABLE church.tb_compromisso_tipo (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+
   -- dados do tipo de compromisso
-  ativo BOOLEAN     NOT NULL DEFAULT true,
-  nome  VARCHAR(30) NOT NULL,
+  ativo     BOOLEAN     NOT NULL DEFAULT true,
+  nome      VARCHAR(30) NOT NULL,
+  descricao VARCHAR(50) NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -145,9 +155,15 @@ CREATE TABLE church.tb_agendamento_tipo (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+
   -- dados do tipo de agendamento
-  ativo BOOLEAN     NOT NULL DEFAULT true,
-  nome  VARCHAR(30) NOT NULL,
+  ativo     BOOLEAN     NOT NULL DEFAULT true,
+  nome      VARCHAR(30) NOT NULL,
+  descricao VARCHAR(50) NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -180,8 +196,10 @@ CREATE TABLE church.tb_ministerio_louvor (
   deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
   
   -- dados do ministério de louvor
-  deletado BOOLEAN      NOT NULL DEFAULT false,
-  nome     VARCHAR(100) NOT NULL,
+  deletado  BOOLEAN      NOT NULL DEFAULT false,
+  nome      VARCHAR(100) NOT NULL,
+  descricao VARCHAR(50)  NOT NULL,
+  codigo    VARCHAR(6)   NOT NULL DEFAULT app_utils.get_codigo_ministerio(),
 
   -- chaves estrangeiras
   igr_uuid                      UUID NOT NULL,
@@ -191,7 +209,8 @@ CREATE TABLE church.tb_ministerio_louvor (
   CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_id UNIQUE (id),
+  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_id     UNIQUE (id),
+  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_codigo UNIQUE (codigo),
 
   -- declaração de chaves únicas compostas
   CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_nome_c_igr_uuid
