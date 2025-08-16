@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, useColorScheme } from "react-native";
+import { View, Text, useColorScheme, Pressable } from "react-native";
 import ThemedHarppiaLogo from '@/components/ThemedHarppiaLogo'
 import CustomButton from "@/components/CustomButtom";
 import Animated, { SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { ArrowLeftIcon } from "react-native-heroicons/solid"
 
-export default function Login({onBack, onNavigate}) {
+export default function Login({onBack, onForgotPasswordPress}) {
     const colorScheme = useColorScheme();
     
     const baseColor = colorScheme === 'dark' ? '#dbeafe' : '#0f172a'
@@ -20,9 +20,11 @@ export default function Login({onBack, onNavigate}) {
                 </View>
             </View>
             <View className="flex items-center justify-center gap-y-3 mt-4">
-                <Text className="text-center font-nunito-light text-slate-900 dark:text-blue-100"> 
-                    Tela de Login
-                </Text>
+                <Pressable onPress={onForgotPasswordPress}>
+                    <Text className="text-center font-nunito-light text-slate-900 dark:text-blue-100"> 
+                        Esqueci minha senha ehehehheheh
+                    </Text>
+                </Pressable>
             </View>
             <View className="flex justify-center flex-row gap-x-4 mt-5">
                 <CustomButton label="Entrar"/>

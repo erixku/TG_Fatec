@@ -4,7 +4,7 @@ import ThemedHarppiaLogo from '@/components/ThemedHarppiaLogo'
 import CustomButton from "@/components/CustomButtom";
 import Animated, { SlideInLeft, SlideInRight, SlideOutLeft } from "react-native-reanimated";
 
-export default function Welcome({onNavigate}) {
+export default function Welcome({onRegisterPress, onLoginPress}) {
     const colorScheme = useColorScheme();
     
     const baseColor = colorScheme === 'dark' ? '#dbeafe' : '#0f172a'
@@ -28,8 +28,8 @@ export default function Welcome({onNavigate}) {
                 </Text>
             </View>
             <View className="flex justify-center flex-row gap-x-4 mt-5">
-                <CustomButton label="Entrar" onPress={() => onNavigate('login')}/>
-                <CustomButton label="Cadastrar" onPress={() => onNavigate('register')}/>
+                <CustomButton label="Entrar" onPress={onLoginPress}/>
+                <CustomButton label="Cadastrar" onPress={onRegisterPress}/>
             </View>
         </Animated.View>
     );

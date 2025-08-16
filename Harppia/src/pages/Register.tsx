@@ -26,7 +26,7 @@ export default function Register({onBack, onNext, children, direction}) {
     const currentAnimation = animations[direction] || animations.forward;
 
     return(
-        <Animated.View entering={currentAnimation.entering} exiting={currentAnimation.exiting} className="flex p-10 h-[45rem] justify-between gap-y-4 rounded-xl bg-slate-50 shadow-md dark:bg-slate-700 dark:shadow-slate-400">
+        <Animated.View entering={currentAnimation.entering} exiting={currentAnimation.exiting} className="flex p-10 h-[45rem] w-full justify-between gap-y-4 rounded-xl bg-slate-50 shadow-md dark:bg-slate-700 dark:shadow-slate-400">
             <View className="flex flex-row items-center justify-center gap-y-2">
                 <Pressable onPress={onBack}>
                     <ArrowLeftIcon color={"#dbeafe"}/>

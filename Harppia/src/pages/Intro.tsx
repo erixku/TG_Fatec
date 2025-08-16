@@ -1,33 +1,29 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { View, Text, useColorScheme, BackHandler } from "react-native";
-import ThemedHarppiaLogo from '@/components/ThemedHarppiaLogo'
-import CustomButton from "@/components/CustomButtom";
-import Animated, { SlideInRight, SlideOutLeft } from "react-native-reanimated";
+import React, { Component, useEffect, useState } from "react";
+import { View, BackHandler } from "react-native";
 import Welcome from "./Welcome";
 import Register from "./Register";
 import Login from "./Login";
 import RegisterFormUser from "@/components/RegisterFormUser";
 import RegisterFormEmail from "@/components/RegisterFormEmail";
 import Auth from "@/components/Auth";
+import ResetPassword from "@/components/ResetPassword";
 
 
 export default function Intro() {
     const [currentView, setCurrentView] = useState('welcome');
     const [animationDirection, setAnimationDirection] = useState('forward');
-
-    const handleNavigation = (view) => {
-        setAnimationDirection('forward');
-        setCurrentView(view);
-    }
+    const [activeFlow, setActiveFlow] = useState<'Register'|'Login'|null>(null);
 
     const handleBack = () => {
-        if(currentForm && currentForm.previous){
-            setAnimationDirection('backward');
-            setCurrentView(currentForm.previous);
-        } else{
-            setAnimationDirection('backward');
-            setCurrentView('welcome');
-        }
+        setAnimationDirection('backward');
+
+        requestAnimationFrame(() => {
+            if(currentForm && currentForm.previous){
+                setCurrentView(currentForm.previous);
+            } else{
+                setCurrentView('welcome');
+            }
+        })
     }
 
     useEffect(() => {
@@ -55,23 +51,69 @@ export default function Intro() {
         },
         'register_email': {
             component: <RegisterFormEmail />,
-            next: 'auth',
+            next: 'register_auth',
             previous: 'register'
         },
-        'auth': {
+        'register_auth': {
             component: <Auth />,
             next: 'register_enterChurch',
             previous: 'register_email'
         }
     }
 
-    const currentForm = registerForms[currentView];
+    const loginForms = {
+        'login_auth': {
+            component: <Auth />,
+            next: 'reset_password',
+            previous: 'login'
+        },
+        'login_reset_password': {
+            component: <ResetPassword />,
+            next: null,
+            previous: 'login_auth'
+        }
+    }
+
+    const flows = {
+        Register: registerForms,
+        Login: loginForms
+    }
+    const currentForm = activeFlow ? flows[activeFlow][currentView] : null;
 
     return(
         <View className="flex flex-1 items-center justify-center w-[80%] lg:w-[50%]">
-            {currentView === 'welcome' && (<Welcome onNavigate={handleNavigation} />)}
-            {currentForm && (<Register key={currentView} direction={animationDirection} onBack={handleBack} onNext={() => setCurrentView(currentForm.next)}>{currentForm.component}</Register>)}
-            {currentView === 'login' && (<Login onBack={handleBack} onNavigate={handleNavigation} />)}
+            {currentView === 'welcome' && 
+                (<Welcome 
+                onRegisterPress={() => {
+                    setActiveFlow('Register');
+                    setAnimationDirection('forward');
+                    setCurrentView('register')
+                }}
+                onLoginPress={() => {
+                    setActiveFlow(null);
+                    setAnimationDirection('forward');
+                    setCurrentView('login');
+                }}/>)
+            }
+
+            {currentForm && 
+                (<Register 
+                    key={currentView} 
+                    direction={animationDirection} 
+                    onBack={handleBack} 
+                    onNext={() => setCurrentView(currentForm.next)}>
+                        {currentForm.component}
+                </Register>)
+            }
+
+            {currentView === 'login' && 
+                (<Login 
+                    onBack={handleBack} 
+                    onForgotPasswordPress={() => {
+                        setActiveFlow('Login');
+                        setAnimationDirection('forward');
+                        setCurrentView('login_auth');
+                    }} />)}
         </View>
     );
 }
