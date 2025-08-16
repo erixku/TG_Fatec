@@ -8,13 +8,13 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados do endereço
-  cep         app_utils.domain_cep   NOT NULL,
-  uf          app_utils.domain_uf    NOT NULL,
-  cidade      VARCHAR(100)           NOT NULL,
-  bairro      VARCHAR(100)           NOT NULL,
-  rua         VARCHAR(100)           NOT NULL,
-  numero      VARCHAR(5)             NOT NULL,
-  complemento VARCHAR(30)                NULL,
+  cep         app_utils.domain_cep NOT NULL,
+  uf          app_utils.domain_uf  NOT NULL,
+  cidade      VARCHAR(100)         NOT NULL,
+  bairro      VARCHAR(100)         NOT NULL,
+  rua         VARCHAR(100)         NOT NULL,
+  numero      VARCHAR(5)           NOT NULL,
+  complemento VARCHAR(30)              NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -31,9 +31,9 @@ CREATE TABLE church.tb_igreja (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados da igreja
   deletado          BOOLEAN                                           NOT NULL DEFAULT false,
@@ -88,7 +88,7 @@ CREATE TABLE church.tb_administrador (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- chaves estrangeiras
   igr_uuid                  UUID NOT NULL,
@@ -122,9 +122,9 @@ CREATE TABLE church.tb_compromisso_tipo (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do tipo de compromisso
   ativo     BOOLEAN     NOT NULL DEFAULT true,
@@ -156,9 +156,9 @@ CREATE TABLE church.tb_agendamento_tipo (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
   ativo     BOOLEAN     NOT NULL DEFAULT true,
@@ -191,9 +191,9 @@ CREATE TABLE church.tb_ministerio_louvor (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
   
   -- dados do ministério de louvor
   deletado  BOOLEAN      NOT NULL DEFAULT false,

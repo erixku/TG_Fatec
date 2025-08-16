@@ -8,9 +8,9 @@ CREATE TABLE storage.tb_bucket (
   id SMALLINT GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do bucket
   deletado                           BOOLEAN                                      NOT NULL DEFAULT false,
@@ -34,8 +34,8 @@ CREATE TABLE storage.tb_arquivo (
   id   INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do arquivo
   deletado         BOOLEAN                                            NOT NULL DEFAULT false,

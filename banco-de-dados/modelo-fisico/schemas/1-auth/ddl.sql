@@ -8,13 +8,13 @@ CREATE TABLE auth.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de endereço
-  cep         app_utils.domain_cep   NOT NULL,
-  uf          app_utils.domain_uf    NOT NULL,
-  cidade      VARCHAR(100)           NOT NULL,
-  bairro      VARCHAR(100)           NOT NULL,
-  rua         VARCHAR(100)           NOT NULL,
-  numero      VARCHAR(5)             NOT NULL,
-  complemento VARCHAR(30)                NULL,
+  cep         app_utils.domain_cep NOT NULL,
+  uf          app_utils.domain_uf  NOT NULL,
+  cidade      VARCHAR(100)         NOT NULL,
+  bairro      VARCHAR(100)         NOT NULL,
+  rua         VARCHAR(100)         NOT NULL,
+  numero      VARCHAR(5)           NOT NULL,
+  complemento VARCHAR(30)              NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (id)
@@ -28,10 +28,10 @@ CREATE TABLE auth.tb_usuario (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at    TIMESTAMP WITH TIME ZONE     NULL DEFAULT NULL,
-  ultimo_acesso TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at    TIMESTAMPTZ     NULL DEFAULT NULL,
+  ultimo_acesso TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados do usuário
   deletado         BOOLEAN      NOT NULL DEFAULT false,
