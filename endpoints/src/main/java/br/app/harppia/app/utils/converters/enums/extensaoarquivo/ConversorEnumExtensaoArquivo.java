@@ -10,5 +10,4 @@ public class ConversorEnumExtensaoArquivo extends ConversorEnumPadrao<ExtensaoAr
 	public ConversorEnumExtensaoArquivo() {
 		super(ExtensaoArquivo.class);
 	}
-
 }
