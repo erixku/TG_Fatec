@@ -8,13 +8,13 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados do endereço
-  cep         app_utils.domain_cep NOT NULL,
-  uf          app_utils.domain_uf  NOT NULL,
-  cidade      VARCHAR(100)         NOT NULL,
-  bairro      VARCHAR(100)         NOT NULL,
-  rua         VARCHAR(100)         NOT NULL,
-  numero      VARCHAR(5)           NOT NULL,
-  complemento VARCHAR(30)              NULL,
+  cep         app_utils.domain_cep         NOT NULL,
+  uf          app_utils.domain_uf          NOT NULL,
+  cidade      app_utils.domain_cidade      NOT NULL,
+  bairro      app_utils.domain_local       NOT NULL,
+  rua         app_utils.domain_local       NOT NULL,
+  numero      app_utils.domain_numero      NOT NULL,
+  complemento app_utils.domain_complemento     NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,

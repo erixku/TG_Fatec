@@ -1,6 +1,6 @@
 CREATE DOMAIN app_utils.domain_uf AS CHAR(2);
 ALTER DOMAIN app_utils.domain_uf
-ADD CONSTRAINT check_s_app_utils_d_domain_uf
+ADD CONSTRAINT ck_s_app_utils_d_domain_uf
 CHECK (
   VALUE IN (
     'AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO',
@@ -11,8 +11,40 @@ CHECK (
 
 CREATE DOMAIN app_utils.domain_cep AS VARCHAR(8);
 ALTER DOMAIN app_utils.domain_cep
-ADD CONSTRAINT check_s_app_utils_d_domain_cpf
+ADD CONSTRAINT ck_s_app_utils_d_domain_cep
 CHECK (
   char_length(VALUE) = 8 AND
   VALUE ~ '^[0-9]{8}$'
+);
+
+CREATE DOMAIN app_utils.domain_cidade AS VARCHAR(100);
+ALTER DOMAIN app_utils.domain_cidade
+ADD CONSTRAINT ck_s_app_utils_d_domain_cidade
+CHECK (
+  char_length(VALUE) <= 100 AND
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù\s\-''\.]+$'
+);
+
+CREATE DOMAIN app_utils.domain_local AS VARCHAR(100);
+ALTER DOMAIN app_utils.domain_local
+ADD CONSTRAINT ck_s_app_utils_d_domain_local
+CHECK (
+  char_length(VALUE) <= 100 AND
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\s\-''\.]+$'
+);
+
+CREATE DOMAIN app_utils.domain_numero AS VARCHAR(5);
+ALTER DOMAIN app_utils.domain_numero
+ADD CONSTRAINT ck_s_app_utils_d_domain_numero
+CHECK (
+  (char_length(VALUE) <= 5 AND VALUE ~ '^[0-9]+$') OR
+  (VALUE = 'S/N')
+);
+
+CREATE DOMAIN app_utils.domain_complemento AS VARCHAR(30);
+ALTER DOMAIN app_utils.domain_complemento
+ADD CONSTRAINT ck_s_app_utils_d_domain_complemento
+CHECK (
+  char_length(VALUE) <= 30 AND
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\s\-''\.]+$'
 );
