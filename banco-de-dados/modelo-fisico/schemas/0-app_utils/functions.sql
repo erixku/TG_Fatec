@@ -1,6 +1,5 @@
--- retorna um número passado com valor convertido para MB
 CREATE OR REPLACE FUNCTION
-app_utils.get_tamanho_em_mb(tamanho INT)
+  app_utils.conversor_mb_para_byte(tamanho INTEGER)
 RETURNS INTEGER
 LANGUAGE sql
 IMMUTABLE
@@ -12,15 +11,8 @@ $$;
 
 
 
-
-
--- gera um código único e aleatório de 6 dígitos para
--- um ministério de louvor. Esse código é utilizado
--- por usuários para enviar solicitações de entrada
--- aos administradores/líderes no ministério de louvor
--- desejado
 CREATE OR REPLACE FUNCTION
-app_utils.get_codigo_ministerio()
+  app_utils.get_codigo_ministerio()
 RETURNS VARCHAR(6)
 LANGUAGE plpgsql
 VOLATILE
@@ -37,17 +29,19 @@ BEGIN
     codigo_gerado := '';
     tentativas := tentativas + 1;
 
+    -- gera o código do ministério
     FOR i IN 1..6 LOOP
       codigo_gerado := codigo_gerado || substr(caracteres, ceil(random() * length(caracteres))::int, 1);
     END LOOP;
 
-    -- verifica se o código gerado já existe
+    -- verifica se o código gerado já está em uso por algum ministério
     SELECT EXISTS (
       SELECT 1
       FROM church.tb_ministerio_louvor t
       WHERE codigo = codigo_gerado
     ) INTO is_codigo;
 
+    -- caso não esteja em uso por outro ministério, retorna o código. Senão, tenta novamente
     IF NOT is_codigo THEN
       RETURN codigo_gerado;
     END IF;

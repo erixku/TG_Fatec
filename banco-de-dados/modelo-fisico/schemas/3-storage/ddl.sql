@@ -17,7 +17,7 @@ CREATE TABLE storage.tb_bucket (
   nome                               app_utils.enum_s_storage_t_tb_bucket_c_nome  NOT NULL,
   tempo_expiracao_upload_em_segundos SMALLINT                                     NOT NULL DEFAULT 30,
   tamanho_minimo                     INTEGER                                      NOT NULL DEFAULT 1,
-  tamanho_maximo                     INTEGER                                      NOT NULL DEFAULT app_utils.get_tamanho_em_mb(1000),
+  tamanho_maximo                     INTEGER                                      NOT NULL DEFAULT app_utils.conversor_mb_para_byte(1000),
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id),
