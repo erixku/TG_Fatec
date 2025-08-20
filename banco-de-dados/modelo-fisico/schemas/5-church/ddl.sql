@@ -8,13 +8,13 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados do endereço
-  cep         app_utils.domain_cep         NOT NULL,
-  uf          app_utils.domain_uf          NOT NULL,
-  cidade      app_utils.domain_cidade      NOT NULL,
-  bairro      app_utils.domain_local       NOT NULL,
-  rua         app_utils.domain_local       NOT NULL,
-  numero      app_utils.domain_numero      NOT NULL,
-  complemento app_utils.domain_complemento     NULL,
+  cep         utils.domain_cep         NOT NULL,
+  uf          utils.domain_uf          NOT NULL,
+  cidade      utils.domain_cidade      NOT NULL,
+  bairro      utils.domain_local       NOT NULL,
+  rua         utils.domain_local       NOT NULL,
+  numero      utils.domain_numero      NOT NULL,
+  complemento utils.domain_complemento     NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE church.tb_igreja (
   deletado          BOOLEAN                                           NOT NULL DEFAULT false,
   cnpj              VARCHAR(14)                                       NOT NULL,
   nome              VARCHAR(100)                                      NOT NULL,
-  denominacao       app_utils.enum_s_church_t_tb_igreja_c_denominacao     NULL,
+  denominacao       utils.enum_s_church_t_tb_igreja_c_denominacao     NULL,
   outra_denominacao VARCHAR(100)                                          NULL,
 
   -- chaves estrangeiras
@@ -199,7 +199,7 @@ CREATE TABLE church.tb_ministerio_louvor (
   deletado  BOOLEAN      NOT NULL DEFAULT false,
   nome      VARCHAR(100) NOT NULL,
   descricao VARCHAR(50)  NOT NULL,
-  codigo    VARCHAR(6)   NOT NULL DEFAULT app_utils.get_codigo_ministerio(),
+  codigo    VARCHAR(6)   NOT NULL DEFAULT utils.get_codigo_ministerio(),
 
   -- chaves estrangeiras
   igr_uuid                      UUID NOT NULL,
@@ -237,7 +237,7 @@ CREATE TABLE church.tb_usuario_funcao (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de funções dos usuários
-  funcao app_utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL,
+  funcao utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL,
 
   -- chaves estrangeiras
   min_lou_uuid              UUID NOT NULL,

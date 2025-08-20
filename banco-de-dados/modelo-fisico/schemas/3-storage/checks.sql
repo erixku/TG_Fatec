@@ -16,8 +16,8 @@ ADD CONSTRAINT
 check_s_storage_t_tb_bucket_c_tamanho_minimo_e_maximo
 CHECK (
   tamanho_minimo > 0 AND
-  tamanho_minimo <= app_utils.get_tamanho_em_mb(1000) AND
+  tamanho_minimo <= utils.get_tamanho_em_mb(1000) AND
   tamanho_maximo > 0 AND
-  tamanho_maximo <= app_utils.get_tamanho_em_mb(1000) AND
+  tamanho_maximo <= utils.get_tamanho_em_mb(1000) AND
   tamanho_maximo >= tamanho_minimo
 );

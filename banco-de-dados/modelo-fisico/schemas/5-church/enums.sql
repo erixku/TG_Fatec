@@ -1,5 +1,5 @@
 CREATE TYPE
-app_utils.enum_s_church_t_tb_igreja_c_denominacao
+utils.enum_s_church_t_tb_igreja_c_denominacao
 AS ENUM (
   'Adventista',
   'Assembleia de Deus',
@@ -35,7 +35,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-app_utils.enum_s_church_t_tb_usuario_funcao_c_funcao
+utils.enum_s_church_t_tb_usuario_funcao_c_funcao
 AS ENUM (
   'Líder', 'Ministro', 'Levita'
 );

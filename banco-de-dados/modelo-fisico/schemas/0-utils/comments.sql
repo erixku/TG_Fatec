@@ -1,10 +1,10 @@
-COMMENT ON SCHEMA app_utils IS '
+COMMENT ON SCHEMA utils IS '
   Schema que contém funções utilitárias do sistema, como funções e domains.
 ';
 
 
 
-COMMENT ON FUNCTION app_utils.conversor_mb_para_byte(INTEGER) IS '
+COMMENT ON FUNCTION utils.conversor_mb_para_byte(INTEGER) IS '
   Descrição:
     Recebe um valor inteiro em Megabytes (MB) e retorna seu equivalente em bytes.
     O objetivo desta função é simplificar a escrita de valores em bytes, permitindo
@@ -19,7 +19,7 @@ COMMENT ON FUNCTION app_utils.conversor_mb_para_byte(INTEGER) IS '
 
 
 
-COMMENT ON FUNCTION app_utils.get_codigo_ministerio() IS '
+COMMENT ON FUNCTION utils.get_codigo_ministerio() IS '
   Descrição:
     Gera um código único e aleatório de 6 caracteres alfanuméricos para um ministério
     de louvor. Esse código é utilizado por usuários para enviar solicitações de entrada

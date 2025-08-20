@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  app_utils.conversor_mb_para_byte(tamanho INTEGER)
+  utils.conversor_mb_para_byte(tamanho INTEGER)
 RETURNS INTEGER
 LANGUAGE sql
 IMMUTABLE
@@ -12,7 +12,7 @@ $$;
 
 
 CREATE OR REPLACE FUNCTION
-  app_utils.get_codigo_ministerio()
+  utils.get_codigo_ministerio()
 RETURNS VARCHAR(6)
 LANGUAGE plpgsql
 VOLATILE

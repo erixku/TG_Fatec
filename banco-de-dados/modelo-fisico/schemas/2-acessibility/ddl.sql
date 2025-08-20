@@ -60,14 +60,14 @@ CREATE TABLE acessibility.tb_acessibilidade_visual (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de acessibilidade visual
-  cor_tema               app_utils.enum_s_acessibility_t_tb_acessibilidade_visual_c_cor_tema   NOT NULL DEFAULT 'Claro',
-  tamanho_fonte          CHAR(1)                                                               NOT NULL DEFAULT '3',
-  negrito                BOOLEAN                                                               NOT NULL DEFAULT false,
-  alto_contraste         BOOLEAN                                                               NOT NULL DEFAULT false,
-  modo_daltonismo        app_utils.enum_s_acessibility_t_tb_acessibilidade_visual_c_daltonismo NOT NULL DEFAULT 'Tricromata',
-  intensidade_daltonismo CHAR(1)                                                               NOT NULL DEFAULT '3',
-  reduzir_animacoes      BOOLEAN                                                               NOT NULL DEFAULT false,
-  vibrar_ao_tocar        BOOLEAN                                                               NOT NULL DEFAULT false,
+  cor_tema               utils.enum_s_acessibility_t_tb_acessibilidade_visual_c_cor_tema   NOT NULL DEFAULT 'Claro',
+  tamanho_fonte          CHAR(1)                                                           NOT NULL DEFAULT '3',
+  negrito                BOOLEAN                                                           NOT NULL DEFAULT false,
+  alto_contraste         BOOLEAN                                                           NOT NULL DEFAULT false,
+  modo_daltonismo        utils.enum_s_acessibility_t_tb_acessibilidade_visual_c_daltonismo NOT NULL DEFAULT 'Tricromata',
+  intensidade_daltonismo CHAR(1)                                                           NOT NULL DEFAULT '3',
+  reduzir_animacoes      BOOLEAN                                                           NOT NULL DEFAULT false,
+  vibrar_ao_tocar        BOOLEAN                                                           NOT NULL DEFAULT false,
 
   -- chaves estrangeiras
   s_auth_t_tb_usuario_c_usu UUID NOT NULL,

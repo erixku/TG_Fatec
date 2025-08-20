@@ -14,10 +14,10 @@ CREATE TABLE storage.tb_bucket (
 
   -- dados do bucket
   deletado                           BOOLEAN                                      NOT NULL DEFAULT false,
-  nome                               app_utils.enum_s_storage_t_tb_bucket_c_nome  NOT NULL,
+  nome                               utils.enum_s_storage_t_tb_bucket_c_nome  NOT NULL,
   tempo_expiracao_upload_em_segundos SMALLINT                                     NOT NULL DEFAULT 30,
   tamanho_minimo                     INTEGER                                      NOT NULL DEFAULT 1,
-  tamanho_maximo                     INTEGER                                      NOT NULL DEFAULT app_utils.conversor_mb_para_byte(1000),
+  tamanho_maximo                     INTEGER                                      NOT NULL DEFAULT utils.conversor_mb_para_byte(1000),
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id),
@@ -40,8 +40,8 @@ CREATE TABLE storage.tb_arquivo (
   -- dados do arquivo
   deletado         BOOLEAN                                            NOT NULL DEFAULT false,
   caminho          TEXT                                               NOT NULL,
-  mime_type        app_utils.enum_s_storage_t_tb_arquivo_c_mime_type  NOT NULL,
-  extensao         app_utils.enum_s_storage_t_tb_arquivo_c_extensao   NOT NULL,
+  mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type  NOT NULL,
+  extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao   NOT NULL,
   tamanho_em_bytes INTEGER                                            NOT NULL,
 
   -- chaves estrangeiras

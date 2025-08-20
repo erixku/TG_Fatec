@@ -1,5 +1,5 @@
 CREATE TYPE
-app_utils.enum_s_storage_t_tb_bucket_c_nome
+utils.enum_s_storage_t_tb_bucket_c_nome
 AS ENUM (
   'foto-perfil-usuario',
   'foto-perfil-igreja',
@@ -13,7 +13,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-app_utils.enum_s_storage_t_tb_arquivo_c_mime_type
+utils.enum_s_storage_t_tb_arquivo_c_mime_type
 AS ENUM (
   'image/png', 'image/jpeg', 'image/svg+xml',
   'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/flac', 'audio/mp4', 'audio/x-alac',
@@ -21,7 +21,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-app_utils.enum_s_storage_t_tb_arquivo_c_extensao
+utils.enum_s_storage_t_tb_arquivo_c_extensao
 AS ENUM (
   'png', 'jpg', 'jpeg', 'svg',
   'mp3', 'wav', 'ogg',  'flac', 'm4a', 'alac',
