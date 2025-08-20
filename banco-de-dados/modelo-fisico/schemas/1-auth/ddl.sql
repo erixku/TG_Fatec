@@ -72,30 +72,3 @@ CREATE TABLE auth.tb_usuario (
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
 );
-
-
-
-CREATE TABLE auth.tb_registro_ausencia (
-  -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
-  
-  -- dados do registro de ausência
-  motivo         VARCHAR(50)                     NOT NULL,
-  justificativa  VARCHAR(2000)                   NOT NULL,
-  data           DATE                            NOT NULL,
-  horario_inicio TIME          WITHOUT TIME ZONE NOT NULL,
-  horario_fim    TIME          WITHOUT TIME ZONE NOT NULL,
-
-  -- chaves estrangeiras
-  usu_uuid UUID NOT NULL,
-
-  -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_registro_ausencia PRIMARY KEY (id),
-
-  -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_usu_uuid
-    FOREIGN KEY (usu_uuid)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-);
