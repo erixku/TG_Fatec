@@ -36,11 +36,11 @@ CREATE TABLE church.tb_igreja (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados da igreja
-  deletado          BOOLEAN                                           NOT NULL DEFAULT false,
-  cnpj              VARCHAR(14)                                       NOT NULL,
-  nome              VARCHAR(100)                                      NOT NULL,
+  deletado          BOOLEAN                                       NOT NULL DEFAULT false,
+  cnpj              VARCHAR(14)                                   NOT NULL,
+  nome              VARCHAR(100)                                  NOT NULL,
   denominacao       utils.enum_s_church_t_tb_igreja_c_denominacao     NULL,
-  outra_denominacao VARCHAR(100)                                          NULL,
+  outra_denominacao VARCHAR(100)                                      NULL,
 
   -- chaves estrangeiras
   end_endereco_principal_id     INTEGER NOT NULL,

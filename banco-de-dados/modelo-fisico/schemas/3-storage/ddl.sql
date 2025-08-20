@@ -13,11 +13,11 @@ CREATE TABLE storage.tb_bucket (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do bucket
-  deletado                           BOOLEAN                                      NOT NULL DEFAULT false,
-  nome                               utils.enum_s_storage_t_tb_bucket_c_nome  NOT NULL,
-  tempo_expiracao_upload_em_segundos SMALLINT                                     NOT NULL DEFAULT 30,
-  tamanho_minimo                     INTEGER                                      NOT NULL DEFAULT 1,
-  tamanho_maximo                     INTEGER                                      NOT NULL DEFAULT utils.conversor_mb_para_byte(1000),
+  deletado                           BOOLEAN                                 NOT NULL DEFAULT false,
+  nome                               utils.enum_s_storage_t_tb_bucket_c_nome NOT NULL,
+  tempo_expiracao_upload_em_segundos SMALLINT                                NOT NULL DEFAULT 30,
+  tamanho_minimo                     INTEGER                                 NOT NULL DEFAULT 1,
+  tamanho_maximo                     INTEGER                                 NOT NULL DEFAULT utils.conversor_mb_para_byte(1000),
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id),
@@ -31,18 +31,18 @@ CREATE TABLE storage.tb_bucket (
 CREATE TABLE storage.tb_arquivo (
   -- chaves primárias
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
-  id   INTEGER GENERATED ALWAYS AS IDENTITY,
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do arquivo
-  deletado         BOOLEAN                                            NOT NULL DEFAULT false,
-  caminho          TEXT                                               NOT NULL,
-  mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type  NOT NULL,
-  extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao   NOT NULL,
-  tamanho_em_bytes INTEGER                                            NOT NULL,
+  deletado         BOOLEAN                                       NOT NULL DEFAULT false,
+  caminho          TEXT                                          NOT NULL,
+  mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type NOT NULL,
+  extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao  NOT NULL,
+  tamanho_em_bytes INTEGER                                       NOT NULL,
 
   -- chaves estrangeiras
   buc_id SMALLINT NOT NULL,
