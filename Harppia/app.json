@@ -17,10 +17,26 @@
     ],
     "name": "Harppia",
     "slug": "Harppia",
+    "icon": "./src/assets/Logo - Harppia.png",
     "splash": {
       "backgroundColor": "#ffffff",
       "dark": {
         "backgroundColor": "#e0e0e0"
+      }
+    },
+    "android": {
+      "package": "com.harppia.app",
+      "adaptativeIcon": {
+        "foregroundImage": "./src/assets/Logo - Harppia Sem Fundo.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "router": {
+        "origin": "https://n"
+      },
+      "eas": {
+        "projectId": "788b932b-d1f3-47fd-addd-c3673a34fa60"
       }
     }
   }
