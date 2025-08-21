@@ -1,0 +1,56 @@
+import React, { useState } from "react";
+import { Pressable, View, Text, useColorScheme, Modal } from "react-native";
+import { CalendarIcon } from "react-native-heroicons/solid";
+import CustomCalendar from "./CustomCalendar";
+import { DateType } from "react-native-ui-datepicker";
+import dayjs from "dayjs";
+
+interface CustomDatePickerProps {
+    label?:string;
+    required?:boolean;
+}
+
+export default function CustomDatePicker({label, required}:CustomDatePickerProps) {
+    const [selectedDate, setSelectedDate] = useState<DateType>()
+    const [open, setOpen] = useState<boolean>(false);
+    const colorScheme = useColorScheme();
+        
+    const baseColor:string = colorScheme === 'dark' ? '#dbeafe' : '#0f172a';
+    const formatedDate = selectedDate ? dayjs(selectedDate).locale('pt-br').format('DD/MM/YYYY') : 'Selecione uma data'
+    
+    return(
+        <View className="flex flex-col gap-y-2">
+            {label?(
+                <View className="flex flex-row gap-x-0.5">
+                    <Text className={`font-nunito text-xl text-slate-900 dark:text-blue-100 peer-invalid:text-rose-300`}>{label}</Text>
+                    {required?(<Text className="text-rose-500">*</Text>):''}
+                </View>
+            ):''}
+            <View className="h-12">
+                <Pressable
+                    onPress={() => setOpen(true)}
+                    className="flex flex-row items-center justify-between px-2 w-full h-full border border-slate-900 dark:border-blue-100 rounded-lg bg-slate-200 dark:bg-slate-700">
+                        <Text className={`font-nunito ${selectedDate?'text-slate-900 dark:text-blue-100':'text-slate-900/50 dark:text-blue-100/50'}`}>
+                            { formatedDate }
+                        </Text>
+                        <CalendarIcon size={20} color={baseColor} />
+                </Pressable>
+
+                <Modal visible={open} transparent animationType="fade">
+                    <Pressable className="flex-1 px-6 bg-slate-900/40 justify-center items-center" onPress={() => setOpen(false)}>
+                        <View className="w-[90%] bg-slate-50 dark:bg-slate-700 rounded-xl p-4 shadow-xl" >
+                            <CustomCalendar 
+                                onDateChange={(date) => {
+                                    setSelectedDate(date);
+                                    setOpen(false);
+                                }}
+                                date={selectedDate}
+                                mode="single"
+                            />
+                        </View>
+                    </Pressable>
+                </Modal>
+            </View>
+        </View>
+    )
+}

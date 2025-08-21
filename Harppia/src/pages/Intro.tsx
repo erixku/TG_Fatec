@@ -3,10 +3,10 @@ import { View, BackHandler } from "react-native";
 import Welcome from "./Welcome";
 import Register from "./Register";
 import Login from "./Login";
-import RegisterFormUser from "@/components/RegisterFormUser";
-import RegisterFormEmail from "@/components/RegisterFormEmail";
-import Auth from "@/components/Auth";
-import ResetPassword from "@/components/ResetPassword";
+import RegisterFormUser from "@/components/login&register/RegisterFormUser";
+import RegisterFormEmail from "@/components/login&register/RegisterFormEmail";
+import Auth from "@/components/login&register/Auth";
+import ResetPassword from "@/components/login&register/ResetPassword";
 
 
 export default function Intro() {
