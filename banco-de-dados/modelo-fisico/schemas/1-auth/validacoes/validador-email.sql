@@ -24,7 +24,7 @@ BEGIN
     RAISE EXCEPTION 'E-mail inválido: deve ter, no máximo, 50 caracteres';
   END IF;
 
-  IF email ~ '[\s]' THEN
+  IF email ~ '[ ]' THEN
     RAISE EXCEPTION 'E-mail inválido: não deve conter espaços';
   END IF;
 
@@ -32,12 +32,20 @@ BEGIN
     RAISE EXCEPTION 'E-mail inválido: não deve conter tabulações';
   END IF;
 
-  IF email ~ '[.]' THEN
-    RAISE EXCEPTION 'E-mail inválido: não deve conter pontos (.)';
+  IF email ~ '[\n]' THEN
+    RAISE EXCEPTION 'E-mail inválido: não deve conter quebras de linha (ENTER)';
+  END IF;
+
+  IF email ~ '[\r]' THEN
+    RAISE EXCEPTION 'E-mail inválido: não deve conter Carriage Return';
+  END IF;
+
+  IF email ~ '[\f]' THEN
+    RAISE EXCEPTION 'E-mail inválido: não deve conter Form Feed';
   END IF;
 
   IF email ~ '[^a-z0-9!@#%_+-.]' THEN
-    RAISE EXCEPTION 'E-mail inválido: só pode conter letras minúsculas, números e símbolos (!, @, #, %%, _, + e -)';
+    RAISE EXCEPTION 'E-mail inválido: só pode conter letras minúsculas, números e símbolos (!, @, #, %%, _, +, - e .)';
   END IF;
 
   IF email !~ '[@]' THEN
@@ -46,6 +54,10 @@ BEGIN
 
   IF email !~ '^[^@]+@[^@]+$' THEN
     RAISE EXCEPTION 'E-mail inválido: deve ter apenas um único arroba (@)';
+  END IF;
+
+  IF split_part(email, '@', 1) ~ '[.]' THEN
+    RAISE EXCEPTION 'E-mail inválido: não deve conter pontos (.) antes do arroba (@)';
   END IF;
 
   IF split_part(email, '@', 2) NOT IN ('gmail.com', 'outlook.com', 'hotmail.com', 'yahoo.com') THEN
