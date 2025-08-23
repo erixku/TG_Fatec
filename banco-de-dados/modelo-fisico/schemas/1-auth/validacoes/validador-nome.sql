@@ -29,36 +29,52 @@ BEGIN
     RAISE EXCEPTION '% inválido: deve conter, pelo menos, dois caracteres', tipo;
   END IF;
 
-  IF valor ~* '^['']+$' THEN
+  IF valor ~ '^['']+$' THEN
     RAISE EXCEPTION '% inválido: não pode conter apenas apóstrofos', tipo;
   END IF;
 
-  -- regras específicas de nome, sobrenome, nome social e sobrenome social
-  IF tipo = 'Nome' OR tipo = 'Nome social' THEN
-    -- regras específicas nome e nome social
-    IF valor ~ '\s' THEN
-      RAISE EXCEPTION '% inválido: não pode conter espaços', tipo;
-    END IF;
-    
-    IF valor ~* '[^a-záéíóúâêôãõçàèìòù'']' THEN
-      RAISE EXCEPTION '% inválido: deve conter apenas letras e apóstrofos', tipo;
-    END IF;
+  IF valor ~ '[\t]' THEN
+    RAISE EXCEPTION '% inválido: não deve conter tabulações', tipo;
+  END IF;
 
+  IF valor ~ '[\n]' THEN
+    RAISE EXCEPTION '% inválido: não deve conter quebras de linha (ENTER)', tipo;
+  END IF;
+
+  IF valor ~ '[\r]' THEN
+    RAISE EXCEPTION '% inválido: não deve conter Carriage Return', tipo;
+  END IF;
+
+  IF valor ~ '[\f]' THEN
+    RAISE EXCEPTION '% inválido: não deve conter Form Feed', tipo;
+  END IF;
+
+  -- regras específicas de nome e nome social
+  IF tipo = 'Nome' OR tipo = 'Nome social' THEN
     IF length(valor) > 20 THEN
       RAISE EXCEPTION '% inválido: não pode ter mais de 20 caracteres', tipo;
     END IF;
-  ELSE
-    -- regras específicas de sobrenome e sobrenome social
-    IF valor ~ '\s{2,}' THEN
-      RAISE EXCEPTION '% inválido: não pode conter espaços consecutivos', tipo;
+
+    IF valor ~* '[^a-záéíóúâêôãõçàèìòù'' ]' THEN
+      RAISE EXCEPTION '% inválido: deve conter apenas letras e apóstrofos', tipo;
     END IF;
-    
-    IF valor ~* '[^a-záéíóúâêôãõçàèìòù\s'']' THEN
+
+    IF valor ~ '[ ]' THEN
+      RAISE EXCEPTION '% inválido: não pode conter espaços', tipo;
+    END IF;
+
+  -- regras específicas de sobrenome e sobrenome social
+  ELSE
+    IF length(valor) > 50 THEN
+      RAISE EXCEPTION '% inválido: não pode ter mais de 50 caracteres', tipo;
+    END IF;
+
+    IF valor ~* '[^a-záéíóúâêôãõçàèìòù'' ]' THEN
       RAISE EXCEPTION '% inválido: deve conter apenas letras, espaços e apóstrofos', tipo;
     END IF;
 
-    IF length(valor) > 50 THEN
-      RAISE EXCEPTION '% inválido: não pode ter mais de 50 caracteres', tipo;
+    IF valor ~ ' {2,}' THEN
+      RAISE EXCEPTION '% inválido: não pode conter espaços consecutivos', tipo;
     END IF;
   END IF;
 
