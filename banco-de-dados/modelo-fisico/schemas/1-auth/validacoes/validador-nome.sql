@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.validador_nome(valor TEXT, tipo VARCHAR(16))
+  utils.s_auth_f_validador_nome(valor TEXT, tipo TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE
@@ -15,13 +15,14 @@ BEGIN
     RAISE EXCEPTION 'Tipo inválido: não pode ser nulo';
   END IF;
 
+  tipo := trim(tipo);
+  IF tipo NOT IN ('Nome', 'Sobrenome', 'Nome social', 'Sobrenome social') THEN
+    RAISE EXCEPTION 'Tipo inválido: só são aceitos os tipos "Nome", "Sobrenome", "Nome social" ou "Sobrenome social"';
+  END IF;
+
   valor := trim(valor);
   IF valor = '' THEN
     RAISE EXCEPTION '% inválido: não pode ser vazio', tipo;
-  END IF;
-
-  IF tipo NOT IN ('Nome', 'Sobrenome', 'Nome social', 'Sobrenome social') THEN
-    RAISE EXCEPTION 'Tipo inválido: só são aceitos os tipos "Nome", "Sobrenome", "Nome social" ou "Sobrenome social"';
   END IF;
 
   IF length(valor) < 2 THEN
