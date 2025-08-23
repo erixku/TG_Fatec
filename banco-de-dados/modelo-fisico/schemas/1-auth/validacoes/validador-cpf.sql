@@ -25,6 +25,26 @@ BEGIN
     RAISE EXCEPTION 'CPF inválido: deve conter exatamente 11 dígitos';
   END IF;
 
+  IF cpf ~ '[ ]' THEN
+    RAISE EXCEPTION 'CPF inválido: não deve conter espaços';
+  END IF;
+
+  IF cpf ~ '[\t]' THEN
+    RAISE EXCEPTION 'CPF inválido: não deve conter tabulações';
+  END IF;
+
+  IF cpf ~ '[\n]' THEN
+    RAISE EXCEPTION 'CPF inválido: não deve conter quebras de linha (ENTER)';
+  END IF;
+
+  IF cpf ~ '[\r]' THEN
+    RAISE EXCEPTION 'CPF inválido: não deve conter Carriage Return';
+  END IF;
+
+  IF cpf ~ '[\f]' THEN
+    RAISE EXCEPTION 'CPF inválido: não deve conter Form Feed';
+  END IF;
+
   IF cpf ~ '[^0-9]' THEN
     RAISE EXCEPTION 'CPF inválido: deve conter apenas números (sem pontos ou traços)';
   END IF;
