@@ -34,7 +34,7 @@ CREATE TABLE auth.tb_usuario (
   ultimo_acesso TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados do usuário
-  deletado         BOOLEAN      NOT NULL DEFAULT false,
+  deletado         BOOLEAN      NOT NULL DEFAULT FALSE,
   cpf              VARCHAR(11)  NOT NULL,
   nome             VARCHAR(20)  NOT NULL,
   sobrenome        VARCHAR(50)  NOT NULL,

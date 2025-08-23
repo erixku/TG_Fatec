@@ -36,7 +36,7 @@ CREATE TABLE church.tb_igreja (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados da igreja
-  deletado          BOOLEAN                                       NOT NULL DEFAULT false,
+  deletado          BOOLEAN                                       NOT NULL DEFAULT FALSE,
   cnpj              VARCHAR(14)                                   NOT NULL,
   nome              VARCHAR(100)                                  NOT NULL,
   denominacao       utils.enum_s_church_t_tb_igreja_c_denominacao     NULL,
@@ -127,7 +127,7 @@ CREATE TABLE church.tb_compromisso_tipo (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do tipo de compromisso
-  ativo     BOOLEAN     NOT NULL DEFAULT true,
+  ativo     BOOLEAN     NOT NULL DEFAULT TRUE,
   nome      VARCHAR(30) NOT NULL,
   descricao VARCHAR(50) NOT NULL,
 
@@ -161,7 +161,7 @@ CREATE TABLE church.tb_agendamento_tipo (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  ativo     BOOLEAN     NOT NULL DEFAULT true,
+  ativo     BOOLEAN     NOT NULL DEFAULT TRUE,
   nome      VARCHAR(30) NOT NULL,
   descricao VARCHAR(50) NOT NULL,
 
@@ -196,7 +196,7 @@ CREATE TABLE church.tb_ministerio_louvor (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
   
   -- dados do ministério de louvor
-  deletado  BOOLEAN      NOT NULL DEFAULT false,
+  deletado  BOOLEAN      NOT NULL DEFAULT FALSE,
   nome      VARCHAR(100) NOT NULL,
   descricao VARCHAR(50)  NOT NULL,
   codigo    VARCHAR(6)   NOT NULL DEFAULT utils.get_codigo_ministerio(),
@@ -271,7 +271,7 @@ CREATE TABLE church.tb_instrumento (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de instrumentos
-  ativo BOOLEAN     NOT NULL DEFAULT true,
+  ativo BOOLEAN     NOT NULL DEFAULT TRUE,
   nome  VARCHAR(25) NOT NULL,
 
   -- chaves estrangeiras
