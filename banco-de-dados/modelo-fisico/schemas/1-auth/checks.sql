@@ -45,3 +45,9 @@ ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_email
 CHECK (
   utils.s_auth_f_validador_email(email)
 );
+
+ALTER TABLE auth.tb_usuario
+ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_telefone
+CHECK (
+  utils.s_auth_f_validador_telefone(telefone)
+);
