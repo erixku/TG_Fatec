@@ -24,6 +24,7 @@ CREATE TABLE acessibility.tb_intelectual (
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -51,6 +52,7 @@ CREATE TABLE acessibility.tb_auditiva (
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -81,4 +83,5 @@ CREATE TABLE acessibility.tb_visual (
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );

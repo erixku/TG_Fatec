@@ -25,4 +25,5 @@ CREATE TABLE schedule.tb_registro_ausencia (
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );

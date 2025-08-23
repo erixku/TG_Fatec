@@ -59,6 +59,7 @@ CREATE TABLE church.tb_igreja (
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -106,13 +107,15 @@ CREATE TABLE church.tb_administrador (
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
   
   CONSTRAINT fk_s_auth_t_tb_usuario_c_adm
     FOREIGN KEY (s_auth_t_tb_usuario_c_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -147,6 +150,7 @@ CREATE TABLE church.tb_compromisso_tipo (
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -181,6 +185,7 @@ CREATE TABLE church.tb_agendamento_tipo (
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -221,13 +226,15 @@ CREATE TABLE church.tb_ministerio_louvor (
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -255,13 +262,15 @@ CREATE TABLE church.tb_usuario_funcao (
     FOREIGN KEY (min_lou_uuid)
     REFERENCES church.tb_ministerio_louvor (uuid)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -290,13 +299,15 @@ CREATE TABLE church.tb_instrumento (
     FOREIGN KEY (s_storage_t_tb_arquivo_c_icone)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_church_t_tb_igreja_c_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -321,11 +332,13 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
     FOREIGN KEY (ins_id)
     REFERENCES church.tb_instrumento (id)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );

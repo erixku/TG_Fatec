@@ -64,11 +64,13 @@ CREATE TABLE auth.tb_usuario (
     FOREIGN KEY (end_id)
     REFERENCES auth.tb_endereco (id)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );

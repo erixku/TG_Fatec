@@ -59,6 +59,7 @@ CREATE TABLE storage.tb_arquivo (
     REFERENCES storage.tb_bucket (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
@@ -83,11 +84,13 @@ CREATE TABLE storage.tb_arquivo_ass_usuario (
     FOREIGN KEY (arq_uuid)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
-    ON DELETE RESTRICT,
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
