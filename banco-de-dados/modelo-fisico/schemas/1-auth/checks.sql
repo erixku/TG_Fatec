@@ -1,37 +1,47 @@
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_cpf
 CHECK (
-  utils.validador_cpf(cpf)
+  utils.s_auth_f_validador_cpf(cpf)
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_nome
 CHECK (
-  utils.validador_nome(nome, 'Nome')
+  utils.s_auth_f_validador_nome(nome, 'Nome')
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_sobrenome
 CHECK (
-  utils.validador_nome(sobrenome, 'Sobrenome')
+  utils.s_auth_f_validador_nome(sobrenome, 'Sobrenome')
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_nome_social
 CHECK (
-  utils.validador_nome(nome_social, 'Nome social')
+  utils.s_auth_f_validador_nome(nome_social, 'Nome social')
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_sobrenome_social
 CHECK (
-  utils.validador_nome(sobrenome_social, 'Sobrenome social')
+  utils.s_auth_f_validador_nome(sobrenome_social, 'Sobrenome social')
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_sexo
 CHECK (
-  sexo IN (
-    'M', 'F'
-  )
+  utils.s_auth_f_validador_sexo(sexo)
+);
+
+ALTER TABLE auth.tb_usuario
+ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_data_nascimento
+CHECK (
+  utils.s_auth_f_validador_data_nascimento(data_nascimento)
+);
+
+ALTER TABLE auth.tb_usuario
+ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_email
+CHECK (
+  utils.s_auth_f_validador_email(email)
 );
