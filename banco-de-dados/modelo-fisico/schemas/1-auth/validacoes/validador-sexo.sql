@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_auth_f_validador_sexo(sexo CHAR(1))
+  utils.s_auth_f_validador_sexo(sexo TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE
