@@ -66,7 +66,7 @@ CREATE TABLE acessibility.tb_visual (
   alto_contraste         BOOLEAN                                            NOT NULL DEFAULT FALSE,
   modo_daltonismo        utils.enum_s_acessibility_t_tb_visual_c_daltonismo NOT NULL DEFAULT 'Tricromata',
   intensidade_daltonismo CHAR(1)                                            NOT NULL DEFAULT '3',
-  reduzir_animacoes      BOOLEAN                                            NOT NULL DEFAULT FALSE,
+  remover_animacoes      BOOLEAN                                            NOT NULL DEFAULT FALSE,
   vibrar_ao_tocar        BOOLEAN                                            NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
