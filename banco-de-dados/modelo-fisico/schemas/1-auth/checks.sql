@@ -31,13 +31,17 @@ CHECK (
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_sexo
 CHECK (
-  utils.s_auth_f_validador_sexo(sexo)
+  sexo IN (
+    'M', 'F'
+  )
 );
 
 ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_data_nascimento
 CHECK (
-  utils.s_auth_f_validador_data_nascimento(data_nascimento)
+  data_nascimento BETWEEN
+  (CURRENT_DATE - INTERVAL '120 years') AND
+  (CURRENT_DATE - INTERVAL '18 years')
 );
 
 ALTER TABLE auth.tb_usuario
