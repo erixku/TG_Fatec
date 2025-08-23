@@ -2,8 +2,6 @@ COMMENT ON SCHEMA utils IS '
   Schema que contém funções utilitárias do sistema, como funções e domains.
 ';
 
-
-
 COMMENT ON FUNCTION utils.conversor_mb_para_byte(INTEGER) IS '
   Descrição:
     Recebe um valor inteiro em Megabytes (MB) e retorna seu equivalente em bytes.
@@ -16,8 +14,6 @@ COMMENT ON FUNCTION utils.conversor_mb_para_byte(INTEGER) IS '
   Retorno:
     INTEGER: valor convertido em bytes.
 ';
-
-
 
 COMMENT ON FUNCTION utils.get_codigo_ministerio() IS '
   Descrição:
