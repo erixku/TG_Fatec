@@ -1,6 +1,5 @@
 package br.app.harppia.usuario.cadastro.entities;
 
-import br.app.harppia.model.auth.entities.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

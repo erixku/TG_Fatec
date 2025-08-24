@@ -1,6 +1,6 @@
 package br.app.harppia.usuario.cadastro.enums;
 
-import br.app.harppia.app.utils.rules.EnumPersistivel;
+import br.app.harppia.usuario.cadastro.utils.rules.EnumPersistivel;
 
 public enum UserRoles implements EnumPersistivel {
 	ADMINISTRADOR ("Administrador"),

@@ -2,8 +2,8 @@ package br.app.harppia.usuario.cadastro.service;
 
 import java.util.Optional;
 
-import br.app.harppia.model.enums.NomeBucket;
-import br.app.harppia.model.storage.entities.Bucket;
+import br.app.harppia.usuario.cadastro.entities.Bucket;
+import br.app.harppia.usuario.cadastro.enums.NomeBucket;
 import br.app.harppia.usuario.cadastro.repositorys.BucketRepository;
 
 public class BucketService {

@@ -1,8 +1,9 @@
-package br.app.harppia.usuario.cadastro.entities;
+package br.app.harppia.usuario.login.entitys;
 
 import java.sql.Timestamp;
 
-import br.app.harppia.usuario.cadastro.converters.enums.nomebucket.ConversorEnumNomeBucket;
+import br.app.harppia.app.utils.converters.ConversorEnumPadrao;
+import br.app.harppia.app.utils.converters.enums.nomebucket.ConversorEnumNomeBucket;
 import br.app.harppia.usuario.cadastro.enums.NomeBucket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

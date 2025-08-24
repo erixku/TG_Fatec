@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.app.harppia.usuario.autenticacao.dtos.AutenticacaoUsuarioDTO;
+import br.app.harppia.usuario.autenticacao.service.AutenticacaoUsuarioService;
 import br.app.harppia.usuario.cadastro.dtos.UsuarioCadastroDTO;
 import br.app.harppia.usuario.cadastro.service.UsuarioCadastroService;
 import jakarta.validation.Valid;
@@ -25,15 +27,15 @@ import jakarta.validation.Valid;
 @RequestMapping("users/v1/auth/")
 public class AutenticacaoUsuarioController {
 
-	private final UsuarioCadastroService userCadService;
+	private final AutenticacaoUsuarioService authUserService;
 	
-	public AutenticacaoUsuarioController(UsuarioCadastroService userCadService) {
-		this.userCadService = userCadService;
+	public AutenticacaoUsuarioController(AutenticacaoUsuarioService authUserService) {
+		this.authUserService = authUserService;
 	}
 	
 	@PostMapping("autenticar/")
-	public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid UsuarioCadastroDTO usrCadDTO) {
-		userCadService.cadastrarUsuario(usrCadDTO);
+	public ResponseEntity<?> autenticarUsuario(@RequestBody @Valid AutenticacaoUsuarioDTO authUserDTO) {
+		authUserService.autenticarUsuario(authUserDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 }

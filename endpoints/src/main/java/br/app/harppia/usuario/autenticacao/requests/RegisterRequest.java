@@ -1,6 +1,6 @@
-package br.app.harppia.usuario.autenticacao.dtos;
+package br.app.harppia.usuario.autenticacao.requests;
 
-import br.app.harppia.model.enums.UserRoles;
+import br.app.harppia.usuario.autenticacao.enums.UserRoles;
 
 public record RegisterRequest(
 	    String firstname,
@@ -8,5 +8,4 @@ public record RegisterRequest(
 	    String email,
 	    String password,
 	    UserRoles role) {
-
 }

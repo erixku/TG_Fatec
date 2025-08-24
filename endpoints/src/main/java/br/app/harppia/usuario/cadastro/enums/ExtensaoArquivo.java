@@ -3,7 +3,7 @@ package br.app.harppia.usuario.cadastro.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import br.app.harppia.app.utils.rules.EnumPersistivel;
+import br.app.harppia.usuario.cadastro.utils.rules.EnumPersistivel;
 
 public enum ExtensaoArquivo implements EnumPersistivel {
 	PNG     ("png"),

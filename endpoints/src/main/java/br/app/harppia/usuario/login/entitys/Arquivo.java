@@ -1,12 +1,13 @@
-package br.app.harppia.usuario.cadastro.entities;
+package br.app.harppia.usuario.login.entitys;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnTransformer;
 
-import br.app.harppia.usuario.cadastro.converters.enums.extensaoarquivo.ConversorEnumExtensaoArquivo;
-import br.app.harppia.usuario.cadastro.converters.enums.mimetypearquivo.ConversorEnumMimeTypeArquivo;
+import br.app.harppia.app.utils.converters.ConversorEnumPadrao;
+import br.app.harppia.app.utils.converters.enums.extensaoarquivo.ConversorEnumExtensaoArquivo;
+import br.app.harppia.app.utils.converters.enums.mimetypearquivo.ConversorEnumMimeTypeArquivo;
 import br.app.harppia.usuario.cadastro.enums.ExtensaoArquivo;
 import br.app.harppia.usuario.cadastro.enums.MimeTypeArquivo;
 import jakarta.persistence.CascadeType;

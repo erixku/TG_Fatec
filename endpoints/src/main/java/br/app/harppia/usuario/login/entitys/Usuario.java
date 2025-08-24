@@ -1,4 +1,4 @@
-package br.app.harppia.usuario.cadastro.entities;
+package br.app.harppia.usuario.login.entitys;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
