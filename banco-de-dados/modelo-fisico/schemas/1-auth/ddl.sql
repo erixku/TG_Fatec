@@ -25,7 +25,6 @@ CREATE TABLE auth.tb_endereco (
 CREATE TABLE auth.tb_usuario (
   -- chaves primárias
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at    TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -54,7 +53,6 @@ CREATE TABLE auth.tb_usuario (
   CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_auth_t_tb_usuario_c_id       UNIQUE (id),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_cpf      UNIQUE (cpf),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_email    UNIQUE (email),
   CONSTRAINT uq_s_auth_t_tb_usuario_c_telefone UNIQUE (telefone),

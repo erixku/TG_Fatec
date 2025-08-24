@@ -28,7 +28,6 @@ CREATE TABLE church.tb_endereco (
 CREATE TABLE church.tb_igreja (
   -- chaves primárias
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -50,7 +49,6 @@ CREATE TABLE church.tb_igreja (
   CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_igreja_c_id   UNIQUE (id),
   CONSTRAINT uq_s_church_t_tb_igreja_c_cnpj UNIQUE (cnpj),
 
   -- declaração das chaves estrangeiras
@@ -193,7 +191,6 @@ CREATE TABLE church.tb_agendamento_tipo (
 CREATE TABLE church.tb_ministerio_louvor (
   -- chaves primárias
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -214,7 +211,6 @@ CREATE TABLE church.tb_ministerio_louvor (
   CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (uuid),
 
   -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_id     UNIQUE (id),
   CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_codigo UNIQUE (codigo),
 
   -- declaração de chaves únicas compostas

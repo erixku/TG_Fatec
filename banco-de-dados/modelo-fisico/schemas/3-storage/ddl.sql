@@ -31,7 +31,6 @@ CREATE TABLE storage.tb_bucket (
 CREATE TABLE storage.tb_arquivo (
   -- chaves primárias
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -49,9 +48,6 @@ CREATE TABLE storage.tb_arquivo (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_storage_t_tb_arquivo PRIMARY KEY (uuid),
-
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_storage_t_tb_arquivo_c_id UNIQUE (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_storage_t_tb_bucket_c_id
