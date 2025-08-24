@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.get_codigo_ministerio()
+  utils.s_church_f_get_codigo_ministerio()
 RETURNS VARCHAR(6)
 LANGUAGE plpgsql
 VOLATILE
@@ -24,7 +24,7 @@ BEGIN
     -- verifica se o código gerado já está em uso por algum ministério
     SELECT EXISTS (
       SELECT 1
-      FROM church.tb_ministerio_louvor t
+      FROM church.tb_ministerio_louvor
       WHERE codigo = codigo_gerado
     ) INTO is_codigo;
 
