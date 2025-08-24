@@ -22,7 +22,7 @@ ALTER DOMAIN utils.domain_cidade
 ADD CONSTRAINT ck_s_utils_d_domain_cidade
 CHECK (
   char_length(VALUE) <= 100 AND
-  VALUE ~* '^[a-záéíóúâêôãõçàèìòù\s\-''\.]+$'
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù-''\. ]+$'
 );
 
 CREATE DOMAIN utils.domain_local AS VARCHAR(100);
@@ -30,7 +30,7 @@ ALTER DOMAIN utils.domain_local
 ADD CONSTRAINT ck_s_utils_d_domain_local
 CHECK (
   char_length(VALUE) <= 100 AND
-  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\s\-''\.]+$'
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9-''\. ]+$'
 );
 
 CREATE DOMAIN utils.domain_numero AS VARCHAR(5);
@@ -46,5 +46,5 @@ ALTER DOMAIN utils.domain_complemento
 ADD CONSTRAINT ck_s_utils_d_domain_complemento
 CHECK (
   char_length(VALUE) <= 30 AND
-  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\s\-''\.]+$'
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9-''\. ]+$'
 );
