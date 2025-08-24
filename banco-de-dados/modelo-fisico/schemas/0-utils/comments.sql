@@ -14,16 +14,3 @@ COMMENT ON FUNCTION utils.conversor_mb_para_byte(INTEGER) IS '
   Retorno:
     INTEGER: valor convertido em bytes.
 ';
-
-COMMENT ON FUNCTION utils.get_codigo_ministerio() IS '
-  Descrição:
-    Gera um código único e aleatório de 6 caracteres alfanuméricos para um ministério
-    de louvor. Esse código é utilizado por usuários para enviar solicitações de entrada
-    aos administradores ou líderes do ministério desejado.
-
-  Parâmetros:
-    Nenhum.
-
-  Retorno:
-    VARCHAR(6): código gerado, composto por caracteres alfanuméricos.
-';
