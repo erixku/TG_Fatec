@@ -7,12 +7,15 @@ CREATE TABLE auth.tb_endereco (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
   -- dados de endereço
   cep         utils.domain_cep         NOT NULL,
   uf          utils.domain_uf          NOT NULL,
   cidade      utils.domain_cidade      NOT NULL,
   bairro      utils.domain_local       NOT NULL,
-  rua         utils.domain_local       NOT NULL,
+  logradouro  utils.domain_local       NOT NULL,
   numero      utils.domain_numero      NOT NULL,
   complemento utils.domain_complemento     NULL,
 
@@ -33,7 +36,7 @@ CREATE TABLE auth.tb_usuario (
   ultimo_acesso TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados do usuário
-  deletado         BOOLEAN      NOT NULL DEFAULT FALSE,
+  is_deletado      BOOLEAN      NOT NULL DEFAULT FALSE,
   cpf              VARCHAR(11)  NOT NULL,
   nome             VARCHAR(20)  NOT NULL,
   sobrenome        VARCHAR(50)  NOT NULL,
