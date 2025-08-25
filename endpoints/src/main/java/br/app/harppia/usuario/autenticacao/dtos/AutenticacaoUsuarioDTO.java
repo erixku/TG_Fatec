@@ -1,5 +1,6 @@
 package br.app.harppia.usuario.autenticacao.dtos;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 
@@ -9,18 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class AutenticacaoUsuarioDTO implements UserDetails {
 
-	private String username;
+	// Garante o versionamento correto dessa classe
+	@Serial
+	private static final long serialVersionUID = 8964733591976331840L;
+	private String login;
 	private String password;
-	private String email;
-	private String cpf;
-	private String telefone;
 	
-	public AutenticacaoUsuarioDTO(String nome, String senha, String telefone, String email, String cpf) {
-		this.username = nome;
+	public AutenticacaoUsuarioDTO(String login, String senha) {
+		this.login = login;
 		this.password = senha;
-		this.email = email;
-		this.cpf = cpf;
-		this.telefone = telefone;
 	}
 	
 	@Override
@@ -42,7 +40,6 @@ public class AutenticacaoUsuarioDTO implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return username;
+		return login;
 	}
-
 }

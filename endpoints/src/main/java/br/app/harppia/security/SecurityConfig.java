@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,7 +28,11 @@ public class SecurityConfig {
 	        .csrf(csrf -> csrf.disable())
 	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/api/auth/**").permitAll()
+	        		
+	        	// A seguir estão as rotas e seus respectivos níveis de acesso obrigatório
+	            .requestMatchers("/api").hasRole("ADMIN")
+	            .requestMatchers("/users").hasRole("ADMIN")
+	            
 	            .anyRequest().authenticated()
 	        )
 	        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -41,5 +47,10 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+    
+    // CONFIGURAR OS PARÂMETROS DO CONSTRUCTOR DO ARGON2ID!!!!!!!!!!!!!
+    public PasswordEncoder passwordEnconder() {
+    	return new Argon2PasswordEncoder(0, 0, 0, 0, 0);
     }
 }

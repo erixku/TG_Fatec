@@ -2,6 +2,7 @@ package br.app.harppia.usuario.cadastro.service;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.usuario.cadastro.dtos.UsuarioCadastroDTO;
@@ -23,16 +24,17 @@ import jakarta.transaction.Transactional;
 @Service
 public class UsuarioCadastroService {
 
-	private final UsuarioRepository usuarioRepository;
-	private final BucketRepository bucketRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
-	public UsuarioCadastroService(UsuarioRepository usuarioRepository, BucketRepository bucketRepository) {
-		this.usuarioRepository = usuarioRepository;
-		this.bucketRepository = bucketRepository;
-	}
+	@Autowired
+	private BucketRepository bucketRepository;
 	
 	@Transactional
 	public Usuario cadastrarUsuario(UsuarioCadastroDTO dto) {
+		
+		if(usuarioRepository.findBy)
+		
 	    Usuario usuario = new Usuario();
 
 	    usuario.setCpf(dto.getCpf());

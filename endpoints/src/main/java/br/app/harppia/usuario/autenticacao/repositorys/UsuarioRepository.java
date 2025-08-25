@@ -1,8 +1,9 @@
-package br.app.harppia.usuario.cadastro.repositorys;
+package br.app.harppia.usuario.autenticacao.repositorys;
 
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import br.app.harppia.usuario.cadastro.entities.Usuario;
@@ -13,5 +14,7 @@ import br.app.harppia.usuario.cadastro.entities.Usuario;
  */
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
-	find
+	public UserDetails findByEmail();
+	public UserDetails findByCpf();
+	public UserDetails findByTelefone();
 }

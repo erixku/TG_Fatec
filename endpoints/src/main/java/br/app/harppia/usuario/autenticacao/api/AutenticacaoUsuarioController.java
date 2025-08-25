@@ -1,7 +1,10 @@
 package br.app.harppia.usuario.autenticacao.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +32,19 @@ public class AutenticacaoUsuarioController {
 
 	private final AutenticacaoUsuarioService authUserService;
 	
+	@Autowired
+	private AuthenticationManager authManager;
+	
 	public AutenticacaoUsuarioController(AutenticacaoUsuarioService authUserService) {
 		this.authUserService = authUserService;
 	}
 	
 	@PostMapping("autenticar/")
 	public ResponseEntity<?> autenticarUsuario(@RequestBody @Valid AutenticacaoUsuarioDTO authUserDTO) {
-		authUserService.autenticarUsuario(authUserDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		
+		var userToken = new UsernamePasswordAuthenticationToken(authUserDTO.getUsername(), authUserDTO.getPassword());
+		var auth = this.authManager.authenticate(userToken);
+		
+		return ResponseEntity.ok().build();
 	}
 }
