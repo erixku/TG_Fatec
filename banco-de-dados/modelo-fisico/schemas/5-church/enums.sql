@@ -1,6 +1,7 @@
 CREATE TYPE
   utils.enum_s_church_t_tb_igreja_c_denominacao
 AS ENUM (
+  'Outra',
   'Adventista',
   'Assembleia de Deus',
   'Batista',
@@ -38,4 +39,17 @@ CREATE TYPE
   utils.enum_s_church_t_tb_usuario_funcao_c_funcao
 AS ENUM (
   'Líder', 'Ministro', 'Levita'
+);
+
+CREATE TYPE
+  utils.enum_s_church_t_tb_instrumento_c_nome
+AS ENUM (
+  'Outro',
+  'Violão'
+);
+
+CREATE TYPE
+  utils.enum_s_church_t_tb_instrumento_c_familia
+AS ENUM (
+  'Cordas'
 );
