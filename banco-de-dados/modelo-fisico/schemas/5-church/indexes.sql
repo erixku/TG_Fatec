@@ -1,0 +1,56 @@
+-- tb_igreja
+CREATE UNIQUE INDEX uq_s_church_t_tb_igreja_c_cnpj
+ON church.tb_igreja (cnpj)
+WHERE is_deletado = FALSE;
+
+
+-- tb_endereco
+CREATE UNIQUE INDEX uq_s_church_t_tb_endereco_c_campos_de_endereco
+ON church.tb_endereco (igr_uuid, uf, cidade, logradouro, numero)
+WHERE is_deletado = FALSE;
+
+
+-- tb_administrador
+CREATE UNIQUE INDEX uq_s_church_t_tb_administrador_c_igr_uuid_c_adm
+ON church.tb_administrador (igr_uuid, s_auth_t_tb_usuario_c_adm)
+WHERE is_deletado = FALSE;
+
+
+-- tb_compromisso_tipo
+CREATE UNIQUE INDEX uq_s_church_t_tb_compromisso_tipo_c_nome_c_igr_uuid
+ON church.tb_compromisso_tipo (nome, igr_uuid)
+WHERE is_deletado = FALSE;
+
+
+-- tb_agendamento_tipo
+CREATE UNIQUE INDEX uq_s_church_t_tb_agendamento_tipo_c_nome_c_igr_uuid
+ON church.tb_agendamento_tipo (nome, igr_uuid)
+WHERE is_deletado = FALSE;
+
+
+-- tb_ministerio_louvor
+CREATE UNIQUE INDEX uq_s_church_t_tb_ministerio_louvor_c_codigo
+ON church.tb_ministerio_louvor (codigo)
+WHERE is_deletado = FALSE;
+
+CREATE UNIQUE INDEX uq_s_church_t_tb_ministerio_louvor_c_nome_c_igr_uuid
+ON church.tb_ministerio_louvor (nome, igr_uuid)
+WHERE is_deletado = FALSE;
+
+
+-- tb_usuario_funcao
+CREATE UNIQUE INDEX uq_s_church_t_tb_usuario_funcao_c_funcao_c_min_lou_uuid_c_lev
+ON church.tb_usuario_funcao (funcao, min_lou_uuid, s_auth_t_tb_usuario_c_lev)
+WHERE is_deletado = FALSE;
+
+
+-- tb_instrumento
+CREATE UNIQUE INDEX uq_s_church_t_tb_instrumento_c_nome_c_igr_uuid
+ON church.tb_instrumento (nome, igr_uuid)
+WHERE is_deletado = FALSE;
+
+
+-- tb_instrumento_ass_usuario
+CREATE UNIQUE INDEX uq_s_church_t_tb_instrumento_ass_usuario_c_ins_id_c_lev
+ON church.tb_instrumento_ass_usuario (ins_id, s_auth_t_tb_usuario_c_lev)
+WHERE is_deletado = FALSE;

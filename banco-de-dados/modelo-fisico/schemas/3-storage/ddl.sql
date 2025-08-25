@@ -20,10 +20,7 @@ CREATE TABLE storage.tb_bucket (
   tamanho_maximo                     INTEGER                                 NOT NULL DEFAULT utils.conversor_mb_para_byte(1000),
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id),
-
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_storage_t_tb_bucket_c_nome UNIQUE (nome)
+  CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id)
 );
 
 

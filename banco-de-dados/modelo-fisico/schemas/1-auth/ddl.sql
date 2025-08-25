@@ -55,11 +55,6 @@ CREATE TABLE auth.tb_usuario (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (uuid),
 
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_auth_t_tb_usuario_c_cpf      UNIQUE (cpf),
-  CONSTRAINT uq_s_auth_t_tb_usuario_c_email    UNIQUE (email),
-  CONSTRAINT uq_s_auth_t_tb_usuario_c_telefone UNIQUE (telefone),
-
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_auth_t_tb_usuario_c_end_id
     FOREIGN KEY (end_id)

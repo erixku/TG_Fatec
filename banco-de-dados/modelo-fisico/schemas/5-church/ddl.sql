@@ -29,9 +29,6 @@ CREATE TABLE church.tb_igreja (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (uuid),
 
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_igreja_c_cnpj UNIQUE (cnpj),
-
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
     FOREIGN KEY (created_by)
@@ -154,10 +151,6 @@ CREATE TABLE church.tb_administrador (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_administrador PRIMARY KEY (id),
 
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_administrador_c_igr_uuid_c_adm
-  UNIQUE (igr_uuid, s_auth_t_tb_usuario_c_adm),
-
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
     FOREIGN KEY (created_by)
@@ -214,10 +207,6 @@ CREATE TABLE church.tb_compromisso_tipo (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_compromisso_tipo PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_compromisso_tipo_c_nome_c_igr_uuid
-  UNIQUE (nome, igr_uuid),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
@@ -276,10 +265,6 @@ CREATE TABLE church.tb_agendamento_tipo (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_agendamento_tipo PRIMARY KEY (id),
 
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_agendamento_tipo_c_nome_c_igr_uuid
-  UNIQUE (nome, igr_uuid),
-
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
     FOREIGN KEY (created_by)
@@ -337,13 +322,6 @@ CREATE TABLE church.tb_ministerio_louvor (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (uuid),
-
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_codigo UNIQUE (codigo),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_ministerio_louvor_c_nome_c_igr_uuid
-  UNIQUE (nome, igr_uuid),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
@@ -405,10 +383,6 @@ CREATE TABLE church.tb_usuario_funcao (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_usuario_funcao PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_usuario_funcao_c_funcao_c_min_lou_uuid_c_lev
-  UNIQUE (funcao, min_lou_uuid, s_auth_t_tb_usuario_c_lev),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
@@ -540,10 +514,6 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento_ass_usuario PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_instrumento_ass_usuario_c_ins_id_c_lev
-  UNIQUE (ins_id, s_auth_t_tb_usuario_c_lev),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
