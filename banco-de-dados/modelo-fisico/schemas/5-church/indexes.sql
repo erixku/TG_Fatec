@@ -16,15 +16,9 @@ ON church.tb_administrador (igr_uuid, s_auth_t_tb_usuario_c_adm)
 WHERE is_deletado = FALSE;
 
 
--- tb_compromisso_tipo
-CREATE UNIQUE INDEX uq_s_church_t_tb_compromisso_tipo_c_nome_c_igr_uuid
-ON church.tb_compromisso_tipo (nome, igr_uuid)
-WHERE is_deletado = FALSE;
-
-
--- tb_agendamento_tipo
-CREATE UNIQUE INDEX uq_s_church_t_tb_agendamento_tipo_c_nome_c_igr_uuid
-ON church.tb_agendamento_tipo (nome, igr_uuid)
+-- tb_atividade
+CREATE UNIQUE INDEX uq_s_church_t_tb_atividade_c_nome_c_igr_uuid
+ON church.tb_atividade (nome, igr_uuid)
 WHERE is_deletado = FALSE;
 
 

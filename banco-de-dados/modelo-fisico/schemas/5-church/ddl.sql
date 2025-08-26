@@ -207,7 +207,7 @@ CREATE TABLE church.tb_atividade (
   igr_uuid UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_agendamento_tipo PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_atividade PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_created_by
@@ -232,7 +232,7 @@ CREATE TABLE church.tb_atividade (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_agendamento_tipo_c_igr_uuid
+  CONSTRAINT fk_s_church_t_tb_atividade_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
