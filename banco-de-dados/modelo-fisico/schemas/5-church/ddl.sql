@@ -184,64 +184,7 @@ CREATE TABLE church.tb_administrador (
 
 
 
-CREATE TABLE church.tb_compromisso_tipo (
-  -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
-
-  -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
-
-  -- dados do tipo de compromisso
-  is_deletado BOOLEAN     NOT NULL DEFAULT FALSE,
-  is_ativo    BOOLEAN     NOT NULL DEFAULT TRUE,
-  nome        VARCHAR(30) NOT NULL,
-  descricao   VARCHAR(50) NOT NULL,
-
-  -- chaves estrangeiras
-  igr_uuid UUID NOT NULL,
-
-  -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_compromisso_tipo PRIMARY KEY (id),
-
-  -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
-    FOREIGN KEY (created_by)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_updated_by
-    FOREIGN KEY (updated_by)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_deleted_by
-    FOREIGN KEY (deleted_by)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_compromisso_tipo_c_igr_uuid
-    FOREIGN KEY (igr_uuid)
-    REFERENCES church.tb_igreja (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE
-);
-
-
-
-CREATE TABLE church.tb_agendamento_tipo (
+CREATE TABLE church.tb_atividade (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
@@ -254,10 +197,11 @@ CREATE TABLE church.tb_agendamento_tipo (
   deleted_by UUID            NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  is_deletado BOOLEAN     NOT NULL DEFAULT FALSE,
-  is_ativo    BOOLEAN     NOT NULL DEFAULT TRUE,
-  nome        VARCHAR(30) NOT NULL,
-  descricao   VARCHAR(50) NOT NULL,
+  is_deletado BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  is_ativo    BOOLEAN                                   NOT NULL DEFAULT TRUE,
+  tipo        utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
+  nome        VARCHAR(30)                               NOT NULL,
+  descricao   VARCHAR(50)                               NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,

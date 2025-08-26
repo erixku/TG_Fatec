@@ -36,6 +36,12 @@ AS ENUM (
 );
 
 CREATE TYPE
+  utils.enum_s_church_t_tb_atividade_c_tipo
+AS ENUM (
+  'Agendamento', 'Compromisso'
+);
+
+CREATE TYPE
   utils.enum_s_church_t_tb_usuario_funcao_c_funcao
 AS ENUM (
   'Líder', 'Ministro', 'Levita'
