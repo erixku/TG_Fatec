@@ -262,7 +262,7 @@ CREATE TABLE church.tb_ministerio_louvor (
 
   -- chaves estrangeiras
   igr_uuid                      UUID NOT NULL,
-  s_storage_t_tb_arquivo_c_foto UUID NOT NULL,
+  s_storage_t_tb_arquivo_c_foto UUID     NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (uuid),
