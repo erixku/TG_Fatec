@@ -319,7 +319,7 @@ CREATE TABLE church.tb_usuario_funcao (
 
   -- dados de funções dos usuários
   is_deleted  BOOLEAN                                          NOT NULL DEFAULT FALSE,
-  funcao      utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL DEFAULT 'Levita',
+  funcao      utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL DEFAULT 'levita',
 
   -- chaves estrangeiras
   min_lou_uuid              UUID NOT NULL,

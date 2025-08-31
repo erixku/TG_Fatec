@@ -1,61 +1,61 @@
 CREATE TYPE
   utils.enum_s_church_t_tb_igreja_c_denominacao
 AS ENUM (
-  'Outra',
-  'Adventista',
-  'Assembleia de Deus',
-  'Batista',
-  'Bola de Neve',
-  'Casa da Bênção',
-  'Comunidade Cristã',
-  'Congregação Cristã no Brasil',
-  'Deus é Amor',
-  'Evangelho Quadrangular',
-  'Igreja Episcopal',
-  'Igreja Internacional da Graça de Deus',
-  'Igreja Luterana',
-  'Igreja Metodista',
-  'Igreja Pentecostal',
-  'Igreja Presbiteriana',
-  'Igreja Renascer em Cristo',
-  'Igreja Sara Nossa Terra',
-  'Igreja Universal do Reino de Deus',
-  'Ministério Apascentar',
-  'Ministério Fonte da Vida',
-  'Ministério Internacional da Restauração',
-  'Ministério Voz da Verdade',
-  'Nova Vida',
-  'O Brasil Para Cristo',
-  'Paz e Vida',
-  'Projeto Vida',
-  'Verbo da Vida',
-  'Videira',
-  'Vitória em Cristo',
-  'Wesleyana',
-  'Zion Church'
+  'outra',
+  'adventista',
+  'assembleia de Deus',
+  'batista',
+  'bola de Neve',
+  'casa da Bênção',
+  'comunidade Cristã',
+  'congregação Cristã no Brasil',
+  'deus é Amor',
+  'evangelho Quadrangular',
+  'igreja Episcopal',
+  'igreja Internacional da Graça de Deus',
+  'igreja Luterana',
+  'igreja Metodista',
+  'igreja Pentecostal',
+  'igreja Presbiteriana',
+  'igreja Renascer em Cristo',
+  'igreja Sara Nossa Terra',
+  'igreja Universal do Reino de Deus',
+  'ministério Apascentar',
+  'ministério Fonte da Vida',
+  'ministério Internacional da Restauração',
+  'ministério Voz da Verdade',
+  'nova Vida',
+  'o Brasil Para Cristo',
+  'paz e Vida',
+  'projeto Vida',
+  'verbo da Vida',
+  'videira',
+  'vitória em Cristo',
+  'wesleyana',
+  'zion Church'
 );
 
 CREATE TYPE
   utils.enum_s_church_t_tb_atividade_c_tipo
 AS ENUM (
-  'Agendamento', 'Compromisso'
+  'agendamento', 'compromisso'
 );
 
 CREATE TYPE
   utils.enum_s_church_t_tb_usuario_funcao_c_funcao
 AS ENUM (
-  'Líder', 'Ministro', 'Levita'
+  'líder', 'ministro', 'levita'
 );
 
 CREATE TYPE
   utils.enum_s_church_t_tb_instrumento_c_nome
 AS ENUM (
-  'Outro',
-  'Violão'
+  'outro',
+  'violão'
 );
 
 CREATE TYPE
   utils.enum_s_church_t_tb_instrumento_c_familia
 AS ENUM (
-  'Cordas'
+  'cordas'
 );
