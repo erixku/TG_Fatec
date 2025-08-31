@@ -13,7 +13,7 @@ CREATE TABLE storage.tb_bucket (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do bucket
-  is_deletado                        BOOLEAN                                 NOT NULL DEFAULT FALSE,
+  is_deleted                         BOOLEAN                                 NOT NULL DEFAULT FALSE,
   nome                               utils.enum_s_storage_t_tb_bucket_c_nome NOT NULL,
   tempo_expiracao_upload_em_segundos SMALLINT                                NOT NULL DEFAULT 30,
   tamanho_minimo                     INTEGER                                 NOT NULL DEFAULT 1,
@@ -34,7 +34,7 @@ CREATE TABLE storage.tb_arquivo (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do arquivo
-  is_deletado      BOOLEAN                                       NOT NULL DEFAULT FALSE,
+  is_deleted       BOOLEAN                                       NOT NULL DEFAULT FALSE,
   nome             VARCHAR(300)                                  NOT NULL,
   mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type NOT NULL,
   extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao  NOT NULL,

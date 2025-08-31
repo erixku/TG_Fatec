@@ -8,15 +8,15 @@ CREATE TABLE church.tb_igreja (
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  updated_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados da igreja
-  is_deletado       BOOLEAN                                       NOT NULL DEFAULT FALSE,
+  is_deleted        BOOLEAN                                       NOT NULL DEFAULT FALSE,
   cnpj              VARCHAR(14)                                   NOT NULL,
   nome              VARCHAR(100)                                  NOT NULL,
   denominacao       utils.enum_s_church_t_tb_igreja_c_denominacao NOT NULL,
@@ -74,15 +74,15 @@ CREATE TABLE church.tb_endereco (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  updated_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados do endereço
-  is_deletado           BOOLEAN                  NOT NULL DEFAULT FALSE,
+  is_deleted            BOOLEAN                  NOT NULL DEFAULT FALSE,
   cep                   utils.domain_cep         NOT NULL,
   uf                    utils.domain_uf          NOT NULL,
   cidade                utils.domain_cidade      NOT NULL,
@@ -136,13 +136,13 @@ CREATE TABLE church.tb_administrador (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados do administrador
-  is_deletado BOOLEAN NOT NULL DEFAULT FALSE,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
   igr_uuid                  UUID NOT NULL,
@@ -189,16 +189,16 @@ CREATE TABLE church.tb_atividade (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  updated_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  is_deletado BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  is_ativo    BOOLEAN                                   NOT NULL DEFAULT TRUE,
+  is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  is_active   BOOLEAN                                   NOT NULL DEFAULT TRUE,
   tipo        utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
   nome        VARCHAR(30)                               NOT NULL,
   descricao   VARCHAR(50)                               NOT NULL,
@@ -247,15 +247,15 @@ CREATE TABLE church.tb_ministerio_louvor (
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  updated_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
   
   -- dados do ministério de louvor
-  is_deletado BOOLEAN      NOT NULL DEFAULT FALSE,
+  is_deleted  BOOLEAN      NOT NULL DEFAULT FALSE,
   nome        VARCHAR(100) NOT NULL,
   descricao   VARCHAR(50)  NOT NULL,
   codigo      VARCHAR(6)   NOT NULL DEFAULT utils.s_church_f_get_codigo_ministerio(),
@@ -312,13 +312,13 @@ CREATE TABLE church.tb_usuario_funcao (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_lid UUID        NOT NULL,
+  deleted_by_lid UUID            NULL DEFAULT NULL,
 
   -- dados de funções dos usuários
-  is_deletado BOOLEAN                                          NOT NULL DEFAULT FALSE,
+  is_deleted  BOOLEAN                                          NOT NULL DEFAULT FALSE,
   funcao      utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL DEFAULT 'Levita',
 
   -- chaves estrangeiras
@@ -366,16 +366,16 @@ CREATE TABLE church.tb_instrumento (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  updated_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_adm UUID        NOT NULL,
+  updated_by_adm UUID        NOT NULL,
+  deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados de instrumentos
-  is_deletado BOOLEAN                                        NOT NULL DEFAULT FALSE,
-  is_ativo    BOOLEAN                                        NOT NULL DEFAULT TRUE,
+  is_deleted  BOOLEAN                                        NOT NULL DEFAULT FALSE,
+  is_active   BOOLEAN                                        NOT NULL DEFAULT TRUE,
   nome        utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
   outro_nome  VARCHAR(25)                                        NULL,
   familia     utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
@@ -444,13 +444,13 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by UUID        NOT NULL,
-  deleted_by UUID            NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_lid UUID        NOT NULL,
+  deleted_by_lid UUID            NULL DEFAULT NULL,
 
   -- dados da associação de instrumento e usuário
-  is_deletado BOOLEAN NOT NULL DEFAULT FALSE,
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
   ins_id                    INTEGER NOT NULL,
