@@ -1,108 +1,42 @@
 package br.app.harppia.usuario.cadastro.dtos;
 
+import br.app.harppia.defaults.shared.interfaces.ToEntityParser;
 import br.app.harppia.usuario.cadastro.entities.Arquivo;
+import br.app.harppia.usuario.cadastro.entities.Bucket;
 import br.app.harppia.usuario.cadastro.enums.ExtensaoArquivo;
 import br.app.harppia.usuario.cadastro.enums.MimeTypeArquivo;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class ArquivoCadastroDTO {
+public record ArquivoCadastroDTO (
 
 	@NotBlank(message = "O path da imagem é orbigatório.")
-	private String caminho;
+	String caminho,
 	
 	@NotNull(message = "O mime type do arquivo é obrigatório!")
-	private MimeTypeArquivo tipoArquivo;
+	MimeTypeArquivo tipoArquivo,
 	
 	@NotNull(message = "A extensão do arquivo é obrigatória!")	
-	private ExtensaoArquivo extensaoArquivo;
+	ExtensaoArquivo extensaoArquivo,
 	
 	@NotNull(message = "O tamanho (em bytes) é obrigatório!")
-	private Long tamanhoEmBytes;
+	Long tamanhoEmBytes,
 	
 	@NotNull(message = "O bucket é obrigatório!")
 	@Valid 
-	private BucketCadastroDTO bucketArquivo;
+	BucketCadastroDTO bucketArquivo
+	) implements ToEntityParser {
 
-	/**
-	 * @return the caminho
-	 */
-	public String getCaminho() {
-		return caminho;
-	}
-
-	/**
-	 * @param caminho the caminho to set
-	 */
-	public void setCaminho(String caminho) {
-		this.caminho = caminho;
-	}
-
-	/**
-	 * @return the tipoArquivo
-	 */
-	public MimeTypeArquivo getTipoArquivo() {
-		return tipoArquivo;
-	}
-
-	/**
-	 * @param tipoArquivo the tipoArquivo to set
-	 */
-	public void setTipoArquivo(MimeTypeArquivo tipoArquivo) {
-		this.tipoArquivo = tipoArquivo;
-	}
-
-	/**
-	 * @return the extensaoArquivo
-	 */
-	public ExtensaoArquivo getExtensaoArquivo() {
-		return extensaoArquivo;
-	}
-
-	/**
-	 * @param extensaoArquivo the extensaoArquivo to set
-	 */
-	public void setExtensaoArquivo(ExtensaoArquivo extensaoArquivo) {
-		this.extensaoArquivo = extensaoArquivo;
-	}
-
-	/**
-	 * @return the tamanhoEmBytes
-	 */
-	public Long getTamanhoEmBytes() {
-		return tamanhoEmBytes;
-	}
-
-	/**
-	 * @param tamanhoEmBytes the tamanhoEmBytes to set
-	 */
-	public void setTamanhoEmBytes(Long tamanhoEmBytes) {
-		this.tamanhoEmBytes = tamanhoEmBytes;
-	}
-
-	/**
-	 * @return the bucketArquivoId
-	 */
-	public BucketCadastroDTO getBucketArquivo() {
-		return bucketArquivo;
-	}
-
-	/**
-	 * @param bucketArquivoId the bucketArquivoId to set
-	 */
-	public void setBucketArquivo(BucketCadastroDTO bucketArquivo) {
-		this.bucketArquivo = bucketArquivo;
-	}
-	
-	public Arquivo parseToArquivo() {
+	@Override
+	public Arquivo toEntity() {
 		Arquivo arq = new Arquivo();
 		
-		arq.setCaminho			(this.getCaminho() 			== null ? null : this.getCaminho());
-		arq.setExtensao			(this.getExtensaoArquivo() 	== null ? null : this.getExtensaoArquivo());
-		arq.setMimeType			(this.getTipoArquivo() 		== null ? null : this.getTipoArquivo());
-		arq.setTamanhoEmBytes	(this.getTamanhoEmBytes() 	== null ? null : this.getTamanhoEmBytes());
-		arq.setBucket			(this.getBucketArquivo() 	== null ? null : this.getBucketArquivo().parseToBucket());
+		arq.setCaminho			(this.caminho 			== null ? null : this.caminho);
+		arq.setExtensao			(this.extensaoArquivo 	== null ? null : this.extensaoArquivo);
+		arq.setMimeType			(this.tipoArquivo		== null ? null : this.tipoArquivo);
+		arq.setTamanhoEmBytes	(this.tamanhoEmBytes 	== null ? null : this.tamanhoEmBytes);
+		arq.setBucket			(this.bucketArquivo 	== null ? null : (Bucket) this.bucketArquivo.toEntity());
 		
 		return arq;
 	}

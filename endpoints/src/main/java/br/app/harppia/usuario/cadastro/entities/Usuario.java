@@ -25,17 +25,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+
+/**
+ * Essa classe representa a estrutura da tabela de usuários do banco de dados. 
+ * Todas as constraints e regras de negócio (que envolvam a persistência dos dados - das tabelas)
+ * devem ser registradas aqui.
+ * 
+ * @since 31/08/2025
+ * @author Lucas Souza
+ */
 @Entity(name = "tb_usuario")
 @Table(name = "tb_usuario", schema = "auth")
 public class Usuario implements UserDetails {
+
+	// Versão atual da classe para serialização dos objetos:
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
 	private UUID uuid;
-
-	@Column(nullable = false, unique = true, insertable = false, updatable = false)
-	private Long id;
 
 	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private LocalDateTime criadoEm;
@@ -43,14 +52,14 @@ public class Usuario implements UserDetails {
 	@Column(name = "updated_at", nullable = false, insertable = false)
 	private LocalDateTime atualizadoEm;
 
-	@Column(name = "deleted_at", nullable = false, insertable = false)
+	@Column(name = "deleted_at", nullable = true, insertable = false)
 	private LocalDateTime deletadoEm;
 
 	@Column(name = "ultimo_acesso", nullable = false, insertable = false)
 	private LocalDateTime ultimoAcesso;
 
-	@Column(nullable = false, insertable = false)
-	private LocalDateTime deletado;
+	@Column(name = "is_deletado", nullable = false, insertable = false)
+	private LocalDateTime isDeletado;
 
 	@Column(nullable = false, unique = true, updatable = false)
 	private String cpf;
@@ -61,10 +70,10 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false)
 	private String sobrenome;
 
-	@Column
+	@Column(nullable = true)
 	private String nomeSocial;
 
-	@Column
+	@Column(nullable = true)
 	private String sobrenomeSocial;
 
 	@Column(nullable = false)
@@ -81,7 +90,7 @@ public class Usuario implements UserDetails {
 
 	@Column(nullable = false)
 	@JsonIgnore
-	@Size(min = 128, max = 128)
+	@Size(min = 8, max = 128)
 	private String senha;
 
 	@OneToOne(cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
@@ -92,19 +101,6 @@ public class Usuario implements UserDetails {
 	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", referencedColumnName = "uuid")
 	private Arquivo arquivoUUID;
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the uuid
@@ -180,14 +176,14 @@ public class Usuario implements UserDetails {
 	 * @return the deletado
 	 */
 	public LocalDateTime getDeletado() {
-		return deletado;
+		return isDeletado;
 	}
 
 	/**
 	 * @param deletado the deletado to set
 	 */
 	public void setDeletado(LocalDateTime deletado) {
-		this.deletado = deletado;
+		this.isDeletado = deletado;
 	}
 
 	/**

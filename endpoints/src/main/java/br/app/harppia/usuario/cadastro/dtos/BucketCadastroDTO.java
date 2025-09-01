@@ -1,35 +1,18 @@
 package br.app.harppia.usuario.cadastro.dtos;
 
+import br.app.harppia.defaults.shared.interfaces.ToEntityParser;
 import br.app.harppia.usuario.cadastro.entities.Bucket;
 import br.app.harppia.usuario.cadastro.enums.NomeBucket;
 import jakarta.validation.constraints.NotNull;
 
-public class BucketCadastroDTO {
-	
-	@NotNull(message = "Nome do bucket é obrigatório!")
-	private NomeBucket nome;
+public record BucketCadastroDTO(
+		@NotNull(message = "Nome do bucket é obrigatório!") NomeBucket nome
+	) implements ToEntityParser {
 
-	
-	/**
-	 * @return the enum NomeBucket value
-	 */
-	public NomeBucket getNome() {
-		return nome;
-	}
-	
-	/**
-	 * @param nome the enum NomeBucket value to set
-	 */
-	public void setNome(NomeBucket nome) {
-		this.nome = nome;
-	}
-
-	
-	public Bucket parseToBucket() {
+	@Override
+	public Object toEntity() {
 		Bucket bucket = new Bucket();
-		
-		bucket.setNome(this.getNome() == null ? null : this.getNome());
-		
+		bucket.setNome(this.nome);
 		return bucket;
 	}
 }

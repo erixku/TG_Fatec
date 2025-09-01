@@ -29,7 +29,6 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioCadastroService userCadService;
 	
-	
 	@PostMapping("register/")
 	public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid UsuarioCadastroDTO usrCadDTO) {
 		userCadService.cadastrarUsuario(usrCadDTO);

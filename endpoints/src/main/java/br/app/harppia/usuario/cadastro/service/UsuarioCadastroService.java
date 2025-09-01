@@ -33,47 +33,11 @@ public class UsuarioCadastroService {
 	@Transactional
 	public Usuario cadastrarUsuario(UsuarioCadastroDTO dto) {
 		
+		Usuario user = (Usuario) dto.toEntity();
+		
 		if(usuarioRepository.findBy)
 		
-	    Usuario usuario = new Usuario();
-
-	    usuario.setCpf(dto.getCpf());
-	    usuario.setNome(dto.getNome());
-	    usuario.setSobrenome(dto.getSobrenome());
-	    usuario.setNomeSocial(dto.getNomeSocial());
-	    usuario.setSobrenomeSocial(dto.getSobrenomeSocial());
-
-	    String sexo = dto.getSexo().toString().toUpperCase();
-	    if (!sexo.equals("F") && !sexo.equals("M") && !sexo.equals("O"))
-	        throw new IllegalArgumentException("Sexo inválido ou desconhecido.");
-	    usuario.setSexo(sexo.charAt(0));
-
-	    if (dto.getDataNascimento() == null || !dto.getDataNascimento().isBefore(LocalDate.now()))
-	        throw new IllegalArgumentException("Data de nascimento inválida.");
-	    usuario.setDataNascimento(dto.getDataNascimento());
-
-	    usuario.setEmail(dto.getEmail());
-	    usuario.setTelefone(dto.getTelefone());
-	    usuario.setSenha(dto.getSenha());
 	    
-	    if (dto.getEndereco() == null)
-	        throw new IllegalArgumentException("Endereço obrigatório.");
-	    usuario.setEndId(dto.getEndereco().getEnderecoComoEntidade());
-	    
-	    
-	    /* ÊNFASE AQUI NESTE MÉTODO */
-	    // Caso tenha foto, insere-a primeiro, depois salva o usuário
-        if(!(dto.getArquivo() == null)) {
-        	Arquivo archive = dto.getArquivo().parseToArquivo();
-        	NomeBucket nome = archive.getBucket().getNome();
-        	
-        	Bucket bucket = bucketRepository.findByNome(nome.getValorCustomizado())
-        			.orElseThrow( () -> new IllegalStateException("Nome de bucket inválido: ".concat(nome.getNome())) );
-        	
-        	archive.setBucket(bucket);
-        	
-        	usuario.setArquivoUUID(archive);
-        }
 
 	    return usuarioRepository.save(usuario);
 	}

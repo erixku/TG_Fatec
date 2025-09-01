@@ -1,5 +1,8 @@
 package br.app.harppia.usuario.cadastro.entities;
 
+import java.time.LocalDateTime;
+
+import br.app.harppia.defaults.custom.annotation.ValidUF;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,10 +26,15 @@ public class Endereco {
 	private Long id;
 
 	@Column(nullable = false)
+	private LocalDateTime updatedAt;
+	
+	@Column(nullable = false)
 	@Size(min = 8, max = 8)
 	private String cep;
 	
 	@Column(nullable = false)
+	@Size(min = 2, max = 2)
+	@ValidUF
 	private String uf;
 
 	@Column(nullable = false)
@@ -39,11 +47,31 @@ public class Endereco {
 	
 	@Column(nullable = false)
 	@Size(max = 100)
-	private String rua;
+	private String logradouro;
 	
 	@Column(nullable = false)
 	@Size(max = 5)
 	private String numero;
+
+	@Column(nullable = false)
+	@Size(max = 30)
+	private String complemento;
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
 
 	/**
 	 * @return the id
@@ -118,15 +146,15 @@ public class Endereco {
 	/**
 	 * @return the rua
 	 */
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
 
 	/**
-	 * @param rua the rua to set
+	 * @param logradouro the logradouro to set
 	 */
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	/**
