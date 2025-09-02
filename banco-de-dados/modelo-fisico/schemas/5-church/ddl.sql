@@ -361,6 +361,21 @@ CREATE TABLE church.tb_usuario_funcao (
 
 
 
+CREATE TABLE church.tb_marca (
+  -- chaves primárias
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+
+);
+
+
+
+CREATE TABLE church.tb_modelo (
+
+);
+
+
+
 CREATE TABLE church.tb_instrumento (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
@@ -379,11 +394,14 @@ CREATE TABLE church.tb_instrumento (
   nome        utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
   outro_nome  VARCHAR(25)                                        NULL,
   familia     utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
+  outra_marca VARCHAR(30) NULL,
 
   -- chaves estrangeiras
-  s_storage_t_tb_arquivo_c_foto  UUID     NULL,
-  s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
-  igr_uuid                       UUID NOT NULL,
+  mar_id                         INTEGER     NULL,
+  mod_id                         INTEGER     NULL,
+  s_storage_t_tb_arquivo_c_foto  UUID        NULL,
+  s_storage_t_tb_arquivo_c_icone UUID    NOT NULL,
+  igr_uuid                       UUID    NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento PRIMARY KEY (id),
