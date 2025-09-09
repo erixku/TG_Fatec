@@ -1,22 +1,19 @@
 package br.app.harppia.usuario.cadastro.service;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.app.harppia.usuario.cadastro.dtos.UsuarioCadastroDTO;
-import br.app.harppia.usuario.cadastro.entities.Arquivo;
-import br.app.harppia.usuario.cadastro.entities.Bucket;
-import br.app.harppia.usuario.cadastro.entities.Usuario;
-import br.app.harppia.usuario.cadastro.enums.NomeBucket;
-import br.app.harppia.usuario.cadastro.repositorys.BucketRepository;
-import br.app.harppia.usuario.cadastro.repositorys.UsuarioRepository;
+import br.app.harppia.usuario.cadastro.dto.UsuarioCadastradoDTO;
+import br.app.harppia.usuario.cadastro.dto.UsuarioCadastroDTO;
+import br.app.harppia.usuario.shared.entity.Usuario;
+import br.app.harppia.usuario.shared.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
 /**
- * Classe responsável por intermediar as requisições com o back-end e
- * validar os dados recebidos.
+ * Classe responsável por intermediar as requisições com o back-end e validar os
+ * dados recebidos.
  * 
  * @author asher_ren
  * @since 15/08/2025
@@ -26,19 +23,36 @@ public class UsuarioCadastroService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private BucketRepository bucketRepository;
-	
-	@Transactional
-	public Usuario cadastrarUsuario(UsuarioCadastroDTO dto) {
-		
-		Usuario user = (Usuario) dto.toEntity();
-		
-		if(usuarioRepository.findBy)
-		
-	    
 
-	    return usuarioRepository.save(usuario);
+	/**
+	 * Recebe um DTO com todos os dados de cadastro do usuário, verifica se ele já
+	 * existe na base de dados e, caso não exista, o cadastra. Caso ele já exista,
+	 * não faz nada.
+	 * 
+	 * @param dto os dados do usuário
+	 * @return Um objeto com UUID, email e nome do usuário cadastrado.
+	 */
+	@Transactional
+	public UsuarioCadastradoDTO cadastrarUsuario(UsuarioCadastroDTO dto) {
+
+		Usuario userToSave;
+
+		try {
+			userToSave = (Usuario) dto.toEntity();
+
+			List<Usuario> result = usuarioRepository.findByEmail(dto.email());
+
+			if (!result.isEmpty())
+				throw new Exception("O usuário já existe!");
+
+			Usuario savedUser = usuarioRepository.save(userToSave);
+
+			return new UsuarioCadastradoDTO(savedUser.getUuid(), savedUser.getEmail(), savedUser.getNome());
+
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		return null;
 	}
 }

@@ -2,18 +2,19 @@ package br.app.harppia.usuario.login.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import br.app.harppia.usuario.login.dtos.LoginUsuarioDTO;
-import br.app.harppia.usuario.login.entitys.Usuario;
-import br.app.harppia.usuario.login.repositorys.LoginUsuarioRepository;
+import br.app.harppia.usuario.login.dto.LoginUsuarioDTO;
+import br.app.harppia.usuario.shared.entity.Usuario;
+import br.app.harppia.usuario.shared.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 
+@Service
 public class LoginUsuarioService {
-	private LoginUsuarioRepository loginUserRepo;
-
-	public LoginUsuarioService(LoginUsuarioRepository logUserRepo) {
-		this.loginUserRepo = logUserRepo;
-	}
+	
+	@Autowired
+	private UsuarioRepository loginUserRepo;
 
 	/**
 	 * Método principal na lógica de login. Verifica qual valor de entrada foi

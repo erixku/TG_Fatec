@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "application.security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "Chave secreta para geração de tokens."
+  },
+  {
+    "name": "application.security.jwt.expiration",
+    "type": "java.lang.Long",
+    "description": "Tempo máximo de vida do token."
+  }
+]}

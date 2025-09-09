@@ -2,7 +2,7 @@ package br.app.harppia.defaults.custom.validators;
 
 import java.util.Set;
 
-import br.app.harppia.defaults.custom.annotation.ValidUF;
+import br.app.harppia.defaults.custom.annotations.ValidUF;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

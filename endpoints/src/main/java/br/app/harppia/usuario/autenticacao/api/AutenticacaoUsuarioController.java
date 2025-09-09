@@ -1,7 +1,6 @@
 package br.app.harppia.usuario.autenticacao.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.app.harppia.usuario.autenticacao.dtos.AutenticacaoUsuarioDTO;
-import br.app.harppia.usuario.autenticacao.service.AutenticacaoUsuarioService;
-import br.app.harppia.usuario.cadastro.dtos.UsuarioCadastroDTO;
-import br.app.harppia.usuario.cadastro.service.UsuarioCadastroService;
+import br.app.harppia.usuario.autenticacao.dto.AutenticacaoUsuarioDTO;
 import jakarta.validation.Valid;
 
 
@@ -27,19 +23,14 @@ import jakarta.validation.Valid;
  * @since 15/08/2025
  */
 @RestController
-@RequestMapping("users/v1/auth/")
+@RequestMapping("/v1/users")
 public class AutenticacaoUsuarioController {
-
-	private final AutenticacaoUsuarioService authUserService;
 	
 	@Autowired
 	private AuthenticationManager authManager;
+
 	
-	public AutenticacaoUsuarioController(AutenticacaoUsuarioService authUserService) {
-		this.authUserService = authUserService;
-	}
-	
-	@PostMapping("autenticar/")
+	@PostMapping("/autenticar")
 	public ResponseEntity<?> autenticarUsuario(@RequestBody @Valid AutenticacaoUsuarioDTO authUserDTO) {
 		
 		var userToken = new UsernamePasswordAuthenticationToken(authUserDTO.getUsername(), authUserDTO.getPassword());

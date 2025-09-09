@@ -1,5 +1,7 @@
 package br.app.harppia.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,50 +9,66 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.app.harppia.usuario.shared.entity.Usuario;
+import br.app.harppia.usuario.shared.repository.UsuarioRepository;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-	private final JwtAuthFilter jwtAuthFilter;
-    
+
+    private final JwtAuthFilter jwtAuthFilter;
+
     public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
     }
-    
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    	http
-	        .csrf(csrf -> csrf.disable())
-	        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	        .authorizeHttpRequests(auth -> auth
-	        		
-	        	// A seguir estão as rotas e seus respectivos níveis de acesso obrigatório
-	            .requestMatchers("/api").hasRole("ADMIN")
-	            .requestMatchers("/users").hasRole("ADMIN")
-	            
-	            .anyRequest().authenticated()
-	        )
-	        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-	
-	    return http.build();
+    protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+            	.anyRequest().anonymous()
+            )
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
-    /**
-     * O AuthenticationManager é o cérebro por trás do processo de autenticação.
-     * Precisaremos dele no nosso controller para processar a tentativa de login.
-     */
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    protected AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
     }
+
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        // --- PARÂMETROS DE COMPROMISSO - APENAS PARA DESENVOLVIMENTO ---
+        int saltLength = 16;      // Padrão seguro, não reduzir.
+        int hashLength = 32;      // Padrão seguro, não reduzir.
+        int parallelism = 1;      // Obrigatório devido à restrição de CPU.
+        int memory = 32768;       // 32MB. Mínimo aceitável para o propósito do Argon2.
+        int iterations = 3;       // Aumenta ligeiramente o custo de CPU.
+
+        return new Argon2PasswordEncoder(saltLength, hashLength, parallelism, memory, iterations);
+    }
     
-    // CONFIGURAR OS PARÂMETROS DO CONSTRUCTOR DO ARGON2ID!!!!!!!!!!!!!
-    public PasswordEncoder passwordEnconder() {
-    	return new Argon2PasswordEncoder(0, 0, 0, 0, 0);
+    @Bean
+    protected UserDetailsService userDetailsService(UsuarioRepository userRepository) {
+        return username -> {
+            List<Usuario> usuario = userRepository.findByEmail(username);
+            if (usuario == null) {
+                throw new UsernameNotFoundException("Usuário não encontrado");
+            }
+            return (UserDetails) usuario;
+        };
     }
 }

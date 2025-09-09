@@ -6,16 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.bouncycastle.jcajce.BCFKSLoadStoreParameter.SignatureAlgorithm;
+import javax.crypto.SecretKey;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecureDigestAlgorithm;
 
 @Service
 public class JwtService {
@@ -24,7 +25,7 @@ public class JwtService {
     private String secretKey;
 
     @Value("${application.security.jwt.expiration}")
-    private long jwtExpiration;
+    private Long jwtExpiration;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -51,14 +52,14 @@ public class JwtService {
             UserDetails userDetails,
             long expiration
     ) {
-        return Jwts
-                .builder()
-                .claims(extraClaims)
-                .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey())
-                .compact();
+    	return Jwts.builder()
+    	        .claims(extraClaims)
+    	        .subject(userDetails.getUsername())
+    	        .issuedAt(new Date(System.currentTimeMillis()))
+    	        .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+    	        .signWith(getSignInKey())
+    	        .compact();
+
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -75,12 +76,11 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-        		.parserBuilder()
-                .setSigningKey(getSignInKey())
+        return Jwts.parser()
+                .verifyWith((SecretKey) getSignInKey())
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload(); 
     }
 
     private Key getSignInKey() {
