@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "output": "static"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://n"
+        }
+      ],
+      "expo-font"
+    ],
+    "name": "Harppia",
+    "slug": "Harppia",
+    "icon": "./src/assets/images/logomarks/Harppia - Claro.svg",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "dark": {
+        "backgroundColor": "#e0e0e0"
+      }
+    },
+    "android": {
+      "package": "com.harppia.app",
+      "adaptativeIcon": {
+        "foregroundImage": "./src/assets/images/logomarks/Harppia - Claro.svg",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "extra": {
+      "router": {
+        "origin": "https://n"
+      },
+      "eas": {
+        "projectId": "788b932b-d1f3-47fd-addd-c3673a34fa60"
+      }
+    }
+  }
+}
