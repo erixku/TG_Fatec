@@ -42,12 +42,12 @@ public class Arquivo {
 	
 	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
 	@Column(nullable = false, updatable = false)
-    @ColumnTransformer(write = "CAST(? AS app_utils.enum_s_storage_t_tb_arquivo_c_mime_type)")
+    @ColumnTransformer(write = "CAST(? AS utils.enum_s_storage_t_tb_arquivo_c_mime_type)")
 	private MimeTypeArquivo mimeType;
 	
 	@Convert(converter = ConversorEnumExtensaoArquivo.class)
 	@Column(nullable = false, updatable = false)
-    @ColumnTransformer(write = "CAST(? AS app_utils.enum_s_storage_t_tb_arquivo_c_extensao)")
+    @ColumnTransformer(write = "CAST(? AS utils.enum_s_storage_t_tb_arquivo_c_extensao)")
 	private ExtensaoArquivo extensao;
 	
 	@Column(nullable = false, updatable = false)

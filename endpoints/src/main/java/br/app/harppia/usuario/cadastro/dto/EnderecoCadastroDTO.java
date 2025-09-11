@@ -1,8 +1,6 @@
 package br.app.harppia.usuario.cadastro.dto;
 
 import br.app.harppia.defaults.custom.annotations.ValidUF;
-import br.app.harppia.defaults.shared.interfaces.ToEntityParser;
-import br.app.harppia.usuario.shared.entity.Endereco;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -41,24 +39,5 @@ public record EnderecoCadastroDTO (
 	@Size(max = 30, message = "Tamanho limite do complemento: 30 dígitos.")
 	String complemento
 	
-	) implements ToEntityParser{
-	
-	/**
-	 * Esse método tentará converter esse DTO para sua respectiva entidade no
-	 * banco de dados. É importante garantir que a classe {@Endereco} esteja atualizada
-	 * e este DTO esteja de acordo com sua estrutura.
-	 * @return uma instância da classe `Endereco` populada.
-	 */
-	@Override
-	public Object toEntity() {
-		Endereco end = new Endereco();
-		end.setCep(this.cep);
-		end.setUf(this.uf);
-		end.setBairro(this.bairro);
-		end.setCidade(this.cidade);
-		end.setLogradouro(this.logradouro);
-		end.setNumero(this.numero);
-		end.setComplemento(this.complemento);
-		return end;
-	}
+	) {
 }

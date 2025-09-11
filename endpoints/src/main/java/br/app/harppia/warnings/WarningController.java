@@ -12,6 +12,6 @@ public class WarningController {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> logError(Exception ex){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body("Houve um erro ao carregar a página...\n\n" + ex.getMessage());
+				.body("Houve um erro ao carregar a página...\n\n" + ex.getLocalizedMessage());
 	}
 }

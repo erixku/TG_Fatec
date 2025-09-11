@@ -46,20 +46,20 @@ public class Usuario implements UserDetails {
 	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
 	private UUID uuid;
 
-	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
-	private LocalDateTime criadoEm;
+	@Column(nullable = false, insertable = false, updatable = false)
+	private LocalDateTime createdAt;
 
-	@Column(name = "updated_at", nullable = false, insertable = false)
-	private LocalDateTime atualizadoEm;
+	@Column(nullable = false, insertable = false)
+	private LocalDateTime updatedAt;
 
-	@Column(name = "deleted_at", nullable = true, insertable = false)
-	private LocalDateTime deletadoEm;
+	@Column(nullable = true, insertable = false)
+	private LocalDateTime deletedAt;
 
-	@Column(name = "ultimo_acesso", nullable = false, insertable = false)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime ultimoAcesso;
 
-	@Column(name = "is_deletado", nullable = false, insertable = false)
-	private LocalDateTime isDeletado;
+	@Column(nullable = false, insertable = false)
+	private LocalDateTime isDeleted;
 
 	@Column(nullable = false, unique = true, updatable = false)
 	private String cpf;
@@ -101,257 +101,152 @@ public class Usuario implements UserDetails {
 	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", referencedColumnName = "uuid")
 	private Arquivo arquivoUUID;
 
-
-	/**
-	 * @return the uuid
-	 */
 	public UUID getUuid() {
 		return uuid;
 	}
 
-	/**
-	 * @param uuid the uuid to set
-	 */
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
 
-	/**
-	 * @return the criadoEm
-	 */
-	public LocalDateTime getCriadoEm() {
-		return criadoEm;
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	/**
-	 * @param criadoEm the criadoEm to set
-	 */
-	public void setCriadoEm(LocalDateTime criadoEm) {
-		this.criadoEm = criadoEm;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	/**
-	 * @return the atualizadoEm
-	 */
-	public LocalDateTime getAtualizadoEm() {
-		return atualizadoEm;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	/**
-	 * @param atualizadoEm the atualizadoEm to set
-	 */
-	public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-		this.atualizadoEm = atualizadoEm;
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	/**
-	 * @return the deletadoEm
-	 */
-	public LocalDateTime getDeletadoEm() {
-		return deletadoEm;
+	public LocalDateTime getDeletedAt() {
+		return deletedAt;
 	}
 
-	/**
-	 * @param deletadoEm the deletadoEm to set
-	 */
-	public void setDeletadoEm(LocalDateTime deletadoEm) {
-		this.deletadoEm = deletadoEm;
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
 	}
 
-	/**
-	 * @return the ultimoAcesso
-	 */
 	public LocalDateTime getUltimoAcesso() {
 		return ultimoAcesso;
 	}
 
-	/**
-	 * @param ultimoAcesso the ultimoAcesso to set
-	 */
 	public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
 		this.ultimoAcesso = ultimoAcesso;
 	}
 
-	/**
-	 * @return the deletado
-	 */
-	public LocalDateTime getDeletado() {
-		return isDeletado;
+	public LocalDateTime getIsDeleted() {
+		return isDeleted;
 	}
 
-	/**
-	 * @param deletado the deletado to set
-	 */
-	public void setDeletado(LocalDateTime deletado) {
-		this.isDeletado = deletado;
+	public void setIsDeleted(LocalDateTime isDeletado) {
+		this.isDeleted = isDeletado;
 	}
 
-	/**
-	 * @return the cpf
-	 */
 	public String getCpf() {
 		return cpf;
 	}
 
-	/**
-	 * @param cpf the cpf to set
-	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
-	/**
-	 * @return the nome
-	 */
 	public String getNome() {
 		return nome;
 	}
 
-	/**
-	 * @param nome the nome to set
-	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	/**
-	 * @return the sobrenome
-	 */
 	public String getSobrenome() {
 		return sobrenome;
 	}
 
-	/**
-	 * @param sobrenome the sobrenome to set
-	 */
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
 
-	/**
-	 * @return the nomeSocial
-	 */
 	public String getNomeSocial() {
 		return nomeSocial;
 	}
 
-	/**
-	 * @param nomeSocial the nomeSocial to set
-	 */
 	public void setNomeSocial(String nomeSocial) {
 		this.nomeSocial = nomeSocial;
 	}
 
-	/**
-	 * @return the sobrenomeSocial
-	 */
 	public String getSobrenomeSocial() {
 		return sobrenomeSocial;
 	}
 
-	/**
-	 * @param sobrenomeSocial the sobrenomeSocial to set
-	 */
 	public void setSobrenomeSocial(String sobrenomeSocial) {
 		this.sobrenomeSocial = sobrenomeSocial;
 	}
 
-	/**
-	 * @return the sexo
-	 */
 	public Character getSexo() {
 		return sexo;
 	}
 
-	/**
-	 * @param sexo the sexo to set
-	 */
 	public void setSexo(Character sexo) {
 		this.sexo = sexo;
 	}
 
-	/**
-	 * @return the dataNascimento
-	 */
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	/**
-	 * @param dataNascimento the dataNascimento to set
-	 */
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
-	/**
-	 * @return the email
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * @param email the email to set
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * @return the telefone
-	 */
 	public String getTelefone() {
 		return telefone;
 	}
 
-	/**
-	 * @param telefone the telefone to set
-	 */
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
-	/**
-	 * @return the senha
-	 */
 	public String getSenha() {
 		return senha;
 	}
 
-	/**
-	 * @param senha the senha to set
-	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	/**
-	 * @return the endId
-	 */
 	public Endereco getEndId() {
 		return endId;
 	}
 
-	/**
-	 * @param endId the endId to set
-	 */
 	public void setEndId(Endereco endId) {
 		this.endId = endId;
 	}
 
-	/**
-	 * @return the arquivoUUID
-	 */
 	public Arquivo getArquivoUUID() {
 		return arquivoUUID;
 	}
 
-	/**
-	 * @param arquivoUUID the arquivoUUID to set
-	 */
 	public void setArquivoUUID(Arquivo arquivoUUID) {
 		this.arquivoUUID = arquivoUUID;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

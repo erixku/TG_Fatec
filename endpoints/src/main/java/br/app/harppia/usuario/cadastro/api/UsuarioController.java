@@ -34,6 +34,9 @@ public class UsuarioController {
 		
 		UsuarioCadastradoDTO userCadastrado = userCadService.cadastrarUsuario(usrCadDTO);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(userCadastrado);
+		if(userCadastrado != null)
+			return ResponseEntity.status(HttpStatus.CREATED).body(userCadastrado);
+		else
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 }
