@@ -25,7 +25,7 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime updatedAt;
 	
 	@Column(nullable = false)

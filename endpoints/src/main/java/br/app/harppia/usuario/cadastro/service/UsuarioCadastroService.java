@@ -3,18 +3,13 @@ package br.app.harppia.usuario.cadastro.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.usuario.cadastro.dto.UsuarioCadastradoDTO;
 import br.app.harppia.usuario.cadastro.dto.UsuarioCadastroDTO;
-import br.app.harppia.usuario.shared.entity.Arquivo;
-import br.app.harppia.usuario.shared.entity.Bucket;
-import br.app.harppia.usuario.shared.entity.Endereco;
 import br.app.harppia.usuario.shared.entity.Usuario;
-import br.app.harppia.usuario.shared.mappers.ArquivoMapper;
-import br.app.harppia.usuario.shared.mappers.EnderecoMapper;
 import br.app.harppia.usuario.shared.mappers.UsuarioMapper;
-import br.app.harppia.usuario.shared.repository.BucketRepository;
 import br.app.harppia.usuario.shared.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
@@ -31,17 +26,12 @@ public class UsuarioCadastroService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private BucketRepository bucketRepository;
-	
+	private final PasswordEncoder passwdEncoder;
 	private final UsuarioMapper userMapper;
-	private final EnderecoMapper enderecoMapper;
-	private final ArquivoMapper arquivoMapper;
 	
-	public UsuarioCadastroService(UsuarioMapper userMapper, EnderecoMapper enderecoMapper, ArquivoMapper arquivoMapper) {
+	public UsuarioCadastroService(PasswordEncoder passwdEncoder, UsuarioMapper userMapper) {
+		this.passwdEncoder = passwdEncoder;
 		this.userMapper = userMapper;
-		this.enderecoMapper = enderecoMapper;
-		this.arquivoMapper = arquivoMapper;
 	}
 
 	/**
@@ -55,56 +45,29 @@ public class UsuarioCadastroService {
 	@Transactional
 	public UsuarioCadastradoDTO cadastrarUsuario(UsuarioCadastroDTO dto) {
 
-		Usuario userToSave;
-
+		Usuario userToSave = null;
+		
 		try {
-			
-			System.out.println(dto.arquivo().mimeType().getValorCustomizado());
-			
+			// Caso algo retorne null, deve ser erro de mapeamento DTO <--> Entidade
 			userToSave = userMapper.toEntity(dto);
-
-			System.out.println(userToSave.getArquivoUUID().getMimeType().getValorCustomizado());
-
+			 
 			List<Usuario> result = usuarioRepository.findByEmail(dto.cpf());
 
 			if (!result.isEmpty())
 				throw new Exception("O usuário já existe!");
-
+			
+			userToSave.setSenha(passwdEncoder.encode(dto.senha()));
+			
 			// tenta persistir o user
 			Usuario savedUser = usuarioRepository.save(userToSave);
 			
 			return new UsuarioCadastradoDTO(savedUser.getUuid(), savedUser.getEmail(), savedUser.getNome());
-
 		} catch (Exception ex) {
-			System.out.println("Houve um erro ao registrar." + ex.getMessage());
+			System.out.println("\n\nHouve um erro ao registrar.\n");
+			System.out.println(ex.getMessage());
+			System.out.println(ex.getLocalizedMessage());
 		}
 
 		return null;
 	}
-	
-	public Usuario toEntity(UsuarioCadastroDTO dto) {
-        Usuario usuario = new Usuario();
-        usuario.setCpf(dto.cpf());
-        usuario.setNome(dto.nome());
-        usuario.setSobrenome(dto.sobrenome());
-        usuario.setSexo(dto.sexo());
-        usuario.setDataNascimento(dto.dataNascimento());
-        usuario.setEmail(dto.email());
-        usuario.setTelefone(dto.telefone());
-        usuario.setSenha(dto.senha());
-        
-        Endereco endereco = enderecoMapper.toEntity(dto.endereco()); 
-        usuario.setEndId(endereco);
-
-        if (dto.arquivo() != null) {
-            Arquivo arquivo = arquivoMapper.toEntity(dto.arquivo());
-            Bucket bucket = bucketRepository
-                .findByNome(arquivo.getBucket().getNome().getValorCustomizado())
-                .orElseThrow(() -> new IllegalStateException("Bucket inválido"));
-            arquivo.setBucket(bucket);
-            usuario.setArquivoUUID(arquivo);
-        }
-
-        return usuario;
-    }
 }

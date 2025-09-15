@@ -6,19 +6,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.app.harppia.defaults.custom.validators.UfValidator;
+import br.app.harppia.defaults.custom.validators.CpfValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-/**
- * Essa interface replica a lógica de validação do banco de dados para o campo UF.
- */
 @Documented
-@Constraint(validatedBy = UfValidator.class)
+@Constraint(validatedBy = CpfValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidUF {
-	String message() default "UF inválida!";
+public @interface ValidCPF {
+	String message() default "CPF inválido!";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default{};
 }

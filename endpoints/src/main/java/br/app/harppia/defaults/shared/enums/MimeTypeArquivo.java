@@ -39,7 +39,7 @@ public enum MimeTypeArquivo implements EnumPersistivel {
     }
 
 	@Override
-	public String getValorCustomizado() {
+	public String getCustomValue() {
 		return this.mimeType;
 	}
 }

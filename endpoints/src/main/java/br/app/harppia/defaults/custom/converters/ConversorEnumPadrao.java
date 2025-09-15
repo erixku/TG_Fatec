@@ -12,13 +12,13 @@ public abstract class ConversorEnumPadrao<E extends Enum<E> & EnumPersistivel> i
 	
 	public ConversorEnumPadrao(Class<E> classeEnum) {
 		for(E valorFixo : classeEnum.getEnumConstants()) {
-			constantesDefinicoesEnum.put(valorFixo.getValorCustomizado(), valorFixo);
+			constantesDefinicoesEnum.put(valorFixo.getCustomValue(), valorFixo);
 		}
 	}
 	
 	@Override
 	public String convertToDatabaseColumn(E attribute) {
-		return (attribute != null) ? attribute.getValorCustomizado() : null;
+		return (attribute != null) ? attribute.getCustomValue() : null;
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false, insertable = false)
 	private LocalDateTime ultimoAcesso;
 
-	@Column(nullable = false, insertable = false)
+	@Column(name = "is_deletado", nullable = false, insertable = false)
 	private LocalDateTime isDeleted;
 
 	@Column(nullable = false, unique = true, updatable = false)
@@ -282,5 +282,42 @@ public class Usuario implements UserDetails {
 	@Override
 	public String getUsername() {
 		return this.email;
+	}
+	
+	@Override
+	public String toString() {
+		System.out.println("==== DADOS DO USUÁRIO CONVERTIDO ====");
+		System.out.println("CPF: " + this.getCpf());
+		System.out.println("EMail: " + this.getEmail());
+		System.out.println("Nome: " + this.getNome());
+		System.out.println("Nome social: " + this.getNomeSocial());
+		System.out.println("Senha: " + this.getPassword());
+		System.out.println("Senha: " + this.getSenha());
+		System.out.println("Sobrenome: " + this.getSobrenome());
+		System.out.println("Sobrenome: " + this.getSobrenomeSocial());
+		System.out.println("Telefone: " + this.getTelefone());
+		System.out.println("Username: " + this.getUsername());
+		System.out.println("Sexo: " + this.getSexo());
+		
+		System.out.println("Arquivo: " + this.getArquivoUUID());
+		System.out.println("Bucket: " + this.getArquivoUUID().getBucket());
+		System.out.println("Bucket id: " + this.getArquivoUUID().getBucket().getId());
+		System.out.println("Bucket nome: " + this.getArquivoUUID().getBucket().getNome());
+		
+		
+		System.out.println("Roles: " + this.getAuthorities());
+		System.out.println("Created at: " + this.getCreatedAt());
+		System.out.println("Data nasc: " + this.getDataNascimento());
+		System.out.println("Deleted at: " + this.getDeletedAt());
+		
+		System.out.println("End id: " + this.getEndId().getId());
+		System.out.println("End id: " + this.getEndId().getId());
+		
+		System.out.println("is deleted: " + this.getIsDeleted());
+		System.out.println("Last access: " + this.getUltimoAcesso());
+		System.out.println("Updated at: " + this.getUpdatedAt());
+		System.out.println("UUID: " + this.getUuid());
+		
+		return "";
 	}
 }

@@ -1,6 +1,8 @@
 package br.app.harppia.usuario.cadastro.dto;
 
 import java.time.LocalDate;
+
+import br.app.harppia.defaults.custom.annotations.ValidCPF;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -15,21 +17,17 @@ import jakarta.validation.constraints.Size;
 public record UsuarioCadastroDTO (
 	
 	@NotBlank(message = "CPF é obrigatório!")
-	@Pattern(regexp = "\\d{11}", message = "CPF deve ter 11 dígitos numéricos.")
+	@ValidCPF
 	String cpf,
 	
-	@NotBlank(message = "Nome é obrigatório!")
-	@Size(min = 2, max = 20, message = "Nome deve ter entre 2 e 20 dígitos.")
-    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nome só pode conter letras e espaços")
-	String nome,
+	@NotBlank(message = "Nome completo é obrigatório!")
+	@Size(min = 3, max = 70, message = "Nome completo deve ter entre 2 e 70 dígitos.")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "Nome completo só pode conter letras e espaços")
+	String nomeCompleto,
 	
-	@NotBlank(message = "Sobrenome é obrigatório!")
-	@Size(min = 2, max = 50, message = "Sobrenome deve ter entre 2 e 50 dígitos.")
-    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]*$", message = "Sobrenome só pode conter letras e espaços")
-	String sobrenome,
-	
-	String nomeSocial, 
-	String sobrenomeSocial,
+	@Size(min = 3, max = 70, message = "Nome social deve ter entre 3 e 70 dígitos.")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]*$", message = "Nome social só pode conter letras e espaços")	
+	String nomeSocialCompleto, 
 	
 	@NotNull(message = "Sexo inválido!")
 	Character sexo,

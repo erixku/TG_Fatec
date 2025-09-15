@@ -29,7 +29,7 @@ public class Bucket {
 	@Column(insertable = false)
 	private LocalDateTime deletedAt;
 	
-	@Column(insertable = false, nullable = false)
+	@Column(name = "is_deletado", insertable = false, nullable = false)
 	private Boolean isDeleted;
 	
 	@Convert(converter = ConversorEnumNomeBucket.class)

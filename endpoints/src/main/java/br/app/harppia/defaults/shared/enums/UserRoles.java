@@ -15,7 +15,7 @@ public enum UserRoles implements EnumPersistivel {
 	}
 
 	@Override
-	public String getValorCustomizado() {
+	public String getCustomValue() {
 		return this.role;
 	}
 }

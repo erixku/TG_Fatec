@@ -34,7 +34,7 @@ public enum NomeBucket implements EnumPersistivel {
 	}
 
 	@Override
-	public String getValorCustomizado() {
-		return this.nome;
+	public String getCustomValue() {
+		return nome;
 	}
 }
