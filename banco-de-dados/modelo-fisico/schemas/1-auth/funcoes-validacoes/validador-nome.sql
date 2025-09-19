@@ -7,10 +7,6 @@ SECURITY INVOKER
 SET search_path = pg_catalog
 AS $$
 BEGIN
-  IF valor IS NULL THEN
-    RAISE EXCEPTION 'Valor inválido: não pode ser nulo';
-  END IF;
-
   IF tipo IS NULL THEN
     RAISE EXCEPTION 'Tipo inválido: não pode ser nulo';
   END IF;
@@ -18,6 +14,14 @@ BEGIN
   tipo := trim(tipo);
   IF tipo NOT IN ('Nome', 'Sobrenome', 'Nome social', 'Sobrenome social') THEN
     RAISE EXCEPTION 'Tipo inválido: só são aceitos os tipos "Nome", "Sobrenome", "Nome social" ou "Sobrenome social"';
+  END IF;
+
+  IF tipo IN ('Nome', 'Sobrenome') AND valor IS NULL THEN
+    RAISE EXCEPTION 'Valor inválido: não pode ser nulo';
+  END IF;
+
+  IF tipo IN ('Nome social', 'Sobrenome social') AND valor IS NULL THEN
+    RETURN TRUE;
   END IF;
 
   valor := trim(valor);
