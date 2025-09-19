@@ -5,11 +5,9 @@ public abstract class CpfSanitizer {
 	/**
 	 * Método para sanitizar o CPF, antes de persistí-lo no banco de dados.
 	 */
-	public static String sanitize(String cpfRaw) {
-		if (cpfRaw == null)
+	public static String sanitize(String cpf) {
+		if (cpf.trim() == null)
 			throw new IllegalArgumentException("CPF inválido: não pode ser nulo");
-
-		String cpf = cpfRaw.trim();
 
 		if (cpf.isEmpty())
 			throw new IllegalArgumentException("CPF inválido: não pode ser vazio");

@@ -1,6 +1,7 @@
 package br.app.harppia.defaults.custom.validators;
 
 import br.app.harppia.defaults.custom.annotations.ValidCPF;
+import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -14,23 +15,25 @@ import jakarta.validation.ConstraintValidatorContext;
 public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
 
 	@Override
-	public boolean isValid(String cpfSomenteNumeros, ConstraintValidatorContext context) {
+	public boolean isValid(String cpf, ConstraintValidatorContext context) {
 		
 		// O CPF não deve ser nulo ou vazio
-		if (cpfSomenteNumeros == null || cpfSomenteNumeros.trim().isEmpty()) {
+		if (cpf == null || cpf.trim().isEmpty()) {
 			return buildViolation(context, "O CPF não pode ser nulo/branco!");
 		}
 
-		// O CPF deve conter apenas dígitos numéricos
-		if (cpfSomenteNumeros.contains("[^\\d]")) {
-			return buildViolation(context, "O CPF deve ter apenas números!");
+		// O CPF deve conter apenas dígitos numéricos, ponto ou hífen
+		if (!cpf.matches("[\\d.\\-]+")) {
+			return buildViolation(context, "O CPF deve ter apenas: números (0-9), pontos e hífen!");
 		}
 
-		// O CPF deve ter exatamente 11 dígitos
-		if (cpfSomenteNumeros.length() != 11) {
-			return buildViolation(context, "O CPF deve ter 11 dígitos!");
+		// O CPF deve ter, no mínimo, 11 dígitos
+		if (cpf.length() < 11) {
+			return buildViolation(context, "O CPF deve ter pelo menos 11 dígitos!");
 		}
 
+		String cpfSomenteNumeros = this.removerPontosHifenCPF(cpf);
+		
 		// O CPF não pode ter todos os dígitos iguais
 		if(todosDigitosSaoIguais(cpfSomenteNumeros)) {
 			return buildViolation(context, "Todos os dígitos do CPF são iguais!");			
@@ -65,6 +68,10 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
 		
 		// Como é usado somente em caso de erros, sempre retorna false
 		return false;
+	}
+	
+	private String removerPontosHifenCPF(String cpfSujo) {
+		return CpfSanitizer.sanitize(cpfSujo);
 	}
 
 	private boolean todosDigitosSaoIguais(String cpf) {

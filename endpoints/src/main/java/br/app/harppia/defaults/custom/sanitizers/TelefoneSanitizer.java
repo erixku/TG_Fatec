@@ -31,8 +31,6 @@ public abstract class TelefoneSanitizer {
             throw new IllegalArgumentException("Telefone inválido: não pode ser nulo");
         }
 
-        telefone = telefone.trim();
-
         // Remover caracteres invisíveis (tabs, \n, etc.)
         telefone = telefone.replaceAll("\\p{C}", "");
 
@@ -47,7 +45,7 @@ public abstract class TelefoneSanitizer {
         if (!DDD_VALIDOS.contains(ddd)) 
             throw new IllegalArgumentException("Telefone inválido: DDD inválido");
 
-        // 6. Validar primeiro dígito do número
+        // Validar primeiro dígito do número
         if (telefone.charAt(2) != '9') 
             throw new IllegalArgumentException("Telefone inválido: o número deve começar com 9");
 
