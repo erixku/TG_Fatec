@@ -18,6 +18,9 @@ CREATE TABLE accessibility.tb_intelectual (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_accessibility_t_tb_intelectual PRIMARY KEY (id),
 
+  -- declaração de chaves únicas
+  CONSTRAINT uq_s_accessibility_t_tb_intelectual_c_usu UNIQUE (s_auth_t_tb_usuario_c_usu),
+
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_intelectual_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
@@ -45,6 +48,9 @@ CREATE TABLE accessibility.tb_auditiva (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_accessibility_t_tb_auditiva PRIMARY KEY (id),
+
+  -- declaração de chaves únicas
+  CONSTRAINT uq_s_accessibility_t_tb_auditiva_c_usu UNIQUE (s_auth_t_tb_usuario_c_usu),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_auditiva_c_usu
@@ -76,6 +82,9 @@ CREATE TABLE accessibility.tb_visual (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_accessibility_t_tb_visual PRIMARY KEY (id),
+
+  -- declaração de chaves únicas
+  CONSTRAINT uq_s_accessibility_t_tb_visual_c_usu UNIQUE (s_auth_t_tb_usuario_c_usu),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_visual_c_usu
