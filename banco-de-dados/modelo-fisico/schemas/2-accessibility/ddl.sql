@@ -25,8 +25,8 @@ CREATE TABLE accessibility.tb_intelectual (
   CONSTRAINT fk_s_accessibility_t_tb_intelectual_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -56,8 +56,8 @@ CREATE TABLE accessibility.tb_auditiva (
   CONSTRAINT fk_s_accessibility_t_tb_auditiva_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -69,13 +69,13 @@ CREATE TABLE accessibility.tb_visual (
 
   -- dados de acessibilidade visual
   cor_tema               utils.enum_s_accessibility_t_tb_visual_c_cor_tema   NOT NULL DEFAULT 'escuro',
-  tamanho_texto          CHAR(1)                                            NOT NULL DEFAULT '3',
-  negrito                BOOLEAN                                            NOT NULL DEFAULT FALSE,
-  alto_contraste         BOOLEAN                                            NOT NULL DEFAULT FALSE,
+  tamanho_texto          CHAR(1)                                             NOT NULL DEFAULT '3',
+  negrito                BOOLEAN                                             NOT NULL DEFAULT FALSE,
+  alto_contraste         BOOLEAN                                             NOT NULL DEFAULT FALSE,
   modo_daltonismo        utils.enum_s_accessibility_t_tb_visual_c_daltonismo NOT NULL DEFAULT 'tricromata',
-  intensidade_daltonismo CHAR(1)                                            NOT NULL DEFAULT '3',
-  remover_animacoes      BOOLEAN                                            NOT NULL DEFAULT FALSE,
-  vibrar_ao_tocar        BOOLEAN                                            NOT NULL DEFAULT FALSE,
+  intensidade_daltonismo CHAR(1)                                             NOT NULL DEFAULT '3',
+  remover_animacoes      BOOLEAN                                             NOT NULL DEFAULT FALSE,
+  vibrar_ao_tocar        BOOLEAN                                             NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
   s_auth_t_tb_usuario_c_usu UUID NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE accessibility.tb_visual (
   CONSTRAINT fk_s_accessibility_t_tb_visual_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
