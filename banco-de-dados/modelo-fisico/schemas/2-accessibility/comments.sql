@@ -27,7 +27,7 @@ COMMENT ON TABLE accessibility.tb_auditiva IS '
   Armazena as configurações de acessibilidade auditiva do usuário
 ';
 
-COMMENT ON COLUMN accessibility.tb_auditiva.flash IS '
+COMMENT ON COLUMN accessibility.tb_auditiva.modo_flash IS '
   Quando ativada, permite que o sistema acione flashes da cor tema da
   aplicação (azul) na tela, em sincronia com as batidas do metrônomo,
   na ferramenta de metrônomo
