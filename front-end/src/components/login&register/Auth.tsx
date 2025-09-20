@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { CustomMaskedInput, CustomTextInput } from "../CustomInput";
 import { CustomButton } from "../CustomButtom";
+import { email } from "zod";
 
-export default function Auth() {
+interface AuthProps {
+    email?: string,
+    telefone?: string,
+}
+
+export default function Auth({email, telefone}:AuthProps) {
     const [isEmail, setIsEmail] = useState<boolean>(true);
 
     return(
-        <View className="flex flex-1 w-full items-start justify-center gap-y-2 mt-4">
+        <View className="flex flex-1 w-full items-stretch justify-center gap-y-2 mt-4">
             <View className="mb-2 gap-y-1">
                 <Text className="text-xl font-nunito-bold text-slate-900 dark:text-blue-100"> 
                     Código de Confirmação
@@ -16,22 +22,26 @@ export default function Auth() {
                     Você receberá um código {isEmail ? "na caixa de entrada do seu e-mail" : "as mensagens de seu telefone"}
                 </Text>
             </View>
-            <View className="w-full gap-y-3">
-                {isEmail ? (
+            <View className="w-full items-stretch gap-y-3">
+                {!email && !telefone && (
+                    isEmail ? (
                     <CustomTextInput 
                         label="E-mail"
                         required
                         placeholder="Digite seu e-mail"
                     />
-                ) : (
-                    <CustomMaskedInput
-                        label="Telefone"
-                        placeholder="(DDD) 9####-####"
-                        required
-                        onChangeText={(formatted, extracted) => {console.log(extracted)}}
-                        keyboardType="numeric"
-                        mask="(99) 99999-9999"
-                    />
+                    ) : (
+                        <View>
+                            <CustomMaskedInput
+                                label="Telefone"
+                                placeholder="(DDD) 9####-####"
+                                required
+                                onChangeText={(formatted, extracted) => {console.log(extracted)}}
+                                keyboardType="numeric"
+                                mask="(99) 99999-9999"
+                            />
+                        </View>
+                    )
                 )}
                 
                 <CustomTextInput 

@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { Modal, Pressable, Text, useColorScheme, View } from "react-native"
 import { PhotoIcon, CameraIcon } from "react-native-heroicons/solid";
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 
 type PhotoPickerProps = {
     visible: boolean;
     onClose: () => void;
-    onChange: (uri: string) => void;
+    onChange: (asset: ImagePicker.ImagePickerAsset) => void;
     value?: string;
+    aspect?: [number, number];
 }
 
 export default function PhotoPicker ({
     visible, 
     onClose, 
     onChange,
-    value
+    value,
+    aspect = [1, 1]
 }: PhotoPickerProps) {
     const colorScheme = useColorScheme();
     const iconsColor = colorScheme == 'dark' ? '#dbeafe':'#0f172a';
@@ -28,14 +30,14 @@ export default function PhotoPicker ({
         }
 
         const result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ['images'],
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [1, 1],
+            aspect: aspect,
             quality: 1,
         });
 
         if(!result.canceled) {
-            onChange(result.assets[0].uri);
+            onChange(result.assets[0]);
             onClose();
         }
     }
@@ -48,14 +50,14 @@ export default function PhotoPicker ({
         }
 
         const result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ['images'],
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [1, 1],
+            aspect: aspect,
             quality: 1
         });
 
         if(!result.canceled) {
-            onChange(result.assets[0].uri);
+            onChange(result.assets[0]);
             onClose();
         }
     }
