@@ -20,7 +20,7 @@ CREATE TABLE schedule.tb_registro_ausencia (
   CONSTRAINT pk_s_auth_t_tb_registro_ausencia PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
+  CONSTRAINT fk_s_schedule_t_tb_registro_ausencia_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT

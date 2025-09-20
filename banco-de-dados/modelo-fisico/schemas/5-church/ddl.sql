@@ -30,21 +30,21 @@ CREATE TABLE church.tb_igreja (
   CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (uuid),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_igreja_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_updated_by
+  CONSTRAINT fk_s_church_t_tb_igreja_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_igreja_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -52,14 +52,14 @@ CREATE TABLE church.tb_igreja (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
+  CONSTRAINT fk_s_church_t_tb_igreja_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_adm_proprietario
+  CONSTRAINT fk_s_church_t_tb_igreja_c_adm_proprietario
     FOREIGN KEY (s_auth_t_tb_usuario_c_adm_proprietario)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -99,21 +99,21 @@ CREATE TABLE church.tb_endereco (
   CONSTRAINT pk_s_church_t_tb_endereco PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_endereco_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_updated_by
+  CONSTRAINT fk_s_church_t_tb_endereco_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_endereco_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -121,7 +121,7 @@ CREATE TABLE church.tb_endereco (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_igreja_c_igr_uuid
+  CONSTRAINT fk_s_church_t_tb_endereco_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
@@ -152,14 +152,14 @@ CREATE TABLE church.tb_administrador (
   CONSTRAINT pk_s_church_t_tb_administrador PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_administrador_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_administrador_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -167,14 +167,14 @@ CREATE TABLE church.tb_administrador (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_igreja_c_igr_uuid
+  CONSTRAINT fk_s_church_t_tb_administrador_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
   
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_adm
+  CONSTRAINT fk_s_church_t_tb_administrador_c_adm
     FOREIGN KEY (s_auth_t_tb_usuario_c_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -197,11 +197,11 @@ CREATE TABLE church.tb_atividade (
   deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  is_active   BOOLEAN                                   NOT NULL DEFAULT TRUE,
-  tipo        utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
-  nome        VARCHAR(30)                               NOT NULL,
-  descricao   VARCHAR(50)                               NOT NULL,
+  is_deleted BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  is_active  BOOLEAN                                   NOT NULL DEFAULT TRUE,
+  tipo       utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
+  nome       VARCHAR(30)                               NOT NULL,
+  descricao  VARCHAR(50)                               NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -210,21 +210,21 @@ CREATE TABLE church.tb_atividade (
   CONSTRAINT pk_s_church_t_tb_atividade PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_atividade_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_updated_by
+  CONSTRAINT fk_s_church_t_tb_atividade_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_atividade_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -268,21 +268,21 @@ CREATE TABLE church.tb_ministerio_louvor (
   CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (uuid),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_updated_by
+  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -290,14 +290,14 @@ CREATE TABLE church.tb_ministerio_louvor (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_igreja_c_uuid
+  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
+  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
@@ -329,14 +329,14 @@ CREATE TABLE church.tb_usuario_funcao (
   CONSTRAINT pk_s_church_t_tb_usuario_funcao PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_usuario_funcao_c_created_by_lid
     FOREIGN KEY (created_by_lid)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_usuario_funcao_c_deleted_by_lid
     FOREIGN KEY (deleted_by_lid)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -344,14 +344,14 @@ CREATE TABLE church.tb_usuario_funcao (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_min_lou_uuid
+  CONSTRAINT fk_s_church_t_tb_usuario_funcao_c_min_lou_uuid
     FOREIGN KEY (min_lou_uuid)
     REFERENCES church.tb_ministerio_louvor (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
+  CONSTRAINT fk_s_church_t_tb_usuario_funcao_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -445,21 +445,21 @@ CREATE TABLE church.tb_instrumento (
   UNIQUE (nome, igr_uuid),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_updated_by
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -467,30 +467,30 @@ CREATE TABLE church.tb_instrumento (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_instrumento_modelo_c_ins_mod_id
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_ins_mod_id
     FOREIGN KEY (ins_mod_id)
     REFERENCES church.tb_instrumento_modelo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
     
-  CONSTRAINT fk_s_storage_t_tb_arquivo_c_foto
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
   
-  CONSTRAINT fk_s_storage_t_tb_arquivo_c_icone
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_icone
     FOREIGN KEY (s_storage_t_tb_arquivo_c_icone)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_church_t_tb_igreja_c_uuid
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_igr_uuid
     FOREIGN KEY (igr_uuid)
-    REFERENCES auth.tb_usuario (uuid)
+    REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -519,15 +519,15 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
   CONSTRAINT pk_s_church_t_tb_instrumento_ass_usuario PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_created_by
-    FOREIGN KEY (created_by)
+  CONSTRAINT fk_s_church_t_tb_instrumento_ass_usuario_c_created_by_lid
+    FOREIGN KEY (created_by_lid)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_deleted_by
-    FOREIGN KEY (deleted_by)
+  CONSTRAINT fk_s_church_t_tb_instrumento_ass_usuario_c_deleted_by_lid
+    FOREIGN KEY (deleted_by_lid)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
@@ -541,7 +541,7 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
+  CONSTRAINT fk_s_church_t_tb_instrumento_ass_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT

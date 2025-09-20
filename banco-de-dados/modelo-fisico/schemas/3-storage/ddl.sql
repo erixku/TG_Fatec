@@ -47,7 +47,7 @@ CREATE TABLE storage.tb_arquivo (
   CONSTRAINT pk_s_storage_t_tb_arquivo PRIMARY KEY (uuid),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_storage_t_tb_bucket_c_id
+  CONSTRAINT fk_s_storage_t_tb_arquivo_c_buc_id
     FOREIGN KEY (buc_id)
     REFERENCES storage.tb_bucket (id)
     ON UPDATE RESTRICT
@@ -73,14 +73,14 @@ CREATE TABLE storage.tb_arquivo_ass_usuario (
   UNIQUE (arq_uuid, s_auth_t_tb_usuario_c_lev),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_storage_t_tb_arquivo_c_arq_uuid
+  CONSTRAINT fk_s_storage_t_tb_arquivo_ass_usuario_c_arq_uuid
     FOREIGN KEY (arq_uuid)
     REFERENCES storage.tb_arquivo (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_lev
+  CONSTRAINT fk_s_storage_t_tb_arquivo_ass_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
