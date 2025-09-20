@@ -17,19 +17,15 @@
     ],
     "name": "Harppia",
     "slug": "Harppia",
-    "icon": "./src/assets/images/logomarks/Harppia - Claro.svg",
+    "icon": "./src/assets/LogoHarppia.png",
     "splash": {
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#e0e0e0",
       "dark": {
         "backgroundColor": "#e0e0e0"
       }
     },
     "android": {
-      "package": "com.harppia.app",
-      "adaptativeIcon": {
-        "foregroundImage": "./src/assets/images/logomarks/Harppia - Claro.svg",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "com.harppia.app"
     },
     "extra": {
       "router": {
