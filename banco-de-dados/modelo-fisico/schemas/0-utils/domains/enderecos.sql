@@ -3,9 +3,9 @@ ALTER DOMAIN utils.domain_uf
 ADD CONSTRAINT ck_s_utils_d_domain_uf
 CHECK (
   VALUE IN (
-    'AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO',
-    'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR',
-    'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'
+    'ac', 'al', 'am', 'ap', 'ba', 'ce', 'df', 'es', 'go',
+    'ma', 'mg', 'ms', 'mt', 'pa', 'pb', 'pe', 'pi', 'pr',
+    'rj', 'rn', 'ro', 'rr', 'rs', 'sc', 'se', 'sp', 'to'
   )
 );
 
