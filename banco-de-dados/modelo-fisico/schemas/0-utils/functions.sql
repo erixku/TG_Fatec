@@ -18,12 +18,3 @@ BEGIN
   RETURN tamanho * 1024 * 1024;
 END;
 $$;
-
-
-
-
--- CREATE OR REPLACE VIEW utils.view_teste AS
---   SELECT id, cep, uf, cidade, bairro, rua, numero, complemento
---   FROM auth.tb_endereco;
-
--- SELECT * FROM utils.view_teste;
