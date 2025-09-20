@@ -40,13 +40,13 @@ WHERE is_deleted = FALSE;
 
 -- tb_instrumento_marca
 CREATE UNIQUE INDEX uq_s_church_t_tb_instrumento_marca_c_marca
-ON church.tb_instrumento_marca (marca)
+ON church.tb_instrumento_marca (nome)
 WHERE is_deleted = FALSE;
 
 
 -- tb_instrumento_modelo
 CREATE UNIQUE INDEX uq_s_church_t_tb_instrumento_modelo_c_modelo_c_ins_mar_id
-ON church.tb_instrumento_modelo (modelo, ins_mar_id)
+ON church.tb_instrumento_modelo (nome, ins_mar_id)
 WHERE is_deleted = FALSE;
 
 
