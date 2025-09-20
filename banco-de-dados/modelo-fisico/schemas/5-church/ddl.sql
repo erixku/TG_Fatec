@@ -372,7 +372,7 @@ CREATE TABLE church.tb_instrumento_marca (
 
   -- dados da marca do instrumento
   is_deleted BOOLEAN     NOT NULL DEFAULT FALSE,
-  marca      VARCHAR(30) NOT NULL,
+  nome       VARCHAR(30) NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento_marca PRIMARY KEY (id)
@@ -391,7 +391,7 @@ CREATE TABLE church.tb_instrumento_modelo (
 
   -- dados da marca do instrumento
   is_deleted BOOLEAN     NOT NULL DEFAULT FALSE,
-  modelo     VARCHAR(30) NOT NULL,
+  nome       VARCHAR(30) NOT NULL,
 
   -- chaves estrangeiras
   ins_mar_id INTEGER NOT NULL,
@@ -426,10 +426,10 @@ CREATE TABLE church.tb_instrumento (
   is_deleted   BOOLEAN                                        NOT NULL DEFAULT FALSE,
   is_active    BOOLEAN                                        NOT NULL DEFAULT TRUE,
   nome         utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
-  outro_nome   VARCHAR(25)                                        NULL,
+  outro_nome   VARCHAR(30)                                        NULL,
   familia      utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
-  outra_marca  VARCHAR(30) NULL,
-  outro_modelo VARCHAR(30) NULL,
+  outra_marca  VARCHAR(30)                                        NULL,
+  outro_modelo VARCHAR(30)                                        NULL,
 
   -- chaves estrangeiras
   ins_mod_id                     INTEGER     NULL,
