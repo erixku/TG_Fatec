@@ -440,10 +440,6 @@ CREATE TABLE church.tb_instrumento (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento PRIMARY KEY (id),
 
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_instrumento_c_nome_c_igr_uuid
-  UNIQUE (nome, igr_uuid),
-
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_instrumento_c_created_by_adm
     FOREIGN KEY (created_by_adm)
