@@ -5,7 +5,7 @@ import CustomCalendar from "./CustomCalendar";
 import { DateType } from "react-native-ui-datepicker";
 import dayjs, { FormatObject } from "dayjs";
 import { Control, Controller, FieldValue, FieldValues, Path } from "react-hook-form";
-import { RegisterFormData } from "@/schemas/registerSchema";
+import { RegisterUserFormData } from "@/schemas/registerUserSchema";
 
 interface CustomDatePickerProps{
     label?:string;

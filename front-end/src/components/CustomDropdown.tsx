@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, Modal, useColorScheme } from "react-native";
 import { ChevronDownIcon } from "react-native-heroicons/solid";
-import { baseColor } from "@/assets/iconsColor"; 
-import { Control, Controller, FieldValues, Path } from "react-hook-form";
-import { RegisterFormData } from "@/schemas/registerSchema";
 
 interface CustomDropdownProps {
     label?: string;
@@ -45,7 +42,7 @@ export default function CustomDropdown({label, required, options, value, onChang
 
                 <Modal visible={open} transparent animationType="fade">
                     <Pressable className="flex-1 px-6 bg-slate-900/40 justify-center items-center" onPress={() => setOpen(false)}>
-                        <View className="w-[80%] bg-slate-50 dark:bg-slate-700 rounded-xl p-4 shadow-xl">
+                        <View className="w-[80%] max-h-[60%] bg-slate-50 dark:bg-slate-700 rounded-xl p-4 shadow-xl">
                             <FlatList data={options} keyExtractor={(item) => item}
                                 renderItem={({item}) => (
                                     <Pressable className="p-3 rounded-xl active:bg-indigo-300 dark:active:bg-indigo-700"
