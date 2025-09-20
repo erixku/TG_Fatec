@@ -1,17 +1,17 @@
-import { RegisterFormData } from "@/schemas/registerSchema";
+import { RegisterUserFormData } from "@/schemas/registerUserSchema";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { CustomPasswordTextInput } from "../CustomInput";
 
 export default function ResetPassword() {
-    const { control, formState: {errors}, getValues } = useFormContext<RegisterFormData>();
+    const { control, formState: {errors}, getValues } = useFormContext<RegisterUserFormData>();
     
     return(
         <View className="flex flex-1 w-full items-center justify-center gap-y-2 mt-4">
             <Controller 
                 control={control}
-                name="password"
+                name="senha"
                 render={({field, fieldState}) => (
                     <CustomPasswordTextInput 
                         value={field.value}
@@ -26,10 +26,10 @@ export default function ResetPassword() {
 
             <Controller 
                 control={control}
-                name="confirm_password"
+                name="confirm_senha"
                 rules={{
                     required: "Confirme a sua senha",
-                    validate: (value) => value === getValues("password") || "Senhas não coincidem"
+                    validate: (value) => value === getValues("senha") || "Senhas não coincidem"
                 }}
                 render={({field, fieldState}) => (
                     <CustomPasswordTextInput 
