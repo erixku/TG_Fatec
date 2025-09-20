@@ -5,13 +5,26 @@ import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
+import * as SystemUI from 'expo-system-ui';
 import { useFonts } from "expo-font";
+import { KeyboardAvoidingView } from "react-native";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native"
+import React from "react";
 
 // Impede que a tela de splash se esconda automaticamente.
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
   const { colorScheme } = useColorScheme();
+  const baseColor = colorScheme === 'light' ? '#cbd5e1' : '#1e293b'
+  const myTheme = {
+    ...(colorScheme === 'dark' ? DarkTheme:DefaultTheme),
+    colors: {
+      ...(colorScheme === 'dark' ? DarkTheme.colors:DefaultTheme.colors),
+      card: colorScheme === 'dark'? '#1e293b' : '#cbd5e1',
+      background: colorScheme === 'dark'? '#1e293b' : '#cbd5e1'
+    }
+  }
 
   const [fontsLoaded, fontError] = useFonts({
     //Família Nunito
@@ -28,10 +41,22 @@ export default function Layout() {
   });
 
   useEffect(() => {
-    if(fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
+    if (!fontsLoaded) return;
+
+    // assim que as fonts estiverem prontas:
+    (async () => {
+      try {
+        // define a cor do root view (fora da árvore React) — evita o branco entre splash e app
+        await SystemUI.setBackgroundColorAsync(myTheme.colors.background);
+      } catch (e) {
+        // se API não funcionar em alguma SDK/versão, apenas continue
+        console.warn("SystemUI.setBackgroundColorAsync failed:", e);
+      } finally {
+        // esconde a splash apenas quando tudo estiver pronto
+        await SplashScreen.hideAsync();
+      }
+    })();
+  }, [fontsLoaded, myTheme.colors.background]);
 
   return (
     <>
@@ -42,7 +67,19 @@ export default function Layout() {
         como títulos de página e botões de voltar no futuro. 
         Com 'headerShown: false', o visual inicial do seu app continua o mesmo (sem cabeçalho).
       */}
-      <Stack screenOptions={{ headerShown: false }} />
+      <ThemeProvider value={myTheme}>
+        <Stack
+          screenOptions={{
+            animation: "slide_from_right",
+            headerShown: false,
+            contentStyle: { 
+              flex: 1, 
+              backgroundColor: myTheme.colors.background },
+          }}
+        > 
+          <Stack.Screen name="index" />
+        </Stack>
+      </ThemeProvider>
     </>
   );
 }
