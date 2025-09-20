@@ -14,8 +14,8 @@ CREATE TABLE auth.tb_endereco (
   cep         utils.domain_cep         NOT NULL,
   uf          utils.domain_uf          NOT NULL,
   cidade      utils.domain_cidade      NOT NULL,
-  bairro      utils.domain_local       NOT NULL,
-  logradouro  utils.domain_local       NOT NULL,
+  bairro      utils.domain_bairro      NOT NULL,
+  logradouro  utils.domain_logradouro  NOT NULL,
   numero      utils.domain_numero      NOT NULL,
   complemento utils.domain_complemento     NULL,
 

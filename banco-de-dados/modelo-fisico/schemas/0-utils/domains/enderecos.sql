@@ -17,19 +17,29 @@ CHECK (
   VALUE ~ '^[0-9]{8}$'
 );
 
-CREATE DOMAIN utils.domain_cidade AS VARCHAR(100);
+CREATE DOMAIN utils.domain_cidade AS VARCHAR(40);
 ALTER DOMAIN utils.domain_cidade
 ADD CONSTRAINT ck_s_utils_d_domain_cidade
 CHECK (
-  char_length(VALUE) <= 100 AND
+  char_length(VALUE) >= 3 AND
+  char_length(VALUE) <= 40 AND
   VALUE ~* '^[a-záéíóúâêôãõçàèìòù\-''\. ]+$'
 );
 
-CREATE DOMAIN utils.domain_local AS VARCHAR(100);
-ALTER DOMAIN utils.domain_local
-ADD CONSTRAINT ck_s_utils_d_domain_local
+CREATE DOMAIN utils.domain_bairro AS VARCHAR(70);
+ALTER DOMAIN utils.domain_bairro
+ADD CONSTRAINT ck_s_utils_d_domain_bairro
 CHECK (
-  char_length(VALUE) <= 100 AND
+  char_length(VALUE) >= 2 AND
+  char_length(VALUE) <= 70 AND
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\-''\., ]+$'
+);
+
+CREATE DOMAIN utils.domain_logradouro AS VARCHAR(120);
+ALTER DOMAIN utils.domain_logradouro
+ADD CONSTRAINT ck_s_utils_d_domain_logradouro
+CHECK (
+  char_length(VALUE) <= 120 AND
   VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\-''\., ]+$'
 );
 
@@ -41,10 +51,10 @@ CHECK (
   (VALUE = 'S/N')
 );
 
-CREATE DOMAIN utils.domain_complemento AS VARCHAR(30);
+CREATE DOMAIN utils.domain_complemento AS VARCHAR(50);
 ALTER DOMAIN utils.domain_complemento
 ADD CONSTRAINT ck_s_utils_d_domain_complemento
 CHECK (
-  char_length(VALUE) <= 30 AND
-  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9\-''\., ]+$'
+  char_length(VALUE) <= 50 AND
+  VALUE ~* '^[a-záéíóúâêôãõçàèìòù0-9,\-\.\(\)'' ]+$'
 );
