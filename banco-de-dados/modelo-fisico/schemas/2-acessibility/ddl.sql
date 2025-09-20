@@ -34,7 +34,7 @@ CREATE TABLE acessibility.tb_auditiva (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de acessibilidade auditiva
-  flash               BOOLEAN NOT NULL DEFAULT FALSE,
+  modo_flash          BOOLEAN NOT NULL DEFAULT FALSE,
   intensidade_flash   CHAR(1) NOT NULL DEFAULT '3',
   transcricao_audio   BOOLEAN NOT NULL DEFAULT FALSE,
   vibracao_aprimorada BOOLEAN NOT NULL DEFAULT FALSE,
