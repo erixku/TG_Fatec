@@ -433,9 +433,9 @@ CREATE TABLE church.tb_instrumento (
 
   -- chaves estrangeiras
   ins_mod_id                     INTEGER     NULL,
+  igr_uuid                       UUID    NOT NULL,
   s_storage_t_tb_arquivo_c_foto  UUID        NULL,
   s_storage_t_tb_arquivo_c_icone UUID    NOT NULL,
-  igr_uuid                       UUID    NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_instrumento PRIMARY KEY (id),
@@ -469,6 +469,13 @@ CREATE TABLE church.tb_instrumento (
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_church_t_tb_instrumento_c_igr_uuid
+    FOREIGN KEY (igr_uuid)
+    REFERENCES church.tb_igreja (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
     
   CONSTRAINT fk_s_church_t_tb_instrumento_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
@@ -480,13 +487,6 @@ CREATE TABLE church.tb_instrumento (
   CONSTRAINT fk_s_church_t_tb_instrumento_c_icone
     FOREIGN KEY (s_storage_t_tb_arquivo_c_icone)
     REFERENCES storage.tb_arquivo (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_s_church_t_tb_instrumento_c_igr_uuid
-    FOREIGN KEY (igr_uuid)
-    REFERENCES church.tb_igreja (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
