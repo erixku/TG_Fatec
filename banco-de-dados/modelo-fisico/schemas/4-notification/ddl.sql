@@ -194,6 +194,10 @@ CREATE TABLE notification.tb_nao_perturbar (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_notification_t_tb_nao_perturbar PRIMARY KEY (id),
 
+  -- declaração de chaves únicas compostas
+  CONSTRAINT pk_s_notification_t_tb_nao_perturbar_c_tipo_c_dia_c_lev
+  UNIQUE (tipo, dia, s_auth_t_tb_usuario_c_lev),
+
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_nao_perturbar_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
