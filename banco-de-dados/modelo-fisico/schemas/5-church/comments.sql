@@ -10,7 +10,7 @@ COMMENT ON TABLE church.tb_igreja IS '
   Tabela que armazena os dados da igreja
 ';
 
-COMMENT ON COLUMN church.tb_endereco.s_auth_t_tb_usuario_c_adm_proprietario IS '
+COMMENT ON COLUMN church.tb_igreja.s_auth_t_tb_usuario_c_adm_proprietario IS '
   Toda igreja pode ter N administradores (church.tb_administrador),
   contudo sempre há um administrador principal entre todos eles.
   Este administrador tem seu UUID cadastrado nesta coluna.
