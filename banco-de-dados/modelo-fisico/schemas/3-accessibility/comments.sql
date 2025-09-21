@@ -7,7 +7,7 @@ COMMENT ON SCHEMA accessibility IS '
 
 
 COMMENT ON TABLE accessibility.tb_intelectual IS '
-  Armazena as configurações de acessibilidade intelectual do usuário
+  Tabela que armazena as configurações de acessibilidade intelectual do usuário
 ';
 
 COMMENT ON COLUMN accessibility.tb_intelectual.modo_foco IS '
@@ -24,7 +24,7 @@ COMMENT ON COLUMN accessibility.tb_intelectual.feedback_imediato IS '
 
 
 COMMENT ON TABLE accessibility.tb_auditiva IS '
-  Armazena as configurações de acessibilidade auditiva do usuário
+  Tabela que armazena as configurações de acessibilidade auditiva do usuário
 ';
 
 COMMENT ON COLUMN accessibility.tb_auditiva.modo_flash IS '
@@ -51,7 +51,7 @@ COMMENT ON COLUMN accessibility.tb_auditiva.alertas_visuais IS '
 
 
 COMMENT ON TABLE accessibility.tb_visual IS '
-  Armazena as configurações de acessibilidade visual do usuário
+  Tabela que armazena as configurações de acessibilidade visual do usuário
 ';
 
 COMMENT ON COLUMN accessibility.tb_visual.remover_animacoes IS '
