@@ -8,7 +8,7 @@ CREATE TABLE notification.tb_tipo (
   id SMALLINT GENERATED ALWAYS AS IDENTITY,
 
   -- dados do tipo de notificação
-  nome VARCHAR(30) NOT NULL,
+  nome utils.enum_s_notification_t_tb_tipo_c_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
@@ -112,8 +112,8 @@ CREATE TABLE notification.tb_cor (
   -- chaves primárias
   id SMALLINT GENERATED ALWAYS AS IDENTITY,
 
-  -- dados da cor
-  nome VARCHAR(30) NOT NULL,
+  -- dados da cor da notificação
+  nome utils.enum_s_notification_t_tb_cor_c_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
@@ -185,8 +185,8 @@ CREATE TABLE notification.tb_nao_perturbar (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados dos horários de não perturbe do usuário
-  tipo CHAR(1)  NOT NULL,
-  dia  SMALLINT NOT NULL,
+  tipo CHAR(1) NOT NULL,
+  dia  CHAR(1) NOT NULL,
 
   -- chaves estrangeiras
   s_auth_t_tb_usuario_c_lev UUID NOT NULL,
