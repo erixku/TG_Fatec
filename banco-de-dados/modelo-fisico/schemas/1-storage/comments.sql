@@ -32,10 +32,3 @@ COMMENT ON COLUMN storage.tb_arquivo.tamanho_em_bytes IS '
   Apesar de não conter restrição de Check Constraint, é validado
   via policies, a partir das configurações de sua categoria de bucket
 ';
-
-
-
-COMMENT ON TABLE storage.tb_arquivo_ass_usuario IS '
-  Tabela que armazena a associação entre arquivos e usuários.
-  Ela registra qual usuário realizou o upload de determinado arquivo
-';

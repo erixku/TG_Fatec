@@ -30,8 +30,10 @@ CREATE TABLE storage.tb_arquivo (
   uuid UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_usu UUID        NOT NULL,
+  deleted_by_usu UUID            NULL DEFAULT NULL,
 
   -- dados do arquivo
   is_deleted       BOOLEAN                                       NOT NULL DEFAULT FALSE,
@@ -55,35 +57,19 @@ CREATE TABLE storage.tb_arquivo (
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
-
-
-CREATE TABLE storage.tb_arquivo_ass_usuario (
-  -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
-
-  -- chaves estrangeiras
-  arq_uuid                  UUID NOT NULL,
-  s_auth_t_tb_usuario_c_lev UUID NOT NULL,
-
-  -- declaração de chaves primárias
-  CONSTRAINT pk_s_storage_t_tb_arquivo_ass_usuario PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_storage_t_tb_arquivo_ass_usuario_c_uuid_c_lev
-  UNIQUE (arq_uuid, s_auth_t_tb_usuario_c_lev),
-
-  -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_storage_t_tb_arquivo_ass_usuario_c_arq_uuid
-    FOREIGN KEY (arq_uuid)
-    REFERENCES storage.tb_arquivo (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_s_storage_t_tb_arquivo_ass_usuario_c_lev
-    FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
+-- declaração de chaves estrangeiras de logs (STORAGE.TB_ARQUIVO)
+  ALTER TABLE storage.tb_arquivo
+  ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by_usu
+    FOREIGN KEY (created_by_usu)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE
-);
+    NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+  ALTER TABLE storage.tb_arquivo
+  ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by_usu
+    FOREIGN KEY (deleted_by_usu)
+    REFERENCES auth.tb_usuario (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE;
