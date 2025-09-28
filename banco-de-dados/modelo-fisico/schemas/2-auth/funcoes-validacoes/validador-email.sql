@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_auth_f_validador_email(email TEXT)
+  utils.s_auth_f_validador_email(IN email TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE

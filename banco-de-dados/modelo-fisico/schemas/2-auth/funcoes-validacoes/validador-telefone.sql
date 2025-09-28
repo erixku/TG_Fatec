@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_auth_f_validador_telefone(telefone TEXT)
+  utils.s_auth_f_validador_telefone(IN telefone TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE

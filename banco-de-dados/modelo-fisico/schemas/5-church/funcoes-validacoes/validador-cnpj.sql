@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_church_f_validador_cnpj(cnpj TEXT)
+  utils.s_church_f_validador_cnpj(IN cnpj TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE

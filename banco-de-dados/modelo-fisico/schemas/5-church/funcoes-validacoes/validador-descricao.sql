@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION
   utils.s_church_f_validador_descricao (
-    IN descricao TEXT,
+    IN descricao      TEXT,
     IN tamanho_minimo SMALLINT,
     IN tamanho_maximo SMALLINT
   )

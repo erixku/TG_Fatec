@@ -1,5 +1,8 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_auth_f_validador_nome(valor TEXT, tipo TEXT)
+  utils.s_auth_f_validador_nome (
+    IN valor TEXT,
+    IN tipo  TEXT
+  )
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE

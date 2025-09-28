@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION
   utils.s_church_f_validador_nome (
-    IN nome TEXT,
-    IN tipo TEXT,
+    IN nome           TEXT,
+    IN tipo           TEXT,
     IN tamanho_minimo SMALLINT,
     IN tamanho_maximo SMALLINT
   )

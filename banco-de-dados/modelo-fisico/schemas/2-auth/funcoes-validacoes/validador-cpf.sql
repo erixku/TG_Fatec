@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.s_auth_f_validador_cpf(cpf TEXT)
+  utils.s_auth_f_validador_cpf(IN cpf TEXT)
 RETURNS BOOLEAN
 LANGUAGE plpgsql
 IMMUTABLE
