@@ -7,8 +7,14 @@ CREATE TABLE notification.tb_tipo (
   -- chaves primárias
   id SMALLINT GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+
   -- dados do tipo de notificação
-  nome utils.enum_s_notification_t_tb_tipo_c_nome NOT NULL,
+  is_deleted BOOLEAN                                    NOT NULL DEFAULT FALSE,
+  nome       utils.enum_s_notification_t_tb_tipo_c_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
@@ -76,6 +82,9 @@ CREATE TABLE notification.tb_tipo_por_usuario (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+   -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
   -- dados do tipo de notificação por usuário
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
@@ -112,8 +121,14 @@ CREATE TABLE notification.tb_cor (
   -- chaves primárias
   id SMALLINT GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+
   -- dados da cor da notificação
-  nome utils.enum_s_notification_t_tb_cor_c_nome NOT NULL,
+  is_deleted BOOLEAN                                   NOT NULL DEFAULT FALSE,    
+  nome       utils.enum_s_notification_t_tb_cor_c_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
@@ -135,6 +150,9 @@ CREATE TABLE notification.tb_cor (
 CREATE TABLE notification.tb_configuracao_por_usuario (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados da configuração de notificação por usuário
   ativar_notificacoes        BOOLEAN     NOT NULL DEFAULT TRUE,
