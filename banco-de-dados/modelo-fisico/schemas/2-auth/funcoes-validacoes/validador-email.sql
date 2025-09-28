@@ -20,8 +20,8 @@ BEGIN
     RAISE EXCEPTION 'E-mail inválido: deve ter, pelo menos, 11 caracteres';
   END IF;
 
-  IF length(email) > 50 THEN
-    RAISE EXCEPTION 'E-mail inválido: deve ter, no máximo, 50 caracteres';
+  IF length(email) > 79 THEN
+    RAISE EXCEPTION 'E-mail inválido: deve ter, no máximo, 79 caracteres';
   END IF;
 
   IF email ~ '[ ]' THEN
@@ -60,8 +60,45 @@ BEGIN
     RAISE EXCEPTION 'E-mail inválido: não deve conter pontos (.) antes do arroba (@)';
   END IF;
 
-  IF split_part(email, '@', 2) NOT IN ('gmail.com', 'outlook.com', 'hotmail.com', 'yahoo.com') THEN
-    RAISE EXCEPTION 'E-mail inválido: só são permitidos domínios de e-mail válidos (gmail.com, outlook.com, hotmail.com e yahoo.com)';
+  IF split_part(email, '@', 2) NOT IN (
+    'gmail.com',
+    'outlook.com',
+    'outlook.com.br',
+    'hotmail.com',
+    'yahoo.com',
+    'myyahoo.com'
+  ) THEN
+    RAISE EXCEPTION '
+      E-mail inválido: só são permitidos domínios de e-mail válidos
+      (gmail.com, outlook.com, outlook.com.br, hotmail.com, yahoo.com e myyahoo.com)
+    ';
+  END IF;
+
+  IF
+    length(split_part(email, '@', 1)) > 30 AND
+    split_part(email, '@', 2) = 'gmail.com'
+  THEN
+    RAISE EXCEPTION 'E-mail inválido: e-mails com endereço de domínio "gmail.com" só podem ter, antes do arroba, até 30 caracteres';
+  END IF;
+
+  IF
+    length(split_part(email, '@', 1)) > 64 AND
+    split_part(email, '@', 2) IN ('outlook.com', 'outlook.com.br', 'hotmail.com')
+  THEN
+    RAISE EXCEPTION '
+      E-mail inválido: e-mails com endereço de domínio "outlook.com", "outlook.com.br"
+      ou "hotmail.com" só podem ter, antes do arroba, até 64 caracteres
+    ';
+  END IF;
+
+  IF
+    length(split_part(email, '@', 1)) > 32 AND
+    split_part(email, '@', 2) IN ('yahoo.com', 'myyahoo.com')
+  THEN
+    RAISE EXCEPTION '
+      E-mail inválido: e-mails com endereço de domínio "yahoo.com" ou "myyahoo.com"
+      só podem ter, antes do arroba, até 32 caracteres
+    ';
   END IF;
 
   RETURN TRUE;
