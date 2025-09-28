@@ -44,8 +44,8 @@ CREATE TABLE auth.tb_usuario (
   sobrenome_social VARCHAR(50)      NULL,
   sexo             CHAR(1)      NOT NULL,
   data_nascimento  DATE         NOT NULL,
-  email            VARCHAR(50)  NOT NULL,
-  telefone         VARCHAR(25)  NOT NULL,
+  email            VARCHAR(79)  NOT NULL,
+  telefone         VARCHAR(11)  NOT NULL,
   senha            VARCHAR(128) NOT NULL,
 
   -- chaves estrangeiras
