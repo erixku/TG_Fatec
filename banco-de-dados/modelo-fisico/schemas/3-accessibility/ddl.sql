@@ -6,6 +6,9 @@ CREATE SCHEMA accessibility;
 CREATE TABLE accessibility.tb_intelectual (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
   -- dados de acessibilidade intelectual
   tamanho_icone     CHAR(1) NOT NULL DEFAULT '3',
@@ -35,6 +38,9 @@ CREATE TABLE accessibility.tb_intelectual (
 CREATE TABLE accessibility.tb_auditiva (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados de acessibilidade auditiva
   modo_flash          BOOLEAN NOT NULL DEFAULT FALSE,
@@ -66,6 +72,9 @@ CREATE TABLE accessibility.tb_auditiva (
 CREATE TABLE accessibility.tb_visual (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- dados de logs
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados de acessibilidade visual
   cor_tema               utils.enum_s_accessibility_t_tb_visual_c_cor_tema   NOT NULL DEFAULT 'escuro',
