@@ -80,8 +80,8 @@ CREATE TABLE notification.tb_tipo_por_usuario (
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
 
   -- chaves estrangeiras
-  tip_id                         SMALLINT NOT NULL,
-  s_auth_t_tb_usuario_c_lev UUID NOT NULL,
+  tip_id                    SMALLINT NOT NULL,
+  s_auth_t_tb_usuario_c_lev UUID     NOT NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_notification_t_tb_tipo_por_usuario PRIMARY KEY (id),
@@ -137,11 +137,15 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados da configuração de notificação por usuário
-  ativar_notificacoes      BOOLEAN   NOT NULL DEFAULT TRUE,
-  mostrar_em_tela_bloqueio BOOLEAN   NOT NULL DEFAULT TRUE,
-  nao_perturbar_horario    BOOLEAN   NOT NULL DEFAULT FALSE,
-  periodo                  TSTZRANGE     NULL DEFAULT NULL,
-  nao_perturbar_dia        BOOLEAN   NOT NULL DEFAULT FALSE,
+  ativar_notificacoes        BOOLEAN     NOT NULL DEFAULT TRUE,
+  mostrar_em_tela_bloqueio   BOOLEAN     NOT NULL DEFAULT TRUE,
+  nao_perturbar_horario      BOOLEAN     NOT NULL DEFAULT FALSE,
+  nao_perturbar_horario_dias BIT(7)      NOT NULL DEFAULT B'0000000',
+  horario_inicio             TIME(0)         NULL DEFAULT NULL,
+  horario_fim                TIME(0)         NULL DEFAULT NULL,
+  fuso_horario               VARCHAR(50)     NULL DEFAULT NULL,
+  nao_perturbar_dia          BOOLEAN     NOT NULL DEFAULT FALSE,
+  nao_perturbar_dia_dias     BIT(7)      NOT NULL DEFAULT B'0000000',
 
   -- chaves estrangeiras
   cor_pop_up                SMALLINT NOT NULL DEFAULT 1,
@@ -171,35 +175,6 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_lev
-    FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE
-);
-
-
-
-CREATE TABLE notification.tb_nao_perturbar (
-  -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
-
-  -- dados dos horários de não perturbe do usuário
-  tipo CHAR(1) NOT NULL,
-  dia  CHAR(1) NOT NULL,
-
-  -- chaves estrangeiras
-  s_auth_t_tb_usuario_c_lev UUID NOT NULL,
-
-  -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_nao_perturbar PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT pk_s_notification_t_tb_nao_perturbar_c_tipo_c_dia_c_lev
-  UNIQUE (tipo, dia, s_auth_t_tb_usuario_c_lev),
-
-  -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_notification_t_tb_nao_perturbar_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
