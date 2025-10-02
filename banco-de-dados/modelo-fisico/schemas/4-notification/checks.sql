@@ -1,13 +1,35 @@
 ALTER TABLE notification.tb_notificacao
 ADD CONSTRAINT ck_s_notification_t_tb_notificacao_c_descricao
 CHECK (
-  descricao ~* '^[a-záéíóúâêôãõçàèìòù0-9''. ]{1,50}$'
+  descricao ~ (
+    '^'                  ||
+    '['                  ||
+      'a-z'              ||
+      'A-Z'              ||
+      'áéíóúâêôãõçàèìòù' ||
+      'ÁÉÍÓÚÂÊÔÃÕÇÀÈÌÒÙ' ||
+      '0-9'              ||
+      '''. '             ||
+    ']'                  ||
+    '+'                  ||
+    '$' 
+  )
 );
 
 ALTER TABLE notification.tb_notificacao
 ADD CONSTRAINT ck_s_notification_t_tb_notificacao_c_links
 CHECK (
-  link ~ '^[a-zA-Z0-9/]{1,200}$'
+  link ~ (
+    '^'     ||
+    '['     ||
+      'a-z' ||
+      'A-Z' ||
+      '0-9' ||
+      '/'   ||
+    ']'     ||
+    '+'     ||
+    '$'
+  )
 );
 
 
@@ -27,8 +49,8 @@ CHECK (
     fuso_horario   IS NOT NULL AND
 
     horario_inicio < horario_fim AND
-    EXTRACT(SECOND FROM horario_inicio)::int = 0 AND
-    EXTRACT(SECOND FROM horario_fim)::int = 0 AND
+    EXTRACT(SECOND FROM horario_inicio)::INTEGER = 0 AND
+    EXTRACT(SECOND FROM horario_fim)::INTEGER = 0 AND
 
     utils.s_notification_f_validador_fuso_horario(fuso_horario)
   )

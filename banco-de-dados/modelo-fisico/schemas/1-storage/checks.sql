@@ -19,5 +19,15 @@ CHECK (
 ALTER TABLE storage.tb_arquivo
 ADD CONSTRAINT ck_s_storage_t_tb_arquivo_c_nome
 CHECK (
-  nome ~* '^[a-z0-9\-_ ]+$'
+  nome ~ (
+    '^'      ||
+    '['      ||
+      'a-z'  ||
+      'A-Z'  ||
+      '0-9'  ||
+      '\-_ ' ||
+    ']'      ||
+    '+'      ||
+    '$'
+  )
 );
