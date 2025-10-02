@@ -192,16 +192,17 @@ CREATE TABLE church.tb_atividade (
   created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  disabled_at    TIMESTAMPTZ     NULL DEFAULT NULL,
   created_by_adm UUID        NOT NULL,
   updated_by_adm UUID        NOT NULL,
   deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  is_deleted BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  is_active  BOOLEAN                                   NOT NULL DEFAULT TRUE,
-  tipo       utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
-  nome       VARCHAR(30)                               NOT NULL,
-  descricao  VARCHAR(50)                               NOT NULL,
+  is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  is_disabled BOOLEAN                                   NOT NULL DEFAULT TRUE,
+  tipo        utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
+  nome        VARCHAR(30)                               NOT NULL,
+  descricao   VARCHAR(50)                               NOT NULL,
 
   -- chaves estrangeiras
   igr_uuid UUID NOT NULL,
@@ -418,13 +419,14 @@ CREATE TABLE church.tb_instrumento (
   created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  disabled_at    TIMESTAMPTZ     NULL DEFAULT NULL,
   created_by_adm UUID        NOT NULL,
   updated_by_adm UUID        NOT NULL,
   deleted_by_adm UUID            NULL DEFAULT NULL,
 
   -- dados de instrumentos
   is_deleted   BOOLEAN                                        NOT NULL DEFAULT FALSE,
-  is_active    BOOLEAN                                        NOT NULL DEFAULT TRUE,
+  is_disabled  BOOLEAN                                        NOT NULL DEFAULT TRUE,
   nome         utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
   outro_nome   VARCHAR(30)                                        NULL,
   familia      utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
