@@ -86,7 +86,7 @@ CREATE TABLE notification.tb_tipo_por_usuario (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados do tipo de notificação por usuário
-  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  is_disabled BOOLEAN NOT NULL DEFAULT TRUE,
 
   -- chaves estrangeiras
   tip_id                    SMALLINT NOT NULL,
