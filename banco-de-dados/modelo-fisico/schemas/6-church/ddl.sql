@@ -184,7 +184,7 @@ CREATE TABLE church.tb_administrador (
 
 
 
-CREATE TABLE church.tb_atividade (
+CREATE TABLE church.tb_categoria (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
@@ -200,7 +200,7 @@ CREATE TABLE church.tb_atividade (
   -- dados do tipo de agendamento
   is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
   is_disabled BOOLEAN                                   NOT NULL DEFAULT TRUE,
-  tipo        utils.enum_s_church_t_tb_atividade_c_tipo NOT NULL,
+  tipo        utils.enum_s_church_t_tb_categoria_c_tipo NOT NULL,
   nome        VARCHAR(30)                               NOT NULL,
   descricao   VARCHAR(50)                               NOT NULL,
 
@@ -208,24 +208,24 @@ CREATE TABLE church.tb_atividade (
   igr_uuid UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_atividade PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_categoria PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_church_t_tb_atividade_c_created_by_adm
+  CONSTRAINT fk_s_church_t_tb_categoria_c_created_by_adm
     FOREIGN KEY (created_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_church_t_tb_atividade_c_updated_by_adm
+  CONSTRAINT fk_s_church_t_tb_categoria_c_updated_by_adm
     FOREIGN KEY (updated_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_church_t_tb_atividade_c_deleted_by_adm
+  CONSTRAINT fk_s_church_t_tb_categoria_c_deleted_by_adm
     FOREIGN KEY (deleted_by_adm)
     REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
@@ -233,9 +233,90 @@ CREATE TABLE church.tb_atividade (
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_church_t_tb_atividade_c_igr_uuid
+  CONSTRAINT fk_s_church_t_tb_categoria_c_igr_uuid
     FOREIGN KEY (igr_uuid)
     REFERENCES church.tb_igreja (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+
+
+
+CREATE TABLE church.tb_faixa (
+  -- chaves primárias
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- dados de logs
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at  TIMESTAMPTZ     NULL DEFAULT NULL,
+  disabled_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  
+  -- dados da música da igreja
+  is_deleted  BOOLEAN NOT NULL DEFAULT FALSE,
+  is_disabled BOOLEAN NOT NULL DEFAULT FALSE,
+  snapshot    JSONB       NULL DEFAULT NULL,     
+
+  -- chaves estrangeiras
+  igr_uuid                    UUID    NOT NULL,
+  s_song_t_tb_musica_c_mus_id INTEGER     NULL,
+  s_song_t_tb_medley_c_med_id INTEGER     NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_s_church_t_tb_faixa PRIMARY KEY (id),
+
+  -- declaração de chaves estrangeiras
+  CONSTRAINT fk_s_church_t_tb_faixa_c_igr_uuid
+    FOREIGN KEY (igr_uuid)
+    REFERENCES church.tb_igreja (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_church_t_tb_faixa_c_mus_id
+    FOREIGN KEY (s_song_t_tb_musica_c_mus_id)
+    REFERENCES song.tb_musica (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_church_t_tb_faixa_c_med_id
+    FOREIGN KEY (s_song_t_tb_medley_c_med_id)
+    REFERENCES song.tb_medley (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE
+);
+
+
+
+CREATE TABLE church.tb_faixa_ass_categoria (
+  -- chaves primárias
+  id INTEGER GENERATED ALWAYS AS IDENTITY,
+
+  -- chaves estrangeiras
+  fai_id INTEGER NOT NULL,
+  cat_id INTEGER NOT NULL,
+
+  -- declaração de chaves primárias
+  CONSTRAINT pk_s_church_t_tb_faixa_ass_categoria PRIMARY KEY (id),
+
+  -- declaração de chaves únicas compostas
+  CONSTRAINT uq_s_church_t_tb_faixa_ass_categoria_c_fai_id_c_cat_id
+  UNIQUE (fai_id, cat_id),
+
+  -- declaração de chaves estrangeiras
+  CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_fai_id
+    FOREIGN KEY (fai_id)
+    REFERENCES church.tb_faixa (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_cat_id
+    FOREIGN KEY (cat_id)
+    REFERENCES church.tb_categoria (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE

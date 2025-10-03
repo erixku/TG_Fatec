@@ -1,5 +1,5 @@
 CREATE TYPE
-  utils.enum_s_praise_t_tb_musica_tonalidade_c_tonalidade
+  utils.enum_s_song_c_tonalidade
 AS ENUM (
   -- tonalidades maiores
   'C', 'C#',

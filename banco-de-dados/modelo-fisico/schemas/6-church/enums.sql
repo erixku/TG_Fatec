@@ -36,9 +36,9 @@ AS ENUM (
 );
 
 CREATE TYPE
-  utils.enum_s_church_t_tb_atividade_c_tipo
+  utils.enum_s_church_t_tb_categoria_c_tipo
 AS ENUM (
-  'agendamento', 'compromisso'
+  'agendamento', 'compromisso', 'classificação de música'
 );
 
 CREATE TYPE

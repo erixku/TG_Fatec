@@ -16,9 +16,9 @@ ON church.tb_administrador (igr_uuid, s_auth_t_tb_usuario_c_adm)
 WHERE is_deleted = FALSE;
 
 
--- tb_atividade
-CREATE UNIQUE INDEX uq_s_church_t_tb_atividade_c_nome_c_igr_uuid
-ON church.tb_atividade (nome, igr_uuid)
+-- tb_categoria
+CREATE UNIQUE INDEX uq_s_church_t_tb_categoria_c_nome_c_igr_uuid
+ON church.tb_categoria (nome, igr_uuid)
 WHERE is_deleted = FALSE;
 
 

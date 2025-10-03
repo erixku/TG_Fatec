@@ -18,13 +18,13 @@ CHECK (
 
 
 
-ALTER TABLE church.tb_atividade
+ALTER TABLE church.tb_categoria
 ADD CONSTRAINT ck_s_church_t_tb_atividade_c_nome
 CHECK (
   utils.s_church_f_validador_nome(nome, 'atividade', 1::SMALLINT, 30::SMALLINT)
 );
 
-ALTER TABLE church.tb_atividade
+ALTER TABLE church.tb_categoria
 ADD CONSTRAINT ck_s_church_t_tb_atividade_c_descricao
 CHECK (
   utils.s_church_f_validador_descricao(descricao, 1::SMALLINT, 50::SMALLINT)

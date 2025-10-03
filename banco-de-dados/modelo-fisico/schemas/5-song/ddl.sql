@@ -22,12 +22,13 @@ CREATE TABLE song.tb_musica (
     EXTRACT(EPOCH FROM duracao)::SMALLINT
   ) STORED,
 
-  bpm            VARCHAR(3)                                                NULL,
-  tonalidade     utils.enum_s_song_t_tb_musica_tonalidade_c_tonalidade     NULL,
-  link_musica    VARCHAR(500)                                          NOT NULL,
-  link_letra     VARCHAR(500)                                              NULL,
-  link_cifra     VARCHAR(500)                                              NULL,
-  link_partitura VARCHAR(500)                                              NULL,
+  bpm             VARCHAR(3)                         NULL,
+  tonalidade      utils.enum_s_song_c_tonalidade     NULL,
+  link_musica     VARCHAR(500)                   NOT NULL,
+  link_letra      VARCHAR(500)                       NULL,
+  link_cifra      VARCHAR(500)                       NULL,
+  link_partitura  VARCHAR(500)                       NULL,
+  parte_de_medley BOOLEAN                        NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_foto UUID     NULL,
@@ -59,9 +60,9 @@ CREATE TABLE song.tb_partes (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados das partes da música
-  bpm        VARCHAR(3)                                            NOT NULL,
-  tonalidade utils.enum_s_song_t_tb_musica_tonalidade_c_tonalidade NOT NULL,
-  parte      VARCHAR(50)                                           NOT NULL,
+  bpm        VARCHAR(3)                     NOT NULL,
+  tonalidade utils.enum_s_song_c_tonalidade NOT NULL,
+  parte      VARCHAR(50)                    NOT NULL,
 
   -- chaves estrangeiras
   mus_id INTEGER NOT NULL,
