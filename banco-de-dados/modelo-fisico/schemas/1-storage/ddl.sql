@@ -58,18 +58,18 @@ CREATE TABLE storage.tb_arquivo (
 );
 
 -- declaração de chaves estrangeiras de logs (STORAGE.TB_ARQUIVO)
-  ALTER TABLE storage.tb_arquivo
-  ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by_usu
-    FOREIGN KEY (created_by_usu)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE storage.tb_arquivo
+ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by_usu
+  FOREIGN KEY (created_by_usu)
+  REFERENCES auth.tb_usuario (uuid)
+  ON UPDATE RESTRICT
+  ON DELETE RESTRICT
+  NOT DEFERRABLE INITIALLY IMMEDIATE;
 
-  ALTER TABLE storage.tb_arquivo
-  ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by_usu
-    FOREIGN KEY (deleted_by_usu)
-    REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE storage.tb_arquivo
+ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by_usu
+  FOREIGN KEY (deleted_by_usu)
+  REFERENCES auth.tb_usuario (uuid)
+  ON UPDATE RESTRICT
+  ON DELETE RESTRICT
+  NOT DEFERRABLE INITIALLY IMMEDIATE;
