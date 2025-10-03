@@ -6,22 +6,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.app.harppia.defaults.custom.validators.UfValidator;
+import br.app.harppia.defaults.custom.validators.SexoValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * Essa interface replica a lógica de validação do banco de dados para o campo UF - estado:
- * - não pode ser nulo
- * - deve ter exatamente 2 dígitos
- * - deve ser brasileiro
+ * Esta interface replica a lógica de validação de gênero do banco de dados.
  */
 @Documented
-@Constraint(validatedBy = UfValidator.class)
+@Constraint(validatedBy = SexoValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidUF {
-	String message() default "UF inválida!";
+public @interface ValidSexo {
+	String message() default "Sexo deve ser 'O', 'M' ou 'F'!";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default{};
 }

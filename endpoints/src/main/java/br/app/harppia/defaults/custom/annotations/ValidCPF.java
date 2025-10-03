@@ -10,12 +10,17 @@ import br.app.harppia.defaults.custom.validators.CpfValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
+/**
+ *  Esta interface replica a lógica de validação de CPF do banco de dados.
+ */
 @Documented
 @Constraint(validatedBy = CpfValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidCPF {
 	String message() default "CPF inválido!";
+
 	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default{};
+
+	Class<? extends Payload>[] payload() default {};
 }

@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0</version>
+		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.app.harppia</groupId>
 	<artifactId>endpoints</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>backend-harppia-v1</name>
+	<version>0.0.3</version>
+	<name>harppia-monolito-modular-v1</name>
 	<description>Bundle of APIs for Harppia project</description>
 	<url/>
 	<licenses>
@@ -27,8 +27,22 @@
 		<url/>
 	</scm>
 	<properties>
+    	<spring-cloud-aws.version>3.1.1</spring-cloud-aws.version>
 		<java.version>21</java.version>
 	</properties>
+	
+	<dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>io.awspring.cloud</groupId>
+	            <artifactId>spring-cloud-aws-dependencies</artifactId>
+	            <version>3.1.1</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
 		
 	<!-- SEGURANÇA -->
@@ -61,6 +75,14 @@
 		    <scope>runtime</scope>
 		</dependency>
 		
+		<!-- Gestão de Entidades JPA -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <optional>true</optional>
+		</dependency>
+		
+		
 		<!-- Biblioteca de Criptografia -->
 		<dependency>
 		    <groupId>org.bouncycastle</groupId>
@@ -76,21 +98,32 @@
 		</dependency>
 		
    	<!-- CONFIGURAÇÕES DE PROJETO -->
+   		<!-- Inicializador do Projeto -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+   		<!-- Inicializador do Servidor -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+   		<!-- Inicializador do Java Persistence API (JPA) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+		<!-- Inicializador dos Testes Automatizados -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
+		<!-- Ferramentas de Desenvolvimento -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -98,29 +131,32 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Dependências do PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
+	
+		<!-- Processador das Configurações -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
 		
+		<!-- Leitor de Variáveis de Ambiente [.env] - (dev Local) -->
 		<dependency>
 		    <groupId>io.github.cdimascio</groupId>
     		<artifactId>dotenv-java</artifactId>
     		<version>3.0.0</version>		
 		</dependency>
+		
+		<!-- Serviço de armazenamento da AWS (S3) -->
+		<dependency>
+	        <groupId>io.awspring.cloud</groupId>
+	        <artifactId>spring-cloud-aws-starter-s3</artifactId>
+	    </dependency>
 		
 		<!-- MapStruct -->
 	    <dependency>
@@ -140,10 +176,12 @@
 
 	<build>
 		<plugins>
+		
+			<!-- Plugin do Spring Boot para Maven -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			</plugin>			
 			
 			<!-- Annotation Processor (gera o código do MapStruct) -->
 	        <plugin>
@@ -163,5 +201,4 @@
 	        </plugin>
 		</plugins>
 	</build>
-
 </project>

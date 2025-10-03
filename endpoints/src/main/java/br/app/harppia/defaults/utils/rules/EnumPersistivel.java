@@ -10,9 +10,17 @@
 package br.app.harppia.defaults.utils.rules;
 
 /**
- * Essa interface obriga a implementação de um método para retornar o valor
- * customizado definido numa Enum que representa o outra enum do banco de dados.
+ * Todas as enums que implementares essa interface devem, por espelharem informações
+ * do banco de dados, implementar o `@JsonValue` e `@JsonCreator` para a serialização
+ * e desserialização de objetos (JSON).
  */
 public interface EnumPersistivel {
+	
+	/**
+	 * Retorna o nome personalizado de uma constante definida na enum.
+	 * Deve ser anotado com o `@JsonValue`, ou equivalente, para serializar
+	 * objetos.
+	 * @return a string personalizada
+	 */
 	public String getCustomValue();
 }

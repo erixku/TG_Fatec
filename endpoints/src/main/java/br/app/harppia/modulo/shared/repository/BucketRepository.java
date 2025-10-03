@@ -1,0 +1,22 @@
+package br.app.harppia.modulo.shared.repository;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Repository;
+
+import br.app.harppia.modulo.shared.entity.storage.Bucket;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+@Repository
+public interface BucketRepository extends JpaRepository<Bucket, Integer>{
+	
+	@Query(
+        value = "SELECT * FROM storage.tb_bucket WHERE nome = CAST(:nome AS utils.enum_s_storage_t_tb_bucket_c_nome)",
+        nativeQuery = true
+    )
+    Optional<Bucket> findByNome(@Param("nome") String nome);
+}
+
