@@ -96,7 +96,7 @@ CREATE TABLE church.tb_endereco (
   igr_uuid UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_endereco PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_endereco PRIMARY KEY (igr_uuid),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_endereco_c_created_by_adm

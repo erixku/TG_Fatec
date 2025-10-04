@@ -148,8 +148,8 @@ CREATE TABLE notification.tb_cor (
 
 
 CREATE TABLE notification.tb_configuracao_por_usuario (
-  -- chaves primárias
-  id INTEGER GENERATED ALWAYS AS IDENTITY,
+  -- chaves primárias/estrangeiras
+  s_auth_t_tb_usuario_c_lev UUID NOT NULL,
 
   -- dados de logs
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -166,16 +166,12 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
   nao_perturbar_dia_dias     BIT(7)      NOT NULL DEFAULT B'0000000',
 
   -- chaves estrangeiras
-  cor_pop_up                SMALLINT NOT NULL DEFAULT 1,
-  cor_led                   SMALLINT NOT NULL DEFAULT 1,
-  s_auth_t_tb_usuario_c_lev UUID     NOT NULL,
+  cor_pop_up SMALLINT NOT NULL DEFAULT 1,
+  cor_led    SMALLINT NOT NULL DEFAULT 1,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario PRIMARY KEY (id),
-
-  -- declaração de chaves únicas
-  CONSTRAINT uq_s_notification_t_tb_configuracao_por_usuario_c_lev
-  UNIQUE (s_auth_t_tb_usuario_c_lev),
+  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario
+  PRIMARY KEY (s_auth_t_tb_usuario_c_lev),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_cor_pop_up
