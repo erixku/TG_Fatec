@@ -42,17 +42,17 @@ COMMENT ON TABLE church.tb_administrador IS '
 COMMENT ON TABLE church.tb_categoria IS '
   Tabela que armazena categorias gerais de uma igreja.
   Essas categorias possuem três tipos: agendamento, compromisso
-  e classificação de música. Os dois primeiros tipos são inseridos
+  e classificação de faixa. Os dois primeiros tipos são inseridos
   em atividades da igreja para definir o tipo delas, enquanto o
-  de classificação de música é inserido em músicas para que a
-  igreja classifique músicas como quiser.
+  de classificação de faixa é inserido em faixas para que a
+  igreja classifique faixas como quiser.
   Toda igreja pode inserir categorias personalizadas, de acordo
   com sua vontade.
   
   Exemplos de categorias de atividades:
   - Consagração, santa ceia de músicos, ensaio etc.
 
-  Exemplos de categorias de classificação de músicas:
+  Exemplos de categorias de classificação de faixas:
   - Adoração, comunhão, quebrantamento etc.
 ';
 
@@ -76,14 +76,14 @@ COMMENT ON COLUMN church.tb_faixa.is_disabled IS '
 COMMENT ON COLUMN church.tb_faixa.snapshot IS '
   Quando o ministro sai de uma igreja, suas músicas vinculadas
   a igreja continuam na igreja, mas elas não podem continuar
-  sendo atualizadas pela FK da música do ministro, então
-  é criado um "snapshot" da música do ministro, ou seja,
-  uma cópia da música original no momento de saída do ministro
-  da igreja, de forma que a igreja possa continuar com a música.
-  Essa cópia deve conter todos os dados originais da música,
+  sendo atualizadas pela FK da faixa do ministro, então
+  é criado um "snapshot" da faixa do ministro, ou seja,
+  uma cópia da faixa original no momento de saída do ministro
+  da igreja, de forma que a igreja possa continuar com a faixa.
+  Essa cópia deve conter todos os dados originais da faixa,
   salvos em formato JSONB
 
-  Após a saída do ministro, essa música só pode ser acessada
+  Após a saída do ministro, essa faixa só pode ser acessada
   pelo JSONB, não sendo mais utilizado a referência de FK,
   apesar dela continuar registrada. Além disso, a igreja não
   deve ter permissão de usar essa faixa. Ela fica apenas visível,
@@ -95,7 +95,7 @@ COMMENT ON COLUMN church.tb_faixa.snapshot IS '
 
 COMMENT ON TABLE church.tb_faixa_ass_categoria IS '
   Tabela que associa faixas da igreja com categorias de
-  classificação de música
+  classificação de faixa
 ';
 
 
