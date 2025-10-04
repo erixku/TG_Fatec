@@ -6,6 +6,8 @@ CHECK (
   )
 );
 
+
+
 ALTER TABLE accessibility.tb_auditiva
 ADD CONSTRAINT ck_s_accessibility_t_tb_auditiva_c_intensidade_flash
 CHECK (
@@ -13,6 +15,8 @@ CHECK (
     '1', '2', '3', '4', '5', '6'
   )
 );
+
+
 
 ALTER TABLE accessibility.tb_visual
 ADD CONSTRAINT ck_s_accessibility_t_tb_visual_c_tamanho_texto

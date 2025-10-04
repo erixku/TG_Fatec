@@ -16,6 +16,8 @@ CHECK (
   tamanho_maximo >= tamanho_minimo
 );
 
+
+
 ALTER TABLE storage.tb_arquivo
 ADD CONSTRAINT ck_s_storage_t_tb_arquivo_c_nome
 CHECK (
