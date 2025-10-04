@@ -19,9 +19,9 @@ CHECK (
 
 
 ALTER TABLE church.tb_categoria
-ADD CONSTRAINT ck_s_church_t_tb_atividade_c_nome
+ADD CONSTRAINT ck_s_church_t_tb_categoria_c_nome
 CHECK (
-  utils.s_church_f_validador_nome(nome, 'atividade', 1::SMALLINT, 30::SMALLINT)
+  utils.s_church_f_validador_nome(nome, 'categoria', 1::SMALLINT, 30::SMALLINT)
 );
 
 ALTER TABLE church.tb_categoria

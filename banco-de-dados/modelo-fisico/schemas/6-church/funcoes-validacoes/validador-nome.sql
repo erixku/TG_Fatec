@@ -15,7 +15,7 @@ DECLARE
   tipos CONSTANT TEXT[] := ARRAY [
     'igreja',
     'outra denominação de igreja',
-    'atividade',
+    'categoria',
     'ministério de louvor',
     'marca de instrumento',
     'modelo de instrumento',
@@ -32,7 +32,7 @@ BEGIN
     RAISE EXCEPTION 'Tipo inválido: só são aceitos os tipos
       "igreja",
       "outra denominação de igreja",
-      "atividade",
+      "categoria",
       "ministério de louvor",
       "marca de instrumento",
       "modelo de instrumento",
