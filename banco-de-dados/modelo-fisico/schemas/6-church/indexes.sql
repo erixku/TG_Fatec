@@ -22,6 +22,12 @@ ON church.tb_categoria (nome, igr_uuid)
 WHERE is_deleted = FALSE;
 
 
+-- tb_faixa_ass_categoria
+CREATE UNIQUE INDEX uq_s_church_t_tb_faixa_ass_categoria_c_fai_id_c_cat_id
+ON church.tb_faixa_ass_categoria (fai_id, cat_id)
+WHERE is_deleted = FALSE;
+
+
 -- tb_ministerio_louvor
 CREATE UNIQUE INDEX uq_s_church_t_tb_ministerio_louvor_c_codigo
 ON church.tb_ministerio_louvor (codigo)

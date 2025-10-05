@@ -8,9 +8,10 @@ CREATE TABLE song.tb_musica (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_usu UUID        NOT NULL,
 
   -- dados da música
   is_deleted             BOOLEAN      NOT NULL DEFAULT FALSE,
@@ -32,23 +33,23 @@ CREATE TABLE song.tb_musica (
   parte_de_medley BOOLEAN                        NOT NULL,
 
   -- chaves estrangeiras
-  s_storage_t_tb_arquivo_c_foto UUID     NULL,
-  s_auth_t_tb_usuario_c_usu     UUID NOT NULL,
+  s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_song_t_tb_musica PRIMARY KEY (id),
 
+  -- declaração de chaves estrangeiras de logs
+  CONSTRAINT fk_s_song_t_tb_musica_c_created_by_usu
+    FOREIGN KEY (created_by_usu)
+    REFERENCES auth.tb_usuario (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+    
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_musica_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_s_song_t_tb_musica_c_usu
-    FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
-    REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -60,7 +61,13 @@ CREATE TABLE song.tb_parte (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+
   -- dados das parte da música
+  is_deleted BOOLEAN                        NOT NULL DEFAULT FALSE,
   posicao    SMALLINT                       NOT NULL,
   parte      VARCHAR(50)                    NOT NULL,
   bpm        SMALLINT                       NOT NULL,
@@ -71,10 +78,6 @@ CREATE TABLE song.tb_parte (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_song_t_tb_parte PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_song_t_tb_parte_c_posicao_c_mus_id
-  UNIQUE (posicao, mus_id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_parte_c_mus_id
@@ -91,21 +94,23 @@ CREATE TABLE song.tb_artista_secundario (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+
   -- dados dos artistas da música
-  nome VARCHAR(70) NOT NULL,
+  is_deleted BOOLEAN     NOT NULL DEFAULT FALSE,
+  nome       VARCHAR(70) NOT NULL,
 
   -- chaves estrangeiras
   mus_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_artistas PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_song_t_tb_artistas_c_nome_c_mus_id
-  UNIQUE (nome, mus_id),
+  CONSTRAINT pk_s_song_t_tb_artista_secundario PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_song_t_tb_artistas_c_mus_id
+  CONSTRAINT fk_s_song_t_tb_artista_secundario_c_mus_id
     FOREIGN KEY (mus_id)
     REFERENCES song.tb_musica (id)
     ON UPDATE RESTRICT
@@ -119,28 +124,35 @@ CREATE TABLE song.tb_medley (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_usu UUID        NOT NULL,
+
   -- dados do medley
+  is_deleted         BOOLEAN      NOT NULL DEFAULT FALSE,
   nome               VARCHAR(150) NOT NULL,
   quantidade_musicas SMALLINT     NOT NULL,
 
   -- chaves estrangeiras
-  s_storage_t_tb_arquivo_c_foto UUID     NULL,
-  s_auth_t_tb_usuario_c_usu     UUID NOT NULL,
+  s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_song_t_tb_medley PRIMARY KEY (id),
+
+  -- declaração de chaves estrangeiras de logs
+  CONSTRAINT fk_s_song_t_tb_medley_c_created_by_usu
+    FOREIGN KEY (created_by_usu)
+    REFERENCES auth.tb_usuario (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_medley_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
     REFERENCES storage.tb_arquivo (uuid)
-    ON UPDATE RESTRICT
-    ON DELETE RESTRICT
-    NOT DEFERRABLE INITIALLY IMMEDIATE,
-
-  CONSTRAINT fk_s_song_t_tb_medley_c_usu
-    FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
-    REFERENCES auth.tb_usuario (uuid)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -152,8 +164,14 @@ CREATE TABLE song.tb_medley_ass_musica (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+
   -- dados de associação entre músicas e medleys
-  posicao SMALLINT NOT NULL,
+  is_deleted BOOLEAN  NOT NULL DEFAULT FALSE,
+  posicao    SMALLINT NOT NULL,
 
   -- chaves estrangeiras
   med_id INTEGER NOT NULL,
@@ -161,10 +179,6 @@ CREATE TABLE song.tb_medley_ass_musica (
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_song_t_tb_medley_ass_musica PRIMARY KEY (id),
-
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_song_t_tb_medley_ass_musica_c_posicao_c_med_id
-  UNIQUE (posicao, med_id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_medley_ass_musica_c_med_id

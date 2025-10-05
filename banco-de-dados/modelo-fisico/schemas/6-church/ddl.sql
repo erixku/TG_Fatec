@@ -259,9 +259,9 @@ CREATE TABLE church.tb_faixa (
   snapshot    JSONB       NULL DEFAULT NULL,     
 
   -- chaves estrangeiras
-  igr_uuid                    UUID    NOT NULL,
-  s_song_t_tb_musica_c_mus_id INTEGER     NULL,
-  s_song_t_tb_medley_c_med_id INTEGER     NULL,
+  igr_uuid                    UUID NOT NULL,
+  s_song_t_tb_musica_c_mus INTEGER     NULL,
+  s_song_t_tb_medley_c_med INTEGER     NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_faixa PRIMARY KEY (id),
@@ -274,15 +274,15 @@ CREATE TABLE church.tb_faixa (
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_church_t_tb_faixa_c_mus_id
-    FOREIGN KEY (s_song_t_tb_musica_c_mus_id)
+  CONSTRAINT fk_s_church_t_tb_faixa_c_mus
+    FOREIGN KEY (s_song_t_tb_musica_c_mus)
     REFERENCES song.tb_musica (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_church_t_tb_faixa_c_med_id
-    FOREIGN KEY (s_song_t_tb_medley_c_med_id)
+  CONSTRAINT fk_s_church_t_tb_faixa_c_med
+    FOREIGN KEY (s_song_t_tb_medley_c_med)
     REFERENCES song.tb_medley (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
@@ -295,6 +295,15 @@ CREATE TABLE church.tb_faixa_ass_categoria (
   -- chaves primárias
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
+  -- dados de logs
+  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by_min UUID        NOT NULL,
+  deleted_by_min UUID            NULL DEFAULT NULL,
+
+  -- dados da associação de faixas e categorias
+  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+
   -- chaves estrangeiras
   fai_id INTEGER NOT NULL,
   cat_id INTEGER NOT NULL,
@@ -302,9 +311,20 @@ CREATE TABLE church.tb_faixa_ass_categoria (
   -- declaração de chaves primárias
   CONSTRAINT pk_s_church_t_tb_faixa_ass_categoria PRIMARY KEY (id),
 
-  -- declaração de chaves únicas compostas
-  CONSTRAINT uq_s_church_t_tb_faixa_ass_categoria_c_fai_id_c_cat_id
-  UNIQUE (fai_id, cat_id),
+  -- declaração de chaves estrangeiras de logs
+  CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_created_by_min
+    FOREIGN KEY (created_by_min)
+    REFERENCES auth.tb_usuario (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_deleted_by_min
+    FOREIGN KEY (deleted_by_min)
+    REFERENCES auth.tb_usuario (uuid)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_fai_id
