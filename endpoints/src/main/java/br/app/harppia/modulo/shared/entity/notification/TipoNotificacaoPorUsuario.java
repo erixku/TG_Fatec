@@ -22,7 +22,7 @@ import jakarta.persistence.JoinColumn;
 @Table(name = "tb_tipo_por_usuario", schema = "notification")
 @Getter
 @Setter
-@ToString(of = {"id", "isActive", "tipoNotificacao", "usuario"})
+@ToString(of = {"id", "isDisabled", "tipoNotificacao", "usuario"})
 @EqualsAndHashCode(of = "id")
 public class TipoNotificacaoPorUsuario {
 
@@ -31,7 +31,7 @@ public class TipoNotificacaoPorUsuario {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class TipoNotificacaoPorUsuario {
 	// DADOS DO TIPO POR USUARIO //
 	// --------------------------//
 	@Column(nullable = false)
-	private Boolean isActive = true;
+	private Boolean isDisabled = false;
 
 	@JoinColumn(name = "tip_id", nullable = false)
 	private TipoNotificacao tipoNotificacao;

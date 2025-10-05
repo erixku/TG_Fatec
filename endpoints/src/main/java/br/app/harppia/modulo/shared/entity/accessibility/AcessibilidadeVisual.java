@@ -5,14 +5,16 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.accessibility.enums.CorTema;
-import br.app.harppia.modulo.shared.entity.accessibility.enums.TipoDaltonismo;
+import br.app.harppia.modulo.shared.entity.accessibility.enums.ECorTema;
+import br.app.harppia.modulo.shared.entity.accessibility.enums.ETipoDaltonismo;
 import br.app.harppia.modulo.shared.entity.auth.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,8 +27,8 @@ import lombok.ToString;
 @Table(name = "tb_visual", schema = "acessibility")
 @Getter
 @Setter
-@ToString(of = {"id"})
-@EqualsAndHashCode(of = "id")
+@ToString(of = {"usuario", "updatedAt", "tema", "modoDaltonismo"})
+@EqualsAndHashCode(of = "usuario")
 public class AcessibilidadeVisual {
 
 	/**
@@ -34,11 +36,13 @@ public class AcessibilidadeVisual {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToOne(optional = false)
+	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private Usuario usuario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Generated(event = EventType.INSERT)
@@ -46,7 +50,7 @@ public class AcessibilidadeVisual {
 	private LocalDateTime updatedAt;
 	
 	@Column(nullable = false)
-	private CorTema tema = CorTema.ESCURO;
+	private ECorTema tema = ECorTema.ESCURO;
 	
 	@Column(nullable = false)
 	private Character tamanhoTexto = '3';
@@ -58,7 +62,7 @@ public class AcessibilidadeVisual {
 	private Boolean altoContraste = false;
 	
 	@Column(nullable = false)
-	private TipoDaltonismo modoDaltonismo = TipoDaltonismo.TRICOMATA;
+	private ETipoDaltonismo modoDaltonismo = ETipoDaltonismo.TRICOMATA;
 	
 	@Column(nullable = false)
 	private Character intensidadeDaltonismo = '3';
@@ -68,7 +72,4 @@ public class AcessibilidadeVisual {
 	
 	@Column(nullable = false)
 	private Boolean vibrarAoTocar = false;
-
-	@Column(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
-	private Usuario usuario;
 }

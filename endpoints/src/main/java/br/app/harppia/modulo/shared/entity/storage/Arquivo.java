@@ -47,6 +47,9 @@ public class Arquivo {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID uuid;
 	
+	//--------------//
+	// DADOS DE LOG //
+	//--------------//
 	@Generated(event = EventType.INSERT)
 	@Column(nullable = false, insertable = false, updatable = false)
 	private LocalDateTime createdAt;
@@ -60,6 +63,9 @@ public class Arquivo {
 	@JoinColumn(name = "deleted_by_usu")
 	private Usuario deletedBy = null;
 
+	//------------------//
+	// DADOS DO ARQUIVO //
+	//------------------//
 	@Column(nullable = false)
 	private Boolean isDeleted = false;
 	

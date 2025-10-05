@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,8 +28,8 @@ import lombok.ToString;
 @Table(name = "tb_endereco", schema = "auth")
 @Getter
 @Setter
-@ToString(of = {"id", "cep", "uf", "cidade"})
-@EqualsAndHashCode(of = {"id"})
+@ToString(of = {"usuarioDono", "uf", "cidade", "bairro"})
+@EqualsAndHashCode(of = {"usuarioDono"})
 public class EnderecoUsuario {
 	
 	/**
@@ -38,9 +40,14 @@ public class EnderecoUsuario {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToOne(optional = false)
+	@JoinColumn(name = "usu_uuid",referencedColumnName = "uuid")
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private Usuario usuarioDono;
 
+	//--------------//
+	// DADOS DE LOG //
+	//--------------//
 	@Generated
 	@Column(insertable = false)
 	private LocalDateTime updatedAt;

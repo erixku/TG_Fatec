@@ -34,62 +34,36 @@ public class EnderecoIgreja implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Chave primária da tabela, gerenciada pelo banco de dados (IDENTITY).
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /**
-     * Timestamp de criação, gerenciado pelo banco (DEFAULT CURRENT_TIMESTAMP).
-     */
     @Generated(event = EventType.INSERT)
     @Column(nullable = false, insertable = false, updatable = false)
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
-    /**
-     * Timestamp de atualização, gerenciado por triggers no banco.
-     */
     @Generated(event = EventType.INSERT)
     @Column(nullable = false, insertable = false)
-    private OffsetDateTime updatedAt;
+    private LocalDateTime updatedAt;
 
-    /**
-     * Timestamp de exclusão lógica (soft delete).
-     * Este campo é nulo por padrão e gerenciado pela lógica da aplicação.
-     */
     @Column
-    private LocalDateTime deletedAt;
+    private LocalDateTime deletedAt = null;
 
-    /**
-     * Relacionamento com o usuário que criou o registro. Apenas inserível.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, updatable = false)
     private Usuario createdByAdm;
 
-    /**
-     * Relacionamento com o usuário que atualizou o registro.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Usuario updatedByAdm;
 
-    /**
-     * Relacionamento com o usuário que realizou a exclusão lógica.
-     */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn()
+    @JoinColumn
     private Usuario deletedByAdm;
 
-
-    // --- Dados do Endereço ---
-
-    /**
-     * Flag de exclusão lógica (soft delete).
-     * O valor padrão 'false' é definido no DDL e na inicialização do objeto.
-     */
+    //-------------------//
+    // DADOS DO ENDERECO //
+    //-------------------//
     @Column(nullable = false)
     @ColumnDefault("false")
     private Boolean isDeleted = false;
@@ -112,19 +86,12 @@ public class EnderecoIgreja implements Serializable {
     @Column(nullable = false)
     private String numero;
 
-    @Column()
+    @Column
     private String complemento;
 
     @Column(name = "is_endereco_principal", nullable = false)
-    private boolean principal;
+    private Boolean isPrincipal;
 
-    // --- Chaves Estrangeiras ---
-
-    /**
-     * Relacionamento com a Igreja à qual este endereço pertence
-     * Este é o lado "dono" da relação Many-to-One
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_uuid", nullable = false)
     private Igreja igreja;
 }

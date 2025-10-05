@@ -50,14 +50,16 @@ public class Usuario implements UserDetails {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID uuid;
 
+	//--------------//
 	// DADOS DE LOG //
+	//--------------//
 	@Generated(event = EventType.INSERT)
 	@Column(insertable = false, updatable = false)
 	private LocalDateTime createdAt;
@@ -73,7 +75,9 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false, insertable = false)
 	private LocalDateTime lastAccess;
 
+	//------------------//
 	// DADOS DO USUÁRIO //
+	//------------------//
 	@Column(nullable = false)
 	private Boolean isDeleted = false;
 
@@ -107,10 +111,6 @@ public class Usuario implements UserDetails {
 	@Column(nullable = false)
 	@JsonIgnore
 	private String senha;
-
-	@OneToOne(cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "end_id", nullable = false)
-	private EnderecoUsuario endereco;
 
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", referencedColumnName = "uuid")

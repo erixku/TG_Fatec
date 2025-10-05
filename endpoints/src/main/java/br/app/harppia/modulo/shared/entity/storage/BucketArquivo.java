@@ -41,19 +41,25 @@ public class BucketArquivo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	private Integer id;
+	
+	//--------------//
+	// DADOS DE LOG //
+	//--------------//
 	@Generated(event = EventType.INSERT)
-	@Column(insertable = false, updatable = false)
+	@Column(nullable = false, insertable = false, updatable = false)
 	private LocalDateTime createdAt;
 
 	@Generated(event = EventType.INSERT)
-	@Column(insertable = false)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime updatedAt;
 
 	@Column
 	private LocalDateTime deletedAt = null;
-
+	
+	//-----------------//
+	// DADOS DO BUCKET //
+	//-----------------//
 	@Column(nullable = false)
 	private Boolean isDeleted = false;
 

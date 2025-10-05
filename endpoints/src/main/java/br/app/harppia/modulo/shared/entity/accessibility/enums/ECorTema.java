@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum CorTema implements EnumPersistivel {
+public enum ECorTema implements EnumPersistivel {
 	ESCURO("escuro"), CLARO("claro");
 
 	private String cor;
 
-	CorTema(String cor) {
+	ECorTema(String cor) {
 		this.cor = cor;
 	}
 
@@ -22,7 +22,7 @@ public enum CorTema implements EnumPersistivel {
 	}
 	
 	@JsonCreator
-	public CorTema fromValue(String tema) {
-		return InternalEnumParser.fromValue(CorTema.class, tema);
+	public ECorTema fromValue(String tema) {
+		return InternalEnumParser.fromValue(ECorTema.class, tema);
 	}
 }

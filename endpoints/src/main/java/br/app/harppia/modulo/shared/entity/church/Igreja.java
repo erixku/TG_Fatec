@@ -2,10 +2,12 @@ package br.app.harppia.modulo.shared.entity.church;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 import org.hibernate.validator.constraints.UUID;
 
 import br.app.harppia.modulo.shared.entity.auth.Usuario;
-import br.app.harppia.modulo.shared.entity.church.enums.DenominacaoIgreja;
+import br.app.harppia.modulo.shared.entity.church.enums.EDenominacaoIgreja;
 import br.app.harppia.modulo.shared.entity.storage.Arquivo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,14 +40,19 @@ public class Igreja {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID uuid; 
 	
-	@Column(insertable = false, updatable = false)
+	//---------------//
+	// DADOS DE LOGS //
+	//---------------//
+	@Generated(event = EventType.INSERT)
+	@Column(nullable = false, insertable = false, updatable = false)
 	private LocalDateTime createdAt;
 
-	@Column(insertable = false)
+	@Generated(event = EventType.INSERT)
+	@Column(nullable = false, insertable = false)
 	private LocalDateTime updatedAt;
 
 	@Column(insertable = false)
-	private LocalDateTime deletedAt;
+	private LocalDateTime deletedAt = null;
 
 	@JoinColumn(nullable = false, updatable = false)
 	private Usuario createdByAdm;
@@ -54,8 +61,11 @@ public class Igreja {
 	private Usuario updatedByAdm;
 	
 	@JoinColumn
-	private Usuario deletedByAdm;
+	private Usuario deletedByAdm = null;
 
+	//-----------------//
+	// DADOS DA IGREJA //
+	//-----------------//
 	@Column(nullable = false)
 	private Boolean isDeleted = false;
 
@@ -66,7 +76,7 @@ public class Igreja {
 	private String nome;
 	
 	@Column(nullable = false)
-	private DenominacaoIgreja denominacao;
+	private EDenominacaoIgreja denominacao;
 	
 	@Column
 	private String outraDenominacao;

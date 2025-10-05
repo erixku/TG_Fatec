@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,8 +25,8 @@ import lombok.ToString;
 @Table(name = "tb_auditiva", schema = "acessibility")
 @Getter
 @Setter
-@ToString(of = {"id", "usuario"})
-@EqualsAndHashCode(of = {"id"})
+@ToString(of = {"usuario"})
+@EqualsAndHashCode(of = {"usuario"})
 public class AcessibilidadeAuditiva {
 	
 	/**
@@ -32,11 +34,13 @@ public class AcessibilidadeAuditiva {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToOne(optional = false)
+	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private Usuario usuario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Generated(event = EventType.INSERT)
@@ -57,7 +61,4 @@ public class AcessibilidadeAuditiva {
 
 	@Column(nullable = false)
 	private Boolean alertasVisuais = false;
-
-	@Column(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
-	private Usuario usuario;
 }

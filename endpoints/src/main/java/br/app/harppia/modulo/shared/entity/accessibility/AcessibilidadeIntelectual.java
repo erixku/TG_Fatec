@@ -29,8 +29,8 @@ import lombok.ToString;
 @Table(name = "tb_intelectual", schema = "acessibility")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedAt", "usuario"})
-@EqualsAndHashCode(of = "id")
+@ToString(of = {"usuario", "updatedAt"})
+@EqualsAndHashCode(of = "usuario")
 public class AcessibilidadeIntelectual {
 	
 	/**
@@ -38,11 +38,13 @@ public class AcessibilidadeIntelectual {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@OneToOne(optional = false)
+	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private Usuario usuario;
 	
 	@Generated(event = EventType.INSERT)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -57,8 +59,4 @@ public class AcessibilidadeIntelectual {
 
 	@Column(nullable = false)
 	private Boolean feedbackImediato = false;
-	
-	@OneToOne(optional = false)
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
-	private Usuario usuario;
 }

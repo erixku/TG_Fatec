@@ -10,7 +10,7 @@ import br.app.harppia.defaults.utils.rules.EnumPersistivel;
  * Essa enum representa os tipos de daltonismos existentes (até 02/10/2025).
  * Use o método 'getCustomValue' para retornar a string normalizada equivalente.
  */
-public enum TipoDaltonismo implements EnumPersistivel {
+public enum ETipoDaltonismo implements EnumPersistivel {
 
 	TRICOMATA("tricromata"),
 	PROTANOPIA("protanopia"),
@@ -23,7 +23,7 @@ public enum TipoDaltonismo implements EnumPersistivel {
 	
 	private String tipoDaltonismo;
 	
-	TipoDaltonismo(String tipoDaltonismo){
+	ETipoDaltonismo(String tipoDaltonismo){
 		this.tipoDaltonismo = tipoDaltonismo;
 	}
 	
@@ -34,7 +34,7 @@ public enum TipoDaltonismo implements EnumPersistivel {
 	}
 	
 	@JsonCreator
-	public TipoDaltonismo fromValue(String tipoDaltonismo) {
-		return InternalEnumParser.fromValue(TipoDaltonismo.class, tipoDaltonismo);
+	public ETipoDaltonismo fromValue(String tipoDaltonismo) {
+		return InternalEnumParser.fromValue(ETipoDaltonismo.class, tipoDaltonismo);
 	}
 }

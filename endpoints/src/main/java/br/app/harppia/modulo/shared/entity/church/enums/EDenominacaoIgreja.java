@@ -1,8 +1,12 @@
 package br.app.harppia.modulo.shared.entity.church.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum DenominacaoIgreja implements EnumPersistivel {
+public enum EDenominacaoIgreja implements EnumPersistivel {
     OUTRA("outra"),
     ADVENTISTA("adventista"),
     ASSEMBLEIA_DE_DEUS("assembleia de deus"),
@@ -38,12 +42,18 @@ public enum DenominacaoIgreja implements EnumPersistivel {
 
     private final String denominacao;
 
-    DenominacaoIgreja(String denominacao) {
+    EDenominacaoIgreja(String denominacao) {
         this.denominacao = denominacao;
     }
 
+    @JsonValue
     @Override
     public String getCustomValue() {
         return denominacao;
+    }
+    
+    @JsonCreator
+    public static EDenominacaoIgreja fromValue(String value) {
+    	return InternalEnumParser.fromValue(EDenominacaoIgreja.class, value);
     }
 }

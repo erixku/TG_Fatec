@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum TipoNotificacaoEnum implements EnumPersistivel {
+public enum ETipoNotificacao implements EnumPersistivel {
     NOVO_AVISO("novo aviso"),
     NOVA_ESCALA("nova escala"),
     ATRIBUICAO_DE_ESCALA("atribuição de escala"),
@@ -18,7 +18,7 @@ public enum TipoNotificacaoEnum implements EnumPersistivel {
 
     private final String tipoNotif;
 
-    TipoNotificacaoEnum(String value) {
+    ETipoNotificacao(String value) {
         this.tipoNotif = value;
     }
 
@@ -29,7 +29,7 @@ public enum TipoNotificacaoEnum implements EnumPersistivel {
     }
     
     @JsonCreator
-    public static TipoNotificacaoEnum fromValue(String str) {
-    	return InternalEnumParser.fromValue(TipoNotificacaoEnum.class, str);
+    public static ETipoNotificacao fromValue(String str) {
+    	return InternalEnumParser.fromValue(ETipoNotificacao.class, str);
     }
 }
