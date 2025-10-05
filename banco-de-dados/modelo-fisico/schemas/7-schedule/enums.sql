@@ -6,3 +6,11 @@ AS ENUM (
   'exame laboratorial',
   'outros'
 );
+
+CREATE TYPE
+  utils.enum_s_schedule_t_tb_publicacao_c_tipo
+AS ENUM (
+  'aviso',
+  'agendamento',
+  'compromisso'
+);
