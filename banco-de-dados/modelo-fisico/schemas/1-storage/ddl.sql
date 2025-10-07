@@ -64,7 +64,7 @@ ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by_usu
   REFERENCES auth.tb_usuario (uuid)
   ON UPDATE RESTRICT
   ON DELETE RESTRICT
-  NOT DEFERRABLE INITIALLY IMMEDIATE;
+  DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE storage.tb_arquivo
 ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by_usu
