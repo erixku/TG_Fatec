@@ -4,12 +4,10 @@ ON song.tb_parte (posicao, mus_id)
 WHERE is_deleted = FALSE;
 
 
-
 -- tb_artista
 CREATE UNIQUE INDEX uq_s_song_t_tb_artista_c_nome_c_mus_id
-ON song.tb_artista (nome, mus_id)
+ON song.tb_artista_secundario (nome, mus_id)
 WHERE is_deleted = FALSE;
-
 
 
 -- tb_medley_ass_musica

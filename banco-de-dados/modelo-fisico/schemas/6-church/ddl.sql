@@ -199,7 +199,7 @@ CREATE TABLE church.tb_categoria (
 
   -- dados do tipo de agendamento
   is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  is_disabled BOOLEAN                                   NOT NULL DEFAULT TRUE,
+  is_disabled BOOLEAN                                   NOT NULL DEFAULT FALSE,
   tipo        utils.enum_s_church_t_tb_categoria_c_tipo NOT NULL,
   nome        VARCHAR(30)                               NOT NULL,
   descricao   VARCHAR(50)                               NOT NULL,
@@ -527,7 +527,7 @@ CREATE TABLE church.tb_instrumento (
 
   -- dados de instrumentos
   is_deleted   BOOLEAN                                        NOT NULL DEFAULT FALSE,
-  is_disabled  BOOLEAN                                        NOT NULL DEFAULT TRUE,
+  is_disabled  BOOLEAN                                        NOT NULL DEFAULT FALSE,
   nome         utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
   outro_nome   VARCHAR(30)                                        NULL,
   familia      utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
