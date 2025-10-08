@@ -23,8 +23,8 @@ CREATE TABLE accessibility.tb_intelectual (
   CONSTRAINT fk_s_accessibility_t_tb_intelectual_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -52,8 +52,8 @@ CREATE TABLE accessibility.tb_auditiva (
   CONSTRAINT fk_s_accessibility_t_tb_auditiva_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
@@ -84,7 +84,7 @@ CREATE TABLE accessibility.tb_visual (
   CONSTRAINT fk_s_accessibility_t_tb_visual_c_usu
     FOREIGN KEY (s_auth_t_tb_usuario_c_usu)
     REFERENCES auth.tb_usuario (uuid)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
