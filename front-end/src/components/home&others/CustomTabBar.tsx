@@ -17,7 +17,7 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
 
   return (
     // O Container principal da Tab Bar
-    <View className="absolute bottom-5 left-5 right-5 h-20 rounded-full bg-blue-100 shadow-xl dark:bg-slate-700 dark:shadow-slate-200 flex-row justify-around items-center">
+    <View className="absolute bottom-5 left-5 right-5 h-20 rounded-full bg-blue-100 shadow-md dark:bg-slate-700 dark:shadow-blue-100 flex-row justify-around items-center">
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const routeInfo = tabRoutes[route.name];
