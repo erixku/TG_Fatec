@@ -1,19 +1,25 @@
 package br.app.harppia.modulo.shared.entity.church;
 
-import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
 import br.app.harppia.modulo.shared.entity.auth.Usuario;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Entidade que representa um endereço físico associado a uma Igreja.
@@ -36,28 +42,28 @@ public class EnderecoIgreja implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Generated(event = EventType.INSERT)
     @Column(nullable = false, insertable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Generated(event = EventType.INSERT)
     @Column(nullable = false, insertable = false)
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
 
     @Column
-    private LocalDateTime deletedAt = null;
+    private OffsetDateTime deletedAt = null;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, updatable = false)
     private Usuario createdByAdm;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Usuario updatedByAdm;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Usuario deletedByAdm;
 
@@ -65,7 +71,6 @@ public class EnderecoIgreja implements Serializable {
     // DADOS DO ENDERECO //
     //-------------------//
     @Column(nullable = false)
-    @ColumnDefault("false")
     private Boolean isDeleted = false;
 
     @Column(nullable = false)
@@ -91,7 +96,11 @@ public class EnderecoIgreja implements Serializable {
 
     @Column(name = "is_endereco_principal", nullable = false)
     private Boolean isPrincipal;
-
+    
+    //-----//
+    // FKs //
+    //-----//
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_uuid", nullable = false)
     private Igreja igreja;
 }

@@ -8,7 +8,8 @@ import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
 public enum ETipoAtividade implements EnumPersistivel{
 	AGENDAMENTO("agendamento"),
-	COMPROMISSO("compromisso");
+	COMPROMISSO("compromisso"),
+	CLASSIFICACAO_MUSICA("classificação de música");
 	
 	private String tipoAtividade;
 	
