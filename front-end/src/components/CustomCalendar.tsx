@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { useColorScheme, View } from "react-native";
 import DateTimePicker, { DateType, useDefaultClassNames } from "react-native-ui-datepicker";
 import dayjs from "dayjs";
+import { CalendarType } from "node_modules/react-native-ui-datepicker/lib/typescript/types";
+import { CalendarViews } from "node_modules/react-native-ui-datepicker/lib/typescript/enums";
 
 interface CustomCalendarProps {
     onDateChange: (date:DateType) => void;
     mode?: "single"|"range"|"multiple";
     date: DateType;
+    initialView?: string
 }
 
-export default function CustomCalendar({onDateChange, mode="single", date}: CustomCalendarProps) {
+export default function CustomCalendar({onDateChange, mode="single", date, initialView="day"}: CustomCalendarProps) {
     const colorScheme = useColorScheme();
     const [open, setOpen] = useState(false);
     const defaultClassNames = useDefaultClassNames();
@@ -65,7 +68,7 @@ export default function CustomCalendar({onDateChange, mode="single", date}: Cust
                 }}
                 locale="pt"
                 weekdaysFormat="short"
-                initialView="year"
+                initialView={initialView as CalendarViews}
                 timePicker={false}
                 showOutsideDays={true}
             />

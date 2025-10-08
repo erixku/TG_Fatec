@@ -54,6 +54,7 @@ export default function CustomDatePicker({label, required, onChange, error, valu
                                 }}
                                 date={value ? new Date(value.valueOf()) : new Date()}
                                 mode="single"
+                                initialView="year"
                             />
                         </View>
                     </Pressable>
