@@ -1,0 +1,6 @@
+SET ROLE neondb_owner;
+
+REVOKE ALL PRIVILEGES ON DATABASE neondb FROM public;
+REVOKE ALL PRIVILEGES ON SCHEMA public FROM public;
+
+GRANT CONNECT ON DATABASE neondb TO role_api;
