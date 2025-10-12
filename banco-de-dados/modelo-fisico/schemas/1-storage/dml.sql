@@ -3,7 +3,7 @@ INSERT INTO storage.tb_bucket (
   tempo_expiracao_upload_em_segundos,
   tamanho_minimo,
   tamanho_maximo
-) VALUES 
+) VALUES
   ('foto-perfil-usuario',       30, 1, utils.conversor_mb_para_byte(5)),
   ('foto-perfil-igreja',        30, 1, utils.conversor_mb_para_byte(5)),
   ('foto-perfil-ministerio',    30, 1, utils.conversor_mb_para_byte(5)),
