@@ -41,9 +41,9 @@ CREATE TABLE notification.tb_notificacao (
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados da notificação
-  descricao VARCHAR(50)  NOT NULL,
-  link      VARCHAR(200) NOT NULL,
-  is_lida   BOOLEAN      NOT NULL DEFAULT FALSE,
+  descricao  VARCHAR(50)  NOT NULL,
+  link       VARCHAR(200) NOT NULL,
+  was_readed BOOLEAN      NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
   tip_id                            SMALLINT NOT NULL,

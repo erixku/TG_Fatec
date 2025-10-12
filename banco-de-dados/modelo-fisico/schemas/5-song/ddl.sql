@@ -18,6 +18,7 @@ CREATE TABLE song.tb_musica (
   nome                   VARCHAR(150) NOT NULL,
   artista                VARCHAR(70)  NOT NULL,
   tem_artista_secundario BOOLEAN      NOT NULL,
+  album                  VARCHAR(50)  NULL,
   duracao                INTERVAL     NOT NULL,
 
   duracao_em_segundos SMALLINT GENERATED ALWAYS AS (
