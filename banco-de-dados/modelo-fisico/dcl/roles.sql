@@ -89,29 +89,22 @@ CREATE ROLE role_administrador WITH
 
 
 
--- criação de ROLE de acesso
+-- criação de ROLE com login
 CREATE ROLE role_api WITH
   LOGIN
   NOSUPERUSER
   NOCREATEDB
   NOCREATEROLE
-  INHERIT
+  NOINHERIT
   NOREPLICATION
   NOBYPASSRLS
   CONNECTION LIMIT 10
   PASSWORD 'senha-temporaria'
   VALID UNTIL 'infinity';
 
-GRANT role_anonimo       TO role_api;
-GRANT role_usuario       TO role_api;
-GRANT role_levita        TO role_api;
-GRANT role_ministro      TO role_api;
-GRANT role_lider         TO role_api;
-GRANT role_administrador TO role_api;
 
 
-
--- criação de ROLE de sistema (triggers, functions etc.)
+-- criação de ROLE de sistema, que lida com routines SECURITY DEFINER
 CREATE ROLE role_sistema WITH
   NOLOGIN
   NOSUPERUSER
