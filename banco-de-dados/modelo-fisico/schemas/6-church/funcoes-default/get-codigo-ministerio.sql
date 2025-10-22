@@ -18,7 +18,7 @@ BEGIN
 
     -- gera o código do ministério
     FOR i IN 1..6 LOOP
-      codigo_gerado := codigo_gerado || substr(caracteres, ceil(random() * length(caracteres))::int, 1);
+      codigo_gerado := codigo_gerado || substr(caracteres, ceil(random() * length(caracteres))::INTEGER, 1);
     END LOOP;
 
     -- verifica se o código gerado já está em uso por algum ministério

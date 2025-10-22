@@ -71,4 +71,5 @@ BEGIN
       EXECUTE format('REASSIGN OWNED BY %I TO neondb_owner;', nome_role);
     END IF;
   END LOOP;
-END $$ LANGUAGE plpgsql;
+END $$
+LANGUAGE plpgsql;
