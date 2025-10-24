@@ -1,6 +1,6 @@
 package br.app.harppia.modulo.usuario.domain.dto.register;
 
-import br.app.harppia.modulo.shared.entity.storage.enums.ENomeBucket;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import jakarta.validation.constraints.NotNull;
 
 public record BucketCadastroDTO(

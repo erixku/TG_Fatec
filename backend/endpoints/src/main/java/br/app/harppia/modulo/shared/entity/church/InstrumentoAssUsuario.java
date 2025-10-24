@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -61,5 +61,5 @@ public class InstrumentoAssUsuario {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
-	private Usuario donoInstrumento;
+	private UsuarioEntity donoInstrumento;
 }

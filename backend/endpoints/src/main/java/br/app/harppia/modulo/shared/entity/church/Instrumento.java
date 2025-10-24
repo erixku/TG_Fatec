@@ -5,14 +5,14 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
+import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
 import br.app.harppia.modulo.shared.entity.church.enums.EFamiliaInstrumento;
 import br.app.harppia.modulo.shared.entity.church.enums.ENomeInstrumento;
-import br.app.harppia.modulo.shared.entity.storage.Arquivo;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -59,15 +59,15 @@ public class Instrumento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_adm", nullable = false)
-    private Usuario createdByAdm;
+    private UsuarioEntity createdByAdm;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by_adm", nullable = false)
-    private Usuario updatedByAdm;
+    private UsuarioEntity updatedByAdm;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_adm")
-    private Usuario deletedByAdm;
+    private UsuarioEntity deletedByAdm;
 
     //----------------------//
     // DADOS DO INSTRUMENTO //
@@ -108,9 +108,9 @@ public class Instrumento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_storage_t_tb_arquivo_c_foto")
-    private Arquivo foto;
+    private ArquivoEntity foto;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
-    private Arquivo icone;
+    private ArquivoEntity icone;
 }

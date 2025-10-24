@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.usuario.interfaces.rest;
+package br.app.harppia.modulo.auth.interfaces.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.app.harppia.modulo.auth.application.usecases.JwtService;
-import br.app.harppia.modulo.auth.domain.AuthenticationRecord;
-import br.app.harppia.modulo.auth.domain.AuthenticationResponse;
-import br.app.harppia.modulo.usuario.application.usecases.LoginService;
-import br.app.harppia.modulo.usuario.domain.dto.LoginUsuarioDTO;
+import br.app.harppia.modulo.auth.application.services.JwtService;
+import br.app.harppia.modulo.auth.application.usecases.LogarUsuarioUseCase;
+import br.app.harppia.modulo.auth.domain.request.LoginUsuarioDTO;
+import br.app.harppia.modulo.auth.domain.response.AuthenticationResponse;
 import jakarta.validation.Valid;
 
 /**
@@ -32,11 +31,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/v1/users")
 public class LoginUsuarioController {
 
-	private LoginService loginUsuarioService;
+	private LogarUsuarioUseCase loginUsuarioService;
 	private AuthenticationManager authenticationManager;
 	private JwtService jwtService;
 
-	public LoginUsuarioController(LoginService loginUsuarioService, AuthenticationManager authenticationManager,
+	public LoginUsuarioController(LogarUsuarioUseCase loginUsuarioService, AuthenticationManager authenticationManager,
 			JwtService jwtService) {
 		this.loginUsuarioService = loginUsuarioService;
 		this.authenticationManager = authenticationManager;
@@ -61,9 +60,9 @@ public class LoginUsuarioController {
 
 	// Controller
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody AuthenticationRecord record) {
+	public ResponseEntity<?> login(@RequestBody LoginUsuarioDTO record) {
 		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(record.email(), record.password()));
+				.authenticate(new UsernamePasswordAuthenticationToken(record.email(), record.senha()));
 		UserDetails user = (UserDetails) authentication.getPrincipal();
 		String token = jwtService.generateToken(user);
 		return ResponseEntity.ok(new AuthenticationResponse(token));

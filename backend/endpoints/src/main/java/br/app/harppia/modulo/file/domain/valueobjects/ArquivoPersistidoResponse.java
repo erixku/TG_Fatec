@@ -1,7 +1,7 @@
 package br.app.harppia.modulo.file.domain.valueobjects;
 
-public record ArquivoPersistidoResponse (
-			String link
-		) {
-	
+import java.util.UUID;
+
+public record ArquivoPersistidoResponse(UUID id, String link) {
+
 }

@@ -12,18 +12,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import br.app.harppia.modulo.file.domain.entities.Arquivo;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -108,12 +101,10 @@ public class UsuarioEntity implements UserDetails {
 	private String telefone;
 
 	@Column(nullable = false)
-	@JsonIgnore
 	private String senha;
 
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", referencedColumnName = "uuid")
-	private Arquivo fotoPerfil;
+	@Column(name = "s_storage_t_tb_arquivo_c_foto")
+	private UUID idFotoPerfil;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

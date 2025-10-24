@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.storage.Arquivo;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -57,15 +57,15 @@ public class MinisterioLouvor {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_adm", nullable = false)
-    private Usuario createdByAdm;
+    private UsuarioEntity createdByAdm;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by_adm", nullable = false)
-    private Usuario updatedByAdm;
+    private UsuarioEntity updatedByAdm;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_adm")
-    private Usuario deletedByAdm;
+    private UsuarioEntity deletedByAdm;
 
     //-------------------------------//
     // DADOS DO MINISTÉRIO DE LOUVOR //
@@ -91,5 +91,5 @@ public class MinisterioLouvor {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_storage_t_tb_arquivo_c_foto")
-    private Arquivo foto;
+    private ArquivoEntity foto;
 }

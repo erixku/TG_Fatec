@@ -1,7 +1,8 @@
-package br.app.harppia.modulo.usuario.domain.dto.register;
+package br.app.harppia.modulo.file.domain.valueobjects;
 
-import br.app.harppia.modulo.shared.entity.storage.enums.EExtensaoArquivo;
-import br.app.harppia.modulo.shared.entity.storage.enums.EMimeTypeArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
+import br.app.harppia.modulo.usuario.domain.dto.register.BucketCadastroDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.modulo.file.application.service.FileStreamService;
-import br.app.harppia.modulo.file.domain.entities.Arquivo;
+import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.file.infrastructure.repository.ArquivoRepository;
 import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
-import br.app.harppia.modulo.shared.entity.storage.enums.EExtensaoArquivo;
-import br.app.harppia.modulo.shared.entity.storage.enums.EMimeTypeArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
 
 @Service
 public class SalvarArquivoUseCase {
@@ -23,15 +23,17 @@ public class SalvarArquivoUseCase {
 		this.uploadService = uploadService;
 	}
 
-	public Arquivo salvar(MultipartFile file, String bucket) throws IOException {
+	public ArquivoPersistidoResponse salvar(MultipartFile file, String bucket) throws IOException {
 		// Salva o arquivo na nuvem
-		Arquivo arquivoSalvo = uploadService.uploadFile(file, bucket);
+		uploadService.uploadFile(file, bucket);
 
 		ArquivoEntity arquivo = new ArquivoEntity(null, null, null, null, null, false, file.getName(),
 				EMimeTypeArquivo.valueOf(file.getContentType()), EExtensaoArquivo.valueOf(file.getContentType()),
 				file.getSize(), null);
 
 		// Salva o arquivo no banco
-		arquivoRepo.save(arquivo);
+		ArquivoEntity arquivoSalvo = arquivoRepo.save(arquivo);
+		
+		return new ArquivoPersistidoResponse(arquivoSalvo.getUuid(), arquivoSalvo.getNome());
 	}
 }

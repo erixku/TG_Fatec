@@ -56,9 +56,6 @@ public record UsuarioCadastroDTO (
 	
 	@NotNull(message = "O endereço é obrigatório!")
 	@Valid
-	EnderecoCadastroDTO endereco,
-	
-	@Valid
-	ArquivoCadastroDTO arquivo
+	EnderecoCadastroDTO endereco
 	) {
 }

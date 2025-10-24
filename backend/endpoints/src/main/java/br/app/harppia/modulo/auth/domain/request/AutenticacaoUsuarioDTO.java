@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.auth.domain;
+package br.app.harppia.modulo.auth.domain.request;
 
 import java.io.Serial;
 import java.util.Collection;
@@ -8,11 +8,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 public class AutenticacaoUsuarioDTO implements UserDetails {
 
 	// Garante o versionamento correto dessa classe
 	@Serial
-	private static final long serialVersionUID = 8964733591976331840L;
+	private static final long serialVersionUID = 1L;
 	private String login;
 	private String password;
 	

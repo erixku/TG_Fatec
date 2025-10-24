@@ -2,14 +2,13 @@ package br.app.harppia.modulo.usuario.application.usecases;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.modulo.file.domain.entities.Arquivo;
-import br.app.harppia.modulo.file.interfaces.rest.FileUploadController;
-import br.app.harppia.modulo.shared.entity.storage.enums.ENomeBucket;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
+import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
+import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastradoDTO;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.mapper.UsuarioMapper;
@@ -26,15 +25,15 @@ public class CadastrarUsuarioUseCase {
 	 * @author asher_ren
 	 * @since 15/08/2025
 	 */
-	private final UsuarioRepository usuarioRepository;
-	private final FileUploadController fileService;
+	private final RegistrarArquivoPort registrarArquivoPort;
 	private final PasswordEncoder passwdEncoder;
 	private final UsuarioMapper userMapper;
+	private final UsuarioRepository usuarioRepository;
 
-	public CadastrarUsuarioUseCase(UsuarioRepository usuarioRepository, FileUploadController fileService,
-				PasswordEncoder passwdEncoder, UsuarioMapper userMapper) {
+	public CadastrarUsuarioUseCase(UsuarioRepository usuarioRepository, RegistrarArquivoPort registrarArquivoPort,
+			PasswordEncoder passwdEncoder, UsuarioMapper userMapper) {
 		this.usuarioRepository = usuarioRepository;
-		this.fileService = fileService;
+		this.registrarArquivoPort = registrarArquivoPort;
 		this.passwdEncoder = passwdEncoder;
 		this.userMapper = userMapper;
 	}
@@ -48,7 +47,7 @@ public class CadastrarUsuarioUseCase {
 	 * @return Um objeto com UUID, email e nome do usuário cadastrado.
 	 */
 	@Transactional
-	public UsuarioCadastradoDTO cadastrarUsuario(UsuarioCadastroDTO dto, MultipartFile file) {
+	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO dto, MultipartFile file) {
 
 		UsuarioEntity userToSave = null;
 
@@ -64,12 +63,10 @@ public class CadastrarUsuarioUseCase {
 			userToSave.setSenha(passwdEncoder.encode(dto.senha()));
 
 			if (file != null && file.isEmpty()) {
-				// subir arquivo na S3
-				// retornar link da foto dele
-				ResponseEntity<String> url = fileService.uploadFile(file,
+				FotoPerfilInfo fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
 						ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue() + "/");
 
-				Arquivo fotoSalva = new Arquivo(file, null);
+				userToSave.setIdFotoPerfil(fotoSalva.id());
 			}
 
 			UsuarioEntity savedUser = usuarioRepository.save(userToSave);

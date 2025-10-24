@@ -9,9 +9,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.JwtService;
-import br.app.harppia.modulo.auth.application.usecases.UsuarioAuthConfigService;
-import br.app.harppia.modulo.auth.domain.UsuarioAutenticacaoTokenDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,10 +19,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-	private final UsuarioAuthConfigService userService;
+	private final ConsultarUsuarioPort userService;
 	private final JwtService jwtService;
 	
-	public JwtAuthFilter(UsuarioAuthConfigService userService, JwtService jwtService) {
+	public JwtAuthFilter(ConsultarUsuarioPort userService, JwtService jwtService) {
 		this.userService = userService;
 		this.jwtService = jwtService;
 	}
@@ -57,7 +56,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
         	
 	        // Busca as credenciais e permissões do usuário.
-	        UsuarioAutenticacaoTokenDTO userDetails = this.userService.buscarPorLogin(username);
+	        var userDetails = userService.findByCpfOrEmailOrTelefone(username, username, username);
 	
 	        // Caso ainda válido, adiciona as informações e permissões dele sobre a aplicação
 	        if (jwtService.isTokenValid(jwt, userDetails)) {
@@ -68,7 +67,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 	            SecurityContextHolder.getContext().setAuthentication(authToken);
 	        }
         }
-        
         
         filterChain.doFilter(request, response);
     }

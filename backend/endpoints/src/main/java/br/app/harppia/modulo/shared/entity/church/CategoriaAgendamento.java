@@ -6,7 +6,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
 import br.app.harppia.modulo.shared.entity.church.enums.ETipoAtividade;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -57,15 +57,15 @@ public class CategoriaAgendamento {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_adm", nullable = false)
-    private Usuario createdByAdm;
+    private UsuarioEntity createdByAdm;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by_adm", nullable = false)
-    private Usuario updatedByAdm;
+    private UsuarioEntity updatedByAdm;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_adm")
-    private Usuario deletedByAdm;
+    private UsuarioEntity deletedByAdm;
 
     //---------------------------//
     // DADOS DA CATEGORIA IGREJA //

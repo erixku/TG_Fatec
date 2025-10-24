@@ -9,17 +9,15 @@ import org.mapstruct.Named;
 import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
-import br.app.harppia.modulo.file.infrastructure.mappers.ArquivoMapper;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 
-@Mapper(componentModel = "spring", uses = { ArquivoMapper.class, EnderecoMapper.class })
+@Mapper(componentModel = "spring", uses = { EnderecoMapper.class })
 public abstract class UsuarioMapper {
 	
 	// -------------------------
 	// DTO -> Entidade de dominio
 	// ---------
-	@Mapping(source = "arquivo", target = "fotoPerfil")
 
 	// Campos do DTO que precisam ser tratados:
 	@Mapping(source = "cpf", target = "cpf", qualifiedByName = "tratarCpf")
@@ -38,6 +36,7 @@ public abstract class UsuarioMapper {
 	@Mapping(target = "isDeleted", ignore = true)
 	@Mapping(target = "lastAccess", ignore = true)
 	@Mapping(target = "authorities", ignore = true)
+	@Mapping(target = "idFotoPerfil", ignore = true)
 	public abstract UsuarioEntity toEntity(UsuarioCadastroDTO dto);
 
 	// --------------------------------------------

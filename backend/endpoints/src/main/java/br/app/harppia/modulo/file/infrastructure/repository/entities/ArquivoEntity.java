@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.storage.enums.EExtensaoArquivo;
-import br.app.harppia.modulo.shared.entity.storage.enums.EMimeTypeArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

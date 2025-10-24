@@ -6,7 +6,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
 import br.app.harppia.defaults.custom.converters.enums.nomebucket.ConversorEnumNomeBucket;
-import br.app.harppia.modulo.shared.entity.storage.enums.ENomeBucket;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;

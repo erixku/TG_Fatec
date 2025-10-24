@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.modulo.file.application.usecases.SalvarArquivoUseCase;
-import br.app.harppia.modulo.file.domain.entities.Arquivo;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 
 @RestController
@@ -24,14 +23,12 @@ public class FileUploadController {
 	}
 
 	@PostMapping("/upload")
-	public ResponseEntity<ArquivoPersistidoResponse> uploadFileToS3(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<ArquivoPersistidoResponse> uploadFile(@RequestParam("file") MultipartFile file,
 			String bucketToSave) {
 		try {
-			Arquivo arquivoSalvo = salvarArquivoUseCase.salvar(file, bucketToSave);
-
-			ArquivoPersistidoResponse arqResponse = new ArquivoPersistidoResponse(arquivoSalvo.getLinkPublico());
-
-			return ResponseEntity.ok(arqResponse);
+			ArquivoPersistidoResponse arquivoSalvo = salvarArquivoUseCase.salvar(file, bucketToSave);
+			
+			return ResponseEntity.ok(arquivoSalvo);
 		} catch (IOException e) {
 			return ResponseEntity.status(500).body(null);
 		}

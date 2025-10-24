@@ -19,13 +19,5 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
 	public List<UsuarioEntity> findByEmail(String email);
 	public List<UsuarioEntity> findByCpf(String cpf);
 	public List<UsuarioEntity> findByTelefone(String telefone);
-	
-	/**
-	 * Método para buscar um usuário através de um ou mais identificadores. São estes: CPF, email e/ou telefone.
-	 * @param cpf 
-	 * @param email
-	 * @param telefone
-	 * @return um usuário ou null
-	 */
-    Optional<UsuarioEntity> findByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
+    public Optional<UsuarioEntity> findByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
 }

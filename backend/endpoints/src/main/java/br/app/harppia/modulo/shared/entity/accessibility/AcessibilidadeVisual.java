@@ -7,7 +7,7 @@ import org.hibernate.generator.EventType;
 
 import br.app.harppia.modulo.shared.entity.accessibility.enums.ECorTema;
 import br.app.harppia.modulo.shared.entity.accessibility.enums.ETipoDaltonismo;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,7 +42,7 @@ public class AcessibilidadeVisual {
 	@OneToOne(optional = false)
 	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private Usuario usuario;
+	private UsuarioEntity usuario;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Generated(event = EventType.INSERT)

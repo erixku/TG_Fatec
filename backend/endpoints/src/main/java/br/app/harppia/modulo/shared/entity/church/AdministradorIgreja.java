@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,11 +48,11 @@ public class AdministradorIgreja {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
-	private Usuario createdByAdm;
+	private UsuarioEntity createdByAdm;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn
-	private Usuario deletedByAdm;
+	private UsuarioEntity deletedByAdm;
 	
 	//----------------//
 	// DADOS DO ADMIN //
@@ -69,5 +69,5 @@ public class AdministradorIgreja {
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "igr_uuid", nullable = false)
-	private Usuario admin;
+	private UsuarioEntity admin;
 }

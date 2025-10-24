@@ -4,8 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import br.app.harppia.modulo.file.infrastructure.repository.entities.BucketEntity;
 import br.app.harppia.modulo.usuario.domain.dto.register.BucketCadastroDTO;
-import br.app.harppia.modulo.usuario.shared.entity.Bucket;
 
 @Mapper(componentModel = "spring")
 public interface BucketMapper {
@@ -21,5 +21,5 @@ public interface BucketMapper {
 	@Mapping(target = "tamanhoMaximo", ignore = true)
 	@Mapping(target = "tamanhoMinimo", ignore = true)
 	@Mapping(target = "tempoLimiteUpload", ignore = true)
-	Bucket toEntity(BucketCadastroDTO dto);
+	BucketEntity toEntity(BucketCadastroDTO dto);
 }

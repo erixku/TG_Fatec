@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.usuario.interfaces.rest;
+package br.app.harppia.modulo.auth.interfaces.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.app.harppia.modulo.auth.domain.AutenticacaoUsuarioDTO;
+import br.app.harppia.modulo.auth.domain.request.AutenticacaoUsuarioDTO;
 import jakarta.validation.Valid;
 
 

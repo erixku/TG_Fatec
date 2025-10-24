@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.shared.entity.storage.enums;
+package br.app.harppia.modulo.file.infrastructure.repository.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.app.harppia.modulo.file.domain.valueobjects.BucketIdNameRecord;
+import br.app.harppia.modulo.file.domain.valueobjects.BucketBasicInfo;
 import br.app.harppia.modulo.file.infrastructure.repository.entities.BucketEntity;
-import br.app.harppia.modulo.shared.entity.storage.enums.ENomeBucket;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.BucketRepository;
 
 @Service
@@ -23,12 +23,12 @@ public class BuscarBucketUseCase {
 	 * @param nome nome do bucket
 	 * @return um record com o id e nome do bucket ou null
 	 */
-	public BucketIdNameRecord findByNome(ENomeBucket nome) {
+	public BucketBasicInfo findByNome(ENomeBucket nome) {
 		Optional<BucketEntity> bucket = bucketRepository.findByNome(nome.getCustomValue());
 		
 		if (bucket.isEmpty())
 			return null;
 
-		return new BucketIdNameRecord(bucket.get().getId(), bucket.get().getNome());
+		return new BucketBasicInfo(bucket.get().getId(), bucket.get().getNome());
 	}
 }

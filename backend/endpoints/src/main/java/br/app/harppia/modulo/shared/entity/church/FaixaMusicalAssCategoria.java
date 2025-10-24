@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,11 +47,11 @@ public class FaixaMusicalAssCategoria {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_min", nullable = false)
-    private Usuario createdBy;
+    private UsuarioEntity createdBy;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_min")
-    private Usuario deletedBy;
+    private UsuarioEntity deletedBy;
 
     //---------------------//
     // DADOS DA ASSOCIAÇÃO //

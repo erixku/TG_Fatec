@@ -6,11 +6,11 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
 import br.app.harppia.modulo.shared.entity.church.enums.EFuncaoUsuario;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -50,11 +50,11 @@ public class UsuarioFuncao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_lid", nullable = false)
-    private Usuario createdBy;
+    private UsuarioEntity createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleted_by_lid")
-    private Usuario deletedBy;
+    private UsuarioEntity deletedBy;
 
     //----------------------------//
     // DADOS DE FUNÇÃO DO USUÁRIO //
@@ -75,5 +75,5 @@ public class UsuarioFuncao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
-    private Usuario levita;
+    private UsuarioEntity levita;
 }

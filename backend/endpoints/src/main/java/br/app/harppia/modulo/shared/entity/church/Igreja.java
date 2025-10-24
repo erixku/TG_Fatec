@@ -6,9 +6,9 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 import org.hibernate.validator.constraints.UUID;
 
+import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
 import br.app.harppia.modulo.shared.entity.church.enums.EDenominacaoIgreja;
-import br.app.harppia.modulo.shared.entity.storage.Arquivo;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -58,15 +58,15 @@ public class Igreja {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false, updatable = false)
-	private Usuario createdByAdm;
+	private UsuarioEntity createdByAdm;
 
 	@OneToOne(fetch = FetchType.LAZY)	
 	@JoinColumn(nullable = false)
-	private Usuario updatedByAdm;
+	private UsuarioEntity updatedByAdm;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn
-	private Usuario deletedByAdm = null;
+	private UsuarioEntity deletedByAdm = null;
 
 	//-----------------//
 	// DADOS DA IGREJA //
@@ -90,8 +90,8 @@ public class Igreja {
 	// FKs //
 	//-----//
 	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
-	private Arquivo foto;
+	private ArquivoEntity foto;
 
 	@JoinColumn(name = "s_auth_t_tb_usuario_c_adm_proprietario", nullable = false)
-	private Usuario proprietario;
+	private UsuarioEntity proprietario;
 }
