@@ -1,20 +1,17 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.schedule.enums.MotivoAusencia;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.activities.infrastructure.repository.enums.EMotivoAusencia;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,9 +45,8 @@ public class RegistroAusencia {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "created_by_lev", nullable = false)
-	private Usuario createdByLev;
+	@Column(name = "created_by_lev", nullable = false)
+	private UUID createdByLev;
 
 	// -------------------//
 	// DADOS DA AUSÊNCIA //
@@ -59,7 +55,7 @@ public class RegistroAusencia {
 	private Boolean isDeleted = false;
 
 	@Column(name = "motivo", nullable = false)
-	private MotivoAusencia motivo;
+	private EMotivoAusencia motivo;
 
 	@Column(name = "outro_motivo")
 	private String outroMotivo;
@@ -75,7 +71,6 @@ public class RegistroAusencia {
 	// -----//
 	// FKs //
 	// -----//
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "schema_auth_usuario_lev")
-	private Usuario usuario;
+	@Column(name = "schema_auth_usuario_lev")
+	private UUID usuario;
 }

@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.song.enums.ETonalidadeMusica;
+import br.app.harppia.modulo.music.infrastructure.repository.enums.ETonalidadeMusica;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

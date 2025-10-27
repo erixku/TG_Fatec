@@ -1,11 +1,12 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.church.enums.EFuncaoUsuario;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EFuncaoUsuario;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,13 +49,11 @@ public class UsuarioFuncao {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_lid", nullable = false)
-    private UsuarioEntity createdBy;
+    @Column(name = "created_by_lid", nullable = false)
+    private UUID createdBy;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deleted_by_lid")
-    private UsuarioEntity deletedBy;
+    @Column(name = "deleted_by_lid")
+    private UUID deletedBy;
 
     //----------------------------//
     // DADOS DE FUNÇÃO DO USUÁRIO //
@@ -62,7 +61,6 @@ public class UsuarioFuncao {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "funcao", nullable = false)
     private EFuncaoUsuario funcao;
 
@@ -73,7 +71,6 @@ public class UsuarioFuncao {
     @JoinColumn(name = "min_lou_uuid", nullable = false)
     private MinisterioLouvor ministerioLouvor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
-    private UsuarioEntity levita;
+    @Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
+    private UUID idLevita;
 }

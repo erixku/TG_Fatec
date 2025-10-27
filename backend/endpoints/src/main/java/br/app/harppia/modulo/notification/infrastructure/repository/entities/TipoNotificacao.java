@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.notification.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.storage.Arquivo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -62,7 +62,6 @@ public class TipoNotificacao {
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
-	private Arquivo icone;
+	@Column(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
+	private UUID idIcone;
 }

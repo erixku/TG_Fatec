@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "tb_faixa_elencada", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedByMin", "posicao", "observacao", "atividade"})
+@ToString(of = {"id", "updatedByMinId", "posicao", "observacao", "atividade"})
 @EqualsAndHashCode(of = "id")
 public class FaixaElencada {
 	
@@ -49,17 +49,14 @@ public class FaixaElencada {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_min", nullable = false)
-	private Usuario createdByMin;
+	@Column(name = "created_by_min", nullable = false)
+	private UUID createdByMinId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "updated_by_min", nullable = false)
-	private Usuario updatedByMin;
+	@Column(name = "updated_by_min", nullable = false)
+	private UUID updatedByMinId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "deleted_by_min")
-	private Usuario deletedByMin;
+	@Column(name = "deleted_by_min")
+	private UUID deletedByMinId;
 	
 	//----------------//
 	// DADOS DA FAIXA //

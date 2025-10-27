@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,13 +45,11 @@ public class FaixaMusicalAssCategoria {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_min", nullable = false)
-    private UsuarioEntity createdBy;
+    @Column(name = "created_by_min", nullable = false)
+    private UUID createdBy;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deleted_by_min")
-    private UsuarioEntity deletedBy;
+    @Column(name = "deleted_by_min")
+    private UUID deletedBy;
 
     //---------------------//
     // DADOS DA ASSOCIAÇÃO //

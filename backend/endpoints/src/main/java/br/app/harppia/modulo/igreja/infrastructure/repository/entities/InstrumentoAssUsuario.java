@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "tb_instrumento_ass_usuario", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"id", "instrumento", "donoInstrumento"})
+@ToString(of = {"id", "instrumento", "idDonoInstrumento"})
 @EqualsAndHashCode(of = "id")
 public class InstrumentoAssUsuario {
 
@@ -59,7 +59,6 @@ public class InstrumentoAssUsuario {
 	@JoinColumn(name = "ins_id", nullable = false)
 	private Instrumento instrumento;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
-	private UsuarioEntity donoInstrumento;
+	@Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
+	private UUID idDonoInstrumento;
 }

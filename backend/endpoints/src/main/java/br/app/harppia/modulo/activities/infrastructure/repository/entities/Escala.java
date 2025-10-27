@@ -1,20 +1,16 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.church.Igreja;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +21,7 @@ import lombok.ToString;
 @Table(name = "tb_escala", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedByLid", "nome", "quantidadeAtividades", "igreja"})
+@ToString(of = {"id", "updatedByLidId", "nome", "quantidadeAtividades", "igreja"})
 @EqualsAndHashCode(of = "id")
 public class Escala {
 
@@ -50,17 +46,14 @@ public class Escala {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_lid", nullable = false)
-	private Usuario createdByLid;
+	@Column(name = "created_by_lid", nullable = false)
+	private UUID createdByLidId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "updated_by_lid", nullable = false)
-	private Usuario updatedByLid;
+	@Column(name = "updated_by_lid", nullable = false)
+	private UUID updatedByLidId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "deleted_by_lid")
-	private Usuario deletedByLid;
+	@Column(name = "deleted_by_lid")
+	private UUID deletedByLidId;
 	
 	//-----------------//
 	// DADOS DA ESCALA //
@@ -80,7 +73,6 @@ public class Escala {
 	//-----//
 	// FKs //
 	//-----//
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "s_church_t_tb_igreja_c_igreja", nullable = false)
-	private Igreja igreja;
+	@Column(name = "s_church_t_tb_igreja_c_igreja", nullable = false)
+	private UUID igreja;
 }

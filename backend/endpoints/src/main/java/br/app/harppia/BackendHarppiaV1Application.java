@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import io.github.cdimascio.dotenv.Dotenv;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "br.app.harppia")
 public class BackendHarppiaV1Application {
 
 	public static void main(String[] args) {
@@ -19,5 +19,4 @@ public class BackendHarppiaV1Application {
         // Sobe a aplicação
         SpringApplication.run(BackendHarppiaV1Application.class, args);
 	}
-
 }

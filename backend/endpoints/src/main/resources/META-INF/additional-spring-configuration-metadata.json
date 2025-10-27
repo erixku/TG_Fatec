@@ -8,5 +8,10 @@
     "name": "application.security.jwt.expiration",
     "type": "java.lang.Long",
     "description": "Tempo máximo de vida do token."
+  },
+  {
+    "name": "application.aws.s3.bucketname",
+    "type": "java.lang.String",
+    "description": "bucket do S3"
   }
 ]}

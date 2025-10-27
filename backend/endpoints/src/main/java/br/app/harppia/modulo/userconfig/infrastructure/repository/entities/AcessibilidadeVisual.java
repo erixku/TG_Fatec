@@ -5,8 +5,8 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.accessibility.enums.ECorTema;
-import br.app.harppia.modulo.shared.entity.accessibility.enums.ETipoDaltonismo;
+import br.app.harppia.modulo.userconfig.infrastructure.repository.enums.ECorTema;
+import br.app.harppia.modulo.userconfig.infrastructure.repository.enums.ETipoDaltonismo;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

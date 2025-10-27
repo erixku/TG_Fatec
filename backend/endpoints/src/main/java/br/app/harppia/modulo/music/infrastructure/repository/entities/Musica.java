@@ -1,22 +1,17 @@
 package br.app.harppia.modulo.music.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.song.enums.ETonalidadeMusica;
-import br.app.harppia.modulo.shared.entity.storage.Arquivo;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.music.infrastructure.repository.enums.ETonalidadeMusica;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -49,9 +44,8 @@ public class Musica {
 	@Column
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_usu", nullable = false)
-	private Usuario createdBy;
+	@Column(name = "created_by_usu", nullable = false)
+	private UUID createdBy;
 	
 	//-----------------//
 	// DADOS DA MUSICA //
@@ -99,7 +93,6 @@ public class Musica {
 	//-------------------//
 	// CHAVE ESTRANGEIRA //
 	//-------------------//
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto")
-	private Arquivo capa;
+	@Column(name = "s_storage_t_tb_arquivo_c_foto")
+	private UUID idCapa;
 }

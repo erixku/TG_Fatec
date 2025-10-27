@@ -1,12 +1,11 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.church.InstrumentoAssUsuario;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,7 +24,7 @@ import lombok.ToString;
 @Table(name = "tb_participante", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedByLev", "participacaoConfirmada", "atividade"})
+@ToString(of = {"id", "updatedByLevId", "participacaoConfirmada", "atividade"})
 @EqualsAndHashCode(of = "id")
 public class Participante {
 
@@ -50,17 +49,14 @@ public class Participante {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_lid", nullable = false)
-	private Usuario createdByLid;
+	@Column(name = "created_by_lid", nullable = false)
+	private UUID createdByLidId;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "updated_by_lev", nullable = false)
-	private Usuario updatedByLev;
+	@Column(name = "updated_by_lev", nullable = false)
+	private UUID updatedByLevId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "deleted_by_lid")
-	private Usuario deletedByLid;
+	@Column(name = "deleted_by_lid")
+	private UUID deletedByLidId;
 	
 	//---------------------//
 	// DADOS DA PUBLICAÇÃO //
@@ -78,8 +74,6 @@ public class Participante {
 	@JoinColumn(name = "ati_id", nullable = false)
 	private Atividade atividade;
 	
-	// Papel a ser desempenhado pelo usuário. Ex: baterista, violinista, baixista, etc.
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "s_church_t_tb_instrumento_ass_usuario_c_funcao", nullable = false)
-	private InstrumentoAssUsuario funcao;
+	@Column(name = "s_church_t_tb_instrumento_ass_usuario_c_funcao", nullable = false)
+	private UUID idFuncao;
 }

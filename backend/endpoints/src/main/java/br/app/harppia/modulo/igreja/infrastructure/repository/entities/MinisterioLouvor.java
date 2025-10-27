@@ -6,8 +6,6 @@ import java.util.UUID;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -55,17 +52,14 @@ public class MinisterioLouvor {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_adm", nullable = false)
-    private UsuarioEntity createdByAdm;
+    @Column(name = "created_by_adm", nullable = false)
+    private UUID createdByAdm;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by_adm", nullable = false)
-    private UsuarioEntity updatedByAdm;
+    @Column(name = "updated_by_adm", nullable = false)
+    private UUID updatedByAdm;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deleted_by_adm")
-    private UsuarioEntity deletedByAdm;
+    @Column(name = "deleted_by_adm")
+    private UUID deletedByAdm;
 
     //-------------------------------//
     // DADOS DO MINISTÉRIO DE LOUVOR //
@@ -89,7 +83,6 @@ public class MinisterioLouvor {
     @JoinColumn(name = "igr_uuid", nullable = false)
     private Igreja igreja;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_storage_t_tb_arquivo_c_foto")
-    private ArquivoEntity foto;
+    @Column(name = "s_storage_t_tb_arquivo_c_foto")
+    private UUID foto;
 }

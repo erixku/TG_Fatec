@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum TipoPublicacao implements EnumPersistivel {
+public enum ETipoPublicacao implements EnumPersistivel {
 	AVISO("aviso"),
 	AGENDAMENTO("agendamento"),
 	COMPROMISSO("compromisso");
 	
 	private String tipo;
 	
-	private TipoPublicacao(String tipo) {
+	private ETipoPublicacao(String tipo) {
 		this.tipo = tipo;
 	}
 	
@@ -24,7 +24,7 @@ public enum TipoPublicacao implements EnumPersistivel {
 	}
 	
 	@JsonCreator
-	public TipoPublicacao fromValue(String value) {
-		return InternalEnumParser.fromValue(TipoPublicacao.class, value);
+	public ETipoPublicacao fromValue(String value) {
+		return InternalEnumParser.fromValue(ETipoPublicacao.class, value);
 	}
 }

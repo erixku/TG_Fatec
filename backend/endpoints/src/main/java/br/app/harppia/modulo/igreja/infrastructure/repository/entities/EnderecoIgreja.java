@@ -2,11 +2,11 @@ package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -55,17 +55,14 @@ public class EnderecoIgreja implements Serializable {
     @Column
     private OffsetDateTime deletedAt = null;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, updatable = false)
-    private UsuarioEntity createdByAdm;
+    @Column(nullable = false, updatable = false)
+    private UUID createdByAdm;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
-    private UsuarioEntity updatedByAdm;
+    @Column(nullable = false)
+    private UUID updatedByAdm;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private UsuarioEntity deletedByAdm;
+    @Column
+    private UUID deletedByAdm;
 
     //-------------------//
     // DADOS DO ENDERECO //

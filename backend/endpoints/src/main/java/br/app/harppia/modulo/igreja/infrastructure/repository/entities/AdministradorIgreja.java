@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,7 +24,7 @@ import lombok.ToString;
 @Table(name = "tb_administrador", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"id", "isDeleted", "admin"})
+@ToString(of = {"id", "isDeleted", "idAdmin"})
 @EqualsAndHashCode(of = "id")
 public class AdministradorIgreja {
 
@@ -46,13 +46,11 @@ public class AdministradorIgreja {
 	@Column
 	private OffsetDateTime deletedAt;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
-	private UsuarioEntity createdByAdm;
+	@Column(nullable = false)
+	private UUID createdByAdm;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn
-	private UsuarioEntity deletedByAdm;
+	@Column
+	private UUID deletedByAdm;
 	
 	//----------------//
 	// DADOS DO ADMIN //
@@ -67,7 +65,6 @@ public class AdministradorIgreja {
 	@JoinColumn(name = "igr_uuid", nullable = false)
 	private Igreja igreja;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igr_uuid", nullable = false)
-	private UsuarioEntity admin;
+	@Column(name = "s_auth_t_tb_usuario_c_adm", nullable = false)
+	private UUID idAdmin;
 }

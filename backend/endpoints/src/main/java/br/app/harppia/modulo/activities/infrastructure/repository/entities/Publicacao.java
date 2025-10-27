@@ -1,21 +1,17 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.church.Igreja;
-import br.app.harppia.modulo.shared.entity.schedule.enums.TipoPublicacao;
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
+import br.app.harppia.modulo.activities.infrastructure.repository.enums.ETipoPublicacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -51,17 +47,14 @@ public class Publicacao {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_lev", nullable = false, updatable = false)
-	private Usuario createdByLev;
+	@Column(name = "created_by_lev", nullable = false, updatable = false)
+	private UUID createdByLev;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "updated_by_lev", nullable = false)
-	private Usuario updatedByLev;
+	@Column(name = "updated_by_lev", nullable = false)
+	private UUID updatedByLev;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "deleted_by_lev")
-	private Usuario deletedByLev;
+	@Column(name = "deleted_by_lev")
+	private UUID deletedByLev;
 	
 	//---------------------//
 	// DADOS DA PUBLICAÇÃO //
@@ -73,7 +66,7 @@ public class Publicacao {
 	private String titulo;
 	
 	@Column(name = "tipo", nullable = false)
-	private TipoPublicacao tipo;
+	private ETipoPublicacao tipo;
 	
 	@Column(name = "descricao", nullable = false)
 	private String descricao;
@@ -81,7 +74,6 @@ public class Publicacao {
 	//-----//
 	// FKs //
 	//-----//
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "s_church_t_tb_igreja_c_igreja", nullable = false)
-	private Igreja igreja;
+	@Column(name = "s_church_t_tb_igreja_c_igreja", nullable = false)
+	private UUID igreja;
 }

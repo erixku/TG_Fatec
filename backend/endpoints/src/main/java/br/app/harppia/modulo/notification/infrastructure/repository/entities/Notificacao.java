@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.notification.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -65,13 +65,9 @@ public class Notificacao {
 	@JoinColumn(name = "tip_id", nullable = false)
 	private TipoNotificacao tipoNotificacao;
 
-	// "Um usuário pode receber várias notificações"
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_notificado", nullable = false)
-	private Usuario destinatario;
+	@Column(name = "s_auth_t_tb_usuario_c_notificado", nullable = false)
+	private UUID idDestinatario;
 
-	// "Um usuário pode disparar diversas notificações"
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_notificador", nullable = false)
-	private Usuario remetente;
+	@Column(name = "s_auth_t_tb_usuario_c_notificador", nullable = false)
+	private UUID idRemetente;
 }

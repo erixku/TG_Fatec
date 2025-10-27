@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum MotivoAusencia implements EnumPersistivel {
+public enum EMotivoAusencia implements EnumPersistivel {
 	TRABALHO("trabalho"),
 	LICENCA_MEDICA("licença médica"),
 	EXAME_LABORATORIAL("exame laboratorial"),
@@ -14,7 +14,7 @@ public enum MotivoAusencia implements EnumPersistivel {
 	
 	private String motivo;
 	
-	private MotivoAusencia(String motivo) {
+	private EMotivoAusencia(String motivo) {
 		this.motivo = motivo;
 	}
 
@@ -25,7 +25,7 @@ public enum MotivoAusencia implements EnumPersistivel {
 	}
 	
 	@JsonCreator
-	public MotivoAusencia fromValue(String value) {
-		return InternalEnumParser.fromValue(MotivoAusencia.class, value);
+	public EMotivoAusencia fromValue(String value) {
+		return InternalEnumParser.fromValue(EMotivoAusencia.class, value);
 	}
 }

@@ -1,11 +1,11 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.domain.entities.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,17 +49,14 @@ public class ItemLevado {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "created_by_lev", nullable = false)
-	private Usuario createdByLev;
+	@Column(name = "created_by_lev", nullable = false)
+	private UUID createdByLevId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "updated_by_lev", nullable = false)
-	private Usuario updatedByLev;
+	@Column(name = "updated_by_lev", nullable = false)
+	private UUID updatedByLevId;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "deleted_by_lev")
-	private Usuario deletedByLev;
+	@Column(name = "deleted_by_lev")
+	private UUID deletedByLevId;
 	
 	//----------------------//
 	// DADOS DO ITEM LEVADO //

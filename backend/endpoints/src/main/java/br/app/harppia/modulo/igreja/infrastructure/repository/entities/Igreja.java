@@ -1,22 +1,18 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
-import org.hibernate.validator.constraints.UUID;
 
-import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
-import br.app.harppia.modulo.shared.entity.church.enums.EDenominacaoIgreja;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EDenominacaoIgreja;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +23,7 @@ import lombok.ToString;
 @Table(name = "tb_igreja", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"uuid", "cnpj", "nome", "proprietario"})
+@ToString(of = {"uuid", "cnpj", "nome", "idProprietario"})
 @EqualsAndHashCode(of = "uuid")
 public class Igreja {
 
@@ -56,17 +52,14 @@ public class Igreja {
 	@Column()
 	private OffsetDateTime deletedAt = null;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false, updatable = false)
-	private UsuarioEntity createdByAdm;
+	@Column(name = "created_by_adm", nullable = false, updatable = false)
+	private UUID createdByAdm;
 
-	@OneToOne(fetch = FetchType.LAZY)	
-	@JoinColumn(nullable = false)
-	private UsuarioEntity updatedByAdm;
+	@Column(nullable = false)
+	private UUID updatedByAdm;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn
-	private UsuarioEntity deletedByAdm = null;
+	@Column
+	private UUID deletedByAdm = null;
 
 	//-----------------//
 	// DADOS DA IGREJA //
@@ -90,8 +83,8 @@ public class Igreja {
 	// FKs //
 	//-----//
 	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
-	private ArquivoEntity foto;
+	private UUID idFoto;
 
 	@JoinColumn(name = "s_auth_t_tb_usuario_c_adm_proprietario", nullable = false)
-	private UsuarioEntity proprietario;
+	private UUID idProprietario;
 }

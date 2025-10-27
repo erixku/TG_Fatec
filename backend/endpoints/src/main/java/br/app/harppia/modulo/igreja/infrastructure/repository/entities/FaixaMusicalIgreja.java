@@ -1,12 +1,11 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.shared.entity.song.Medley;
-import br.app.harppia.modulo.shared.entity.song.Musica;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -74,11 +73,9 @@ public class FaixaMusicalIgreja {
     @JoinColumn(name = "igr_uuid", nullable = false)
     private Igreja igreja;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_song_t_tb_musica_c_mus")
-    private Musica musica;
+    @Column(name = "s_song_t_tb_musica_c_mus")
+    private UUID idMusica;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_song_t_tb_medley_c_med")
-    private Medley medley;
+    @Column(name = "s_song_t_tb_medley_c_med")
+    private UUID idMedley;
 }

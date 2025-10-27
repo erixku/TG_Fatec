@@ -1,14 +1,13 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
-import br.app.harppia.modulo.shared.entity.church.enums.EFamiliaInstrumento;
-import br.app.harppia.modulo.shared.entity.church.enums.ENomeInstrumento;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EFamiliaInstrumento;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.ENomeInstrumento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -57,17 +56,14 @@ public class Instrumento {
     @Column(name = "disabled_at")
     private OffsetDateTime disabledAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by_adm", nullable = false)
-    private UsuarioEntity createdByAdm;
+    @Column(name = "created_by_adm", nullable = false)
+    private UUID createdByAdm;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by_adm", nullable = false)
-    private UsuarioEntity updatedByAdm;
+    @Column(name = "updated_by_adm", nullable = false)
+    private UUID updatedByAdm;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "deleted_by_adm")
-    private UsuarioEntity deletedByAdm;
+    @Column(name = "deleted_by_adm")
+    private UUID deletedByAdm;
 
     //----------------------//
     // DADOS DO INSTRUMENTO //
@@ -106,11 +102,9 @@ public class Instrumento {
     @JoinColumn(name = "igr_uuid", nullable = false)
     private Igreja igreja;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_storage_t_tb_arquivo_c_foto")
-    private ArquivoEntity foto;
+    @Column(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
+    private UUID foto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
-    private ArquivoEntity icone;
+    @Column(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
+    private UUID icone;
 }

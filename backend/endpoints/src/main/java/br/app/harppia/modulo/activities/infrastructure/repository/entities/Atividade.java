@@ -1,6 +1,7 @@
 package br.app.harppia.modulo.activities.infrastructure.repository.entities;
 
-import br.app.harppia.modulo.shared.entity.church.CategoriaAgendamento;
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,7 +44,6 @@ public class Atividade {
 	@JoinColumn(name = "pub_id", nullable = false)
 	private Publicacao publicacao;
 	
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "s_church_t_tb_categoria_c_categoria", nullable = false)
-	private CategoriaAgendamento categoriaAtividade;
+	@Column(name = "s_church_t_tb_categoria_c_categoria", nullable = false)
+	private UUID categoriaAtividade;
 }
