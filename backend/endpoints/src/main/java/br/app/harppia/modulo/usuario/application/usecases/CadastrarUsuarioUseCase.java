@@ -14,6 +14,7 @@ import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.mapper.UsuarioMapper;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -29,13 +30,15 @@ public class CadastrarUsuarioUseCase {
 	private final PasswordEncoder passwdEncoder;
 	private final UsuarioMapper userMapper;
 	private final UsuarioRepository usuarioRepository;
+	private final EntityManager entityManager;
 
 	public CadastrarUsuarioUseCase(UsuarioRepository usuarioRepository, RegistrarArquivoPort registrarArquivoPort,
-			PasswordEncoder passwdEncoder, UsuarioMapper userMapper) {
-		this.usuarioRepository = usuarioRepository;
-		this.registrarArquivoPort = registrarArquivoPort;
-		this.passwdEncoder = passwdEncoder;
-		this.userMapper = userMapper;
+			PasswordEncoder passwdEncoder, UsuarioMapper userMapper, EntityManager entityManager) {
+		this.usuarioRepository 		= usuarioRepository;
+		this.registrarArquivoPort 	= registrarArquivoPort;
+		this.passwdEncoder 			= passwdEncoder;
+		this.userMapper 			= userMapper;
+		this.entityManager 			= entityManager;
 	}
 
 	/**
@@ -61,6 +64,10 @@ public class CadastrarUsuarioUseCase {
 				throw new Exception("O usuário já existe!");
 
 			userToSave.setSenha(passwdEncoder.encode(dto.senha()));
+
+			entityManager
+					.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by_usu DEFERRED;")
+					.executeUpdate();
 
 			if (file != null && file.isEmpty()) {
 				FotoPerfilInfo fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,

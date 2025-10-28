@@ -1,1 +1,19 @@
-{"cpf":"550.046.520-15","nomeCompleto":"Lucas Martins","sexo":"M","dataNascimento":"2002-07-20","email":"lucas.martins.dev@gmail.com","telefone":"(11) 98765-1122","senha":"DevGame@2024","endereco":{"cep":"02035011","uf":"SP","cidade":"São Paulo","bairro":"Santana","logradouro":"Rua Voluntários da Pátria","numero":"1500","complemento":"Bloco B, Apto 34"}}
+{
+  "cpf": "253.640.990-24",
+  "nomeCompleto": "Ana Clara de Souza",
+  "nomeSocialCompleto": null,
+  "sexo": "F",
+  "dataNascimento": "1995-11-20",
+  "email": "ana.souza@gmail.com",
+  "telefone": "(11) 98765-4321",
+  "senha": "SenhaForte@2025",
+  "endereco": {
+    "cep": "01001000",
+    "uf": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Sé",
+    "logradouro": "Praça da Sé",
+    "numero": "100",
+    "complemento": "Lado ímpar"
+  }
+}

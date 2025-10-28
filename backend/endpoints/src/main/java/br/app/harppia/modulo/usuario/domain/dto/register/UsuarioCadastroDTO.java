@@ -27,7 +27,7 @@ public record UsuarioCadastroDTO (
 	
 	@Size(min = 3, max = 70, message = "Nome social deve ter entre 3 e 70 dígitos.")
     @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]*$", message = "Nome social só pode conter letras e espaços")	
-	String nomeSocialCompleto, 
+	String nomeSocialCompleto,
 	
 	@NotNull(message = "Sexo inválido!")
 	Character sexo,

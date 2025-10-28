@@ -38,6 +38,5 @@ public record EnderecoCadastroDTO (
 	
 	@Size(max = 30, message = "Tamanho limite do complemento: 30 dígitos.")
 	String complemento
-	
 	) {
 }

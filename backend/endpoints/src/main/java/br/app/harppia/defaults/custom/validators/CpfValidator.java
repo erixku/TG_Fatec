@@ -16,81 +16,77 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
 
 	@Override
 	public boolean isValid(String cpf, ConstraintValidatorContext context) {
-		
+
 		// O CPF não deve ser nulo ou vazio
-		if (cpf == null || cpf.trim().isEmpty()) {
+		if (cpf == null || cpf.trim().isEmpty())
 			return buildViolation(context, "O CPF não pode ser nulo/branco!");
-		}
 
 		// O CPF deve conter apenas dígitos numéricos, ponto ou hífen
-		if (!cpf.matches("[\\d.\\-]+")) {
+		if (!cpf.matches("[\\d.\\-]+"))
 			return buildViolation(context, "O CPF deve ter apenas: números (0-9), pontos e hífen!");
-		}
 
 		// O CPF deve ter, no mínimo, 11 dígitos
-		if (cpf.length() < 11) {
+		if (cpf.length() < 11)
 			return buildViolation(context, "O CPF deve ter pelo menos 11 dígitos!");
-		}
 
 		String cpfSomenteNumeros = this.removerPontosHifenCPF(cpf);
-		
+
 		// O CPF não pode ter todos os dígitos iguais
-		if(todosDigitosSaoIguais(cpfSomenteNumeros)) {
-			return buildViolation(context, "Todos os dígitos do CPF são iguais!");			
-		}
-		
+		if (todosDigitosSaoIguais(cpfSomenteNumeros))
+			return buildViolation(context, "Todos os dígitos do CPF são iguais!");
+
 		try {
 			// Cálculo e validação do primeiro dígito verificador
-            int digito1 = calcularDigitoVerificador(cpfSomenteNumeros.substring(0, 9));
-            if (digito1 != Character.getNumericValue(cpfSomenteNumeros.charAt(9))) {
-                return buildViolation(context, "CPF inválido: primeiro dígito verificador incorreto.");
-            }
+			int digito1 = calcularDigitoVerificador(cpfSomenteNumeros.substring(0, 9));
+			if (digito1 != Character.getNumericValue(cpfSomenteNumeros.charAt(9)))
+				return buildViolation(context, "CPF inválido: primeiro dígito verificador incorreto.");
 
-            // Cálculo e validação do segundo dígito verificador
-            int digito2 = calcularDigitoVerificador(cpfSomenteNumeros.substring(0, 10));
-            if (digito2 != Character.getNumericValue(cpfSomenteNumeros.charAt(10))) {
-                return buildViolation(context, "CPF inválido: segundo dígito verificador incorreto.");
-            }
-		} catch(Exception ex) {
+			// Cálculo e validação do segundo dígito verificador
+			int digito2 = calcularDigitoVerificador(cpfSomenteNumeros.substring(0, 10));
+			if (digito2 != Character.getNumericValue(cpfSomenteNumeros.charAt(10)))
+				return buildViolation(context, "CPF inválido: segundo dígito verificador incorreto.");
+
+		} catch (Exception ex) {
 			return buildViolation(context, "Houve algum erro durante a validação do CPF...");
 		}
-		
-		// Se passar em todas as validações, o CPF é válido
+
 		return true;
 	}
-	
+
 	private boolean buildViolation(ConstraintValidatorContext context, String message) {
 		// Desabilita a mensagem padrão
 		context.disableDefaultConstraintViolation();
-		
+
 		// Define a mensagem a ser mostrada
 		context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
-		
+
 		// Como é usado somente em caso de erros, sempre retorna false
 		return false;
 	}
-	
+
 	private String removerPontosHifenCPF(String cpfSujo) {
 		return CpfSanitizer.sanitize(cpfSujo);
 	}
 
 	private boolean todosDigitosSaoIguais(String cpf) {
-	    char primeiro = cpf.charAt(0);
-	    for (int i = 1; i < cpf.length(); i++) {
-	        if (cpf.charAt(i) != primeiro) {
-	            return false; // Encontrou um dígito diferente, então é válido neste quesito
-	        }
-	    }
-	    return true; // Todos os dígitos são iguais
+		char primeiro = cpf.charAt(0);
+		for (int i = 1; i < cpf.length(); i++) {
+			if (cpf.charAt(i) != primeiro) {
+				return false; // Encontrou um dígito diferente, então é válido neste quesito
+			}
+		}
+		return true; // Todos os dígitos são iguais
 	}
-	
-    private int calcularDigitoVerificador(String trecho) {
-        int soma = 0;
-        int peso = trecho.length() + 1;
-        for (int i = 0; i < trecho.length(); i++) {
-            soma += Character.getNumericValue(trecho.charAt(i)) * (peso - i);
-        }
-        int resto = 11 - (soma % 11);
-        return (resto >= 10) ? 0 : resto;
-    }
+
+	private int calcularDigitoVerificador(String trecho) {
+		int soma = 0;
+		int peso = trecho.length() + 1;
+		
+		for (int i = 0; i < trecho.length(); i++) {
+			soma += Character.getNumericValue(trecho.charAt(i)) * (peso - i);
+		}
+		
+		int resto = 11 - (soma % 11);
+		return (resto >= 10) ? 0 : resto;
+	}
 }

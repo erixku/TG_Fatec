@@ -46,26 +46,34 @@ public abstract class CpfSanitizer {
 
 		// --- Valida o primeiro dígito verificador ---
 		int soma = 0;
+		
 		for (int i = 0; i < 9; i++) {
 			soma += numeros[i] * (10 - i);
 		}
+		
 		int resto = (soma * 10) % 11;
+		
 		if (resto == 10) {
 			resto = 0;
 		}
+		
 		if (resto != numeros[9]) {
 			return false;
 		}
 
 		// --- Valida o segundo dígito verificador ---
 		soma = 0;
+		
 		for (int i = 0; i < 10; i++) {
 			soma += numeros[i] * (11 - i);
 		}
+		
 		resto = (soma * 10) % 11;
+		
 		if (resto == 10) {
 			resto = 0;
 		}
+		
 		if (resto != numeros[10]) {
 			return false;
 		}
