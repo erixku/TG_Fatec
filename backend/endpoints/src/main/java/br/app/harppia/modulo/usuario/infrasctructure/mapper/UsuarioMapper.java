@@ -23,6 +23,7 @@ public abstract class UsuarioMapper {
 	@Mapping(source = "cpf", target = "cpf", qualifiedByName = "tratarCpf")
 	@Mapping(source = "email", target = "email", qualifiedByName = "tratarEmail")
 	@Mapping(source = "telefone", target = "telefone", qualifiedByName = "tratarTelefone")
+	@Mapping(source = "sexo", target = "sexo", qualifiedByName = "tratarSexo")
 
 	// Campos da classe `Usuario` a serem ignorados na conversão:
 	@Mapping(target = "uuid", ignore = true)
@@ -79,19 +80,23 @@ public abstract class UsuarioMapper {
 		return TelefoneSanitizer.sanitize(telefoneMalFormatado);
 	}
 
+	@Named("tratarSexo")
+	protected Character tratarSexo(Character sex) {
+		return Character.toLowerCase(sex);
+	}
 	
 	@AfterMapping
     protected void preencherNomesCompletos(@MappingTarget UsuarioEntity usuario, UsuarioCadastroDTO userDTO) {
-        // Lógica para Nome de Registro
+        // Lógica para Nome e Sobrenome
         if (userDTO.nomeCompleto() != null && !userDTO.nomeCompleto().trim().isEmpty()) {
             String[] nomes = userDTO.nomeCompleto().trim().split("\\s+", 2);
             usuario.setNome(nomes[0]);
             if (nomes.length > 1) {
-                usuario.setSobrenome(nomes[1]); // CORRIGIDO: setSobrenome
+                usuario.setSobrenome(nomes[1]);
             }
         }
         
-        // Lógica para Nome Social
+        // Lógica para Nome e Sobrenome Social
         if (userDTO.nomeSocialCompleto() != null && !userDTO.nomeSocialCompleto().trim().isEmpty()) {
             String[] nomesSociais = userDTO.nomeSocialCompleto().trim().split("\\s+", 2);
             usuario.setNomeSocial(nomesSociais[0]);

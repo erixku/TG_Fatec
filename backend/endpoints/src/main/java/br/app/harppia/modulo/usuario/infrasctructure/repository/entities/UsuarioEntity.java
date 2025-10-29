@@ -1,6 +1,5 @@
 package br.app.harppia.modulo.usuario.infrasctructure.repository.entities;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -92,7 +91,7 @@ public class UsuarioEntity implements UserDetails {
 	private Character sexo;
 
 	@Column(nullable = false)
-	private LocalDate dataNascimento;
+	private OffsetDateTime dataNascimento;
 
 	@Column(nullable = false, unique = true)
 	private String email;

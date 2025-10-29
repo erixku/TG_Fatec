@@ -51,7 +51,6 @@ public class FileStreamService {
 
 		s3Template.upload(bucketName, keyName, file.getInputStream());
 
-		return new Arquivo(file,
-				String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName)); 
+		return new Arquivo(file, String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName));
 	}
 }

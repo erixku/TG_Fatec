@@ -55,7 +55,7 @@ public class CadastrarUsuarioUseCase {
 		UsuarioEntity userToSave = null;
 
 		try {
-			// Caso algo retorne null, deve ser erro de mapeamento DTO <--> Entidade
+			// Caso haja valores incoerentes, deve ser erro de mapeamento DTO <--> Entidade
 			userToSave = userMapper.toEntity(dto);
 
 			List<UsuarioEntity> result = usuarioRepository.findByEmail(dto.cpf());
@@ -69,7 +69,7 @@ public class CadastrarUsuarioUseCase {
 					.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by_usu DEFERRED;")
 					.executeUpdate();
 
-			if (file != null && file.isEmpty()) {
+			if (file != null && !file.isEmpty()) {
 				FotoPerfilInfo fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
 						ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue() + "/");
 
