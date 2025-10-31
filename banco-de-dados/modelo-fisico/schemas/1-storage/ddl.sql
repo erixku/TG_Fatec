@@ -27,17 +27,18 @@ CREATE TABLE storage.tb_bucket (
 
 CREATE TABLE storage.tb_arquivo (
   -- chaves primárias
-  uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+  id UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_usu UUID        NOT NULL,
-  deleted_by_usu UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
 
   -- dados do arquivo
   is_deleted       BOOLEAN                                       NOT NULL DEFAULT FALSE,
   nome             VARCHAR(300)                                  NOT NULL,
+  link             TEXT                                          NOT NULL,
   mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type NOT NULL,
   extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao  NOT NULL,
   tamanho_em_bytes INTEGER                                       NOT NULL,
@@ -46,7 +47,7 @@ CREATE TABLE storage.tb_arquivo (
   buc_id SMALLINT NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_storage_t_tb_arquivo PRIMARY KEY (uuid),
+  CONSTRAINT pk_s_storage_t_tb_arquivo PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_storage_t_tb_arquivo_c_buc_id
@@ -57,19 +58,21 @@ CREATE TABLE storage.tb_arquivo (
     NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
+
+
 -- declaração de chaves estrangeiras de logs (STORAGE.TB_ARQUIVO)
 ALTER TABLE storage.tb_arquivo
-ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by_usu
-  FOREIGN KEY (created_by_usu)
-  REFERENCES auth.tb_usuario (uuid)
+ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_created_by
+  FOREIGN KEY (created_by)
+  REFERENCES auth.tb_usuario (id)
   ON UPDATE RESTRICT
   ON DELETE RESTRICT
   DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE storage.tb_arquivo
-ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by_usu
-  FOREIGN KEY (deleted_by_usu)
-  REFERENCES auth.tb_usuario (uuid)
+ADD CONSTRAINT fk_s_storage_t_tb_arquivo_c_deleted_by
+  FOREIGN KEY (deleted_by)
+  REFERENCES auth.tb_usuario (id)
   ON UPDATE RESTRICT
   ON DELETE RESTRICT
   NOT DEFERRABLE INITIALLY IMMEDIATE;

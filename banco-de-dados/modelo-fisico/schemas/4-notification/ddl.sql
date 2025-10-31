@@ -25,7 +25,7 @@ CREATE TABLE notification.tb_tipo (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_tipo_c_icone
     FOREIGN KEY (s_storage_t_tb_arquivo_c_icone)
-    REFERENCES storage.tb_arquivo (uuid)
+    REFERENCES storage.tb_arquivo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -63,14 +63,14 @@ CREATE TABLE notification.tb_notificacao (
 
   CONSTRAINT fk_s_notification_t_tb_notificacao_c_notificado
     FOREIGN KEY (s_auth_t_tb_usuario_c_notificado)
-    REFERENCES auth.tb_usuario (uuid)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
   CONSTRAINT fk_s_notification_t_tb_notificacao_c_notificador
     FOREIGN KEY (s_auth_t_tb_usuario_c_notificador)
-    REFERENCES auth.tb_usuario (uuid)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -109,7 +109,7 @@ CREATE TABLE notification.tb_tipo_por_usuario (
     
   CONSTRAINT fk_s_notification_t_tb_tipo_por_usuario_c_lev
     FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
-    REFERENCES auth.tb_usuario (uuid)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -139,7 +139,7 @@ CREATE TABLE notification.tb_cor (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_cor_c_icone
     FOREIGN KEY (s_storage_t_tb_arquivo_c_icone)
-    REFERENCES storage.tb_arquivo (uuid)
+    REFERENCES storage.tb_arquivo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -149,7 +149,7 @@ CREATE TABLE notification.tb_cor (
 
 CREATE TABLE notification.tb_configuracao_por_usuario (
   -- chaves primárias/estrangeiras
-  s_auth_t_tb_usuario_c_lev UUID NOT NULL,
+  id UUID NOT NULL,
 
   -- dados de logs
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -170,8 +170,7 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
   cor_led    SMALLINT NOT NULL DEFAULT 1,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario
-  PRIMARY KEY (s_auth_t_tb_usuario_c_lev),
+  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_cor_pop_up
@@ -188,9 +187,9 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_lev
-    FOREIGN KEY (s_auth_t_tb_usuario_c_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_id
+    FOREIGN KEY (id)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE

@@ -5,7 +5,7 @@ CREATE SCHEMA auth;
 
 CREATE TABLE auth.tb_usuario (
   -- chaves primárias
-  uuid UUID NOT NULL DEFAULT gen_random_uuid(),
+  id UUID NOT NULL DEFAULT gen_random_uuid(),
 
   -- dados de logs
   created_at  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -30,22 +30,22 @@ CREATE TABLE auth.tb_usuario (
   s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (uuid),
+  CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_auth_t_tb_usuario_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
-    REFERENCES storage.tb_arquivo (uuid)
+    REFERENCES storage.tb_arquivo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
-    DEFERRABLE INITIALLY IMMEDIATE
+    NOT DEFERRABLE INITIALLY IMMEDIATE
 );
 
 
 
 CREATE TABLE auth.tb_endereco (
   -- chaves primárias/estrangeiras
-  usu_uuid UUID NOT NULL,
+  id UUID NOT NULL,
 
   -- dados de logs
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -60,12 +60,12 @@ CREATE TABLE auth.tb_endereco (
   complemento utils.domain_complemento     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (usu_uuid),
+  CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
-  CONSTRAINT fk_s_auth_t_tb_usuario_c_usu_uuid
-    FOREIGN KEY (usu_uuid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_auth_t_tb_endereco_c_id
+    FOREIGN KEY (id)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE

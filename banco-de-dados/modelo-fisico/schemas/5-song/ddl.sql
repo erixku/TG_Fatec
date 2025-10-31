@@ -8,10 +8,10 @@ CREATE TABLE song.tb_musica (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_usu UUID        NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
 
   -- dados da música
   is_deleted             BOOLEAN      NOT NULL DEFAULT FALSE,
@@ -40,9 +40,9 @@ CREATE TABLE song.tb_musica (
   CONSTRAINT pk_s_song_t_tb_musica PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_song_t_tb_musica_c_created_by_usu
-    FOREIGN KEY (created_by_usu)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_song_t_tb_musica_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -50,7 +50,7 @@ CREATE TABLE song.tb_musica (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_musica_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
-    REFERENCES storage.tb_arquivo (uuid)
+    REFERENCES storage.tb_arquivo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -126,10 +126,10 @@ CREATE TABLE song.tb_medley (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_usu UUID        NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
 
   -- dados do medley
   is_deleted         BOOLEAN      NOT NULL DEFAULT FALSE,
@@ -143,9 +143,9 @@ CREATE TABLE song.tb_medley (
   CONSTRAINT pk_s_song_t_tb_medley PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_song_t_tb_medley_c_created_by_usu
-    FOREIGN KEY (created_by_usu)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_song_t_tb_medley_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -153,7 +153,7 @@ CREATE TABLE song.tb_medley (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_medley_c_foto
     FOREIGN KEY (s_storage_t_tb_arquivo_c_foto)
-    REFERENCES storage.tb_arquivo (uuid)
+    REFERENCES storage.tb_arquivo (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE

@@ -8,10 +8,10 @@ CREATE TABLE schedule.tb_registro_ausencia (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lev UUID        NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
   
   -- dados do registro de ausência
   is_deleted    BOOLEAN                                               NOT NULL DEFAULT FALSE,
@@ -27,9 +27,9 @@ CREATE TABLE schedule.tb_registro_ausencia (
   CONSTRAINT pk_s_schedule_t_tb_registro_ausencia PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_registro_ausencia_c_created_by_lev
-    FOREIGN KEY (created_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_registro_ausencia_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -37,7 +37,7 @@ CREATE TABLE schedule.tb_registro_ausencia (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_schedule_t_tb_registro_ausencia_c_igreja
     FOREIGN KEY (s_church_t_tb_igreja_c_igreja)
-    REFERENCES church.tb_igreja (uuid)
+    REFERENCES church.tb_igreja (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -50,12 +50,12 @@ CREATE TABLE schedule.tb_publicacao (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lev UUID        NOT NULL,
-  updated_by_lev UUID        NOT NULL,
-  deleted_by_lev UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  updated_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da publicação
   is_deleted BOOLEAN                                      NOT NULL DEFAULT FALSE,
@@ -70,23 +70,23 @@ CREATE TABLE schedule.tb_publicacao (
   CONSTRAINT pk_s_schedule_t_tb_publicacao PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_created_by_lev
-    FOREIGN KEY (created_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_updated_by_lev
-    FOREIGN KEY (updated_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_updated_by
+    FOREIGN KEY (updated_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_deleted_by_lev
-    FOREIGN KEY (deleted_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -94,7 +94,7 @@ CREATE TABLE schedule.tb_publicacao (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_schedule_t_tb_publicacao_c_igreja
     FOREIGN KEY (s_church_t_tb_igreja_c_igreja)
-    REFERENCES church.tb_igreja (uuid)
+    REFERENCES church.tb_igreja (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -139,12 +139,12 @@ CREATE TABLE schedule.tb_participante (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lid UUID        NOT NULL,
-  updated_by_lev UUID        NOT NULL,
-  deleted_by_lid UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  updated_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da publicação
   is_deleted              BOOLEAN NOT NULL DEFAULT FALSE,
@@ -158,23 +158,23 @@ CREATE TABLE schedule.tb_participante (
   CONSTRAINT pk_s_schedule_t_tb_participante PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_participante_c_created_by_lid
-    FOREIGN KEY (created_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_participante_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_participante_c_updated_by_lev
-    FOREIGN KEY (updated_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_participante_c_updated_by
+    FOREIGN KEY (updated_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_participante_c_deleted_by_lid
-    FOREIGN KEY (deleted_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_participante_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -195,11 +195,11 @@ CREATE TABLE schedule.tb_item_levado (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lev UUID        NOT NULL,
-  deleted_by_lev UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados do item levado
   is_deleted BOOLEAN     NOT NULL DEFAULT FALSE,
@@ -213,16 +213,16 @@ CREATE TABLE schedule.tb_item_levado (
   CONSTRAINT pk_s_schedule_t_tb_item_levado PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_item_levado_c_created_by_lev
-    FOREIGN KEY (created_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_item_levado_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_item_levado_c_deleted_by_lev
-    FOREIGN KEY (deleted_by_lev)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_item_levado_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -243,12 +243,12 @@ CREATE TABLE schedule.tb_faixa_elencada (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_min UUID        NOT NULL,
-  updated_by_min UUID        NOT NULL,
-  deleted_by_min UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  updated_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da faixa elencada
   is_deleted BOOLEAN       NOT NULL DEFAULT FALSE,
@@ -263,23 +263,23 @@ CREATE TABLE schedule.tb_faixa_elencada (
   CONSTRAINT pk_s_schedule_t_tb_faixa_elencada PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_created_by_min
-    FOREIGN KEY (created_by_min)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_updated_by_min
-    FOREIGN KEY (updated_by_min)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_updated_by
+    FOREIGN KEY (updated_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_deleted_by_min
-    FOREIGN KEY (deleted_by_min)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -307,12 +307,12 @@ CREATE TABLE schedule.tb_escala (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lid UUID        NOT NULL,
-  updated_by_lid UUID        NOT NULL,
-  deleted_by_lid UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  updated_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da escala
   is_deleted            BOOLEAN       NOT NULL DEFAULT FALSE,
@@ -327,23 +327,23 @@ CREATE TABLE schedule.tb_escala (
   CONSTRAINT pk_s_schedule_t_tb_escala PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_escala_c_created_by_lid
-    FOREIGN KEY (created_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_escala_c_updated_by_lid
-    FOREIGN KEY (updated_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_c_updated_by
+    FOREIGN KEY (updated_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_escala_c_deleted_by_lid
-    FOREIGN KEY (deleted_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
@@ -351,7 +351,7 @@ CREATE TABLE schedule.tb_escala (
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_schedule_t_tb_escala_c_igreja
     FOREIGN KEY (s_church_t_tb_igreja_c_igreja)
-    REFERENCES church.tb_igreja (uuid)
+    REFERENCES church.tb_igreja (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -364,12 +364,12 @@ CREATE TABLE schedule.tb_escala_ass_atividade (
   id INTEGER GENERATED ALWAYS AS IDENTITY,
 
   -- dados de logs
-  created_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at     TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at     TIMESTAMPTZ     NULL DEFAULT NULL,
-  created_by_lid UUID        NOT NULL,
-  updated_by_lid UUID        NOT NULL,
-  deleted_by_lid UUID            NULL DEFAULT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
+  created_by UUID        NOT NULL,
+  updated_by UUID        NOT NULL,
+  deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da associação entre escala e atividade
   is_deleted BOOLEAN  NOT NULL DEFAULT FALSE,
@@ -383,23 +383,23 @@ CREATE TABLE schedule.tb_escala_ass_atividade (
   CONSTRAINT pk_s_schedule_t_tb_escala_ass_atividade PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
-  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_created_by_lid
-    FOREIGN KEY (created_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_created_by
+    FOREIGN KEY (created_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_updated_by_lid
-    FOREIGN KEY (updated_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_updated_by
+    FOREIGN KEY (updated_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
 
-  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_deleted_by_lid
-    FOREIGN KEY (deleted_by_lid)
-    REFERENCES auth.tb_usuario (uuid)
+  CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_deleted_by
+    FOREIGN KEY (deleted_by)
+    REFERENCES auth.tb_usuario (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE,
