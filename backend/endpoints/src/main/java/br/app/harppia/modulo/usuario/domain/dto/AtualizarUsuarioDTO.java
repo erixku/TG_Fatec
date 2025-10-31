@@ -1,5 +1,6 @@
 package br.app.harppia.modulo.usuario.domain.dto;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public record AtualizarUsuarioDTO(
 		
 		// dados do usuário
 		String nomeCompleto, String nomeSocialCompleto,
-		OffsetDateTime dataNascimento, String telefone, String senha,
+		LocalDate dataNascimento, String telefone, String senha,
 		
 		// FKs
 		UUID uuidFotoPerfil

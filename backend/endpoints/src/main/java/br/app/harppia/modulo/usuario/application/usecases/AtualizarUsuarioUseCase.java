@@ -16,9 +16,7 @@ public class AtualizarUsuarioUseCase {
 	
 	private UsuarioRepository usuarioRepository;
 	private PasswordEncoder passEncoder;
-	
-	
-	
+		
 	public AtualizarUsuarioUseCase(UsuarioRepository usuarioRepository, PasswordEncoder passEncoder) {
 		this.usuarioRepository = usuarioRepository;
 		this.passEncoder = passEncoder;
@@ -46,7 +44,8 @@ public class AtualizarUsuarioUseCase {
 		
 		userData.setUpdatedAt( OffsetDateTime.now() );
 		
-		if( newData.nomeCompleto() != null ) {
+		String antigoNomeCompleto = String.join(" ", oldData.getNome(), oldData.getSobrenome());
+		if( newData.nomeCompleto() != null && newData.nomeCompleto() != antigoNomeCompleto ) {
 			String[] nome = newData.nomeCompleto().split(" ", 1);
 			
 			userData.setNome		( (nome[0] != null) ? nome[0] : null );
@@ -55,8 +54,9 @@ public class AtualizarUsuarioUseCase {
 			userData.setNome( oldData.getNome() );
 			userData.setSobrenome( oldData.getSobrenome() );
 		}
-
-		if( newData.nomeSocialCompleto() != null ) {
+		
+		String antigoNomeSocialCompleto = String.join(" ", oldData.getNomeSocial(), oldData.getSobrenomeSocial());
+		if( newData.nomeSocialCompleto() != null && newData.nomeSocialCompleto() != antigoNomeSocialCompleto) {
 			String[] nomeSocial = newData.nomeSocialCompleto().split(" ", 1);
 			
 			userData.setNomeSocial		( (nomeSocial[0] != null) ? nomeSocial[0] : null );
@@ -67,25 +67,33 @@ public class AtualizarUsuarioUseCase {
 		}
 			
 		userData.setDataNascimento( 
-				(newData.dataNascimento() != null) 
+				(newData.dataNascimento() != null 
+					&& newData.dataNascimento() != oldData.getDataNascimento()
+				) 
 					? newData.dataNascimento() 
 					: oldData.getDataNascimento() 		
 			);
 		
+		
 		userData.setTelefone( 
-				(newData.telefone() != null)
+				(newData.telefone() != null && newData.telefone() != oldData.getTelefone())
 					? newData.telefone()
 					: oldData.getTelefone()
 			);
 		
-		userData.setSenha( 
-				(newData.senha() != null)
+		String senhaEncriptada = 
+				(newData.senha() != null) 
 					? passEncoder.encode(newData.senha())
+					: null;
+		
+		userData.setSenha( 
+				(newData.senha() != null && senhaEncriptada != oldData.getSenha())
+					? senhaEncriptada
 					: oldData.getSenha()
 			);
 				
 		userData.setIdFotoPerfil( 
-				(newData.uuidFotoPerfil() != null)
+				(newData.uuidFotoPerfil() != null && newData.uuidFotoPerfil() != oldData.getIdFotoPerfil())
 					? newData.uuidFotoPerfil()
 					: oldData.getIdFotoPerfil()
 			);

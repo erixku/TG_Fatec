@@ -1,11 +1,12 @@
 package br.app.harppia.modulo.usuario.application.usecases;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.app.harppia.defaults.custom.exceptions.CadastroUsuarioException;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
@@ -34,11 +35,11 @@ public class CadastrarUsuarioUseCase {
 
 	public CadastrarUsuarioUseCase(UsuarioRepository usuarioRepository, RegistrarArquivoPort registrarArquivoPort,
 			PasswordEncoder passwdEncoder, UsuarioMapper userMapper, EntityManager entityManager) {
-		this.usuarioRepository 		= usuarioRepository;
-		this.registrarArquivoPort 	= registrarArquivoPort;
-		this.passwdEncoder 			= passwdEncoder;
-		this.userMapper 			= userMapper;
-		this.entityManager 			= entityManager;
+		this.usuarioRepository = usuarioRepository;
+		this.registrarArquivoPort = registrarArquivoPort;
+		this.passwdEncoder = passwdEncoder;
+		this.userMapper = userMapper;
+		this.entityManager = entityManager;
 	}
 
 	/**
@@ -58,10 +59,11 @@ public class CadastrarUsuarioUseCase {
 			// Caso haja valores incoerentes, deve ser erro de mapeamento DTO <--> Entidade
 			userToSave = userMapper.toEntity(dto);
 
-			List<UsuarioEntity> result = usuarioRepository.findByEmail(dto.cpf());
+			Optional<UsuarioEntity> result = usuarioRepository.findByCpfOrEmailOrTelefone(userToSave.getCpf(),
+					userToSave.getEmail(), userToSave.getTelefone());
 
-			if (!result.isEmpty())
-				throw new Exception("O usuário já existe!");
+			if (result.isPresent())
+				throw new CadastroUsuarioException("Esse usuário já existe!");
 
 			userToSave.setSenha(passwdEncoder.encode(dto.senha()));
 
@@ -69,20 +71,21 @@ public class CadastrarUsuarioUseCase {
 					.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by_usu DEFERRED;")
 					.executeUpdate();
 
-			if (file != null && !file.isEmpty()) {
-				FotoPerfilInfo fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
-						ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue() + "/");
-
-				userToSave.setIdFotoPerfil(fotoSalva.id());
-			}
-
 			UsuarioEntity savedUser = usuarioRepository.save(userToSave);
 
-			return new UsuarioCadastradoDTO(savedUser.getUuid(), savedUser.getEmail(), savedUser.getNome());
-		} catch (Exception ex) {
-			System.out.println("\n\nHouve um erro ao registrar.\n");
-			System.out.println(ex.getMessage());
-			System.out.println(ex.getLocalizedMessage());
+			if (file != null && !file.isEmpty()) {
+				FotoPerfilInfo fotoSalva;
+				fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
+						ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(), savedUser.getId());
+
+				savedUser.setIdFotoPerfil(fotoSalva.id());
+
+				usuarioRepository.save(savedUser);
+			}
+
+			return new UsuarioCadastradoDTO(savedUser.getId(), savedUser.getEmail(), savedUser.getNome());
+		} catch (CadastroUsuarioException ex) {
+			System.err.println("\nErro ao cadastrar usuário.\n");
 		}
 
 		return null;

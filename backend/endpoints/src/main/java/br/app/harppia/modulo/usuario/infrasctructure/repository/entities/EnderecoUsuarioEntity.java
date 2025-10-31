@@ -38,11 +38,11 @@ public class EnderecoUsuarioEntity {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
 	@OneToOne(optional = false)
-	@JoinColumn(name = "usu_uuid", referencedColumnName = "uuid", nullable = false)
+	@JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UsuarioEntity usuarioDono;
 

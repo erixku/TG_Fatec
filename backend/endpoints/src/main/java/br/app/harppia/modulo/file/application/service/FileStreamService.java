@@ -1,12 +1,15 @@
 package br.app.harppia.modulo.file.application.service;
 
 import java.io.IOException;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 import br.app.harppia.modulo.file.domain.entities.Arquivo;
 import io.awspring.cloud.s3.S3Template;
 
@@ -36,21 +39,40 @@ public class FileStreamService {
 	 * @param folderToSave o diretório de destino. Ex: "nomedapasta" (sem barras)
 	 * @return
 	 * @throws IOException
+	 * @throws RegistrarArquivoException
 	 */
-	public Arquivo uploadFile(MultipartFile file, String folderToSave) throws IOException {
+	public Arquivo uploadFile(MultipartFile file, String folderToSave, UUID criador) throws IOException, RegistrarArquivoException {
 
-		if (file.isEmpty() || file == null)
-			throw new IllegalArgumentException("Falha ao enviar arquivo: arquivo ausente.");
+		if (file == null || file.isEmpty())
+			throw new RegistrarArquivoException("Falha ao enviar arquivo: arquivo ausente.");
 
 		String keyName = "";
 
-		if (!folderToSave.trim().isEmpty() || folderToSave != null)
-			keyName.concat(folderToSave).concat("/");
+		if (folderToSave == null || folderToSave.trim().isEmpty())
+			throw new RegistrarArquivoException("Falha ao enviar arquivo: diretorio ausente.");
 
-		keyName.concat(UUID.randomUUID().toString() + "_" + file.getOriginalFilename());
+		
+		String[] nomeArquivo = file.getOriginalFilename().split("/");
+		String nomeNormalizado;
+		
+		nomeNormalizado = 
+				(nomeArquivo.length == 1) 
+					? nomeArquivo[0] 
+					: Normalizer.normalize(
+							nomeArquivo[nomeArquivo.length-1], Form.NFC
+						)
+				;
+		
+		keyName = keyName.concat(folderToSave).concat("/");
+		keyName = keyName.concat(criador.toString()).concat("_");
+		keyName = keyName.concat(nomeNormalizado);
 
 		s3Template.upload(bucketName, keyName, file.getInputStream());
-
-		return new Arquivo(file, String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName));
+		
+		return new Arquivo(
+				file, 
+				String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName),
+				nomeNormalizado
+			);
 	}
 }

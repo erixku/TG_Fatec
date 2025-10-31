@@ -130,6 +130,8 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		
+		
 
 		<!-- Dependências do PostgreSQL -->
 		<dependency>
@@ -172,6 +174,13 @@
 	        <version>1.5.5.Final</version>
 	        <scope>provided</scope>
 	    </dependency>
+	    
+	    <!-- Tratamento de arquivos -->
+	    <dependency>
+		    <groupId>org.apache.tika</groupId>
+		    <artifactId>tika-core</artifactId>
+		    <version>2.9.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

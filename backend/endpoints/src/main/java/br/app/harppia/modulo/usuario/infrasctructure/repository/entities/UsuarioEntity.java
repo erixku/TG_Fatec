@@ -1,5 +1,6 @@
 package br.app.harppia.modulo.usuario.infrasctructure.repository.entities;
 
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -32,21 +33,17 @@ import lombok.ToString;
 @Table(name = "tb_usuario", schema = "auth")
 @Getter
 @Setter
-@ToString(of = { "uuid", "cpf", "nome", "sobrenome", "email" })
-@EqualsAndHashCode(of = "uuid")
+@ToString(of = { "id", "cpf", "nome", "sobrenome", "email" })
+@EqualsAndHashCode(of = "id")
 public class UsuarioEntity implements UserDetails {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
 	@Id
 	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID uuid;
+	private UUID id;
 
 	//--------------//
 	// DADOS DE LOG //
@@ -91,7 +88,7 @@ public class UsuarioEntity implements UserDetails {
 	private Character sexo;
 
 	@Column(nullable = false)
-	private OffsetDateTime dataNascimento;
+	private LocalDate dataNascimento;
 
 	@Column(nullable = false, unique = true)
 	private String email;

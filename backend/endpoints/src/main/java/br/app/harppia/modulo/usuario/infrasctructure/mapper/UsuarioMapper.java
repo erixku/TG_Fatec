@@ -26,7 +26,7 @@ public abstract class UsuarioMapper {
 	@Mapping(source = "sexo", target = "sexo", qualifiedByName = "tratarSexo")
 
 	// Campos da classe `Usuario` a serem ignorados na conversão:
-	@Mapping(target = "uuid", ignore = true)
+	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "nome", ignore = true)
 	@Mapping(target = "sobrenome", ignore = true)
 	@Mapping(target = "nomeSocial", ignore = true)
@@ -44,37 +44,16 @@ public abstract class UsuarioMapper {
 	// MÉTODOS PARA TRATAR/FORMATAR OS DADOS
 	// --------------------
 	
-	/**
-	 * Esse método remove tudo que não for dígitos númericos do CPF.
-	 * 
-	 * @param cpfMalFormatado - a String do CPF a ser tratado.
-	 * @return uma String com apenas os números do CPF ou nulo se a entrada for
-	 *         vazia.
-	 */
 	@Named("tratarCpf")
 	protected String tratarCpf(String cpfMalFormatado) {
 		return CpfSanitizer.sanitize(cpfMalFormatado);
 	}
 
-	/**
-	 * Esse método tratará o email, removendo pontos desnecessários antes do '@' e o
-	 * normalizará.
-	 * 
-	 * @param emailMalFormatado - email a ser tratado.
-	 * @return nulo se email for vazio ou uma String normalizada e sem pontos antes
-	 *         do arroba ('@').
-	 */
 	@Named("tratarEmail")
 	protected String tratarEmail(String emailMalFormatado) {
 		return EmailSanitizer.sanitize(emailMalFormatado);
     }
 	
-	/**
-	 * Método para sanitizar o telefone, retornando uma string somente com dígitos
-	 * numéricos.
-	 * @param telefoneMalFormatado
-	 * @return
-	 */
 	@Named("tratarTelefone")
 	protected String tratarTelefone(String telefoneMalFormatado) {
 		return TelefoneSanitizer.sanitize(telefoneMalFormatado);

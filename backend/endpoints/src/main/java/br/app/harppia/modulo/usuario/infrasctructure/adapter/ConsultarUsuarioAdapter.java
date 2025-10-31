@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
 import br.app.harppia.modulo.auth.domain.request.InformacoesLoginUsuario;
 import br.app.harppia.modulo.usuario.application.usecases.ConsultarUsuarioUseCase;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.usuario.domain.dto.InformacaoPublicaUsuarioDTO;
 
 @Component
 public class ConsultarUsuarioAdapter implements ConsultarUsuarioPort {
@@ -21,7 +21,7 @@ public class ConsultarUsuarioAdapter implements ConsultarUsuarioPort {
 	@Override
 	public InformacoesLoginUsuario findByCpfOrEmailOrTelefone(String cpf, String email, String Telefone) {
 
-		UsuarioEntity user = consultarUsuarioService.buscarUsuarioPorCpfOuEmailOuTelefone(cpf, email, Telefone);
+		InformacaoPublicaUsuarioDTO user = consultarUsuarioService.buscarUsuarioPorCpfOuEmailOuTelefone(cpf, email, Telefone);
 
 		// = = = = = = = = = = = = = = = = = = = = = =//
 		// IMPLEMENTAR A BUSCA PELOS ROLES DO USUÁRIO //
@@ -29,7 +29,7 @@ public class ConsultarUsuarioAdapter implements ConsultarUsuarioPort {
 		// ...
 		
 		
-		return new InformacoesLoginUsuario(user.getUuid(), user.getNome(), user.getEmail(), user.getSenha(),
+		return new InformacoesLoginUsuario(user.id(), user.nome(), user.email(), null,
 				List.of(new SimpleGrantedAuthority("LEVITA")));
 	}
 

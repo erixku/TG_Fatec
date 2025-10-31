@@ -1,14 +1,19 @@
 package br.app.harppia.modulo.file.interfaces.rest;
 
 import java.io.IOException;
+import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
+import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 import br.app.harppia.modulo.file.application.usecases.SalvarArquivoUseCase;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 
@@ -22,15 +27,25 @@ public class FileUploadController {
 		this.salvarArquivoUseCase = salvarArquivoUseCase;
 	}
 
-	@PostMapping("/upload")
-	public ResponseEntity<ArquivoPersistidoResponse> uploadFile(@RequestParam("file") MultipartFile file,
-			String bucketToSave) {
-		try {
-			ArquivoPersistidoResponse arquivoSalvo = salvarArquivoUseCase.salvar(file, bucketToSave);
+	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<ArquivoPersistidoResponse> uploadFile(
+				@RequestPart("file") MultipartFile file,
+				@RequestPart("bucket") String bucketToSave,
+				@RequestPart("id-criador") UUID idCriador) {
 			
-			return ResponseEntity.ok(arquivoSalvo);
+		ArquivoPersistidoResponse arquivoSalvo = null;
+		try {
+			arquivoSalvo = salvarArquivoUseCase.salvar(file, bucketToSave, idCriador);
 		} catch (IOException e) {
-			return ResponseEntity.status(500).body(null);
+			e.printStackTrace();
+		} catch (RegistrarArquivoException | ArquivoInvalidoException e) {
+			e.printStackTrace();			
 		}
+		
+		return ResponseEntity.status( 
+				(arquivoSalvo != null) 
+					? HttpStatus.CREATED
+					: HttpStatus.INTERNAL_SERVER_ERROR
+			).body(arquivoSalvo);
 	}
 }

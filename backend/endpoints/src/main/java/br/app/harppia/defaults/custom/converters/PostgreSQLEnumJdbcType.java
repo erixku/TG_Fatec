@@ -9,10 +9,6 @@ import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
  */
 public class PostgreSQLEnumJdbcType extends VarcharJdbcType {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -21,7 +21,7 @@ public class ConsultarUsuarioUseCase {
 		Optional<UsuarioEntity> user = userRepo.findByCpfOrEmailOrTelefone(cpf, email, telefone);
 
 		return (user.isEmpty()) ? null
-				: new InformacaoPublicaUsuarioDTO(cpf, user.get().getNome(), user.get().getNomeSocial(), email,
+				: new InformacaoPublicaUsuarioDTO(user.get().getId(), cpf, user.get().getNome(), user.get().getNomeSocial(), email,
 						user.get().getIdFotoPerfil());
 	}
 }

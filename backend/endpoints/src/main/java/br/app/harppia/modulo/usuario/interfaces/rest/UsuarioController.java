@@ -3,6 +3,7 @@ package br.app.harppia.modulo.usuario.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -77,17 +78,22 @@ public class UsuarioController {
 	 * @return
 	 */
 	@PutMapping(value = "/update/{key}")
-	public ResponseEntity<UsuarioAtualizadoDTO> atualizarUsuario(AtualizarUsuarioDTO dto) {
+	public ResponseEntity<Boolean> atualizarUsuario(AtualizarUsuarioDTO dto) {
 		if (dto == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-		UsuarioAtualizadoDTO response;
+		boolean response;
 
 		response = atualizarService.execute(dto);
 
-		if (response == null)
+		if (!response)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 		return ResponseEntity.status(HttpStatus.FOUND).body(response);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deletarUsuario(String uuid){
+		deletarService.getClass();
 	}
 }
