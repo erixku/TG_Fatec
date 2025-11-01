@@ -387,7 +387,9 @@ Domínios, enumerações, funções e procedimentos devem seguir o padrão de no
 
 - **Domínio**: s_nomeschema_d_nomedominio
 
-- **Enumeração**: s_nomeschema_e_nomeenumeracao
+- **Enumeração por coluna**: s_nomeschema_t_tb_nometabela_e_nomeenumeracao (usada em apenas uma coluna)
+
+- **Enumeração por schema**: s_nomeschema_e_nomeenumeracao (pode ser usada em todo o schema)
 
 - **Função**: s_nomeschema_f_nomefuncao
 
