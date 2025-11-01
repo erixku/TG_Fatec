@@ -25,19 +25,19 @@ CREATE TABLE song.tb_musica (
     EXTRACT(EPOCH FROM duracao)::SMALLINT
   ) STORED,
 
-  bpm             SMALLINT                           NULL,
-  tonalidade      utils.enum_s_song_c_tonalidade     NULL,
-  link_musica     utils.domain_link              NOT NULL,
-  link_letra      utils.domain_link                  NULL,
-  link_cifra      utils.domain_link                  NULL,
-  link_partitura  utils.domain_link                  NULL,
-  parte_de_medley BOOLEAN                        NOT NULL,
+  bpm             SMALLINT                      NULL,
+  tonalidade      utils.s_song_e_tonalidade     NULL,
+  link_musica     utils.domain_link         NOT NULL,
+  link_letra      utils.domain_link             NULL,
+  link_cifra      utils.domain_link             NULL,
+  link_partitura  utils.domain_link             NULL,
+  parte_de_medley BOOLEAN                   NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_musica PRIMARY KEY (id),
+  CONSTRAINT pk_s_song_t_tb_musica_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_song_t_tb_musica_c_created_by
@@ -68,17 +68,17 @@ CREATE TABLE song.tb_parte (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados das parte da música
-  is_deleted BOOLEAN                        NOT NULL DEFAULT FALSE,
-  posicao    SMALLINT                       NOT NULL,
-  parte      VARCHAR(50)                    NOT NULL,
-  bpm        SMALLINT                       NOT NULL,
-  tonalidade utils.enum_s_song_c_tonalidade NOT NULL,
+  is_deleted BOOLEAN                   NOT NULL DEFAULT FALSE,
+  posicao    SMALLINT                  NOT NULL,
+  parte      VARCHAR(50)               NOT NULL,
+  bpm        SMALLINT                  NOT NULL,
+  tonalidade utils.s_song_e_tonalidade NOT NULL,
 
   -- chaves estrangeiras
   mus_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_parte PRIMARY KEY (id),
+  CONSTRAINT pk_s_song_t_tb_parte_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_parte_c_mus_id
@@ -108,7 +108,7 @@ CREATE TABLE song.tb_artista_secundario (
   mus_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_artista_secundario PRIMARY KEY (id),
+  CONSTRAINT pk_s_song_t_tb_artista_secundario_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_artista_secundario_c_mus_id
@@ -140,7 +140,7 @@ CREATE TABLE song.tb_medley (
   s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_medley PRIMARY KEY (id),
+  CONSTRAINT pk_s_song_t_tb_medley_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_song_t_tb_medley_c_created_by
@@ -179,7 +179,7 @@ CREATE TABLE song.tb_medley_ass_musica (
   mus_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_song_t_tb_medley_ass_musica PRIMARY KEY (id),
+  CONSTRAINT pk_s_song_t_tb_medley_ass_musica_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_song_t_tb_medley_ass_musica_c_med_id

@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA storage TO role_anonimo;
+GRANT USAGE ON SCHEMA storage TO r_anonimo;
 
 
 
@@ -13,4 +13,4 @@ GRANT
     buc_id
   )
   ON TABLE storage.tb_arquivo
-  TO role_anonimo;
+  TO r_anonimo;

@@ -13,14 +13,14 @@ CREATE TABLE notification.tb_tipo (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do tipo de notificação
-  is_deleted BOOLEAN                                    NOT NULL DEFAULT FALSE,
-  nome       utils.enum_s_notification_t_tb_tipo_c_nome NOT NULL,
+  is_deleted BOOLEAN                               NOT NULL DEFAULT FALSE,
+  nome       utils.s_notification_t_tb_tipo_e_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_tipo PRIMARY KEY (id),
+  CONSTRAINT pk_s_notification_t_tb_tipo_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_tipo_c_icone
@@ -51,7 +51,7 @@ CREATE TABLE notification.tb_notificacao (
   s_auth_t_tb_usuario_c_notificador UUID     NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_notificacao PRIMARY KEY (id),
+  CONSTRAINT pk_s_notification_t_tb_notificacao_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_notificacao_c_tip_id
@@ -93,7 +93,7 @@ CREATE TABLE notification.tb_tipo_por_usuario (
   s_auth_t_tb_usuario_c_lev UUID     NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_tipo_por_usuario PRIMARY KEY (id),
+  CONSTRAINT pk_s_notification_t_tb_tipo_por_usuario_c_id PRIMARY KEY (id),
 
   -- declaração de chaves únicas compostas
   CONSTRAINT uq_s_notification_t_tb_tipo_por_usuario_c_tip_id_c_lev
@@ -127,14 +127,14 @@ CREATE TABLE notification.tb_cor (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados da cor da notificação
-  is_deleted BOOLEAN                                   NOT NULL DEFAULT FALSE,    
-  nome       utils.enum_s_notification_t_tb_cor_c_nome NOT NULL,
+  is_deleted BOOLEAN                              NOT NULL DEFAULT FALSE,    
+  nome       utils.s_notification_t_tb_cor_e_nome NOT NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_icone UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_cor PRIMARY KEY (id),
+  CONSTRAINT pk_s_notification_t_tb_cor_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_cor_c_icone
@@ -170,7 +170,7 @@ CREATE TABLE notification.tb_configuracao_por_usuario (
   cor_led    SMALLINT NOT NULL DEFAULT 1,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario PRIMARY KEY (id),
+  CONSTRAINT pk_s_notification_t_tb_configuracao_por_usuario_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_notification_t_tb_configuracao_por_usuario_c_cor_pop_up

@@ -16,7 +16,7 @@ CREATE TABLE accessibility.tb_intelectual (
   feedback_imediato BOOLEAN NOT NULL DEFAULT FALSE,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_accessibility_t_tb_intelectual PRIMARY KEY (id),
+  CONSTRAINT pk_s_accessibility_t_tb_intelectual_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_intelectual_c_id
@@ -44,7 +44,7 @@ CREATE TABLE accessibility.tb_auditiva (
   alertas_visuais     BOOLEAN NOT NULL DEFAULT FALSE,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_accessibility_t_tb_auditiva PRIMARY KEY (id),
+  CONSTRAINT pk_s_accessibility_t_tb_auditiva_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_auditiva_c_id
@@ -65,17 +65,17 @@ CREATE TABLE accessibility.tb_visual (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   -- dados de acessibilidade visual
-  cor_tema               utils.enum_s_accessibility_t_tb_visual_c_cor_tema   NOT NULL DEFAULT 'escuro',
-  tamanho_texto          CHAR(1)                                             NOT NULL DEFAULT '3',
-  negrito                BOOLEAN                                             NOT NULL DEFAULT FALSE,
-  alto_contraste         BOOLEAN                                             NOT NULL DEFAULT FALSE,
-  modo_daltonismo        utils.enum_s_accessibility_t_tb_visual_c_daltonismo NOT NULL DEFAULT 'tricromata',
-  intensidade_daltonismo CHAR(1)                                             NOT NULL DEFAULT '3',
-  remover_animacoes      BOOLEAN                                             NOT NULL DEFAULT FALSE,
-  vibrar_ao_tocar        BOOLEAN                                             NOT NULL DEFAULT FALSE,
+  cor_tema               utils.s_accessibility_t_tb_visual_e_cor_tema   NOT NULL DEFAULT 'escuro',
+  tamanho_texto          CHAR(1)                                        NOT NULL DEFAULT '3',
+  negrito                BOOLEAN                                        NOT NULL DEFAULT FALSE,
+  alto_contraste         BOOLEAN                                        NOT NULL DEFAULT FALSE,
+  modo_daltonismo        utils.s_accessibility_t_tb_visual_e_daltonismo NOT NULL DEFAULT 'tricromata',
+  intensidade_daltonismo CHAR(1)                                        NOT NULL DEFAULT '3',
+  remover_animacoes      BOOLEAN                                        NOT NULL DEFAULT FALSE,
+  vibrar_ao_tocar        BOOLEAN                                        NOT NULL DEFAULT FALSE,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_accessibility_t_tb_visual PRIMARY KEY (id),
+  CONSTRAINT pk_s_accessibility_t_tb_visual_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_accessibility_t_tb_visual_c_id

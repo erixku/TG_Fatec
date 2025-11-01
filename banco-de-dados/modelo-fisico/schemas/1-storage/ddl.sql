@@ -13,14 +13,14 @@ CREATE TABLE storage.tb_bucket (
   deleted_at TIMESTAMPTZ     NULL DEFAULT NULL,
 
   -- dados do bucket
-  is_deleted                         BOOLEAN                                 NOT NULL DEFAULT FALSE,
-  nome                               utils.enum_s_storage_t_tb_bucket_c_nome NOT NULL,
-  tempo_expiracao_upload_em_segundos SMALLINT                                NOT NULL DEFAULT 30,
-  tamanho_minimo                     INTEGER                                 NOT NULL DEFAULT 1,
-  tamanho_maximo                     INTEGER                                 NOT NULL DEFAULT utils.conversor_mb_para_byte(1000),
+  is_deleted                         BOOLEAN                            NOT NULL DEFAULT FALSE,
+  nome                               utils.s_storage_t_tb_bucket_e_nome NOT NULL,
+  tempo_expiracao_upload_em_segundos SMALLINT                           NOT NULL DEFAULT 30,
+  tamanho_minimo                     INTEGER                            NOT NULL DEFAULT 1,
+  tamanho_maximo                     INTEGER                            NOT NULL DEFAULT utils.s_utils_f_conversor_mb_para_byte(1000),
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_storage_t_tb_bucket PRIMARY KEY (id)
+  CONSTRAINT pk_s_storage_t_tb_bucket_c_id PRIMARY KEY (id)
 );
 
 
@@ -36,18 +36,18 @@ CREATE TABLE storage.tb_arquivo (
   deleted_by UUID            NULL DEFAULT NULL,
 
   -- dados do arquivo
-  is_deleted       BOOLEAN                                       NOT NULL DEFAULT FALSE,
-  nome             VARCHAR(300)                                  NOT NULL,
-  link             TEXT                                          NOT NULL,
-  mime_type        utils.enum_s_storage_t_tb_arquivo_c_mime_type NOT NULL,
-  extensao         utils.enum_s_storage_t_tb_arquivo_c_extensao  NOT NULL,
-  tamanho_em_bytes INTEGER                                       NOT NULL,
+  is_deleted       BOOLEAN                                  NOT NULL DEFAULT FALSE,
+  nome             VARCHAR(300)                             NOT NULL,
+  link             TEXT                                     NOT NULL,
+  mime_type        utils.s_storage_t_tb_arquivo_e_mime_type NOT NULL,
+  extensao         utils.s_storage_t_tb_arquivo_e_extensao  NOT NULL,
+  tamanho_em_bytes INTEGER                                  NOT NULL,
 
   -- chaves estrangeiras
   buc_id SMALLINT NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_storage_t_tb_arquivo PRIMARY KEY (id),
+  CONSTRAINT pk_s_storage_t_tb_arquivo_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_storage_t_tb_arquivo_c_buc_id

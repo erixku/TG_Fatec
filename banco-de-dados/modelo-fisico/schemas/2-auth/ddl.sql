@@ -30,7 +30,7 @@ CREATE TABLE auth.tb_usuario (
   s_storage_t_tb_arquivo_c_foto UUID NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_usuario PRIMARY KEY (id),
+  CONSTRAINT pk_s_auth_t_tb_usuario_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_auth_t_tb_usuario_c_foto
@@ -60,7 +60,7 @@ CREATE TABLE auth.tb_endereco (
   complemento utils.domain_complemento     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_auth_t_tb_endereco PRIMARY KEY (id),
+  CONSTRAINT pk_s_auth_t_tb_endereco_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_auth_t_tb_endereco_c_id

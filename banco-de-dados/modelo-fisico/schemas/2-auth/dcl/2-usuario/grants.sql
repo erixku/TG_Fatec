@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA auth TO role_usuario;
+GRANT USAGE ON SCHEMA auth TO r_usuario;
 
 
 
@@ -20,7 +20,7 @@ GRANT
     s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
-  TO role_usuario;
+  TO r_usuario;
 
 GRANT
   UPDATE (
@@ -38,7 +38,7 @@ GRANT
     s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
-  TO role_usuario;
+  TO r_usuario;
 
 
 
@@ -55,7 +55,7 @@ GRANT
     complemento
   )
   ON TABLE auth.tb_endereco
-  TO role_usuario;
+  TO r_usuario;
 
 GRANT
   UPDATE (
@@ -69,4 +69,4 @@ GRANT
     complemento
   )
   ON TABLE auth.tb_endereco
-  TO role_usuario;
+  TO r_usuario;

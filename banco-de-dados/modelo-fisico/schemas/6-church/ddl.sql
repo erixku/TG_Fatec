@@ -16,18 +16,18 @@ CREATE TABLE church.tb_igreja (
   deleted_by UUID            NULL DEFAULT NULL,
 
   -- dados da igreja
-  is_deleted        BOOLEAN                                       NOT NULL DEFAULT FALSE,
-  cnpj              VARCHAR(14)                                   NOT NULL,
-  nome              VARCHAR(100)                                  NOT NULL,
-  denominacao       utils.enum_s_church_t_tb_igreja_c_denominacao NOT NULL,
-  outra_denominacao VARCHAR(100)                                      NULL,
+  is_deleted        BOOLEAN                                  NOT NULL DEFAULT FALSE,
+  cnpj              VARCHAR(14)                              NOT NULL,
+  nome              VARCHAR(100)                             NOT NULL,
+  denominacao       utils.s_church_t_tb_igreja_e_denominacao NOT NULL,
+  outra_denominacao VARCHAR(100)                                 NULL,
 
   -- chaves estrangeiras
   s_storage_t_tb_arquivo_c_foto          UUID NOT NULL,
   s_auth_t_tb_usuario_c_adm_proprietario UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_igreja PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_igreja_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_igreja_c_created_by
@@ -96,7 +96,7 @@ CREATE TABLE church.tb_endereco (
   igr_id UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_endereco PRIMARY KEY (igr_id),
+  CONSTRAINT pk_s_church_t_tb_endereco_c_id PRIMARY KEY (igr_id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_endereco_c_created_by
@@ -149,7 +149,7 @@ CREATE TABLE church.tb_administrador (
   s_auth_t_tb_usuario_c_adm UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_administrador PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_administrador_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_administrador_c_created_by
@@ -198,17 +198,17 @@ CREATE TABLE church.tb_categoria (
   deleted_by  UUID            NULL DEFAULT NULL,
 
   -- dados do tipo de agendamento
-  is_deleted  BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  is_disabled BOOLEAN                                   NOT NULL DEFAULT FALSE,
-  tipo        utils.enum_s_church_t_tb_categoria_c_tipo NOT NULL,
-  nome        VARCHAR(30)                               NOT NULL,
-  descricao   VARCHAR(50)                               NOT NULL,
+  is_deleted  BOOLEAN                              NOT NULL DEFAULT FALSE,
+  is_disabled BOOLEAN                              NOT NULL DEFAULT FALSE,
+  tipo        utils.s_church_t_tb_categoria_e_tipo NOT NULL,
+  nome        VARCHAR(30)                          NOT NULL,
+  descricao   VARCHAR(50)                          NOT NULL,
 
   -- chaves estrangeiras
   igr_id UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_categoria PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_categoria_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_categoria_c_created_by
@@ -264,7 +264,7 @@ CREATE TABLE church.tb_faixa (
   s_song_t_tb_medley_c_med INTEGER     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_faixa PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_faixa_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_church_t_tb_faixa_c_igr_id
@@ -309,7 +309,7 @@ CREATE TABLE church.tb_faixa_ass_categoria (
   cat_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_faixa_ass_categoria PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_faixa_ass_categoria_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_faixa_ass_categoria_c_created_by
@@ -367,7 +367,7 @@ CREATE TABLE church.tb_ministerio_louvor (
   s_storage_t_tb_arquivo_c_foto UUID     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_ministerio_louvor PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_ministerio_louvor_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_ministerio_louvor_c_created_by
@@ -420,15 +420,15 @@ CREATE TABLE church.tb_usuario_funcao (
   deleted_by UUID            NULL DEFAULT NULL,
 
   -- dados de funções dos usuários
-  is_deleted BOOLEAN                                          NOT NULL DEFAULT FALSE,
-  funcao     utils.enum_s_church_t_tb_usuario_funcao_c_funcao NOT NULL DEFAULT 'levita',
+  is_deleted BOOLEAN                                     NOT NULL DEFAULT FALSE,
+  funcao     utils.s_church_t_tb_usuario_funcao_e_funcao NOT NULL DEFAULT 'levita',
 
   -- chaves estrangeiras
   min_lou_id                UUID NOT NULL,
   s_auth_t_tb_usuario_c_lev UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_usuario_funcao PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_usuario_funcao_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_usuario_funcao_c_created_by
@@ -477,7 +477,7 @@ CREATE TABLE church.tb_instrumento_marca (
   nome       VARCHAR(30) NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_instrumento_marca PRIMARY KEY (id)
+  CONSTRAINT pk_s_church_t_tb_instrumento_marca_c_id PRIMARY KEY (id)
 );
 
 
@@ -499,7 +499,7 @@ CREATE TABLE church.tb_instrumento_modelo (
   ins_mar_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_instrumento_modelo PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_instrumento_modelo_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_church_t_tb_instrumento_modelo_c_ins_mar_id
@@ -526,13 +526,13 @@ CREATE TABLE church.tb_instrumento (
   deleted_by  UUID            NULL DEFAULT NULL,
 
   -- dados de instrumentos
-  is_deleted   BOOLEAN                                        NOT NULL DEFAULT FALSE,
-  is_disabled  BOOLEAN                                        NOT NULL DEFAULT FALSE,
-  nome         utils.enum_s_church_t_tb_instrumento_c_nome    NOT NULL,
-  outro_nome   VARCHAR(30)                                        NULL,
-  familia      utils.enum_s_church_t_tb_instrumento_c_familia NOT NULL,
-  outra_marca  VARCHAR(30)                                        NULL,
-  outro_modelo VARCHAR(30)                                        NULL,
+  is_deleted   BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  is_disabled  BOOLEAN                                   NOT NULL DEFAULT FALSE,
+  nome         utils.s_church_t_tb_instrumento_e_nome    NOT NULL,
+  outro_nome   VARCHAR(30)                                   NULL,
+  familia      utils.s_church_t_tb_instrumento_e_familia NOT NULL,
+  outra_marca  VARCHAR(30)                                   NULL,
+  outro_modelo VARCHAR(30)                                   NULL,
 
   -- chaves estrangeiras
   ins_mod_id                     INTEGER     NULL,
@@ -541,7 +541,7 @@ CREATE TABLE church.tb_instrumento (
   s_storage_t_tb_arquivo_c_icone UUID    NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_instrumento PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_instrumento_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_instrumento_c_created_by
@@ -615,7 +615,7 @@ CREATE TABLE church.tb_instrumento_ass_usuario (
   s_auth_t_tb_usuario_c_lev UUID    NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_church_t_tb_instrumento_ass_usuario PRIMARY KEY (id),
+  CONSTRAINT pk_s_church_t_tb_instrumento_ass_usuario_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_church_t_tb_instrumento_ass_usuario_c_created_by

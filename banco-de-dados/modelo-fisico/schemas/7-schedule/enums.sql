@@ -1,5 +1,5 @@
 CREATE TYPE
-  utils.enum_s_schedule_t_tb_registro_ausencia_c_motivo
+  utils.s_schedule_t_tb_registro_ausencia_e_motivo
 AS ENUM (
   'trabalho',
   'licença médica',
@@ -8,7 +8,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-  utils.enum_s_schedule_t_tb_publicacao_c_tipo
+  utils.s_schedule_t_tb_publicacao_e_tipo
 AS ENUM (
   'aviso',
   'agendamento',

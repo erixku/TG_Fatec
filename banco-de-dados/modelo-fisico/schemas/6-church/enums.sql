@@ -1,5 +1,5 @@
 CREATE TYPE
-  utils.enum_s_church_t_tb_igreja_c_denominacao
+  utils.s_church_t_tb_igreja_e_denominacao
 AS ENUM (
   'outra',
   'adventista',
@@ -36,26 +36,26 @@ AS ENUM (
 );
 
 CREATE TYPE
-  utils.enum_s_church_t_tb_categoria_c_tipo
+  utils.s_church_t_tb_categoria_e_tipo
 AS ENUM (
   'agendamento', 'compromisso', 'classificação de música'
 );
 
 CREATE TYPE
-  utils.enum_s_church_t_tb_usuario_funcao_c_funcao
+  utils.s_church_t_tb_usuario_funcao_e_funcao
 AS ENUM (
   'líder', 'ministro', 'levita'
 );
 
 CREATE TYPE
-  utils.enum_s_church_t_tb_instrumento_c_nome
+  utils.s_church_t_tb_instrumento_e_nome
 AS ENUM (
   'outro',
   'violão'
 );
 
 CREATE TYPE
-  utils.enum_s_church_t_tb_instrumento_c_familia
+  utils.s_church_t_tb_instrumento_e_familia
 AS ENUM (
   'cordas'
 );

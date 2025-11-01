@@ -1,5 +1,5 @@
 CREATE TYPE
-  utils.enum_s_notification_t_tb_tipo_c_nome
+  utils.s_notification_t_tb_tipo_e_nome
 AS ENUM (
   'novo aviso',
   'nova escala',
@@ -12,7 +12,7 @@ AS ENUM (
 );
 
 CREATE TYPE
-  utils.enum_s_notification_t_tb_cor_c_nome
+  utils.s_notification_t_tb_cor_e_nome
 AS ENUM (
   'azul'
 );

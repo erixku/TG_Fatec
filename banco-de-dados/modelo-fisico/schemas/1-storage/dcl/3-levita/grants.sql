@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA storage TO role_lider;
+GRANT USAGE ON SCHEMA storage TO r_levita;
 
 
 -- tb_bucket
@@ -12,7 +12,7 @@ GRANT
     tamanho_maximo
   )
   ON TABLE storage.tb_bucket
-  TO role_lider;
+  TO r_levita;
 
 
 
@@ -27,7 +27,7 @@ GRANT
     buc_id
   )
   ON TABLE storage.tb_arquivo
-  TO role_lider;
+  TO r_levita;
 
 GRANT
   SELECT (
@@ -43,7 +43,7 @@ GRANT
     buc_id
   )
   ON TABLE storage.tb_arquivo
-  TO role_lider;
+  TO r_levita;
 
 GRANT
   UPDATE (
@@ -52,4 +52,4 @@ GRANT
     is_deleted
   )
   ON TABLE storage.tb_arquivo
-  TO role_lider;
+  TO r_levita;

@@ -6,14 +6,14 @@ DECLARE
   nome_schema TEXT;
   nomes_roles TEXT[] := ARRAY [
     'public',
-    'role_anonimo',
-    'role_usuario',
-    'role_levita',
-    'role_ministro',
-    'role_lider',
-    'role_administrador',
-    'role_api',
-    'role_sistema'
+    'r_anonimo',
+    'r_usuario',
+    'r_levita',
+    'r_ministro',
+    'r_lider',
+    'r_administrador',
+    'r_api',
+    'r_sistema'
   ];
   nome_role TEXT;
   query_revogadora TEXT;

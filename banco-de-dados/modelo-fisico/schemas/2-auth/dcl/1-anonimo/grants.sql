@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA auth TO role_anonimo;
+GRANT USAGE ON SCHEMA auth TO r_anonimo;
 
 
 
@@ -18,7 +18,7 @@ GRANT
     s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
-  TO role_anonimo;
+  TO r_anonimo;
 
 GRANT
   SELECT (
@@ -29,14 +29,14 @@ GRANT
     senha
   )
   ON TABLE auth.tb_usuario
-  TO role_anonimo;
+  TO r_anonimo;
 
 GRANT
   UPDATE (
     senha
   )
   ON TABLE auth.tb_usuario
-  TO role_anonimo;
+  TO r_anonimo;
 
 
 
@@ -52,4 +52,4 @@ GRANT
     complemento
   )
   ON TABLE auth.tb_endereco
-  TO role_anonimo;
+  TO r_anonimo;

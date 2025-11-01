@@ -14,17 +14,17 @@ CREATE TABLE schedule.tb_registro_ausencia (
   created_by UUID        NOT NULL,
   
   -- dados do registro de ausência
-  is_deleted    BOOLEAN                                               NOT NULL DEFAULT FALSE,
-  motivo        utils.enum_s_schedule_t_tb_registro_ausencia_c_motivo NOT NULL,
-  outro_motivo  VARCHAR(20)                                               NULL DEFAULT NULL,
-  justificativa VARCHAR(2000)                                         NOT NULL,
-  periodo       TSTZRANGE                                             NOT NULL,
+  is_deleted    BOOLEAN                                          NOT NULL DEFAULT FALSE,
+  motivo        utils.s_schedule_t_tb_registro_ausencia_e_motivo NOT NULL,
+  outro_motivo  VARCHAR(20)                                          NULL DEFAULT NULL,
+  justificativa VARCHAR(2000)                                    NOT NULL,
+  periodo       TSTZRANGE                                        NOT NULL,
 
   -- chaves estrangeiras
   s_church_t_tb_igreja_c_igreja UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_registro_ausencia PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_registro_ausencia_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_registro_ausencia_c_created_by
@@ -58,16 +58,16 @@ CREATE TABLE schedule.tb_publicacao (
   deleted_by UUID            NULL DEFAULT NULL,
   
   -- dados da publicação
-  is_deleted BOOLEAN                                      NOT NULL DEFAULT FALSE,
-  titulo     VARCHAR(50)                                  NOT NULL,
-  tipo       utils.enum_s_schedule_t_tb_publicacao_c_tipo NOT NULL,
-  descricao  VARCHAR(2000)                                NOT NULL,
+  is_deleted BOOLEAN                                 NOT NULL DEFAULT FALSE,
+  titulo     VARCHAR(50)                             NOT NULL,
+  tipo       utils.s_schedule_t_tb_publicacao_e_tipo NOT NULL,
+  descricao  VARCHAR(2000)                           NOT NULL,
 
   -- chaves estrangeiras
   s_church_t_tb_igreja_c_igreja UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_publicacao PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_publicacao_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_publicacao_c_created_by
@@ -114,7 +114,7 @@ CREATE TABLE schedule.tb_atividade (
   s_church_t_tb_categoria_c_categoria INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_atividade PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_atividade_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras
   CONSTRAINT fk_s_schedule_t_tb_atividade_c_pub_id
@@ -155,7 +155,7 @@ CREATE TABLE schedule.tb_participante (
   s_church_t_tb_instrumento_ass_usuario_c_funcao INTEGER     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_participante PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_participante_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_participante_c_created_by
@@ -210,7 +210,7 @@ CREATE TABLE schedule.tb_item_levado (
   ati_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_item_levado PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_item_levado_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_item_levado_c_created_by
@@ -260,7 +260,7 @@ CREATE TABLE schedule.tb_faixa_elencada (
   s_church_t_tb_faixa_c_faixa INTEGER     NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_faixa_elencada PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_faixa_elencada_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_faixa_elencada_c_created_by
@@ -324,7 +324,7 @@ CREATE TABLE schedule.tb_escala (
   s_church_t_tb_igreja_c_igreja UUID NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_escala PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_escala_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_escala_c_created_by
@@ -380,7 +380,7 @@ CREATE TABLE schedule.tb_escala_ass_atividade (
   ati_id INTEGER NOT NULL,
 
   -- declaração de chaves primárias
-  CONSTRAINT pk_s_schedule_t_tb_escala_ass_atividade PRIMARY KEY (id),
+  CONSTRAINT pk_s_schedule_t_tb_escala_ass_atividade_c_id PRIMARY KEY (id),
 
   -- declaração de chaves estrangeiras de logs
   CONSTRAINT fk_s_schedule_t_tb_escala_ass_atividade_c_created_by

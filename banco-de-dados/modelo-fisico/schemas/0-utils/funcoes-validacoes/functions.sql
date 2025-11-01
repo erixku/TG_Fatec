@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION
-  utils.conversor_mb_para_byte(IN tamanho INTEGER)
+  utils.s_utils_f_conversor_mb_para_byte(IN tamanho INTEGER)
 RETURNS INTEGER
 LANGUAGE plpgsql
 IMMUTABLE

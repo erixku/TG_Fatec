@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA storage TO role_ministro;
+GRANT USAGE ON SCHEMA storage TO r_lider;
 
 
 -- tb_bucket
@@ -12,7 +12,7 @@ GRANT
     tamanho_maximo
   )
   ON TABLE storage.tb_bucket
-  TO role_ministro;
+  TO r_lider;
 
 
 
@@ -27,7 +27,7 @@ GRANT
     buc_id
   )
   ON TABLE storage.tb_arquivo
-  TO role_ministro;
+  TO r_lider;
 
 GRANT
   SELECT (
@@ -43,7 +43,7 @@ GRANT
     buc_id
   )
   ON TABLE storage.tb_arquivo
-  TO role_ministro;
+  TO r_lider;
 
 GRANT
   UPDATE (
@@ -52,4 +52,4 @@ GRANT
     is_deleted
   )
   ON TABLE storage.tb_arquivo
-  TO role_ministro;
+  TO r_lider;

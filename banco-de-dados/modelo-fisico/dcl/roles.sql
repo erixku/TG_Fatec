@@ -3,19 +3,19 @@ SET ROLE neondb_owner;
 
 
 -- DROP de roles existentes
-DROP ROLE IF EXISTS role_anonimo;
-DROP ROLE IF EXISTS role_usuario;
-DROP ROLE IF EXISTS role_levita;
-DROP ROLE IF EXISTS role_ministro;
-DROP ROLE IF EXISTS role_lider;
-DROP ROLE IF EXISTS role_administrador;
-DROP ROLE IF EXISTS role_api;
-DROP ROLE IF EXISTS role_sistema;
+DROP ROLE IF EXISTS r_anonimo;
+DROP ROLE IF EXISTS r_usuario;
+DROP ROLE IF EXISTS r_levita;
+DROP ROLE IF EXISTS r_ministro;
+DROP ROLE IF EXISTS r_lider;
+DROP ROLE IF EXISTS r_administrador;
+DROP ROLE IF EXISTS r_api;
+DROP ROLE IF EXISTS r_sistema;
 
 
 
 -- criação de ROLEs sem login
-CREATE ROLE role_anonimo WITH
+CREATE ROLE r_anonimo WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -27,7 +27,7 @@ CREATE ROLE role_anonimo WITH
   PASSWORD NULL
   VALID UNTIL 'infinity';
 
-CREATE ROLE role_usuario WITH
+CREATE ROLE r_usuario WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -39,7 +39,7 @@ CREATE ROLE role_usuario WITH
   PASSWORD NULL
   VALID UNTIL 'infinity';
 
-CREATE ROLE role_levita WITH
+CREATE ROLE r_levita WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -51,7 +51,7 @@ CREATE ROLE role_levita WITH
   PASSWORD NULL
   VALID UNTIL 'infinity';
 
-CREATE ROLE role_ministro WITH
+CREATE ROLE r_ministro WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -63,7 +63,7 @@ CREATE ROLE role_ministro WITH
   PASSWORD NULL
   VALID UNTIL 'infinity';
 
-CREATE ROLE role_lider WITH
+CREATE ROLE r_lider WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -75,7 +75,7 @@ CREATE ROLE role_lider WITH
   PASSWORD NULL
   VALID UNTIL 'infinity';
 
-CREATE ROLE role_administrador WITH
+CREATE ROLE r_administrador WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -90,7 +90,7 @@ CREATE ROLE role_administrador WITH
 
 
 -- criação de ROLE com login
-CREATE ROLE role_api WITH
+CREATE ROLE r_api WITH
   LOGIN
   NOSUPERUSER
   NOCREATEDB
@@ -105,7 +105,7 @@ CREATE ROLE role_api WITH
 
 
 -- criação de ROLE de sistema, que lida com routines SECURITY DEFINER
-CREATE ROLE role_sistema WITH
+CREATE ROLE r_sistema WITH
   NOLOGIN
   NOSUPERUSER
   NOCREATEDB

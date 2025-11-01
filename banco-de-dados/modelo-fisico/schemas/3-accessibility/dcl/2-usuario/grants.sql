@@ -1,4 +1,4 @@
-GRANT USAGE ON SCHEMA accessibility TO role_usuario;
+GRANT USAGE ON SCHEMA accessibility TO r_usuario;
 
 
 
@@ -12,7 +12,7 @@ GRANT
     feedback_imediato
   )
   ON TABLE accessibility.tb_intelectual
-  TO role_usuario;
+  TO r_usuario;
 
 GRANT
   UPDATE (
@@ -22,7 +22,7 @@ GRANT
     feedback_imediato
   )
   ON TABLE accessibility.tb_intelectual
-  TO role_usuario;
+  TO r_usuario;
 
 
 
@@ -38,7 +38,7 @@ GRANT
     alertas_visuais
   )
   ON TABLE accessibility.tb_auditiva
-  TO role_usuario;
+  TO r_usuario;
 
 GRANT
   UPDATE (
@@ -50,7 +50,7 @@ GRANT
     alertas_visuais
   )
   ON TABLE accessibility.tb_auditiva
-  TO role_usuario;
+  TO r_usuario;
 
 
 
@@ -69,7 +69,7 @@ GRANT
     vibrar_ao_tocar
   )
   ON TABLE accessibility.tb_visual
-  TO role_usuario;
+  TO r_usuario;
 
 GRANT
   UPDATE (
@@ -84,4 +84,4 @@ GRANT
     vibrar_ao_tocar
   )
   ON TABLE accessibility.tb_visual
-  TO role_usuario;
+  TO r_usuario;
