@@ -12,35 +12,35 @@ import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 @RestControllerAdvice
 public class WarningController {
 
-	// Primeiro diz qual expection vai tratar - tem q ser a mesma na annotation e no parâmetro
+	// Primeiro diz qual expection vai tratar - tem q ser a mesma na annotation e no
+	// parâmetro
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<String> logGenericError(Exception ex){
+	public ResponseEntity<String> logGenericError(Exception ex) {
 		System.err.println("- - - - - - ERRO INTERNO - - - - - -");
 		System.err.println("Causa do erro: " + ex.getCause());
 		System.err.println("Origem do erro: " + ex.getStackTrace());
 		System.err.println("Contexto do erro: " + ex.getLocalizedMessage());
 		ex.printStackTrace();
-		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Não é você... Sou eu :( \n");
-		
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não é você... Sou eu :(\n" + ex.getMessage());
+
 	}
-	
+
 	@ExceptionHandler(CPFValidationException.class)
-	public ResponseEntity<String> logCPFValidationError(CPFValidationException ex){
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Houve um erro ao validar o CPF...\n\n" + ex.getCause());
+	public ResponseEntity<String> logCPFValidationError(CPFValidationException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body("Houve um erro ao validar o CPF...\n\n" + ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(CadastroUsuarioException.class)
-	public ResponseEntity<String> logError(CadastroUsuarioException ex){
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Houve um erro ao realizar o cadastro...\n" + ex.getCause());
+	public ResponseEntity<String> logError(CadastroUsuarioException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body("Houve um erro ao realizar seu cadastro...\nTente novamente mais tarde!" + ex.getMessage());
 	}
 
 	@ExceptionHandler(RegistrarArquivoException.class)
-	public ResponseEntity<String> logError(RegistrarArquivoException ex){
+	public ResponseEntity<String> logError(RegistrarArquivoException ex) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Não foi possível salvar o arquivo. Tente novamente mais tarde.\n" + ex.getCause());
+				.body("Não foi possível salvar o arquivo. Tente novamente mais tarde.\n" + ex.getMessage());
 	}
 }

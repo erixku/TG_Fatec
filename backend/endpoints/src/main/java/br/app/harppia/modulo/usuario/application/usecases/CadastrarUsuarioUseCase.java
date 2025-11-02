@@ -55,39 +55,36 @@ public class CadastrarUsuarioUseCase {
 
 		UsuarioEntity userToSave = null;
 
-		try {
-			// Caso haja valores incoerentes, deve ser erro de mapeamento DTO <--> Entidade
-			userToSave = userMapper.toEntity(dto);
+		// Caso haja valores incoerentes, deve ser erro de mapeamento DTO <--> Entidade
+		userToSave = userMapper.toEntity(dto);
 
-			Optional<UsuarioEntity> result = usuarioRepository.findByCpfOrEmailOrTelefone(userToSave.getCpf(),
-					userToSave.getEmail(), userToSave.getTelefone());
+		Optional<UsuarioEntity> result = usuarioRepository.findByCpfOrEmailOrTelefone(userToSave.getCpf(),
+				userToSave.getEmail(), userToSave.getTelefone());
 
-			if (result.isPresent())
-				throw new CadastroUsuarioException("Esse usuário já existe!");
+		if (result.isPresent())
+			throw new CadastroUsuarioException("Esse usuário já existe!");
 
-			userToSave.setSenha(passwdEncoder.encode(dto.senha()));
+		userToSave.setSenha(passwdEncoder.encode(dto.senha()));
 
-			entityManager
-					.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by_usu DEFERRED;")
-					.executeUpdate();
+		entityManager
+				.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by DEFERRED;")
+				.executeUpdate();
 
-			UsuarioEntity savedUser = usuarioRepository.save(userToSave);
+		UsuarioEntity savedUser = usuarioRepository.save(userToSave);
 
-			if (file != null && !file.isEmpty()) {
-				FotoPerfilInfo fotoSalva;
-				fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
-						ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(), savedUser.getId());
+		if (file != null && !file.isEmpty()) {
+			FotoPerfilInfo fotoSalva;
+			fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
+					ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(), savedUser.getId());
 
-				savedUser.setIdFotoPerfil(fotoSalva.id());
+			if(fotoSalva == null)
+				throw new CadastroUsuarioException("Houve um erro ao submeter o arquivo. Verifique-o e tente novamente.");
+			
+			savedUser.setIdFotoPerfil(fotoSalva.id());
 
-				usuarioRepository.save(savedUser);
-			}
-
-			return new UsuarioCadastradoDTO(savedUser.getId(), savedUser.getEmail(), savedUser.getNome());
-		} catch (CadastroUsuarioException ex) {
-			System.err.println("\nErro ao cadastrar usuário.\n");
+			usuarioRepository.save(savedUser);
 		}
 
-		return null;
+		return new UsuarioCadastradoDTO(savedUser.getId(), savedUser.getEmail(), savedUser.getNome());
 	}
 }

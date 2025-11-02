@@ -29,7 +29,7 @@ import lombok.ToString;
 public class FaixaMusicalAssCategoria {
 
     @SuppressWarnings("unused")
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,10 +45,10 @@ public class FaixaMusicalAssCategoria {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @Column(name = "created_by_min", nullable = false)
+    @Column(name = "created_by", nullable = false)
     private UUID createdBy;
 
-    @Column(name = "deleted_by_min")
+    @Column(name = "deleted_by")
     private UUID deletedBy;
 
     //---------------------//

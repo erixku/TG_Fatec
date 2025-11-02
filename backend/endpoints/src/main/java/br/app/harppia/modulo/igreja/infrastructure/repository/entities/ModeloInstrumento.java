@@ -27,9 +27,6 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class ModeloInstrumento {
 
-	//----------------//
-	// CHAVE PRIMÁRIA //
-	//----------------//
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

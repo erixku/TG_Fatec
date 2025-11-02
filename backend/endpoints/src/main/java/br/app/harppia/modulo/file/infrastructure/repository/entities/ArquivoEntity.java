@@ -20,6 +20,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -31,12 +32,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString(of = {"id", "createdAt", "createdBy", "nome", "tamanhoEmBytes"})
 @EqualsAndHashCode(of = {"id"})
 public class ArquivoEntity {
 
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -72,12 +74,12 @@ public class ArquivoEntity {
 	
 	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
 	@Column(nullable = false, updatable = false)
-    @ColumnTransformer(write = "CAST(? AS utils.enum_s_storage_t_tb_arquivo_c_mime_type)")
+    @ColumnTransformer(write = "CAST(? AS utils.s_storage_t_tb_arquivo_e_mime_type)")
 	private EMimeTypeArquivo mimeType;
 
 	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
 	@Column(nullable = false, updatable = false)
-    @ColumnTransformer(write = "CAST(? AS utils.enum_s_storage_t_tb_arquivo_c_extensao)")
+    @ColumnTransformer(write = "CAST(? AS utils.s_storage_t_tb_arquivo_e_extensao)")
 	private EExtensaoArquivo extensao;
 	
 	@Column(name = "tamanho_em_bytes", nullable = false)
@@ -85,8 +87,4 @@ public class ArquivoEntity {
 	
 	@Column(name = "buc_id", nullable = false)
 	private Integer idBucket;
-	
-	public ArquivoEntity() {
-		
-	}
 }

@@ -33,15 +33,11 @@ import lombok.ToString;
 @EqualsAndHashCode(of = {"idDonoConfig"})
 public class ConfiguracaoNotificacaoUsuario {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID idDonoConfig;
 	

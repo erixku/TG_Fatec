@@ -28,12 +28,8 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class Notificacao {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +52,7 @@ public class Notificacao {
 	@Column(name = "link", nullable = false)
 	private String link;
 	
-	@Column(name = "is_lida", nullable = false)
+	@Column(name = "was_readed", nullable = false)
 	private Boolean isReaded = false;
 	
 	// Se lê:

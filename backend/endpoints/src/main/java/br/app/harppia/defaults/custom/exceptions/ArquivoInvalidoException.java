@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import br.app.harppia.warnings.WarningController;
 
-public class ArquivoInvalidoException extends Exception implements ExceptionHandler {
+public class ArquivoInvalidoException extends RuntimeException implements ExceptionHandler {
 
 	private static final long serialVersionUID = 1L;
 

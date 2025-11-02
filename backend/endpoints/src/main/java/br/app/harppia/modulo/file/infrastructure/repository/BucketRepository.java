@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.usuario.infrasctructure.repository;
+package br.app.harppia.modulo.file.infrastructure.repository;
 
 import java.util.Optional;
 
@@ -19,7 +19,7 @@ public interface BucketRepository extends JpaRepository<BucketEntity, Integer>{
 	 * @return um objeto representando todas as informações do bucket
 	 */
 	@Query(
-        value = "SELECT * FROM storage.tb_bucket WHERE nome = CAST(:nome AS utils.enum_s_storage_t_tb_bucket_c_nome)",
+        value = "SELECT * FROM storage.tb_bucket WHERE nome = CAST(:nome AS utils.s_storage_t_tb_bucket_e_nome)",
         nativeQuery = true
     )
     Optional<BucketEntity> findByNome(@Param("nome") String nome);

@@ -29,7 +29,7 @@ import lombok.ToString;
 public class AdministradorIgreja {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,30 +39,30 @@ public class AdministradorIgreja {
 	// DADOS DE LOGS //
 	//---------------//
 	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false, updatable = false)
+	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
 	@Generated(event = EventType.INSERT)
-	@Column
+	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@Column(nullable = false)
-	private UUID createdByAdm;
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
 	
-	@Column
-	private UUID deletedByAdm;
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
 	
 	//----------------//
 	// DADOS DO ADMIN //
 	//----------------//
-	@Column(nullable = false)
+	@Column(name = "is_deleted", nullable = false)
 	private Boolean isDeleted = false;
 	
 	//-----//
 	// FKs //
 	//-----//
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igr_uuid", nullable = false)
+	@JoinColumn(name = "igr_id", nullable = false)
 	private Igreja igreja;
 	
 	@Column(name = "s_auth_t_tb_usuario_c_adm", nullable = false)

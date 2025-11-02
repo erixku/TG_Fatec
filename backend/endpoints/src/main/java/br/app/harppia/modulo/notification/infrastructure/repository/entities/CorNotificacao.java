@@ -29,12 +29,8 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class CorNotificacao {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

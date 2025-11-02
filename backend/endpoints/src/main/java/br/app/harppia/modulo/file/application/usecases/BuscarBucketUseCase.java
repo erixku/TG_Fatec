@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfo;
+import br.app.harppia.modulo.file.infrastructure.repository.BucketRepository;
 import br.app.harppia.modulo.file.infrastructure.repository.entities.BucketEntity;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.BucketRepository;
 
 @Service
 public class BuscarBucketUseCase {

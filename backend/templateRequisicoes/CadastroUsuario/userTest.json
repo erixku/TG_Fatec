@@ -1,19 +1,20 @@
+
   {
-    "cpf": "150.536.880-44",
-    "nomeCompleto": "Rafael Souza Martins",
+    "cpf": "700.273.045-23",
+    "nomeCompleto": "Sofia Pereira Nunes",
     "nomeSocialCompleto": null,
-    "sexo": "M",
-    "dataNascimento": "1989-07-07",
-    "email": "rafael.souza.martins1@gmail.com",
-    "telefone": "(51) 98700-1122",
-    "senha": "Raf09!@S55",
+    "sexo": "F",
+    "dataNascimento": "1996-11-30",
+    "email": "sofia.p.nunes77@gmail.com",
+    "telefone": "(81) 91222-3344",
+    "senha": "Sof22!@S68",
     "endereco": {
-      "cep": "90010020",
-      "uf": "RS",
-      "cidade": "Porto Alegre",
-      "bairro": "Centro Histórico",
-      "logradouro": "Rua dos Andradas",
-      "numero": "1099",
+      "cep": "50010010",
+      "uf": "PE",
+      "cidade": "Recife",
+      "bairro": "Boa Viagem",
+      "logradouro": "Avenida Boa Viagem",
+      "numero": "1449",
       "complemento": null
     }
   }

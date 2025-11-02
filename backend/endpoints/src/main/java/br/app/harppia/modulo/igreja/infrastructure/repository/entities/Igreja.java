@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,43 +22,39 @@ import lombok.ToString;
 @Table(name = "tb_igreja", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"uuid", "cnpj", "nome", "idProprietario"})
-@EqualsAndHashCode(of = "uuid")
+@ToString(of = {"id", "cnpj", "nome", "idProprietario"})
+@EqualsAndHashCode(of = "id")
 public class Igreja {
 
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID uuid; 
+	private UUID id; 
 	
 	//---------------//
 	// DADOS DE LOGS //
 	//---------------//
 	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false, updatable = false)
+	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
 	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false)
+	@Column(name = "updated_at", nullable = false, insertable = false)
 	private OffsetDateTime updatedAt;
 
-	@Column()
+	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt = null;
 
-	@Column(name = "created_by_adm", nullable = false, updatable = false)
-	private UUID createdByAdm;
+	@Column(name = "created_by", nullable = false, updatable = false)
+	private UUID createdBy;
 
-	@Column(nullable = false)
-	private UUID updatedByAdm;
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
 	
-	@Column
-	private UUID deletedByAdm = null;
+	@Column(name = "deleted_by")
+	private UUID deletedBy = null;
 
 	//-----------------//
 	// DADOS DA IGREJA //
@@ -82,9 +77,9 @@ public class Igreja {
 	//-----//
 	// FKs //
 	//-----//
-	@JoinColumn(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
+	@Column(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
 	private UUID idFoto;
 
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_adm_proprietario", nullable = false)
+	@Column(name = "s_auth_t_tb_usuario_c_adm_proprietario", nullable = false)
 	private UUID idProprietario;
 }

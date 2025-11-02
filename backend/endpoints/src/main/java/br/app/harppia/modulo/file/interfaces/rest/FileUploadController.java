@@ -14,28 +14,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
 import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
-import br.app.harppia.modulo.file.application.usecases.SalvarArquivoUseCase;
+import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 
 @RestController
 @RequestMapping("/v1/files")
 public class FileUploadController {
 
-	private final SalvarArquivoUseCase salvarArquivoUseCase;
+	private final SalvarFotoPerfilUseCase salvarFotoPerfilUseCase;
 
-	public FileUploadController(SalvarArquivoUseCase salvarArquivoUseCase) {
-		this.salvarArquivoUseCase = salvarArquivoUseCase;
+	public FileUploadController(SalvarFotoPerfilUseCase salvarFotoPerfilUseCase) {
+		this.salvarFotoPerfilUseCase = salvarFotoPerfilUseCase;
 	}
 
-	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<ArquivoPersistidoResponse> uploadFile(
+	@PostMapping(value = "/upload/profile_picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<ArquivoPersistidoResponse> uploadProfilePictureFile(
 				@RequestPart("file") MultipartFile file,
 				@RequestPart("bucket") String bucketToSave,
 				@RequestPart("id-criador") UUID idCriador) {
 			
 		ArquivoPersistidoResponse arquivoSalvo = null;
 		try {
-			arquivoSalvo = salvarArquivoUseCase.salvar(file, bucketToSave, idCriador);
+			arquivoSalvo = salvarFotoPerfilUseCase.salvar(file, bucketToSave, idCriador);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (RegistrarArquivoException | ArquivoInvalidoException e) {

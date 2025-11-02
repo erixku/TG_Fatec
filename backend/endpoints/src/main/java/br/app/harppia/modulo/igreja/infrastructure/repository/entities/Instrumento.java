@@ -32,9 +32,9 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class Instrumento {
 
-    //----------------//
-    // CHAVE PRIMÁRIA //
-    //----------------//
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,14 +56,14 @@ public class Instrumento {
     @Column(name = "disabled_at")
     private OffsetDateTime disabledAt;
 
-    @Column(name = "created_by_adm", nullable = false)
-    private UUID createdByAdm;
+    @Column(name = "created_by", nullable = false)
+    private UUID createdBy;
 
-    @Column(name = "updated_by_adm", nullable = false)
-    private UUID updatedByAdm;
+    @Column(name = "updated_by", nullable = false)
+    private UUID updatedBy;
 
-    @Column(name = "deleted_by_adm")
-    private UUID deletedByAdm;
+    @Column(name = "deleted_by")
+    private UUID deletedBy;
 
     //----------------------//
     // DADOS DO INSTRUMENTO //
@@ -99,12 +99,12 @@ public class Instrumento {
     private ModeloInstrumento modelo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_uuid", nullable = false)
+    @JoinColumn(name = "igr_id", nullable = false)
     private Igreja igreja;
 
     @Column(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
-    private UUID foto;
+    private UUID idFoto;
 
     @Column(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
-    private UUID icone;
+    private UUID idIcone;
 }

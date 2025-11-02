@@ -29,9 +29,9 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class UsuarioFuncao {
 
-    //----------------//
-    // CHAVE PRIMÁRIA //
-    //----------------//
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 3L;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -46,10 +46,10 @@ public class UsuarioFuncao {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @Column(name = "created_by_lid", nullable = false)
+    @Column(name = "created_by", nullable = false)
     private UUID createdBy;
 
-    @Column(name = "deleted_by_lid")
+    @Column(name = "deleted_by")
     private UUID deletedBy;
 
     //----------------------------//
@@ -65,7 +65,7 @@ public class UsuarioFuncao {
     // CHAVES FK //
     //-----------//
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "min_lou_uuid", nullable = false)
+    @JoinColumn(name = "min_lou_id", nullable = false)
     private MinisterioLouvor ministerioLouvor;
 
     @Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)

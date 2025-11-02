@@ -25,7 +25,7 @@ import lombok.ToString;
 public class RegistroAusencia {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +45,8 @@ public class RegistroAusencia {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 
-	@Column(name = "created_by_lev", nullable = false)
-	private UUID createdByLev;
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
 
 	// -------------------//
 	// DADOS DA AUSÊNCIA //
@@ -71,6 +71,6 @@ public class RegistroAusencia {
 	// -----//
 	// FKs //
 	// -----//
-	@Column(name = "schema_auth_usuario_lev")
-	private UUID usuario;
+	@Column(name = "s_church_t_tb_igreja_c_igreja")
+	private UUID idIgreja;
 }

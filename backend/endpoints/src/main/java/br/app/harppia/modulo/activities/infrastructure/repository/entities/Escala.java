@@ -12,8 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -21,12 +23,14 @@ import lombok.ToString;
 @Table(name = "tb_escala", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedByLidId", "nome", "quantidadeAtividades", "igreja"})
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(of = {"id", "updatedBy", "nome", "quantidadeAtividades", "idIgreja"})
 @EqualsAndHashCode(of = "id")
 public class Escala {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,14 +50,14 @@ public class Escala {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@Column(name = "created_by_lid", nullable = false)
-	private UUID createdByLidId;
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
 	
-	@Column(name = "updated_by_lid", nullable = false)
-	private UUID updatedByLidId;
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
 	
-	@Column(name = "deleted_by_lid")
-	private UUID deletedByLidId;
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
 	
 	//-----------------//
 	// DADOS DA ESCALA //
@@ -74,5 +78,5 @@ public class Escala {
 	// FKs //
 	//-----//
 	@Column(name = "s_church_t_tb_igreja_c_igreja", nullable = false)
-	private UUID igreja;
+	private UUID idIgreja;
 }

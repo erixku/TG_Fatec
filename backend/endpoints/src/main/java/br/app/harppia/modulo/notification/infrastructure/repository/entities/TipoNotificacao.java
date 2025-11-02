@@ -30,7 +30,7 @@ public class TipoNotificacao {
 	 * mudança expressiva na estrutura da classe.
 	 */
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

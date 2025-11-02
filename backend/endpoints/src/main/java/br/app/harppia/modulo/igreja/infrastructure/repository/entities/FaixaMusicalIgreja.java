@@ -30,7 +30,7 @@ import lombok.ToString;
 public class FaixaMusicalIgreja {
 	
     @SuppressWarnings("unused")
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +70,7 @@ public class FaixaMusicalIgreja {
     // FKs //
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_uuid", nullable = false)
+    @JoinColumn(name = "igr_id", nullable = false)
     private Igreja igreja;
 
     @Column(name = "s_song_t_tb_musica_c_mus")

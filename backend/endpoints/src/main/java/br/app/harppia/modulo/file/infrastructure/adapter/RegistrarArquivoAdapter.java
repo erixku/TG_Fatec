@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
 import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
-import br.app.harppia.modulo.file.application.usecases.SalvarArquivoUseCase;
+import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
@@ -16,9 +16,9 @@ import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
 @Component
 public class RegistrarArquivoAdapter implements RegistrarArquivoPort {
 
-	private final SalvarArquivoUseCase fileService;
+	private final SalvarFotoPerfilUseCase fileService;
 
-	public RegistrarArquivoAdapter(SalvarArquivoUseCase fileService) {
+	public RegistrarArquivoAdapter(SalvarFotoPerfilUseCase fileService) {
 		this.fileService = fileService;
 	}
 

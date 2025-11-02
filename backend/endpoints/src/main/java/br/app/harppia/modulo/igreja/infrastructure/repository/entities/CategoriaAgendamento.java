@@ -32,7 +32,7 @@ import lombok.ToString;
 public class CategoriaAgendamento {
 
     @SuppressWarnings("unused")
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,14 +55,14 @@ public class CategoriaAgendamento {
     @Column(name = "disabled_at")
     private OffsetDateTime disabledAt;
 
-    @Column(name = "created_by_adm", nullable = false)
-    private UUID createdByAdm;
+    @Column(name = "created_by", nullable = false)
+    private UUID createdBy;
 
-    @Column(name = "updated_by_adm", nullable = false)
-    private UUID updatedByAdm;
+    @Column(name = "updated_by", nullable = false)
+    private UUID updatedBy;
 
-    @Column(name = "deleted_by_adm")
-    private UUID deletedByAdm;
+    @Column(name = "deleted_by")
+    private UUID deletedBy;
 
     //---------------------------//
     // DADOS DA CATEGORIA IGREJA //
@@ -87,6 +87,6 @@ public class CategoriaAgendamento {
     // FKs //
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_uuid", nullable = false)
+    @JoinColumn(name = "igr_id", nullable = false)
     private Igreja igreja;
 }

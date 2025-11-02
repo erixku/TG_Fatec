@@ -10,6 +10,7 @@ import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
 import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 import br.app.harppia.modulo.file.application.service.FileStreamService;
 import br.app.harppia.modulo.file.application.service.FileValidatorService;
+import br.app.harppia.modulo.file.application.service.FotoPerfilFileValidatorService;
 import br.app.harppia.modulo.file.domain.entities.Arquivo;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfo;
@@ -20,14 +21,15 @@ import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArqui
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 
 @Service
-public class SalvarArquivoUseCase {
+public class SalvarFotoPerfilUseCase {
 
 	private final ArquivoRepository arquivoRepo;
 	private final BuscarBucketUseCase buscarBucket;
 	private final FileStreamService uploadService;
 	private FileValidatorService fileValidator;
+	private FotoPerfilFileValidatorService fotoPerfilValidator;
 
-	public SalvarArquivoUseCase(ArquivoRepository arquivoRepo, BuscarBucketUseCase buscarBucket,
+	public SalvarFotoPerfilUseCase(ArquivoRepository arquivoRepo, BuscarBucketUseCase buscarBucket,
 			FileStreamService uploadService) {
 		this.arquivoRepo = arquivoRepo;
 		this.buscarBucket = buscarBucket;
@@ -42,9 +44,12 @@ public class SalvarArquivoUseCase {
 		BucketRestricoesUploadInfo bucketContraints = buscarBucket.findByNome(ENomeBucket.fromNome(bucket));
 	
 		fileValidator = new FileValidatorService(bucketContraints);
-		
 		if(!fileValidator.arquivoEstaValido(file))
 			throw new RegistrarArquivoException("Arquivo inválido ou corrompido!");
+		
+		fotoPerfilValidator = new FotoPerfilFileValidatorService(bucketContraints);
+		if(!fotoPerfilValidator.isFileValidToProfilePhoto(file))
+			throw new RegistrarArquivoException("Tipo de arquivo não permitido!");
 		
 		// o arquivo é renomeado aqui
 		Arquivo arquivoSalvoNuvem = uploadService.uploadFile(file, bucket, criador);

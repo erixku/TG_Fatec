@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import br.app.harppia.warnings.WarningController;
 
-public class CadastroUsuarioException extends Exception implements ExceptionHandler {
+public class CadastroUsuarioException extends RuntimeException implements ExceptionHandler {
 	
 	private static final long serialVersionUID = 1L;
 

@@ -35,57 +35,54 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class EnderecoIgreja implements Serializable {
 
-    /**
-     * Identificador único para a serialização da classe.
-     */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Generated(event = EventType.INSERT)
-    @Column(nullable = false, insertable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     @Generated(event = EventType.INSERT)
-    @Column(nullable = false, insertable = false)
+    @Column(name = "updated_at", nullable = false, insertable = false)
     private OffsetDateTime updatedAt;
 
-    @Column
+    @Column(name = "deleted_at")
     private OffsetDateTime deletedAt = null;
 
-    @Column(nullable = false, updatable = false)
-    private UUID createdByAdm;
+    @Column(name = "created_by", nullable = false, updatable = false)
+    private UUID createdBy;
 
-    @Column(nullable = false)
-    private UUID updatedByAdm;
+    @Column(name = "updated_by", nullable = false)
+    private UUID updatedBy;
 
-    @Column
-    private UUID deletedByAdm;
+    @Column(name = "deleted_by")
+    private UUID deletedBy;
 
     //-------------------//
     // DADOS DO ENDERECO //
     //-------------------//
-    @Column(nullable = false)
+    @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    @Column(nullable = false)
+    @Column(name = "cep", nullable = false)
     private String cep;
 
-    @Column(nullable = false)
+    @Column(name = "uf", nullable = false)
     private String uf;
 
-    @Column(nullable = false)
+    @Column(name = "cidade", nullable = false)
     private String cidade;
 
-    @Column(nullable = false)
+    @Column(name = "bairro", nullable = false)
     private String bairro;
 
-    @Column(nullable = false)
+    @Column(name = "logradouro", nullable = false)
     private String logradouro;
 
-    @Column(nullable = false)
+    @Column(name = "numero", nullable = false)
     private String numero;
 
     @Column
@@ -98,6 +95,6 @@ public class EnderecoIgreja implements Serializable {
     // FKs //
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_uuid", nullable = false)
+    @JoinColumn(name = "igr_id", nullable = false)
     private Igreja igreja;
 }

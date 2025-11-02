@@ -1,23 +1,21 @@
 package br.app.harppia.modulo.userconfig.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -25,24 +23,20 @@ import lombok.ToString;
 @Table(name = "tb_auditiva", schema = "acessibility")
 @Getter
 @Setter
-@ToString(of = {"usuario"})
-@EqualsAndHashCode(of = {"usuario"})
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(of = {"id"})
+@EqualsAndHashCode(of = {"id"})
 public class AcessibilidadeAuditiva {
-	
-	/**
-	 * Versiona essa classe para serialização de objetos. O UID aumenta em 1 a cada
-	 * mudança expressiva na estrutura da classe.
-	 */
+
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 	
 	@Id
-	@OneToOne(optional = false)
-	@JoinColumn(name = "s_auth_t_tb_usuario_c_usu", nullable = false)
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private UsuarioEntity usuario;
+	private UUID id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Generated(event = EventType.INSERT)
 	@Column(nullable = false, insertable = false)
 	private OffsetDateTime updateAt;

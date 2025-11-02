@@ -15,8 +15,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,12 +26,14 @@ import lombok.ToString;
 @Table(name = "tb_item_levado", schema = "schedule")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString(of = {"id", "nome", "descricao"})
 @EqualsAndHashCode(of = "id")
 public class ItemLevado {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,14 +53,14 @@ public class ItemLevado {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@Column(name = "created_by_lev", nullable = false)
-	private UUID createdByLevId;
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
 	
-	@Column(name = "updated_by_lev", nullable = false)
-	private UUID updatedByLevId;
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
 	
-	@Column(name = "deleted_by_lev")
-	private UUID deletedByLevId;
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
 	
 	//----------------------//
 	// DADOS DO ITEM LEVADO //

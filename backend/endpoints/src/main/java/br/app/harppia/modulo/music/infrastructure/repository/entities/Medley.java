@@ -25,6 +25,9 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class Medley {
 
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -43,7 +46,7 @@ public class Medley {
 	@Column
 	private OffsetDateTime deletedAt;
 	
-	@Column(name = "created_by_usu", nullable = false)
+	@Column(name = "created_by", nullable = false)
 	private UUID createdBy;
 	
 	//-----------------//

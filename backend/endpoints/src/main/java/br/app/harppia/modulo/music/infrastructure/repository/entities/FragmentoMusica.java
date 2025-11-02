@@ -28,6 +28,9 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 public class FragmentoMusica {
 	
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

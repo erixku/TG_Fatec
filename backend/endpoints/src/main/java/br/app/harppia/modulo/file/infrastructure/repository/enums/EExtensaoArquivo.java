@@ -11,8 +11,14 @@ import br.app.harppia.defaults.utils.rules.EnumPersistivel;
  * Representa o tipo nominal do arquivo.
  */
 public enum EExtensaoArquivo implements EnumPersistivel, ContentExistsValidation<EExtensaoArquivo> {
+	
+	// IMAGENS
 	PNG("png"), JPG("jpg"), JPEG("jpeg"), SVG("svg"), 
+	
+	// AUDIO
 	MP3("mp3"), WAV("wav"), OGG("ogg"), FLAC("flac"), M4A("m4a"),
+	
+	// OUTROS
 	ALAC("alac"), PDF("pdf");
 
 	private String extensao;

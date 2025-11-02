@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import br.app.harppia.warnings.WarningController;
 
-public class CPFValidationException extends Exception implements ExceptionHandler {
+public class CPFValidationException extends RuntimeException implements ExceptionHandler {
 
 	private static final long serialVersionUID = 1L;
 

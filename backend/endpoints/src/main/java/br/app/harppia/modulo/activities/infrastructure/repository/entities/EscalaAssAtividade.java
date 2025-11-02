@@ -15,8 +15,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,12 +26,14 @@ import lombok.ToString;
 @Table(name = "tb_escala_ass_atividade", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedByLidId", "posicao", "escala", "atividade"})
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(of = {"id", "updatedBy", "posicao", "escala", "atividade"})
 @EqualsAndHashCode(of = "id")
 public class EscalaAssAtividade {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,14 +53,14 @@ public class EscalaAssAtividade {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@Column(name = "created_by_lid", nullable = false)
-	private UUID createdByLidId;
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
 	
-	@Column(name = "updated_by_lid", nullable = false)
-	private UUID updatedByLidId;
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
 	
-	@Column(name = "deleted_by_lid")
-	private UUID deletedByLidId;
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
 	
 	//-----------------//
 	// DADOS DA ESCALA //

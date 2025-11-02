@@ -22,12 +22,12 @@ import lombok.ToString;
 @Table(name = "tb_publicacao", schema = "schedule")
 @Getter
 @Setter
-@ToString(of = {"id", "updatedAt", "createdByLev", "titulo", "descricao"})
+@ToString(of = {"id", "updatedAt", "createdBy", "titulo", "descricao"})
 @EqualsAndHashCode(of = "id")
 public class Publicacao {
 	
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,14 +47,14 @@ public class Publicacao {
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
 	
-	@Column(name = "created_by_lev", nullable = false, updatable = false)
-	private UUID createdByLev;
+	@Column(name = "created_by", nullable = false, updatable = false)
+	private UUID createdBy;
 	
-	@Column(name = "updated_by_lev", nullable = false)
-	private UUID updatedByLev;
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
 	
-	@Column(name = "deleted_by_lev")
-	private UUID deletedByLev;
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
 	
 	//---------------------//
 	// DADOS DA PUBLICAÇÃO //

@@ -24,19 +24,19 @@ import lombok.ToString;
 @Table(name = "tb_ministerio_louvor", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"uuid", "nome", "codigo"})
-@EqualsAndHashCode(of = "uuid")
+@ToString(of = {"id", "nome", "codigo"})
+@EqualsAndHashCode(of = "id")
 public class MinisterioLouvor {
 
     @SuppressWarnings("unused")
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     //----------------//
     // CHAVE PRIMÁRIA //
     //----------------//
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    private UUID id;
 
     //---------------//
     // DADOS DE LOGS //
@@ -52,14 +52,14 @@ public class MinisterioLouvor {
     @Column(name = "deleted_at")
     private OffsetDateTime deletedAt;
 
-    @Column(name = "created_by_adm", nullable = false)
-    private UUID createdByAdm;
+    @Column(name = "created_by", nullable = false)
+    private UUID createdBy;
 
-    @Column(name = "updated_by_adm", nullable = false)
-    private UUID updatedByAdm;
+    @Column(name = "updated_by", nullable = false)
+    private UUID updatedBy;
 
-    @Column(name = "deleted_by_adm")
-    private UUID deletedByAdm;
+    @Column(name = "deleted_by")
+    private UUID deletedBy;
 
     //-------------------------------//
     // DADOS DO MINISTÉRIO DE LOUVOR //
@@ -80,9 +80,9 @@ public class MinisterioLouvor {
     // FKs //
     //-----//
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_uuid", nullable = false)
+    @JoinColumn(name = "igr_id", nullable = false)
     private Igreja igreja;
 
     @Column(name = "s_storage_t_tb_arquivo_c_foto")
-    private UUID foto;
+    private UUID idFoto;
 }

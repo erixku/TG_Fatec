@@ -1,8 +1,6 @@
 package br.app.harppia.modulo.file.application.service;
 
 import java.io.IOException;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +39,7 @@ public class FileStreamService {
 	 * @throws IOException
 	 * @throws RegistrarArquivoException
 	 */
-	public Arquivo uploadFile(MultipartFile file, String folderToSave, UUID criador) throws IOException, RegistrarArquivoException {
+	public Arquivo uploadFile(MultipartFile file, String folderToSave, UUID criador) throws IOException {
 
 		if (file == null || file.isEmpty())
 			throw new RegistrarArquivoException("Falha ao enviar arquivo: arquivo ausente.");
@@ -51,28 +49,34 @@ public class FileStreamService {
 		if (folderToSave == null || folderToSave.trim().isEmpty())
 			throw new RegistrarArquivoException("Falha ao enviar arquivo: diretorio ausente.");
 
-		
 		String[] nomeArquivo = file.getOriginalFilename().split("/");
 		String nomeNormalizado;
-		
-		nomeNormalizado = 
-				(nomeArquivo.length == 1) 
-					? nomeArquivo[0] 
-					: Normalizer.normalize(
-							nomeArquivo[nomeArquivo.length-1], Form.NFC
-						)
-				;
-		
+
+		nomeNormalizado = normalizarNomeArquivo(
+				(nomeArquivo.length > 1) 
+					? nomeArquivo[nomeArquivo.length - 1] 
+					: nomeArquivo[0]
+			);
+
 		keyName = keyName.concat(folderToSave).concat("/");
 		keyName = keyName.concat(criador.toString()).concat("_");
 		keyName = keyName.concat(nomeNormalizado);
 
 		s3Template.upload(bucketName, keyName, file.getInputStream());
-		
-		return new Arquivo(
-				file, 
-				String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName),
-				nomeNormalizado
-			);
+
+		return new Arquivo(file, String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName),
+				nomeNormalizado.replaceFirst("\\.[^.]+$", ""));
+	}
+
+	private String normalizarNomeArquivo(String nome) {
+
+	    if (nome == null) return null;
+	    
+	    String nomeLimpo = nome.replaceAll("[^a-zA-Z0-9\\-_. ]", "");
+
+	    return nomeLimpo
+	        .replaceAll("\\s+", " ")
+	        .trim()
+	        .toLowerCase();
 	}
 }

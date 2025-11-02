@@ -25,7 +25,7 @@ import lombok.ToString;
 public class Atividade {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 1L;
+	private static long serialVersion = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +45,5 @@ public class Atividade {
 	private Publicacao publicacao;
 	
 	@Column(name = "s_church_t_tb_categoria_c_categoria", nullable = false)
-	private UUID categoriaAtividade;
+	private UUID idCategoria;
 }
