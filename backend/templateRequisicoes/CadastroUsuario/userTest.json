@@ -1,19 +1,19 @@
-{
-    "cpf": "865.802.174-21",
-    "nomeCompleto": "Patrícia Andrade Lima",
-    "nomeSocialCompleto": "Patrícia",
-    "sexo": "F",
-    "dataNascimento": "1998-02-14",
-    "email": "patricia.andrade.lima44@outlook.com",
-    "telefone": "(41) 99911-2233",
-    "senha": "Pat88!@S34",
+  {
+    "cpf": "150.536.880-44",
+    "nomeCompleto": "Rafael Souza Martins",
+    "nomeSocialCompleto": null,
+    "sexo": "M",
+    "dataNascimento": "1989-07-07",
+    "email": "rafael.souza.martins1@gmail.com",
+    "telefone": "(51) 98700-1122",
+    "senha": "Raf09!@S55",
     "endereco": {
-      "cep": "80010010",
-      "uf": "PR",
-      "cidade": "Curitiba",
-      "bairro": "Centro",
-      "logradouro": "Rua XV de Novembro",
-      "numero": "34",
+      "cep": "90010020",
+      "uf": "RS",
+      "cidade": "Porto Alegre",
+      "bairro": "Centro Histórico",
+      "logradouro": "Rua dos Andradas",
+      "numero": "1099",
       "complemento": null
     }
   }
