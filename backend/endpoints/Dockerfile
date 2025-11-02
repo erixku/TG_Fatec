@@ -1,25 +1,24 @@
-### DOCKERFILE DEFAULT/BASE
+### DOCKERFILE DEFAULT/BASE, por enquanto
 ## Autor: Lucas Mateus Braga de Souza
 ## Data: 20/06/2025
 ## - - - - - - - - - - - - - - - - - -
 
 # Imagem base
-FROM openjdk:21-jdk-slim AS build
+FROM openjdk:23-jdk-slim AS build
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY .settings . 
-COPY mvnw .
-COPY .mvn/ .mvn/
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
 
+RUN  chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline -B
 
-COPY src/ ./src/
+COPY src ./src
 
 RUN ./mvnw package -DskipTests
 
-FROM openjdk:21-jdk-slim
+FROM openjdk:23-jdk-slim
 
 WORKDIR /app
 

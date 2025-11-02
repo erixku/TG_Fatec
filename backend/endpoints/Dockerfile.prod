@@ -1,33 +1,28 @@
-### DOCKERFILE DEFAULT/BASE
+### DOCKERFILE DEFAULT/BASE, por enquanto
 ## Autor: Lucas Mateus Braga de Souza
 ## Data: 20/06/2025
 ## - - - - - - - - - - - - - - - - - -
 
 # Imagem base
-FROM openjdk:21-jdk-slim AS build
+FROM openjdk:23-jdk-slim AS build
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY .settings . 
-COPY mvnw .
+COPY pom.xml mvnw ./
 COPY .mvn .mvn
 
+RUN  chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline -B
 
 COPY src ./src
 
 RUN ./mvnw package -DskipTests
 
-FROM openjdk:21-jre-slim
-
-# Cria um usuário e grupo não-root para rodar a aplicação com privilégios mínimos
-RUN groupadd --system springgroup && useradd --system --gid springgroup springuser
-USER springuser
+FROM openjdk:23-jdk-slim
 
 WORKDIR /app
 
-COPY --from=build /app/target/endpoints-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/endpoints-0.0.3-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
