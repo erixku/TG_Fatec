@@ -1,20 +1,19 @@
-
-  {
-    "cpf": "700.273.045-23",
-    "nomeCompleto": "Sofia Pereira Nunes",
-    "nomeSocialCompleto": null,
-    "sexo": "F",
-    "dataNascimento": "1996-11-30",
-    "email": "sofia.p.nunes77@gmail.com",
-    "telefone": "(81) 91222-3344",
-    "senha": "Sof22!@S68",
-    "endereco": {
-      "cep": "50010010",
-      "uf": "PE",
-      "cidade": "Recife",
-      "bairro": "Boa Viagem",
-      "logradouro": "Avenida Boa Viagem",
-      "numero": "1449",
-      "complemento": null
-    }
+{
+  "cpf": "996.478.400-71",
+  "nomeCompleto": "Rafael Monteiro da Silva",
+  "nomeSocialCompleto": null,
+  "sexo": "M",
+  "dataNascimento": "1988-03-14",
+  "email": "rafael.monteiro88@outlook.com",
+  "telefone": "(31) 98547-2239",
+  "senha": "R@fMonteiro#2025",
+  "endereco": {
+    "cep": "30140071",
+    "uf": "MG",
+    "cidade": "Belo Horizonte",
+    "bairro": "Savassi",
+    "logradouro": "Rua Pernambuco",
+    "numero": "1080",
+    "complemento": "Apartamento 702"
   }
+}

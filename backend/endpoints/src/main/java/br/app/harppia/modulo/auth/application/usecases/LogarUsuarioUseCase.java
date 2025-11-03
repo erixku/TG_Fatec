@@ -1,31 +1,47 @@
 package br.app.harppia.modulo.auth.application.usecases;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.app.harppia.defaults.custom.exceptions.LoginUsuarioException;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
 import br.app.harppia.modulo.auth.domain.request.InformacoesLoginUsuario;
-import br.app.harppia.modulo.auth.domain.request.LoginUsuarioDTO;
-import jakarta.validation.Valid;
+import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.response.LoginUsuarioResponse;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasDTO;
+import br.app.harppia.modulo.auth.infrastructure.mappers.UsuarioLoginMapper;
 
 @Service
 public class LogarUsuarioUseCase {
 
-	private ConsultarUsuarioPort consultarUsuarioPort;
+	private final ConsultarUsuarioPort consultarUsuarioPort;
+	private final PasswordEncoder passEncoder;
+	private final UsuarioLoginMapper userMapper;
 
-	public LogarUsuarioUseCase(ConsultarUsuarioPort consultarUsuarioPort) {
+	public LogarUsuarioUseCase(ConsultarUsuarioPort consultarUsuarioPort, PasswordEncoder passEncoder,
+			UsuarioLoginMapper userMapper) {
 		this.consultarUsuarioPort = consultarUsuarioPort;
+		this.passEncoder = passEncoder;
+		this.userMapper = userMapper;
 	}
 
-	public boolean verificarLoginUsuario(@Valid LoginUsuarioDTO loginUserDTO) {
-		InformacoesLoginUsuario user = consultarUsuarioPort.findByCpfOrEmailOrTelefone(loginUserDTO.cpf(),
-				loginUserDTO.email(), loginUserDTO.telefone());
+	public LoginUsuarioResponse execute(LoginUsuarioRequest loginUserDTO) {
 
-		if (user == null) return false;
+		InformacoesLoginSanitizadasDTO dtoSanitizado = userMapper.toSanitizedDto(loginUserDTO);
 
-		return verificarSenha(user.senha(), loginUserDTO.senha());
+		InformacoesLoginUsuario userBanco = consultarUsuarioPort.findByCpfOrEmailOrTelefone(dtoSanitizado.cpf(),
+				dtoSanitizado.email(), dtoSanitizado.telefone());
+
+		if (userBanco == null)
+			throw new LoginUsuarioException("Usuário não encontrado!");
+
+		if (!saoMesmaSenha(userBanco.senha(), dtoSanitizado.senha()))
+			throw new LoginUsuarioException("Senha ou login inválidos!");
+
+		return new LoginUsuarioResponse(userBanco.uuid(), userBanco.login(), userBanco.nome());
 	}
 
-	private boolean verificarSenha(String senhaArmazenada, String senhaInserida) {
-		return ( senhaInserida.equals(senhaArmazenada) ) ? true : false;
+	private boolean saoMesmaSenha(String senhaArmazenadaEncriptada, String senhaPuraInserida) {
+		return (passEncoder.matches(senhaPuraInserida, senhaArmazenadaEncriptada));
 	}
 }
