@@ -1,6 +1,7 @@
 package br.app.harppia.modulo.usuario.application.usecases;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,15 @@ public class ConsultarUsuarioUseCase {
 	public InformacoesLoginUsuarioBanco buscarInformacoesLogin(String cpf, String email, String telefone) {
 		Optional<UsuarioEntity> user = userRepo.findByCpfOrEmailOrTelefone(cpf, email, telefone);
 
+		return (user.isEmpty()) ? null
+				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getNome(), user.get().getCpf(),
+						user.get().getEmail(), user.get().getTelefone(), user.get().getSenha());
+	}
+
+	public InformacoesLoginUsuarioBanco buscarPorId(UUID id) {
+
+		Optional<UsuarioEntity> user = userRepo.findById(id);
+		
 		return (user.isEmpty()) ? null
 				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getNome(), user.get().getCpf(),
 						user.get().getEmail(), user.get().getTelefone(), user.get().getSenha());

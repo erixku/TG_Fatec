@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.app.harppia.defaults.custom.exceptions.CPFValidationException;
 import br.app.harppia.defaults.custom.exceptions.CadastroUsuarioException;
+import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
 import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 
 @RestControllerAdvice
@@ -43,4 +44,12 @@ public class WarningController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body("Não foi possível salvar o arquivo. Tente novamente mais tarde.\n" + ex.getMessage());
 	}
+
+	@ExceptionHandler(JwtServiceExcpetion.class)
+	public ResponseEntity<String> logError(JwtServiceExcpetion ex) {
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body("Houve algum erro ao autenticar o usuário. Tente novamente mais tarde.\n" + ex.getMessage());
+	}
+	
+	
 }

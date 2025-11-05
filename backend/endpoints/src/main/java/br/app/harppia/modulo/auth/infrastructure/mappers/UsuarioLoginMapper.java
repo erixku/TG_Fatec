@@ -6,7 +6,7 @@ import org.mapstruct.Named;
 import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
-import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.login.request.LoginUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasDTO;
 
 @Mapper(componentModel = "spring")

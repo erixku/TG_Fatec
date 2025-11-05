@@ -33,32 +33,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
 
-        // Caso não ache um cabeçalho ou token válido, passa pro próximo filtro...
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
         
-        // Extrai o token, removendo o prefixo "Bearer "
         final String jwt = authHeader.substring(7);
         final String username; // <-- email do usuário
 
         try {
-        	// Tenta extrair o login do usuário
             username = jwtService.extractUsername(jwt);
         } catch (Exception e) {
-            // Se não encontrar o nome, passa pro próximo filtro...
         	filterChain.doFilter(request, response);
             return;
         }
         
-        // Se não houver um usuário E ele ainda não estiver autenticado...
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
         	
-	        // Busca as credenciais e permissões do usuário.
 	        var userDetails = userService.findByCpfOrEmailOrTelefone(username, username, username);
 	
-	        // Caso ainda válido, adiciona as informações e permissões dele sobre a aplicação
 	        if (jwtService.isTokenValid(jwt, userDetails)) {
 	            var authToken = new UsernamePasswordAuthenticationToken(
 	                    userDetails, null, userDetails.getAuthorities());

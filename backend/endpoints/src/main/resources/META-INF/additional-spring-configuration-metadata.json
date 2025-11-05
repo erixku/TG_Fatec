@@ -12,6 +12,11 @@
   {
     "name": "application.aws.s3.bucketname",
     "type": "java.lang.String",
-    "description": "bucket do S3"
+    "description": "Nome do bucket na Amazon S3."
+  },
+  {
+    "name": "application.security.jwt.refresh-token.expiration",
+    "type": "java.lang.String",
+    "description": "Tempo de vida do refresh token."
   }
 ]}
