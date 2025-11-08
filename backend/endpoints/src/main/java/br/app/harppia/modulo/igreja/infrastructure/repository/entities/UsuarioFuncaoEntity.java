@@ -27,7 +27,7 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "funcao", "isDeleted"})
 @EqualsAndHashCode(of = "id")
-public class UsuarioFuncao {
+public class UsuarioFuncaoEntity {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 3L;
@@ -66,7 +66,7 @@ public class UsuarioFuncao {
     //-----------//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "min_lou_id", nullable = false)
-    private MinisterioLouvor ministerioLouvor;
+    private MinisterioLouvorEntity ministerioLouvor;
 
     @Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
     private UUID idLevita;

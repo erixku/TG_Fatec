@@ -26,7 +26,7 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "nome", "codigo"})
 @EqualsAndHashCode(of = "id")
-public class MinisterioLouvor {
+public class MinisterioLouvorEntity {
 
     @SuppressWarnings("unused")
     private static final long serialVersionUID = 2L;
@@ -81,7 +81,7 @@ public class MinisterioLouvor {
     //-----//
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_id", nullable = false)
-    private Igreja igreja;
+    private IgrejaEntity igreja;
 
     @Column(name = "s_storage_t_tb_arquivo_c_foto")
     private UUID idFoto;

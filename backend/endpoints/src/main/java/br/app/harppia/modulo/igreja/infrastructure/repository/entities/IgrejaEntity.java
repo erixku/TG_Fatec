@@ -24,7 +24,7 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "cnpj", "nome", "idProprietario"})
 @EqualsAndHashCode(of = "id")
-public class Igreja {
+public class IgrejaEntity {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2L;

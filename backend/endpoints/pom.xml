@@ -75,19 +75,11 @@
 		    <scope>runtime</scope>
 		</dependency>
 		
-		<!-- Redis Cloud -->
+		<!-- Redis Cloud (gestão de tokens) -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		
-		<!-- Gestão de Entidades JPA -->
-		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <optional>true</optional>
-		</dependency>
-		
 		
 		<!-- Biblioteca de Criptografia -->
 		<dependency>
@@ -137,7 +129,13 @@
 			<optional>true</optional>
 		</dependency>
 		
-
+		<!-- Gerador de Boilerplate -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <optional>true</optional>
+		</dependency>
+		
 		<!-- Dependências do PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -186,7 +184,17 @@
 		    <artifactId>tika-core</artifactId>
 		    <version>2.9.2</version>
 		</dependency>
+
+	<!-- SERVIÇOS DE MENSSAGERIA -->
+		<!-- Serviço de emails -->
+		<dependency>
+	    	<groupId>org.springframework.boot</groupId>
+	    	<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		
+		
 	</dependencies>
+	
 
 	<build>
 		<plugins>

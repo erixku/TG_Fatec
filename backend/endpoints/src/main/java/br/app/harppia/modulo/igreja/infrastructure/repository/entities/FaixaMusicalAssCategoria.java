@@ -62,9 +62,9 @@ public class FaixaMusicalAssCategoria {
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fai_id", nullable = false)
-    private FaixaMusicalIgreja faixa;
+    private FaixaMusicalIgrejaEntity faixa;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cat_id", nullable = false)
-    private CategoriaAgendamento categoria;
+    private CategoriaAgendamentoEntity categoria;
 }

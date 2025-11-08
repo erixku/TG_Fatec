@@ -13,58 +13,55 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "tb_administrador")
-@Table(name = "tb_administrador", schema = "church")
+@Entity(name = "tb_instrumento_ass_usuario")
+@Table(name = "tb_instrumento_ass_usuario", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"id", "isDeleted", "idAdmin"})
+@ToString(of = {"id", "instrumento", "idDonoInstrumento"})
 @EqualsAndHashCode(of = "id")
-public class AdministradorIgreja {
+public class InstrumentoAssUsuarioEntity {
 
 	@SuppressWarnings("unused")
-	private static long serialVersion = 2L;
+	private static final long serialVersionUID = 2L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//---------------//
-	// DADOS DE LOGS //
-	//---------------//
+	//--------------//
+	// DADOS DE LOG //
+	//--------------//
 	@Generated(event = EventType.INSERT)
 	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
-
+	
 	@Generated(event = EventType.INSERT)
+	@Column(name = "updated_at", nullable = false, insertable = false)
+	private OffsetDateTime updatedAt;
+	
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
-	
-	@Column(name = "created_by", nullable = false)
-	private UUID createdBy;
-	
-	@Column(name = "deleted_by")
-	private UUID deletedBy;
-	
-	//----------------//
-	// DADOS DO ADMIN //
-	//----------------//
+
+	//---------------------//
+	// DADOS DA ASSOCIAÇÃO //
+	//---------------------//
 	@Column(name = "is_deleted", nullable = false)
 	private Boolean isDeleted = false;
 	
 	//-----//
 	// FKs //
 	//-----//
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igr_id", nullable = false)
-	private Igreja igreja;
-	
-	@Column(name = "s_auth_t_tb_usuario_c_adm", nullable = false)
-	private UUID idAdmin;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ins_id", nullable = false)
+	private InstrumentoEntity instrumento;
+
+	@Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
+	private UUID idDonoInstrumento;
 }

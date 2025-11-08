@@ -1,6 +1,5 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -33,8 +32,9 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "logradouro", "cidade", "uf"})
 @EqualsAndHashCode(of = "id")
-public class EnderecoIgreja implements Serializable {
+public class EnderecoIgreja  {
 
+	@SuppressWarnings("unused")
     private static final long serialVersionUID = 2L;
 
     @Id
@@ -96,5 +96,5 @@ public class EnderecoIgreja implements Serializable {
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_id", nullable = false)
-    private Igreja igreja;
+    private IgrejaEntity igreja;
 }

@@ -1,4 +1,4 @@
-package br.app.harppia.warnings;
+package br.app.harppia.configs;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.app.harppia.defaults.custom.exceptions.CPFValidationException;
 import br.app.harppia.defaults.custom.exceptions.CadastroUsuarioException;
+import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
 import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 
@@ -51,5 +52,11 @@ public class WarningController {
 				.body("Houve algum erro ao autenticar o usuário. Tente novamente mais tarde.\n" + ex.getMessage());
 	}
 	
+	@ExceptionHandler(GestaoIgrejaException.class)
+	public ResponseEntity<String> logError(GestaoIgrejaException ex){
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body("Erro ao completar a transação. Tente novamente mais tarde.\n" + ex.getMessage());
+		
+	}
 	
 }

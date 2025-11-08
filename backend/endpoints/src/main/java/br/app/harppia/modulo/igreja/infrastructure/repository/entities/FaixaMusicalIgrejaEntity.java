@@ -27,7 +27,7 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "isDeleted", "isDisabled"})
 @EqualsAndHashCode(of = "id")
-public class FaixaMusicalIgreja {
+public class FaixaMusicalIgrejaEntity {
 	
     @SuppressWarnings("unused")
     private static final long serialVersionUID = 2L;
@@ -71,7 +71,7 @@ public class FaixaMusicalIgreja {
     //-----//
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_id", nullable = false)
-    private Igreja igreja;
+    private IgrejaEntity igreja;
 
     @Column(name = "s_song_t_tb_musica_c_mus")
     private UUID idMusica;

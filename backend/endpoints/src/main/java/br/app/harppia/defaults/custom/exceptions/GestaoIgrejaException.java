@@ -7,18 +7,21 @@ import org.slf4j.LoggerFactory;
 
 import br.app.harppia.configs.WarningController;
 
-public class CPFValidationException extends RuntimeException implements ExceptionHandler {
-
+public class GestaoIgrejaException extends RuntimeException implements ExceptionHandler {
+	
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(WarningController.class);
-
-	public CPFValidationException(){
-		
-	}
 	
+	public GestaoIgrejaException() {}
+	
+	public GestaoIgrejaException(String message) {
+		super(message);
+	}
+
 	@Override
 	public void handleException(CommandAcceptanceException exception) {
 	    log.error("Erro ao aceitar comando: {}", exception.getMessage(), exception);
 	}
+
 }

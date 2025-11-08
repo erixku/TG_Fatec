@@ -5,7 +5,7 @@ import org.hibernate.tool.schema.spi.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.app.harppia.warnings.WarningController;
+import br.app.harppia.configs.WarningController;
 
 public class ArquivoInvalidoException extends RuntimeException implements ExceptionHandler {
 

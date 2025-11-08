@@ -22,7 +22,7 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "nome", "isDeleted"})
 @EqualsAndHashCode(of = "id")
-public class MarcaInstrumento {
+public class MarcaInstrumentoEntity {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2L;

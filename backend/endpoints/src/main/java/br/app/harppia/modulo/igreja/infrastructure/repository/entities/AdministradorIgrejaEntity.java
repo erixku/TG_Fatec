@@ -1,6 +1,7 @@
 package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
@@ -12,25 +13,28 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "tb_instrumento_modelo")
-@Table(name = "tb_instrumento_modelo", schema = "church")
+@Entity(name = "tb_administrador")
+@Table(name = "tb_administrador", schema = "church")
 @Getter
 @Setter
-@ToString(of = { "id", "nome", "isDeleted" })
+@ToString(of = {"id", "isDeleted", "idAdmin"})
 @EqualsAndHashCode(of = "id")
-public class ModeloInstrumento {
+public class AdministradorIgrejaEntity {
 
+	@SuppressWarnings("unused")
+	private static long serialVersion = 2L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
+	private Long id;
+	
 	//---------------//
 	// DADOS DE LOGS //
 	//---------------//
@@ -39,25 +43,28 @@ public class ModeloInstrumento {
 	private OffsetDateTime createdAt;
 
 	@Generated(event = EventType.INSERT)
-	@Column(name = "updated_at", nullable = false)
-	private OffsetDateTime updatedAt;
-
 	@Column(name = "deleted_at")
 	private OffsetDateTime deletedAt;
-
-	//--------------------------------//
-	// DADOS DO MODELO DO INSTRUMENTO //
-	//--------------------------------//
+	
+	@Column(name = "created_by", nullable = false)
+	private UUID createdBy;
+	
+	@Column(name = "deleted_by")
+	private UUID deletedBy;
+	
+	//----------------//
+	// DADOS DO ADMIN //
+	//----------------//
 	@Column(name = "is_deleted", nullable = false)
 	private Boolean isDeleted = false;
-
-	@Column(name = "nome", nullable = false)
-	private String nome;
-
+	
 	//-----//
 	// FKs //
 	//-----//
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ins_mar_id", nullable = false)
-	private MarcaInstrumento instrumentoMarca;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "igr_id", nullable = false)
+	private IgrejaEntity igreja;
+	
+	@Column(name = "s_auth_t_tb_usuario_c_adm", nullable = false)
+	private UUID idAdmin;
 }

@@ -6,7 +6,8 @@ import java.util.UUID;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.igreja.infrastructure.repository.enums.ETipoAtividade;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EFamiliaInstrumento;
+import br.app.harppia.modulo.igreja.infrastructure.repository.enums.ENomeInstrumento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,23 +17,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "tb_categoria")
-@Table(name = "tb_categoria", schema = "church")
+@Entity(name = "tb_instrumento")
+@Table(name = "tb_instrumento", schema = "church")
 @Getter
 @Setter
-@ToString(of = {"id", "tipo", "nome"})
+@ToString(of = {"id", "nome", "familia"})
 @EqualsAndHashCode(of = "id")
-public class CategoriaAgendamento {
+public class InstrumentoEntity {
 
-    @SuppressWarnings("unused")
-    private static final long serialVersionUID = 2L;
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,29 +65,46 @@ public class CategoriaAgendamento {
     @Column(name = "deleted_by")
     private UUID deletedBy;
 
-    //---------------------------//
-    // DADOS DA CATEGORIA IGREJA //
-    //---------------------------//
+    //----------------------//
+    // DADOS DO INSTRUMENTO //
+    //----------------------//
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
     @Column(name = "is_disabled", nullable = false)
-    private Boolean isDisabled = true;
+    private Boolean isDisabled = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false)
-    private ETipoAtividade tipo;
-
     @Column(name = "nome", nullable = false)
-    private String nome;
+    private ENomeInstrumento nome;
 
-    @Column(name = "descricao", nullable = false)
-    private String descricao;
+    @Column(name = "outro_nome")
+    private String outroNome;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "familia", nullable = false)
+    private EFamiliaInstrumento familia;
+
+    @Column(name = "outra_marca")
+    private String outraMarca;
+
+    @Column(name = "outro_modelo")
+    private String outroModelo;
 
     //-----//
     // FKs //
     //-----//
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ins_mod_id")
+    private ModeloInstrumentoEntity modelo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "igr_id", nullable = false)
-    private Igreja igreja;
+    private IgrejaEntity igreja;
+
+    @Column(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
+    private UUID idFoto;
+
+    @Column(name = "s_storage_t_tb_arquivo_c_icone", nullable = false)
+    private UUID idIcone;
 }
