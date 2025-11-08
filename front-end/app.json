@@ -19,6 +19,8 @@
     "slug": "Harppia",
     "icon": "./src/assets/LogoHarppia.png",
     "splash": {
+      "image": "./src/assets/LogoHarppia.png",
+      "resizeMode": "contain",
       "backgroundColor": "#e0e0e0",
       "dark": {
         "backgroundColor": "#e0e0e0"
