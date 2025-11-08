@@ -17,7 +17,8 @@ public class BuscarBucketUseCase {
 	public BuscarBucketUseCase(BucketRepository bucketRepository) {
 		this.bucketRepository = bucketRepository;
 	}
-
+	
+	
 	public BucketRestricoesUploadInfo findByNome(ENomeBucket nome) {
 		Optional<BucketEntity> bucket = bucketRepository.findByNome(nome.getCustomValue());
 		

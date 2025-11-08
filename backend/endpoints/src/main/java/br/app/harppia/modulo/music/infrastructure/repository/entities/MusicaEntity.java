@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
+import br.app.harppia.modulo.music.infrastructure.repository.enums.ETonalidadeMusica;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,14 +18,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "tb_medley")
-@Table(name = "tb_medley", schema = "song")
+@Entity(name = "tb_musica")
+@Table(name = "tb_musica", schema = "song")
 @Getter
 @Setter
-@ToString(of = {"id", "nome", "quantidadeMusicas"})
+@ToString(of = {"id", "nome", "artista", "duracao"})
 @EqualsAndHashCode(of = "id")
-public class Medley {
-
+public class MusicaEntity {
+	
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 2L;
 	
@@ -32,15 +33,15 @@ public class Medley {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//---------------//
-	// DADOS DE LOGS //
-	//---------------//
+	//--------------//
+	// DADOS DE LOG //
+	//--------------//
 	@Generated(event = EventType.INSERT)
 	@Column(nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
-	
+
 	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false, updatable = false)	
+	@Column(nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime updatedAt;
 	
 	@Column
@@ -50,20 +51,51 @@ public class Medley {
 	private UUID createdBy;
 	
 	//-----------------//
-	// DADOS DO MEDLEY //
+	// DADOS DA MUSICA //
 	//-----------------//
 	@Column(nullable = false)
 	private Boolean isDeleted = false;
 	
-	@Column(nullable = false)
+	@Column(nullable = false)	
 	private String nome;
+
+	@Column(nullable = false)	
+	private String artista;
+	
+	@Column(nullable = false)	
+	private Boolean temArtistaSecundario;
+
+	@Column(nullable = false)	
+	private String duracao;
+
+	@Generated(event = EventType.INSERT)
+	@Column(insertable = false)
+	private Integer duracaoEmSegundos;
+	
+	@Column
+	private Integer bpm;
+	
+	@Column
+	private ETonalidadeMusica tonalidade;
 	
 	@Column(nullable = false)
-	private Integer quantidadeMusicas;
+	private String linkMusica;
 	
-	//-----//
-	// FKs //
-	//-----//
+	@Column
+	private String linkLetra;
+	
+	@Column
+	private String linkCifra;
+	
+	@Column
+	private String linkPartitura;
+	
+	@Column(nullable = false)
+	private Boolean compoeMedley;
+	
+	//-------------------//
+	// CHAVE ESTRANGEIRA //
+	//-------------------//
 	@Column(name = "s_storage_t_tb_arquivo_c_foto")
-	private UUID idFoto;
+	private UUID idCapa;
 }

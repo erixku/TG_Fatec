@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version>
+		<version>3.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.app.harppia</groupId>
@@ -29,6 +29,7 @@
 	<properties>
     	<spring-cloud-aws.version>3.1.1</spring-cloud-aws.version>
 		<java.version>21</java.version>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
 	<dependencyManagement>
@@ -45,7 +46,7 @@
 	
 	<dependencies>
 		
-	<!-- SEGURANÇA -->
+	<!-- SEGURANCA -->
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -75,7 +76,7 @@
 		    <scope>runtime</scope>
 		</dependency>
 		
-		<!-- Redis Cloud (gestão de tokens) -->
+		<!-- Redis Cloud (gestao de tokens) -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -88,14 +89,14 @@
 		    <version>1.78.1</version> 
    		</dependency>
    		
-   		<!-- Testes automatizados de Segurança -->
+   		<!-- Testes automatizados de Seguranca -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		
-   	<!-- CONFIGURAÇÕES DE PROJETO -->
+   	<!-- CONFIGURACOES DE PROJETO -->
    		<!-- Inicializador do Projeto -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -136,28 +137,28 @@
 		    <optional>true</optional>
 		</dependency>
 		
-		<!-- Dependências do PostgreSQL -->
+		<!-- Dependencias do PostgreSQL -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 	
-		<!-- Processador das Configurações -->
+		<!-- Processador das Configuracoes -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- Leitor de Variáveis de Ambiente [.env] - (dev Local) -->
+		<!-- Leitor de Variaveis de Ambiente [.env] - (dev Local) -->
 		<dependency>
 		    <groupId>io.github.cdimascio</groupId>
     		<artifactId>dotenv-java</artifactId>
     		<version>3.0.0</version>		
 		</dependency>
 		
-		<!-- Serviço de armazenamento da AWS (S3) -->
+		<!-- Servico de armazenamento da AWS (S3) -->
 		<dependency>
 	        <groupId>io.awspring.cloud</groupId>
 	        <artifactId>spring-cloud-aws-starter-s3</artifactId>
@@ -170,7 +171,7 @@
 	        <version>1.5.5.Final</version>
 	    </dependency>
 	    
-	    <!-- Necessário para gerar os mappers -->
+	    <!-- Necessario para gerar os mappers -->
 	    <dependency>
 	        <groupId>org.mapstruct</groupId>
 	        <artifactId>mapstruct-processor</artifactId>
@@ -185,8 +186,8 @@
 		    <version>2.9.2</version>
 		</dependency>
 
-	<!-- SERVIÇOS DE MENSSAGERIA -->
-		<!-- Serviço de emails -->
+	<!-- SERVICOS DE MENSSAGERIA -->
+		<!-- Servico de emails -->
 		<dependency>
 	    	<groupId>org.springframework.boot</groupId>
 	    	<artifactId>spring-boot-starter-mail</artifactId>

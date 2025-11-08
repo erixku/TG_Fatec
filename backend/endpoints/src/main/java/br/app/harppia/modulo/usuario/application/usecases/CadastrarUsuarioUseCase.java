@@ -52,11 +52,13 @@ public class CadastrarUsuarioUseCase {
 	 */
 	@Transactional
 	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO dto, MultipartFile file) {
-
+		
 		UsuarioEntity userToSave = null;
 
 		// Caso haja valores incoerentes, deve ser erro de mapeamento DTO <--> Entidade
 		userToSave = userMapper.toEntity(dto);
+
+		entityManager.createNativeQuery("SET ROLE r_anonimo;").executeUpdate();
 
 		Optional<UsuarioEntity> result = usuarioRepository.findByCpfOrEmailOrTelefone(userToSave.getCpf(),
 				userToSave.getEmail(), userToSave.getTelefone());
@@ -85,6 +87,8 @@ public class CadastrarUsuarioUseCase {
 			usuarioRepository.save(savedUser);
 		}
 
+		entityManager.createNativeQuery("RESET ROLE;").executeUpdate();
+		
 		return new UsuarioCadastradoDTO(savedUser.getId(), savedUser.getEmail(), savedUser.getNome());
 	}
 }

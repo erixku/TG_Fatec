@@ -24,7 +24,7 @@ import lombok.ToString;
  * Esta classe é uma representação da tabela, por isso é anêmica.
  */
 @Entity(name = "tb_intelectual")
-@Table(name = "tb_intelectual", schema = "acessibility")
+@Table(name = "tb_intelectual", schema = "accessibility")
 @Getter
 @Setter
 @AllArgsConstructor

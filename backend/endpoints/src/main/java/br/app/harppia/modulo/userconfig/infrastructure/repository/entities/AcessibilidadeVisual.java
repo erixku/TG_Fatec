@@ -24,7 +24,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "tb_visual")
-@Table(name = "tb_visual", schema = "acessibility")
+@Table(name = "tb_visual", schema = "accessibility")
 @Getter
 @Setter
 @AllArgsConstructor

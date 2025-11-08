@@ -20,7 +20,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity(name = "tb_auditiva")
-@Table(name = "tb_auditiva", schema = "acessibility")
+@Table(name = "tb_auditiva", schema = "accessibility")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -38,10 +38,10 @@ public class AcessibilidadeAuditiva {
 	private UUID id;
 	
 	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false)
+	@Column(name = "updated_at", nullable = false, insertable = false)
 	private OffsetDateTime updateAt;
 	
-	@Column(nullable = false)
+	@Column(name = "modo_flash", nullable = false)
 	private Boolean modoFlash = false;
 
 	@Column(nullable = false)
