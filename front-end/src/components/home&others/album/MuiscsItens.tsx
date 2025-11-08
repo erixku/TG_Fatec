@@ -25,12 +25,13 @@ export type LayoutType = 'list' | 'grid'
 type Artists = { id: number; name: string };
 type ArtistMap = Record<number, string>;
 
-interface MusicItensProps {
+export interface MusicItensProps {
   musics: GenericMusic[];
   artists: Artists[];
   gallery?: boolean;
   public?: boolean;
   layout?: LayoutType;
+  profile?: boolean;
 }
 
 export const getArtistNames = (song: GenericMusic, artistsLookupMap: ArtistMap) => {
@@ -52,7 +53,7 @@ export const getArtistNames = (song: GenericMusic, artistsLookupMap: ArtistMap) 
   };
 };
 
-export default function MusicItens({ musics, artists, gallery: isGallery = false, public: isPublic = false, layout: layoutProp = 'list' }: MusicItensProps) {
+export default function MusicItens({ musics, artists, gallery: isGallery = false, public: isPublic = false, layout: layoutProp = 'list', profile: isProfile = false}: MusicItensProps) {
   const [musicList, setMusicList] = useState<GenericMusic[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedMusic, setSelectedMusic] = useState<GenericMusic | null>(null);
@@ -135,16 +136,16 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
             </View>
 
             <View className="flex-col items-center px-2 pt-2">
-              <Text className="font-nunito-semibold dark:text-blue-100 text-slate-900 text-center" numberOfLines={1} ellipsizeMode="tail">
+              <Text className="font-nunito-semibold text-xl dark:text-blue-100 text-slate-900 text-center" numberOfLines={1} ellipsizeMode="tail">
                 {item.title}
               </Text>
 
-              <Text className="font-nunito text-sm text-slate-800 dark:text-blue-200 text-center" numberOfLines={1} ellipsizeMode="tail">
+              <Text className="font-nunito text-lg text-slate-800 dark:text-blue-200 text-center" numberOfLines={1} ellipsizeMode="tail">
                 {combined}
               </Text>
 
               {isPublic && (
-                <Text className="font-nunito text-xs text-slate-600/70 dark:text-slate-300/70 text-center" numberOfLines={1} ellipsizeMode="tail">
+                <Text className="font-nunito text-slate-600/70 dark:text-slate-300/70 text-center" numberOfLines={1} ellipsizeMode="tail">
                   Pastor Marcos Horse
                 </Text>
               )}
@@ -174,9 +175,9 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
                   </View>
       
                   <View className="flex-col flex-1 items-start gap-2">
-                    <Text className="font-nunito-semibold dark:text-blue-100 text-slate-900">{item.title}</Text>
-                    <Text className="font-nunito text-sm text-slate-800 dark:text-blue-200">{combined}</Text>
-                    <Text className="font-nunito text-xs text-slate-600 dark:text-slate-300" numberOfLines={2} ellipsizeMode="tail">
+                    <Text className="font-nunito-semibold text-xl dark:text-blue-100 text-slate-900">{item.title}</Text>
+                    <Text className="font-nunito text-lg text-slate-800 dark:text-blue-200" numberOfLines={1} ellipsizeMode="tail">{combined}</Text>
+                    <Text className="font-nunito text-slate-600 dark:text-slate-300" numberOfLines={2} ellipsizeMode="tail">
                         {item.album}
                     </Text>
                     {isPublic && (

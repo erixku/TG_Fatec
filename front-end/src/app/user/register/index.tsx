@@ -1,6 +1,6 @@
 
-import React, { useRef, useState, useEffect } from "react";
-import { View, Pressable, useColorScheme, ScrollView, LayoutChangeEvent } from "react-native";
+import React, { useRef, useState, useEffect } from 'react';
+import { View, Pressable, useColorScheme, ScrollView, LayoutChangeEvent, Alert } from 'react-native';
 import { useRouter } from "expo-router";
 import ThemedHarppiaLogo from "@/components/ThemedHarppiaLogo";
 import { CustomButton } from "@/components/CustomButtom";
@@ -8,16 +8,17 @@ import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import RegisterFormUser from "@/components/login&register/RegisterFormUser";
 import RegisterFormEmail from "@/components/login&register/RegisterFormEmail";
 import { useFormContext } from "react-hook-form";
-import { RegisterUserFormData } from "@/schemas/registerUserSchema";
+import { buildUserPayload, RegisterUserFormData } from "@/schemas/registerUserSchema";
 
 export default function Register() {
   const colorScheme = useColorScheme();
   const router = useRouter();
-  const { trigger, getValues, reset } = useFormContext<RegisterUserFormData>();
+  const { trigger, getValues, reset, formState: { errors } } = useFormContext<RegisterUserFormData>();
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [step, setStep] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const steps = [
     { component: <RegisterFormUser />, fields: ['arquivo', 'nomeCompleto', 'nomeCompletoSocial', 'cpf', 'dataNascimento', 'sexo', 'telefone', 'endereco.cep', 'endereco.rua', 'endereco.numero', 'endereco.complemento', 'endereco.bairro', 'endereco.cidade', 'endereco.uf'] },
@@ -25,7 +26,6 @@ export default function Register() {
   ];
 
   useEffect(() => {
-    console.log("Step:", step, "ContainerWidth:", containerWidth);
     if (containerWidth > 0) {
       scrollViewRef.current?.scrollTo({ x: step * (containerWidth + 20), animated: true });
     }
@@ -36,7 +36,6 @@ export default function Register() {
 
   const handleLayout = (event: LayoutChangeEvent) => {
     const { width } = event.nativeEvent.layout;
-    console.log("Largura do container:", width);
     setContainerWidth(width||1);
   };
 
@@ -49,6 +48,9 @@ export default function Register() {
   };
 
   const handleNext = async () => {
+    // Impede múltiplos envios enquanto a requisição está em andamento
+    if (isLoading) return;
+
     const currentStepFields = steps[step].fields as (keyof RegisterUserFormData)[];
     const isValid = await trigger(currentStepFields);
 
@@ -58,12 +60,59 @@ export default function Register() {
         setStep(nextStep);
         scrollViewRef.current?.scrollTo({ x: nextStep * (containerWidth + 20), animated: true });
       } else {
-        console.log("Formulário completo e válido:", getValues());
-        router.push({
-          pathname: "/user",
-          params: { email: getValues("email"), telefone: getValues("telefone"), rota: "register" },
-        });
-        reset();
+        // Última etapa: Enviar para a API
+        setIsLoading(true);
+        try {
+          const values = getValues();
+          const { arquivo, ...userData } = values;
+          const userPayload = buildUserPayload(userData);
+
+          const body = new FormData();
+
+          console.log("Dados para user_data:", userData);
+          console.log("Payload enviado para a API:", JSON.stringify(userPayload, null, 2));
+          // 1. Adiciona os dados do usuário como um Blob JSON para garantir o Content-Type correto
+          const userPayloadBlob = new Blob([JSON.stringify(userPayload)], { type: 'application/json' });
+          body.append('user_data', userPayloadBlob as any);
+
+
+          // 2. Adiciona a foto, se existir
+          if (arquivo?.caminho) {
+            const photo = {
+              uri: arquivo.caminho,
+              type: arquivo.mimeType || 'image/jpeg',
+              name: arquivo.bucketArquivo?.nome || 'profile.jpg',
+            } as any;
+            console.log("Dados para profile_photo:", photo);
+            body.append('profile_photo', photo);
+          }
+
+          // Substitua 'URL_DA_SUA_API/register' pelo seu endpoint real
+          const response = await fetch('https://harppia-endpoints.onrender.com/v1/users/register', {
+            method: 'POST',
+            body: body,
+            
+          });
+
+          if (!response.ok) {
+            // Se a resposta da API não for de sucesso (ex: status 400, 500)
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ocorreu um erro ao realizar o cadastro.');
+          }
+
+          // Se a resposta for sucesso (status 2xx)
+          console.log("Cadastro realizado com sucesso!");
+          router.push({
+            pathname: "/user",
+            params: { email: values.email, telefone: values.telefone, rota: "register" },
+          });
+          reset(); // Limpa o formulário
+        } catch (error: any) {
+          Alert.alert("Erro no Cadastro", error.message || "Não foi possível conectar ao servidor. Tente novamente.");
+          console.log("Erro ao cadastrar:", error);
+        } finally {
+          setIsLoading(false);
+        }
       }
     }
   };
@@ -97,7 +146,10 @@ export default function Register() {
 
         {/* Rodapé */}
         <View className="flex justify-center flex-row gap-x-4">
-          <CustomButton label={step === steps.length - 1 ? "Finalizar" : "Próximo"} onPress={() => handleNext()} />
+          <CustomButton 
+            label={step === steps.length - 1 ? "Finalizar" : "Próximo"} 
+            onPress={handleNext}
+          />
         </View>
       </View>
     </View>

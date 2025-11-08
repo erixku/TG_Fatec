@@ -31,18 +31,18 @@ export default function ScheduleList({label, schedules, warning, commitmend}: Sc
     const renderItem: ListRenderItem<GenericSchedule> = ({ item }) => {
         return (
             <Pressable onPress={() => { setSelectedSchedule(item); setOpen(true); }} className="flex-col w-64 h-32 p-4 gap-y-3 items-start justify-center rounded-xl bg-slate-200 dark:bg-slate-700">
-                <Text className="font-nunito-semibold dark:text-blue-100 text-slate-900">{item.title}</Text>
-                <Text className="font-nunito text-ellipsis overflow-hidden dark:text-blue-100 text-slate-900" numberOfLines={1} ellipsizeMode="tail">
+                <Text className="font-nunito-semibold text-lg dark:text-blue-100 text-slate-900">{item.title}</Text>
+                <Text className="font-nunito text-lg text-ellipsis overflow-hidden dark:text-blue-100 text-slate-900" numberOfLines={1} ellipsizeMode="tail">
                     {item.description}
                 </Text>
-                <Text className="font-nunito-light text-sm dark:text-blue-100/70 text-slate-900/70">{warning ? "Data de publicação: " : "Data agendada: "}{item.date}{!!item.time && !warning ? (", " + item.time):null}</Text>
+                <Text className="font-nunito-light dark:text-blue-100/70 text-slate-900/70">{warning ? "Data de publicação: " : "Data agendada: "}{item.date}{!!item.time && !warning ? (", " + item.time):null}</Text>
             </Pressable>
         );
     };
 
     return(
         <View className="flex-col w-full gap-y-4 items-start justify-center rounded-xl">
-            <Text className="font-nunito text-xl dark:text-blue-100 text-slate-900">{label}</Text>
+            <Text className="font-nunito text-2xl dark:text-blue-100 text-slate-900">{label}</Text>
             <FlatList
                 data={schedules}
                 keyExtractor={keyExtractor}
@@ -65,7 +65,7 @@ export default function ScheduleList({label, schedules, warning, commitmend}: Sc
                                     <Text className="font-nunito-semibold text-2xl dark:text-blue-100 text-slate-900">{selectedSchedule.title}</Text>
                                     {!!selectedSchedule.description && (
                                         <ScrollView showsVerticalScrollIndicator={false} className="flex-1 w-full">
-                                            <Text className="font-nunito-light text-lg mt-2 dark:text-blue-100/90 text-slate-900/90">{selectedSchedule.description}</Text>
+                                            <Text className="font-nunito-light text-xl mt-2 dark:text-blue-100/90 text-slate-900/90">{selectedSchedule.description}</Text>
                                         </ScrollView>
                                     )}
                                 </View>
@@ -76,12 +76,12 @@ export default function ScheduleList({label, schedules, warning, commitmend}: Sc
                                                 {!commitmend?(    
                                                     <View className="flex-row items-center gap-2">
                                                         <MusicalNoteIcon size={16} color={baseColor}/>
-                                                        <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900">Músicas elencadas</Text>
+                                                        <Text className="font-nunito text-xl dark:text-blue-100 text-slate-900">Músicas elencadas</Text>
                                                     </View>
                                                 ):(
                                                     <View className="flex-row items-center gap-2">
                                                         <CakeIcon size={16} color={baseColor}/>
-                                                        <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900">Alimentos do evento</Text>
+                                                        <Text className="font-nunito text-xl dark:text-blue-100 text-slate-900">Alimentos do evento</Text>
                                                     </View>
                                                 )}
                                                 <ChevronRightIcon color={baseColor}/>
@@ -89,24 +89,24 @@ export default function ScheduleList({label, schedules, warning, commitmend}: Sc
                                             <Pressable className="flex-row w-full justify-between">
                                                 <View className="flex-row items-center gap-2">
                                                     <UsersIcon size={16} color={baseColor}/>
-                                                    <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900">Presenças confirmadas</Text>
+                                                    <Text className="font-nunito text-xl dark:text-blue-100 text-slate-900">Presenças confirmadas</Text>
                                                 </View>
                                                 <ChevronRightIcon color={baseColor}/>
                                             </Pressable>
                                             <Pressable className={"flex items-center justify-center p-2 max-h-10 h-10 w-fit rounded-xl bg-blue-700 dark:bg-blue-300 active:bg-blue-800 dark:active:bg-blue-200 active:scale-110"}>
-                                                <Text className="text-blue-100 dark:text-slate-900"> Comunicar ausência </Text>
+                                                <Text className="text-xl text-blue-100 dark:text-slate-900"> Comunicar ausência </Text>
                                             </Pressable>
                                         </View>
                                     )}
                                 </View>
                                 <View className="flex-1 w-full max-h-[10%] justify-end">
                                     {!!selectedSchedule.date && (
-                                        <Text className="font-nunito-light mt-3 text-sm dark:text-blue-100/70 text-slate-900/70">
+                                        <Text className="font-nunito-light mt-3 dark:text-blue-100/70 text-slate-900/70">
                                             {warning ? "Data de publicação: " : "Data agendada: "}{selectedSchedule.date}{!!selectedSchedule.time && !warning ? (", " + selectedSchedule.time):null}
                                         </Text>
                                     )}
                                     {!!selectedSchedule.responsible_user && (
-                                        <Text className="font-nunito-light mt-2 text-sm dark:text-blue-100/70 text-slate-900/70">Responsável: {selectedSchedule.responsible_user}</Text>
+                                        <Text className="font-nunito-light mt-2 dark:text-blue-100/70 text-slate-900/70">Responsável: {selectedSchedule.responsible_user}</Text>
                                     )}
                                 </View>
                             </>

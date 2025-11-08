@@ -99,7 +99,7 @@ export default function Register() {
                     placeholder="Digite sua senha"
                 />
                 <Pressable onPress={() => router.push({pathname: '/user', params: {rota: 'login'}})}>
-                    <Text className="text-center font-nunito-light text-slate-900 dark:text-blue-100"> 
+                    <Text className="text-center text-lg font-nunito-light text-slate-900 dark:text-blue-100"> 
                         Esqueci minha senha
                     </Text>
                 </Pressable>
@@ -113,40 +113,40 @@ export default function Register() {
             {loginMode === 'cellphone' ? (
                 <Pressable onPress={() => setLoginMode('email')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <EnvelopeIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o e-mail</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o e-mail</Text>
                 </Pressable>
             ) : loginMode === 'cpf' ? (
                 <Pressable onPress={() => setLoginMode('cellphone')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <PhoneIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o telefone</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o telefone</Text>
                 </Pressable>
             ) : (
                 <Pressable onPress={() => setLoginMode('cellphone')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <PhoneIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o telefone</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o telefone</Text>
                 </Pressable>
             )}
 
             {loginMode === 'cellphone' ? (
                 <Pressable onPress={() => setLoginMode('cpf')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <IdentificationIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o CPF</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o CPF</Text>
                 </Pressable>
             ) : loginMode === 'cpf' ? (
                 <Pressable onPress={() => setLoginMode('email')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <EnvelopeIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o e-mail</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o e-mail</Text>
                 </Pressable>
             ) : (
                 <Pressable onPress={() => setLoginMode('cpf')} className="flex-row p-2 h-10 gap-x-4 w-60 items-center justify-center border-2 border-slate-900 dark:border-blue-100 active:border-blue-300 active:dark:border-blue-700 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                     <IdentificationIcon size={20} color={baseColor} />
-                    <Text className="font-nunito dark:text-blue-100">Entrar com o CPF</Text>
+                    <Text className="font-nunito text-lg dark:text-blue-100">Entrar com o CPF</Text>
                 </Pressable>
             )}
 
         </View>
         <View className="flex justify-center flex-row gap-x-4 mt-5">
-            <CustomButton label="Entrar" onPress={() => router.push('homeMenu')}/>
+            <CustomButton label="Entrar" onPress={() => router.push('homeMenu/(tabs)')}/>
         </View>
       </View>
     </View>

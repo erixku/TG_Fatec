@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, useColorScheme } from 'react-native';
-import { HomeIcon, CalendarIcon, Cog6ToothIcon, MusicalNoteIcon } from 'react-native-heroicons/solid';
+import { HomeIcon, CalendarIcon, UserIcon, MusicalNoteIcon } from 'react-native-heroicons/solid';
 import { useRouter } from 'expo-router';
 
 // Um helper para mapear os nomes das rotas para ícones e textos
@@ -8,7 +8,7 @@ const tabRoutes = {
   'index': { label: 'Início', icon: HomeIcon },
   'schedule': { label: 'Agenda', icon: CalendarIcon },
   'album': { label: 'Álbum', icon: MusicalNoteIcon },
-  'settings': { label: 'Ajustes', icon: Cog6ToothIcon },
+  'profile': { label: 'Perfil', icon: UserIcon },
 };
 
 export default function CustomTabBar({ state, descriptors, navigation }) {
@@ -47,7 +47,7 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
             className="flex-1 items-center justify-center gap-y-1"
           >
             <Icon color={color} size={28} />
-            <Text style={{ color }} className="text-xs font-semibold">
+            <Text style={{ color }} className="font-semibold">
               {label}
             </Text>
           </Pressable>

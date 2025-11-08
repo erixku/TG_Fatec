@@ -8,11 +8,11 @@ import { UserIcon } from "react-native-heroicons/solid";
 import PhotoPicker from "../PhotoPicker";
 import { useCepValidation } from "@/schemas/functions/useCepValidation";
 import { RegisterUserFormData } from "@/schemas/registerUserSchema";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"; 
 
 export default function RegisterFormUser() {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const { control, formState: {errors}, setValue, getValues } = useFormContext<RegisterUserFormData>();
+    const { control, formState: {errors}, setValue } = useFormContext<RegisterUserFormData>();
 
     const colorScheme = useColorScheme();
     const rawCPFRef = useRef("");
@@ -117,15 +117,12 @@ export default function RegisterFormUser() {
                 name="cpf"
                 render={({field, fieldState}) => (
                     <CustomMaskedInput
-                        value={field.value}
+                        value={field.value || ''}
                         label="CPF"
                         placeholder="Digite seu CPF"
                         required
                         keyboardType="numeric"
-                        onChangeText={(formatted, extracted) => {
-                            rawCPFRef.current = extracted;
-                            setValue("cpf", extracted);
-                        }}
+                        onChangeText={(formatted, extracted) => field.onChange(extracted)}
                         mask="999.999.999-99"
                         error={fieldState.error?.message}
                     />
@@ -286,13 +283,11 @@ export default function RegisterFormUser() {
                 name="telefone"
                 render={({field, fieldState}) => (
                     <CustomMaskedInput
-                        value={field.value}
+                        value={field.value || ''}
                         label="Telefone"
                         placeholder="(DDD) 9####-####"
                         required
-                        onChangeText={(formatted, extracted) => {
-                            setValue("telefone", extracted);
-                        }}
+                        onChangeText={(formatted, extracted) => field.onChange(extracted)}
                         keyboardType="numeric"
                         mask="(99) 99999-9999"
                         error={fieldState.error?.message}
