@@ -1,5 +1,5 @@
+import 'react-native-gesture-handler'; // deve ser o primeiro import
 import "../global.css";
-
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
@@ -10,6 +10,7 @@ import { useFonts } from "expo-font";
 import { KeyboardAvoidingView } from "react-native";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native"
 import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Impede que a tela de splash se esconda automaticamente.
 SplashScreen.preventAutoHideAsync();
@@ -59,7 +60,7 @@ export default function Layout() {
   }, [fontsLoaded, myTheme.colors.background]);
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       {/* A StatusBar agora se adapta automaticamente ao tema */}
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
 
@@ -80,6 +81,6 @@ export default function Layout() {
           <Stack.Screen name="index" />
         </Stack>
       </ThemeProvider>
-    </>
+    </GestureHandlerRootView>
   );
 }
