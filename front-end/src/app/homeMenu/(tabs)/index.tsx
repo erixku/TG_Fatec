@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, useColorScheme, Button } from "react-native";
-import AnimatedScreenWrapper from "../../components/home&others/AnimatedScreenWrapper";
+import AnimatedScreenWrapper from "../../../components/home&others/AnimatedScreenWrapper";
 import ScheduleList from "@/components/home&others/start/SchedulesList";
 import { mockItens } from "@/mocks/itensScheduleCommitmend";
 

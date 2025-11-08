@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, useColorScheme, Button, Pressable } from "react-native";
-import AnimatedScreenWrapper from "../../components/home&others/AnimatedScreenWrapper";
+import AnimatedScreenWrapper from "../../../components/home&others/AnimatedScreenWrapper";
 import CustomCalendar from "@/components/CustomCalendar";
 import dayjs from "dayjs";
 import { CalendarIcon, ChevronRightIcon, FunnelIcon, ListBulletIcon } from "react-native-heroicons/solid";
