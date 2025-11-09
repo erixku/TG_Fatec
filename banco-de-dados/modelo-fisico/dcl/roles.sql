@@ -10,6 +10,7 @@ DROP ROLE IF EXISTS r_ministro;
 DROP ROLE IF EXISTS r_lider;
 DROP ROLE IF EXISTS r_administrador;
 DROP ROLE IF EXISTS r_api;
+DROP ROLE IF EXISTS r_manutencao;
 DROP ROLE IF EXISTS r_sistema;
 
 
@@ -89,8 +90,20 @@ CREATE ROLE r_administrador WITH
 
 
 
--- criação de ROLE com login
+-- criação de ROLEs com login
 CREATE ROLE r_api WITH
+  LOGIN
+  NOSUPERUSER
+  NOCREATEDB
+  NOCREATEROLE
+  NOINHERIT
+  NOREPLICATION
+  NOBYPASSRLS
+  CONNECTION LIMIT 10
+  PASSWORD 'senha-temporaria'
+  VALID UNTIL 'infinity';
+
+CREATE ROLE r_manutencao WITH
   LOGIN
   NOSUPERUSER
   NOCREATEDB

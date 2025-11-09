@@ -5,6 +5,7 @@ GRANT USAGE ON SCHEMA notification TO r_usuario;
 -- tb_tipo
 GRANT
   SELECT (
+    is_deleted,
     nome,
     s_storage_t_tb_arquivo_c_icone
   )
@@ -18,7 +19,6 @@ GRANT
   INSERT (
     descricao,
     link,
-    was_readed,
     tip_id,
     s_auth_t_tb_usuario_c_notificado,
     s_auth_t_tb_usuario_c_notificador
@@ -43,14 +43,6 @@ GRANT
 
 
 -- tb_tipo_por_usuario
-GRANT
-  INSERT (
-    tip_id,
-    s_auth_t_tb_usuario_c_lev
-  )
-  ON TABLE notification.tb_tipo_por_usuario
-  TO r_usuario;
-
 GRANT
   SELECT (
     id,
@@ -84,11 +76,6 @@ GRANT
 
 
 -- tb_configuracao_por_usuario
-GRANT
-  INSERT (id)
-  ON TABLE notification.tb_configuracao_por_usuario
-  TO r_usuario;
-
 GRANT
   SELECT (
     ativar_notificacoes,
