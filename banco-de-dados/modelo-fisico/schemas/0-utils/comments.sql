@@ -7,16 +7,3 @@ COMMENT ON SCHEMA utils IS '
   outro lado, se criados em um schema específico, mesmo que estejam vinculados
   ao schema utils, serão utilizados apenas no schema referido.
 ';
-
-COMMENT ON FUNCTION utils.s_utils_f_conversor_mb_para_byte(IN INTEGER) IS '
-  Descrição:
-    Recebe um valor inteiro em Megabytes (MB) e retorna seu equivalente em bytes.
-    O objetivo desta função é simplificar a escrita de valores em bytes, permitindo
-    que grandes números sejam expressos em MB e convertidos automaticamente para bytes.
-
-  Parâmetros:
-    tamanho INTEGER: valor em Megabytes (MB).
-
-  Retorno:
-    INTEGER: valor convertido em bytes.
-';
