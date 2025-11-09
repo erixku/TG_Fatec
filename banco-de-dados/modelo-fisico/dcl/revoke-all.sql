@@ -13,6 +13,7 @@ DECLARE
     'r_lider',
     'r_administrador',
     'r_api',
+    'r_manutencao',
     'r_sistema'
   ];
   nome_role TEXT;

@@ -35,6 +35,9 @@ COMMENT ON COLUMN song.tb_musica.parte_de_medley IS '
   Caso essa música tenha sido criada para fazer parte de
   um medley, esta coluna fica marcada como TRUE. Caso
   não, ela fica marcada como FALSE
+
+  Músicas criadas para fazerem parte de um medley não
+  podem ser utilizadas como músicas individuais
 ';
 
 
@@ -48,7 +51,16 @@ COMMENT ON TABLE song.tb_artista_secundario IS '
 COMMENT ON TABLE song.tb_parte IS '
   Tabela que armazena o BPM e tonalidade de uma música
   por partes, permitindo que músicas possam ter
-  mudanças de BPM e tonalidade em seu decorrer
+  mudanças de BPM e tonalidade em seu decorrer. Essa
+  tabela só recebe registros se a música possuir mais
+  de um/uma BPM ou tonalidade, e neste caso, as colunas
+  de tonalidade e BPM da tabela song.tb_musica devem
+  ficar com valor NULL
+
+  Se a música não conter múltiplas partes, com tonalidades
+  e BPMs diferentes, a inserção nesta tabela não é
+  necessária, e as colunas de tonalidade e BPM da tabela
+  song.tb_musica bastarão
 ';
 
 

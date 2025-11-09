@@ -43,6 +43,7 @@ GRANT
 -- tb_endereco
 GRANT
   INSERT (
+    id,
     cep,
     uf,
     cidade,

@@ -87,6 +87,10 @@ Os diretórios do projeto foram divididos visando separação de responsabilidad
 
 - 📁 **modelo-fisico/**
   - 📁 **backup/** — scripts de geração e restauração de backup  
+    - 📁 **gerados/** — arquivos .bak. sql e .dump de backups para restore  
+    - 📄 **gerar-backup.sh** - ferramenta CLI de backup manual  
+    - 📄 **lib-backup.sh** - pequena lib para as ferramentas de backup  
+    - 📄 **restaurar-backup.sh** - ferramenta CLI de backup restore  
   - 📁 **dcl/** — scripts de ROLEs, GRANTs globais e REVOKE all  
   - 📁 **schemas/** — código-fonte de cada schema  
     - 📁 **algum-schema/** - diretório de algum schema  
@@ -104,10 +108,13 @@ Os diretórios do projeto foram divididos visando separação de responsabilidad
       - 📄 **excludes.sql** - criação de índices excludes do schema  
       - 📄 **indexes.sql** - criação de índices do schema  
   - 📁 **versoes-estaveis/** — snapshots estáveis do banco  
+  - 📄 **.env** — configuração de variáveis de ambiente  
+  - 📄 **.env.example** — exemplo de configuração de variáveis de ambiente  
   - 📄 **ddl.sql** — criação do banco  
   - 📄 **extensions.sql** — extensões PostgreSQL utilizadas  
-  - 📄 **session-variables.sql** — variáveis de sessão  
+  - 📄 **variaveis-sessao.sql** — rotinas de SET e GET de variáveis de sessão  
 
+- 📄 **.gitignore** - arquivo .gitignore do projeto  
 - 📄 **README.md** - é o arquivo que você está lendo
 
 *Observação: alguns schemas podem omitir determinados arquivos ou diretórios, conforme suas necessidades funcionais. Entretanto, os arquivos de definição principal (`ddl.sql`, `checks.sql`, `comments.sql` e diretórios `dcl/`) são obrigatórios*.
@@ -214,9 +221,9 @@ Considerando que o banco de dados ainda possui baixo volume de dados, os backups
 
 Os scripts estão localizados no diretório modelo-fisico/backup/ do repositório:
 
-- **Geração de backup**: `gerar-backup.sql`
+- **Geração de backup**: `gerar-backup.sh`
 
-- **Restauração de backup**: `restaurar-backup.sql`
+- **Restauração de backup**: `restaurar-backup.sh`
 
 Os scripts devem ser executados conforme as instruções documentadas.
 

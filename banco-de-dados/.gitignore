@@ -1,0 +1,5 @@
+modelo-fisico/.env
+modelo-fisico/backup/gerados
+
+# arquivos temporários gerados pelo Excel
+~$*
