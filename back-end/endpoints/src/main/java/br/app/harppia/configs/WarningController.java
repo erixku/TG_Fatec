@@ -1,62 +1,96 @@
 package br.app.harppia.configs;
 
+import java.time.OffsetDateTime;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import br.app.harppia.defaults.custom.exceptions.CPFValidationException;
+import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 
 @RestControllerAdvice
 public class WarningController {
 
-	// Primeiro diz qual expection vai tratar - tem q ser a mesma na annotation e no
-	// parâmetro
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<String> logGenericError(Exception ex) {
-		System.err.println("- - - - - - ERRO INTERNO - - - - - -");
-		System.err.println("Causa do erro: " + ex.getCause());
-		System.err.println("Origem do erro: " + ex.getStackTrace());
-		System.err.println("Contexto do erro: " + ex.getLocalizedMessage());
-		ex.printStackTrace();
+    private static final Logger log = LoggerFactory.getLogger(WarningController.class);
 
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não é você... Sou eu :(\n" + ex.getMessage());
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        log.error("Erro interno não tratado", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse(
+                    "Erro interno no servidor",
+                    "Ocorreu um erro inesperado. Nossa equipe já foi notificada.",
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
 
-	}
+    @ExceptionHandler(CPFValidationException.class)
+    public ResponseEntity<ErrorResponse> handleCPFError(CPFValidationException ex) {
+        log.warn("Erro ao validar CPF: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(
+                    "Erro de validação de CPF",
+                    ex.getMessage(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
 
-	@ExceptionHandler(CPFValidationException.class)
-	public ResponseEntity<String> logCPFValidationError(CPFValidationException ex) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body("Houve um erro ao validar o CPF...\n\n" + ex.getMessage());
-	}
+    @ExceptionHandler(GestaoUsuarioException.class)
+    public ResponseEntity<ErrorResponse> handleUsuarioError(GestaoUsuarioException ex) {
+        log.warn("Erro de gestão de usuário: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(
+                    "Erro ao processar dados de usuário",
+                    ex.getMessage(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
 
-	@ExceptionHandler(GestaoUsuarioException.class)
-	public ResponseEntity<String> logError(GestaoUsuarioException ex) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-				.body("Houve um erro inesperado...\nTente novamente mais tarde!" + ex.getMessage());
-	}
+    @ExceptionHandler(GestaoArquivoException.class)
+    public ResponseEntity<ErrorResponse> handleArquivoError(GestaoArquivoException ex) {
+        log.error("Erro ao salvar arquivo", ex);
+        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+                .body(new ErrorResponse(
+                    "Erro ao processar arquivo",
+                    ex.getMessage(),
+                    HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
 
-	@ExceptionHandler(RegistrarArquivoException.class)
-	public ResponseEntity<String> logError(RegistrarArquivoException ex) {
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Não foi possível salvar o arquivo. Tente novamente mais tarde.\n" + ex.getMessage());
-	}
+    @ExceptionHandler(JwtServiceExcpetion.class)
+    public ResponseEntity<ErrorResponse> handleJwtError(JwtServiceExcpetion ex) {
+        log.warn("Erro de autenticação JWT: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse(
+                    "Erro de autenticação",
+                    ex.getMessage(),
+                    HttpStatus.UNAUTHORIZED.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
 
-	@ExceptionHandler(JwtServiceExcpetion.class)
-	public ResponseEntity<String> logError(JwtServiceExcpetion ex) {
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Houve algum erro ao autenticar o usuário. Tente novamente mais tarde.\n" + ex.getMessage());
-	}
-	
-	@ExceptionHandler(GestaoIgrejaException.class)
-	public ResponseEntity<String> logError(GestaoIgrejaException ex){
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Erro ao completar a transação. Tente novamente mais tarde.\n" + ex.getMessage());
-		
-	}
-	
+    @ExceptionHandler(GestaoIgrejaException.class)
+    public ResponseEntity<ErrorResponse> handleIgrejaError(GestaoIgrejaException ex) {
+        log.error("Erro ao processar transação de igreja", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponse(
+                    "Erro ao completar transação",
+                    ex.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
+
+    public record ErrorResponse(String mensagem, String detalhe, int status, String timestamp) {}
 }

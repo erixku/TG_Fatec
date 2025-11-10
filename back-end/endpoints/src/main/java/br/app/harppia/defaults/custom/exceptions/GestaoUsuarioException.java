@@ -1,27 +1,18 @@
 package br.app.harppia.defaults.custom.exceptions;
 
-import org.hibernate.tool.schema.spi.CommandAcceptanceException;
-import org.hibernate.tool.schema.spi.ExceptionHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public class GestaoUsuarioException extends RuntimeException {
 
-import br.app.harppia.configs.WarningController;
+    private static final long serialVersionUID = 1L;
 
-public class GestaoUsuarioException extends RuntimeException implements ExceptionHandler {
-	
-	private static final long serialVersionUID = 1L;
+    public GestaoUsuarioException() {
+        super("Erro na gestão de usuário.");
+    }
 
-	private static final Logger log = LoggerFactory.getLogger(WarningController.class);
-	
-	public GestaoUsuarioException() {}
-	
-	public GestaoUsuarioException(String message) {
-		super(message);
-	}
+    public GestaoUsuarioException(String message) {
+        super(message);
+    }
 
-	@Override
-	public void handleException(CommandAcceptanceException exception) {
-	    log.error("Erro ao aceitar comando: {}", exception.getMessage(), exception);
-	}
-
+    public GestaoUsuarioException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -1,13 +1,14 @@
 package br.app.harppia.modulo.file.application.service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
+import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.modulo.file.domain.entities.Arquivo;
 import io.awspring.cloud.s3.S3Template;
 
@@ -39,15 +40,15 @@ public class FileStreamService {
 	 * @throws IOException
 	 * @throws RegistrarArquivoException
 	 */
-	public Arquivo uploadFile(MultipartFile file, String folderToSave, UUID criador) throws IOException {
+	public Arquivo uploadFile(MultipartFile file, String folderToSave, UUID criador) {
 
 		if (file == null || file.isEmpty())
-			throw new RegistrarArquivoException("Falha ao enviar arquivo: arquivo ausente.");
+			throw new GestaoArquivoException("Falha ao enviar arquivo: arquivo ausente.");
 
 		String keyName = "";
 
 		if (folderToSave == null || folderToSave.trim().isEmpty())
-			throw new RegistrarArquivoException("Falha ao enviar arquivo: diretorio ausente.");
+			throw new GestaoArquivoException("Falha ao enviar arquivo: diretorio ausente.");
 
 		String[] nomeArquivo = file.getOriginalFilename().split("/");
 		String nomeNormalizado;
@@ -62,7 +63,11 @@ public class FileStreamService {
 		keyName = keyName.concat(criador.toString()).concat("_");
 		keyName = keyName.concat(nomeNormalizado);
 
-		s3Template.upload(bucketName, keyName, file.getInputStream());
+		try(InputStream is = file.getInputStream()){
+			s3Template.upload(bucketName, keyName, is);			
+		} catch(IOException ex) {
+			throw new GestaoArquivoException("Não foi possível subir o arquivo '"+ file.getOriginalFilename() +"' para a nuvem!");
+		}
 
 		return new Arquivo(file, String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, keyName),
 				nomeNormalizado.replaceFirst("\\.[^.]+$", ""));

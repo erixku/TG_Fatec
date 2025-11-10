@@ -55,7 +55,7 @@ public class ConsultarUsuarioUseCase {
 	        throw new GestaoUsuarioException("Identificador inválido ou em formato não reconhecido!");
 	    }
 
-	    Optional<BuscarInformacoesPublicasVO> user = userRepo.findIdUsuarioByCpfOrEmailOrTelefone(cpf, email, telefone);
+	    Optional<BuscarInformacoesPublicasVO> user = userRepo.findPublicInfoByCpfOrEmailOrTelefone(cpf, email, telefone);
 	    
 	    return (user.isEmpty()) ? null : new InformacaoPublicaUsuarioDTO(
 	    											user.get().getId(),

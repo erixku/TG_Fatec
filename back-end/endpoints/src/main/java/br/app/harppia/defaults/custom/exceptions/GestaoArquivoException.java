@@ -7,15 +7,15 @@ import org.slf4j.LoggerFactory;
 
 import br.app.harppia.configs.WarningController;
 
-public class RegistrarArquivoException extends RuntimeException implements ExceptionHandler {
+public class GestaoArquivoException extends RuntimeException implements ExceptionHandler {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger log = LoggerFactory.getLogger(WarningController.class);
 	
-	public RegistrarArquivoException() {}
+	public GestaoArquivoException() {}
 	
-	public RegistrarArquivoException(String message) {
+	public GestaoArquivoException(String message) {
 		super(message);
 	}
 	
@@ -24,6 +24,4 @@ public class RegistrarArquivoException extends RuntimeException implements Excep
 		log.error("Erro ao registrar arquivo!");
 		log.error(e.getMessage(), e);
 	}
-
-	
 }

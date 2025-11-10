@@ -1,13 +1,11 @@
 package br.app.harppia.modulo.file.application.usecases;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
-import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
+import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.modulo.file.application.service.FileStreamService;
 import br.app.harppia.modulo.file.application.service.FileValidatorService;
 import br.app.harppia.modulo.file.application.service.FotoPerfilFileValidatorService;
@@ -36,20 +34,20 @@ public class SalvarFotoPerfilUseCase {
 		this.uploadService = uploadService;
 	}
 
-	public ArquivoPersistidoResponse salvar(MultipartFile file, String bucket, UUID criador) throws IOException, RegistrarArquivoException, ArquivoInvalidoException {
+	public ArquivoPersistidoResponse salvar(MultipartFile file, String bucket, UUID criador)  {
 
 		if(bucket.contains("/"))
-			throw new RegistrarArquivoException("O nome da pasta não deve conter '/'");
+			throw new GestaoArquivoException("O nome da pasta não deve conter '/'");
 		
 		BucketRestricoesUploadInfo bucketContraints = buscarBucket.findByNome(ENomeBucket.fromNome(bucket));
 	
 		fileValidator = new FileValidatorService(bucketContraints);
 		if(!fileValidator.arquivoEstaValido(file))
-			throw new RegistrarArquivoException("Arquivo inválido ou corrompido!");
+			throw new GestaoArquivoException("Arquivo inválido ou corrompido!");
 		
 		fotoPerfilValidator = new FotoPerfilFileValidatorService(bucketContraints);
 		if(!fotoPerfilValidator.isFileValidToProfilePhoto(file))
-			throw new RegistrarArquivoException("Tipo de arquivo não permitido!");
+			throw new GestaoArquivoException("Tipo de arquivo não permitido!");
 		
 		// o arquivo é renomeado aqui
 		Arquivo arquivoSalvoNuvem = uploadService.uploadFile(file, bucket, criador);

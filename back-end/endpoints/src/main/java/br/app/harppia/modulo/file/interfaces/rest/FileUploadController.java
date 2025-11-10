@@ -1,6 +1,5 @@
 package br.app.harppia.modulo.file.interfaces.rest;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
-import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 
@@ -34,14 +31,9 @@ public class FileUploadController {
 				@RequestPart("id-criador") UUID idCriador) {
 			
 		ArquivoPersistidoResponse arquivoSalvo = null;
-		try {
-			arquivoSalvo = salvarFotoPerfilUseCase.salvar(file, bucketToSave, idCriador);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (RegistrarArquivoException | ArquivoInvalidoException e) {
-			e.printStackTrace();			
-		}
 		
+		arquivoSalvo = salvarFotoPerfilUseCase.salvar(file, bucketToSave, idCriador);
+
 		return ResponseEntity.status( 
 				(arquivoSalvo != null) 
 					? HttpStatus.CREATED

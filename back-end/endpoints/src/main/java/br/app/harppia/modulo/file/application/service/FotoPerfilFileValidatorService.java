@@ -1,6 +1,5 @@
 package br.app.harppia.modulo.file.application.service;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -11,28 +10,32 @@ import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArqui
 
 public class FotoPerfilFileValidatorService extends FileValidatorService {
 
-	private static final List<EMimeTypeArquivo> mimeTypesPermitidos = List.of(EMimeTypeArquivo.IMAGE_JPEG,
-			EMimeTypeArquivo.IMAGE_PNG, EMimeTypeArquivo.IMAGE_SVG_PLUS_XML);
+    private static final List<EMimeTypeArquivo> mimeTypesPermitidos = List.of(
+        EMimeTypeArquivo.IMAGE_JPEG,
+        EMimeTypeArquivo.IMAGE_PNG,
+        EMimeTypeArquivo.IMAGE_SVG_PLUS_XML
+    );
 
-	private static final List<EExtensaoArquivo> extensoesPermitidas = List.of(EExtensaoArquivo.PNG,
-			EExtensaoArquivo.JPG, EExtensaoArquivo.JPEG, EExtensaoArquivo.SVG);
+    private static final List<EExtensaoArquivo> extensoesPermitidas = List.of(
+        EExtensaoArquivo.PNG,
+        EExtensaoArquivo.JPG,
+        EExtensaoArquivo.JPEG,
+        EExtensaoArquivo.SVG
+    );
+    
+    public FotoPerfilFileValidatorService(BucketRestricoesUploadInfo bucketContraints) {
+        super(bucketContraints);
+    }
 
-	public FotoPerfilFileValidatorService(BucketRestricoesUploadInfo bucketContraints) {
-		super(bucketContraints);
-	}
+    public boolean isFileValidToProfilePhoto(MultipartFile file) {
+    	Boolean isValidFile = super.arquivoEstaValido(file);
+        EMimeTypeArquivo mimeHeader = EMimeTypeArquivo.fromValue(file.getContentType());
+        EMimeTypeArquivo mimeReal = EMimeTypeArquivo.fromValue(FileValidatorService.detectRealMimeType(file));
+        EExtensaoArquivo extensao = EExtensaoArquivo.fromValue(pegarExtensao(file.getOriginalFilename()));
 
-	public boolean isFileValidToProfilePhoto(MultipartFile file) throws IOException {
-
-		if (!mimeTypesPermitidos.contains(EMimeTypeArquivo.fromValue(file.getContentType())))
-			return false;
-
-		if (!mimeTypesPermitidos.contains(EMimeTypeArquivo.fromValue(FileValidatorService.detectRealMimeType(file))))
-			return false;
-
-		if (!extensoesPermitidas.contains(EExtensaoArquivo.fromValue(pegarExtensao(file.getOriginalFilename()))))
-			return false;
-
-		return true;
-	}
-
+        return isValidFile
+        	&& mimeTypesPermitidos.contains(mimeHeader)
+            && mimeTypesPermitidos.contains(mimeReal)
+            && extensoesPermitidas.contains(extensao);
+    }
 }

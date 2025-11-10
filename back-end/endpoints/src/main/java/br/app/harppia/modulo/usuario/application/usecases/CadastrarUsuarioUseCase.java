@@ -14,6 +14,7 @@ import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastradoDTO;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
+import br.app.harppia.modulo.usuario.domain.valueobject.IdUsuarioCVO;
 import br.app.harppia.modulo.usuario.infrasctructure.mapper.UsuarioMapper;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
@@ -23,19 +24,19 @@ import jakarta.transaction.Transactional;
 @Service
 public class CadastrarUsuarioUseCase {
 
-	private final RegistrarArquivoPort registrarArquivoPort;
-	private final PasswordEncoder passwdEncoder;
-	private final UsuarioMapper userMapper;
-	private final UsuarioRepository usuarioRepository;
-	private final EntityManager entityManager;
+	private final RegistrarArquivoPort rgtArqPrt;
+	private final PasswordEncoder pwdEnc;
+	private final UsuarioMapper usrMpr;
+	private final UsuarioRepository usrRep;
+	private final EntityManager entMng;
 
-	public CadastrarUsuarioUseCase(UsuarioRepository usuarioRepository, RegistrarArquivoPort registrarArquivoPort,
-			PasswordEncoder passwdEncoder, UsuarioMapper userMapper, EntityManager entityManager) {
-		this.usuarioRepository = usuarioRepository;
-		this.registrarArquivoPort = registrarArquivoPort;
-		this.passwdEncoder = passwdEncoder;
-		this.userMapper = userMapper;
-		this.entityManager = entityManager;
+	public CadastrarUsuarioUseCase(UsuarioRepository ur, RegistrarArquivoPort rap, PasswordEncoder pe, UsuarioMapper um,
+			EntityManager em) {
+		this.usrRep = ur;
+		this.rgtArqPrt = rap;
+		this.pwdEnc = pe;
+		this.usrMpr = um;
+		this.entMng = em;
 	}
 
 	/**
@@ -43,45 +44,44 @@ public class CadastrarUsuarioUseCase {
 	 * existe na base de dados e, caso não exista, o cadastra. Caso ele já exista,
 	 * não faz nada.
 	 * 
-	 * @param dto os dados do usuário
+	 * @param reqDto os dados do usuário
 	 * @return Um objeto com UUID, email e nome do usuário cadastrado.
 	 */
 	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
 	@Transactional
-	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO dto, MultipartFile file) {
-		
-		UsuarioEntity userToSave = null;
+	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO reqDto, MultipartFile mptFile) {
+
+		UsuarioEntity usrEntSanitized = null;
 
 		// Caso haja valores incoerentes, pode ser erro de mapeamento DTO <--> Entidade
-		userToSave = userMapper.toEntity(dto);
+		usrEntSanitized = usrMpr.toEntity(reqDto);
 
-		Optional<UsuarioEntity> result = usuarioRepository.findByCpfOrEmailOrTelefone(userToSave.getCpf(),
-				userToSave.getEmail(), userToSave.getTelefone());
+		Optional<IdUsuarioCVO> result = usrRep.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
+				usrEntSanitized.getEmail(), usrEntSanitized.getTelefone());
 
 		if (result.isPresent())
 			throw new GestaoUsuarioException("Esse usuário já existe!");
 
-		userToSave.setSenha(passwdEncoder.encode(dto.senha()));
+		usrEntSanitized.setSenha(pwdEnc.encode(reqDto.senha()));
 
-		entityManager
-				.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by DEFERRED;")
+		entMng.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by DEFERRED;")
 				.executeUpdate();
 
-		UsuarioEntity savedUser = usuarioRepository.save(userToSave);
+		UsuarioEntity usrEntSaved = usrRep.save(usrEntSanitized);
 
-		if (file != null && !file.isEmpty()) {
+		if (mptFile != null && !mptFile.isEmpty()) {
 			FotoPerfilInfo fotoSalva;
-			fotoSalva = registrarArquivoPort.registrarFotoPerfilUsuario(file,
-					ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(), savedUser.getId());
+			fotoSalva = rgtArqPrt.registrarFotoPerfilUsuario(mptFile, ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(),
+					usrEntSaved.getId());
 
-			if(fotoSalva == null)
+			if (fotoSalva == null)
 				throw new GestaoUsuarioException("Houve um erro ao submeter o arquivo. Verifique-o e tente novamente.");
-			
-			savedUser.setIdFotoPerfil(fotoSalva.id());
 
-			usuarioRepository.save(savedUser);
+			usrEntSaved.setIdFotoPerfil(fotoSalva.id());
+
+			usrRep.save(usrEntSaved);
 		}
-		
-		return new UsuarioCadastradoDTO(savedUser.getId(), savedUser.getEmail(), savedUser.getNome());
+
+		return new UsuarioCadastradoDTO(usrEntSaved.getId(), usrEntSaved.getEmail(), usrEntSaved.getNome());
 	}
 }

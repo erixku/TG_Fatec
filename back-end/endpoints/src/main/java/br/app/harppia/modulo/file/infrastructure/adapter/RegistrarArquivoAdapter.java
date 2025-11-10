@@ -1,13 +1,11 @@
 package br.app.harppia.modulo.file.infrastructure.adapter;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.defaults.custom.exceptions.ArquivoInvalidoException;
-import br.app.harppia.defaults.custom.exceptions.RegistrarArquivoException;
+import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
@@ -26,24 +24,13 @@ public class RegistrarArquivoAdapter implements RegistrarArquivoPort {
 	public FotoPerfilInfo registrarFotoPerfilUsuario(MultipartFile file, String pasta, UUID criador) {
 
 		if (file == null || file.isEmpty())
-			return null;
+			throw new GestaoArquivoException("Nenhum arquivo para fazer o upload!");
 
 		if (pasta == null || pasta.trim().isEmpty())
-			return null;
+			throw new GestaoArquivoException("É necessário especificar a pasta para salvar o arquivo!");
 
-		try {		
-			ArquivoPersistidoResponse savedPhoto = fileService.salvar(file, pasta, criador);
-			
-			return new FotoPerfilInfo(savedPhoto.id(), savedPhoto.link());
-		} catch (IOException e) {
-			System.err.println("Houve algum erro de I/O.");
-			e.printStackTrace();
-		} catch (RegistrarArquivoException | ArquivoInvalidoException e) {
-			System.err.println("Houve algum erro durante o cadastro do arquivo.");
-			e.printStackTrace();
-		}
-		
-		
-		return null;
+		ArquivoPersistidoResponse savedPhoto = fileService.salvar(file, pasta, criador);
+
+		return new FotoPerfilInfo(savedPhoto.id(), savedPhoto.link());
 	}
 }
