@@ -4,21 +4,20 @@
 ## - - - - - - - - - - - - - - - - - -
 
 # Imagem base
-FROM openjdk:23-jdk-slim AS build
+FROM openjdk:21-jdk-slim AS build
 
 WORKDIR /app
 
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
 
-RUN  chmod +x ./mvnw
+RUN chmod +x ./mvnw
 RUN ./mvnw dependency:go-offline -B
 
 COPY src ./src
-
 RUN ./mvnw package -DskipTests
 
-FROM openjdk:23-jdk-slim
+FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 
