@@ -2,9 +2,6 @@ package br.app.harppia.modulo.file.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
-
 import br.app.harppia.defaults.custom.converters.enums.nomebucket.ConversorEnumNomeBucket;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import jakarta.persistence.Column;
@@ -47,11 +44,9 @@ public class BucketEntity {
 	//--------------//
 	// DADOS DE LOG //
 	//--------------//
-	@Generated(event = EventType.INSERT)
 	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
 	@Column(name = "updated_at", nullable = false, insertable = false)
 	private OffsetDateTime updatedAt;
 

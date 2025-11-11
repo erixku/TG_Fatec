@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
-import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
+import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
 

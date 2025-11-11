@@ -5,7 +5,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.modulo.usuario.domain.valueobject.BuscarInformacoesPublicasVO;
 import br.app.harppia.modulo.usuario.domain.valueobject.IdUsuarioCVO;
@@ -13,6 +17,12 @@ import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.Usuario
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
+	
+	@Modifying
+	@Transactional
+	@Query("update tb_usuario u set u.idFotoPerfil = :idFotoPerfil where u.id = :id")
+	int updateFotoById(@Param("idFotoPerfil") UUID idFotoPerfil, @Param("id") UUID id);
+
 	public List<UsuarioEntity> findByNome(String nome);
 	public List<UsuarioEntity> findByEmail(String email);
 	public List<UsuarioEntity> findByCpf(String cpf);

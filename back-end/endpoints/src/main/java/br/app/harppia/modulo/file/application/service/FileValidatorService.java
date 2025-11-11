@@ -7,7 +7,7 @@ import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
-import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfo;
+import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfoCVO;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
@@ -21,11 +21,11 @@ public class FileValidatorService {
 	private Integer tamMin;
 	private boolean isBktDlt;
 
-	public FileValidatorService(BucketRestricoesUploadInfo bucketContraints) {
-		this.nomeBkt = bucketContraints.nome();
-		this.tamMax = bucketContraints.tamanhoMaximo();
-		this.tamMin = bucketContraints.tamanhoMinimo();
-		this.isBktDlt = bucketContraints.isDeleted();
+	public FileValidatorService(BucketRestricoesUploadInfoCVO bucketContraints) {
+		this.nomeBkt = bucketContraints.getENomeBkt();
+		this.tamMax = bucketContraints.getTamMax();
+		this.tamMin = bucketContraints.getTamMin();
+		this.isBktDlt = bucketContraints.getIsDeleted();
 	}
 
 	public boolean arquivoEstaValido(MultipartFile file) {

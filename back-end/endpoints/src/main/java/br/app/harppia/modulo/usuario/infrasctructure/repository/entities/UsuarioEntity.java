@@ -14,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -41,62 +39,59 @@ public class UsuarioEntity implements UserDetails {
 	private static final long serialVersionUID = 3L;
 
 	@Id
+	@Generated(event = EventType.INSERT)
 	@Column(columnDefinition = "uuid", nullable = false, unique = true, insertable = false, updatable = false)
-	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
 	//--------------//
 	// DADOS DE LOG //
 	//--------------//
-	@Generated(event = EventType.INSERT)
-	@Column(insertable = false, updatable = false)
+	@Column(name = "created_at", insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false)
+	@Column(name = "updated_at", insertable = false)
 	private OffsetDateTime updatedAt;
 
-	@Column
-	private OffsetDateTime deletedAt = null;
+	@Column(name = "deleted_at", insertable = false)
+	private OffsetDateTime deletedAt;
 
-	@Generated(event = EventType.INSERT)
-	@Column(nullable = false, insertable = false)
+	@Column(name = "last_access", insertable = false)
 	private OffsetDateTime lastAccess;
 
 	//------------------//
 	// DADOS DO USUÁRIO //
 	//------------------//
-	@Column(nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", nullable = false, insertable = false)
+	private Boolean isDeleted;
 
-	@Column(nullable = false, unique = true, updatable = false)
+	@Column(name = "cpf", nullable = false, unique = true, updatable = false)
 	private String cpf;
 
-	@Column(nullable = false)
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
-	@Column(nullable = false)
+	@Column(name = "sobrenome", nullable = false)
 	private String sobrenome;
 
-	@Column
+	@Column(name = "nome_social")
 	private String nomeSocial;
 
-	@Column
+	@Column(name = "sobrenome_social")
 	private String sobrenomeSocial;
 
-	@Column(nullable = false)
+	@Column(name = "sexo", nullable = false)
 	private Character sexo;
 
-	@Column(nullable = false)
+	@Column(name = "data_nascimento", nullable = false)
 	private LocalDate dataNascimento;
 
-	@Column(nullable = false, unique = true)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-	@Column(nullable = false, unique = true)
+	@Column(name = "telefone", nullable = false, unique = true)
 	private String telefone;
 
-	@Column(nullable = false)
+	@Column(name = "senha", nullable = false)
 	private String senha;
 
 	@Column(name = "s_storage_t_tb_arquivo_c_foto")

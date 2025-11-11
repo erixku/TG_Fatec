@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfo;
+import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfoCVO;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
 
@@ -23,7 +23,7 @@ public class FotoPerfilFileValidatorService extends FileValidatorService {
         EExtensaoArquivo.SVG
     );
     
-    public FotoPerfilFileValidatorService(BucketRestricoesUploadInfo bucketContraints) {
+    public FotoPerfilFileValidatorService(BucketRestricoesUploadInfoCVO bucketContraints) {
         super(bucketContraints);
     }
 

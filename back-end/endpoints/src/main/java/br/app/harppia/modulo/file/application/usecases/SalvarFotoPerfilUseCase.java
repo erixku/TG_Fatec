@@ -3,15 +3,18 @@ package br.app.harppia.modulo.file.application.usecases;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
+import br.app.harppia.defaults.custom.roles.DatabaseRoles;
 import br.app.harppia.modulo.file.application.service.FileStreamService;
 import br.app.harppia.modulo.file.application.service.FileValidatorService;
 import br.app.harppia.modulo.file.application.service.FotoPerfilFileValidatorService;
 import br.app.harppia.modulo.file.domain.entities.Arquivo;
-import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
-import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfo;
+import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
+import br.app.harppia.modulo.file.domain.valueobjects.BucketRestricoesUploadInfoCVO;
 import br.app.harppia.modulo.file.infrastructure.repository.ArquivoRepository;
 import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
@@ -34,12 +37,14 @@ public class SalvarFotoPerfilUseCase {
 		this.uploadService = uploadService;
 	}
 
+	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@Transactional
 	public ArquivoPersistidoResponse salvar(MultipartFile file, String bucket, UUID criador)  {
 
 		if(bucket.contains("/"))
 			throw new GestaoArquivoException("O nome da pasta não deve conter '/'");
 		
-		BucketRestricoesUploadInfo bucketContraints = buscarBucket.findByNome(ENomeBucket.fromNome(bucket));
+		BucketRestricoesUploadInfoCVO bucketContraints = buscarBucket.findByNome(ENomeBucket.fromNome(bucket));
 	
 		fileValidator = new FileValidatorService(bucketContraints);
 		if(!fileValidator.arquivoEstaValido(file))
@@ -67,7 +72,7 @@ public class SalvarFotoPerfilUseCase {
 				EMimeTypeArquivo.fromValue(file.getContentType()), 
 				EExtensaoArquivo.fromValue(extensao),
 				(int) file.getSize(), 
-				bucketContraints.id()
+				bucketContraints.getId()
 			);
 
 		ArquivoEntity arquivoSalvo = arquivoRepo.save(arquivoParaSalvar);

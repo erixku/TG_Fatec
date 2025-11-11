@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.file.domain.valueobjects;
+package br.app.harppia.modulo.file.domain.response;
 
 import java.util.UUID;
 

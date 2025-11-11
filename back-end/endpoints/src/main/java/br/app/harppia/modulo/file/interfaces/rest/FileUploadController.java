@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
-import br.app.harppia.modulo.file.domain.valueobjects.ArquivoPersistidoResponse;
+import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
 
 @RestController
 @RequestMapping("/v1/files")

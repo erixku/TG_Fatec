@@ -56,6 +56,7 @@ public class CadastrarUsuarioUseCase {
 		// Caso haja valores incoerentes, pode ser erro de mapeamento DTO <--> Entidade
 		usrEntSanitized = usrMpr.toEntity(reqDto);
 
+		// só id - tá certo
 		Optional<IdUsuarioCVO> result = usrRep.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
 				usrEntSanitized.getEmail(), usrEntSanitized.getTelefone());
 
@@ -77,9 +78,7 @@ public class CadastrarUsuarioUseCase {
 			if (fotoSalva == null)
 				throw new GestaoUsuarioException("Houve um erro ao submeter o arquivo. Verifique-o e tente novamente.");
 
-			usrEntSaved.setIdFotoPerfil(fotoSalva.id());
-
-			usrRep.save(usrEntSaved);
+			usrRep.updateFotoById(fotoSalva.id(), usrEntSaved.getId());
 		}
 
 		return new UsuarioCadastradoDTO(usrEntSaved.getId(), usrEntSaved.getEmail(), usrEntSaved.getNome());

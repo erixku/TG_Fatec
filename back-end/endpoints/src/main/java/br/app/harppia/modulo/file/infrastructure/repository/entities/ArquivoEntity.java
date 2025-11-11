@@ -13,8 +13,6 @@ import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArqui
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -41,31 +39,30 @@ public class ArquivoEntity {
 	private static final long serialVersionUID = 4L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "id", nullable = false)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", insertable = false, nullable = false)
 	private UUID id;
 	
 	//--------------//
 	// DADOS DE LOG //
 	//--------------//
-	@Generated(event = EventType.INSERT)
 	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Column(name = "deleted_at")
-	private OffsetDateTime deletedAt = null;
+	@Column(name = "deleted_at", insertable = false)
+	private OffsetDateTime deletedAt;
 	
 	@Column(name = "created_by", nullable = false)
 	private UUID createdBy;
 	
-	@Column(name = "deleted_by")
-	private UUID deletedBy = null;
+	@Column(name = "deleted_by", insertable = false)
+	private UUID deletedBy;
 
 	//------------------//
 	// DADOS DO ARQUIVO //
 	//------------------//
-	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
