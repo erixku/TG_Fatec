@@ -10,3 +10,7 @@ WHERE is_deleted = FALSE;
 CREATE UNIQUE INDEX uq_s_auth_t_tb_usuario_c_telefone
 ON auth.tb_usuario (telefone)
 WHERE is_deleted = FALSE;
+
+CREATE UNIQUE INDEX uq_s_auth_t_tb_usuario_c_foto
+ON auth.tb_usuario (s_storage_t_tb_arquivo_c_foto)
+WHERE is_deleted = FALSE;
