@@ -3,9 +3,8 @@
 ## Data: 20/06/2025
 ## - - - - - - - - - - - - - - - - - -
 
-# Imagem base para PROD -> JRE
-FROM openjdk:21-jre-alpine AS build
-
+# Imagem para buildar o projeto -> JDK 21
+FROM eclipse-temurin:21-jdk as BUILD
 WORKDIR /app
 
 COPY pom.xml mvnw ./
@@ -18,7 +17,8 @@ COPY src ./src
 
 RUN ./mvnw package -DskipTests
 
-FROM openjdk:21-jre-alpine
+# Imagem para rodar o projeto -> JRE 21
+FROM eclipse-temurin:21-jre as DEPLOY
 
 WORKDIR /app
 
