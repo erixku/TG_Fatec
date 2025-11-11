@@ -4,7 +4,7 @@
 ## - - - - - - - - - - - - - - - - - -
 
 # Imagem para buildar o projeto -> JDK 21
-FROM eclipse-temurin:21-jdk as BUILD
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
 COPY pom.xml mvnw ./
@@ -18,7 +18,7 @@ COPY src ./src
 RUN ./mvnw package -DskipTests
 
 # Imagem para rodar o projeto -> JRE 21
-FROM eclipse-temurin:21-jre as DEPLOY
+FROM eclipse-temurin:21-jre AS deploy
 
 WORKDIR /app
 
