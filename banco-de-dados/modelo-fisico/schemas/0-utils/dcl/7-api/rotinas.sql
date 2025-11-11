@@ -1,5 +1,3 @@
-GRANT USAGE ON SCHEMA utils TO r_api;
-
 GRANT
   EXECUTE
   ON PROCEDURE utils.set_variaveis_sessao (

@@ -33,7 +33,9 @@ GRANT
 
 GRANT
   UPDATE (
-    senha
+    updated_at,
+    senha,
+    s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
   TO r_anonimo;

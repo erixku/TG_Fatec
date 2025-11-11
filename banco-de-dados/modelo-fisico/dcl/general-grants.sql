@@ -29,3 +29,22 @@ GRANT r_administrador TO r_api;
 
 -- r_manutencao
 GRANT CONNECT ON DATABASE neondb TO r_manutencao;
+
+
+
+-- r_hibernate
+GRANT USAGE ON SCHEMA storage       TO r_hibernate;
+GRANT USAGE ON SCHEMA auth          TO r_hibernate;
+GRANT USAGE ON SCHEMA accessibility TO r_hibernate;
+GRANT USAGE ON SCHEMA notification  TO r_hibernate;
+GRANT USAGE ON SCHEMA song          TO r_hibernate;
+GRANT USAGE ON SCHEMA church        TO r_hibernate;
+GRANT USAGE ON SCHEMA schedule      TO r_hibernate;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA storage       TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA auth          TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA accessibility TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA notification  TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA song          TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA church        TO r_hibernate;
+GRANT SELECT ON ALL TABLES IN SCHEMA schedule      TO r_hibernate;

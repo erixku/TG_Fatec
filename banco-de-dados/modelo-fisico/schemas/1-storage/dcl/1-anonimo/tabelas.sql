@@ -2,11 +2,27 @@ GRANT USAGE ON SCHEMA storage TO r_anonimo;
 
 
 
+-- tb_bucket
+GRANT
+  SELECT (
+    id,
+    is_deleted,
+    nome,
+    tempo_expiracao_upload_em_segundos,
+    tamanho_minimo,
+    tamanho_maximo
+  )
+  ON TABLE storage.tb_bucket
+  TO r_anonimo;
+
+
+
 -- tb_usuario
 GRANT
   INSERT (
     created_by,
     nome,
+    link,
     mime_type,
     extensao,
     tamanho_em_bytes,
