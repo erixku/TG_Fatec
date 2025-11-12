@@ -3,8 +3,8 @@
 ## Data: 20/06/2025
 ## - - - - - - - - - - - - - - - - - -
 
-# Imagem base
-FROM openjdk:21-jdk-slim AS build
+# Imagem para buildar o projeto -> JDK 21
+FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
@@ -17,7 +17,8 @@ RUN ./mvnw dependency:go-offline -B
 COPY src ./src
 RUN ./mvnw package -DskipTests
 
-FROM openjdk:21-jdk-slim
+# Imagem para rodar o projeto -> JRE 21
+FROM eclipse-temurin:21-jre AS deploy
 
 WORKDIR /app
 
