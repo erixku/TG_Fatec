@@ -53,7 +53,10 @@ Caso eles possuam palavras com apenas quatro (4) letras, ou se faça necessário
 - `ENomeBucket nomeBkt;`
 
 ### ATRIBUTOS
-Seguem a lógica do trigrama.
+Os atributos de classes seguem uma lógica diferente, sendo compostos por apenas as iniciais de suas palavras em minúsculo. Exemplo:
+- `AcessibilidadeAuditivaRepository aar;`
+- `AcessibilidadeVisualMapper avm;`
+- `AcessibilidadeIntelectualMapper aim;`
 
 ### PARÂMETROS
 Seguem a lógica do trigrama.

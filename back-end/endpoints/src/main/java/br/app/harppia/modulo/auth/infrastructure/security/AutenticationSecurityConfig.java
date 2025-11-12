@@ -1,7 +1,5 @@
 package br.app.harppia.modulo.auth.infrastructure.security;
 
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,8 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
-import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
+import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
 
 @Configuration
 @EnableWebSecurity
@@ -67,9 +65,9 @@ public class AutenticationSecurityConfig {
      * @return
      */
     @Bean
-    protected UserDetailsService userDetailsService(UsuarioRepository userRepository) {
+    protected UserDetailsService userDetailsService(ConsultarUsuarioPort conUsrPort) {
         return username -> {
-            List<UsuarioEntity> usuario = userRepository.findByEmail(username);
+        	InformacoesAutenticacaoUsuario usuario = conUsrPort.informacoesAutenticacao(username, username, username);
             if (usuario == null) {
                 throw new UsernameNotFoundException("Usuário não encontrado");
             }

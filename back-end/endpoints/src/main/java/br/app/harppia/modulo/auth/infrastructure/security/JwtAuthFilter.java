@@ -11,6 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.JwtService;
+import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,7 +51,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
         	
-	        var userDetails = userService.findByCpfOrEmailOrTelefone(username, username, username);
+        	InformacoesAutenticacaoUsuario userDetails = userService.informacoesAutenticacao(username, username, username);
 	
 	        if (jwtService.isTokenValid(jwt, userDetails)) {
 	            var authToken = new UsernamePasswordAuthenticationToken(

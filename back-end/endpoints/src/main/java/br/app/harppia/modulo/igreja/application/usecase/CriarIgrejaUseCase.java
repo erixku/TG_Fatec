@@ -1,6 +1,7 @@
 package br.app.harppia.modulo.igreja.application.usecase;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
 import br.app.harppia.modulo.igreja.domain.request.CadastroIgrejaRequest;
@@ -20,6 +21,7 @@ public class CriarIgrejaUseCase {
 		this.igrejaMapper = igrejaMapper;
 	}
 
+	@Transactional
 	public CadastroIgrejaResponse cadastrar(CadastroIgrejaRequest requestDto) {
 		if(requestDto == null) 
 			throw new GestaoIgrejaException("Falha ao cadastrar igreja: informações ausentes.");

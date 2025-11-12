@@ -3,7 +3,7 @@ package br.app.harppia.modulo.auth.application.services;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesLoginUsuario;
+import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
 import br.app.harppia.modulo.auth.domain.auth.request.RefreshTokenRequest;
 import br.app.harppia.modulo.auth.domain.auth.response.RefreshTokenResponse;
 import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
@@ -24,7 +24,7 @@ public class AutenticarUsuarioService {
 	 * @param request
 	 * @return
 	 */
-	public LoginUsuarioResponse autenticar(InformacoesLoginUsuario request) {
+	public LoginUsuarioResponse autenticar(InformacoesAutenticacaoUsuario request) {
 
 		String accessToken = jwtService.generateAccessToken(request);
 		String refreshToken = jwtService.generateRefreshToken(request);
@@ -34,7 +34,6 @@ public class AutenticarUsuarioService {
 		return LoginUsuarioResponse.builder()
 				.id(request.id())
 				.email(request.login())
-				.nome(request.nome())
 				.accessToken(accessToken)
 				.refreshToken(refreshToken)
 				.build();

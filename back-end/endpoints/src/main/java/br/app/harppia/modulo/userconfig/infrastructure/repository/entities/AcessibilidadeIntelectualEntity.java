@@ -3,9 +3,6 @@ package br.app.harppia.modulo.userconfig.infrastructure.repository.entities;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,28 +26,27 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(of = {"id", "updatedAt"})
-@EqualsAndHashCode(of = "id")
-public class AcessibilidadeIntelectual {
+@ToString(of = {"idDonoConfig", "updatedAt"})
+@EqualsAndHashCode(of = "idDonoConfig")
+public class AcessibilidadeIntelectualEntity {
 	
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 4L;
+	private static final long serialVersionUID = 5L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name = "id", nullable = false)
-	private UUID id;
+	private UUID idDonoConfig;
 	
-	@Generated(event = EventType.INSERT)
 	@Column(name = "updated_at", insertable = false)
 	private OffsetDateTime updatedAt;
 	
-	@Column(name = "tamanho_icone", nullable = false)
-	private Character tamanhoIcone = '3';
+	@Column(name = "tamanho_icone", nullable = false, insertable = false)
+	private Character tamanhoIcone;
 	
-	@Column(name = "modo_foco", nullable = false)
-	private Boolean modoFoco = false;
+	@Column(name = "modo_foco", nullable = false, insertable = false)
+	private Boolean modoFoco;
 
-	@Column(name = "feedback_imediato", nullable = false)
-	private Boolean feedbackImediato = false;
+	@Column(name = "feedback_imediato", nullable = false, insertable = false)
+	private Boolean feedbackImediato;
 }

@@ -11,6 +11,7 @@ import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.roles.DatabaseRoles;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarArquivoPort;
+import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadePort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilInfo;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastradoDTO;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
@@ -24,19 +25,21 @@ import jakarta.transaction.Transactional;
 @Service
 public class CadastrarUsuarioUseCase {
 
-	private final RegistrarArquivoPort rgtArqPrt;
-	private final PasswordEncoder pwdEnc;
-	private final UsuarioMapper usrMpr;
-	private final UsuarioRepository usrRep;
-	private final EntityManager entMng;
+	private final RegistrarArquivoPort rap;
+	private final SalvarConfiguracoesAcessibilidadePort scap;
+	private final PasswordEncoder pe;
+	private final UsuarioMapper um;
+	private final UsuarioRepository ur;
+	private final EntityManager em;
 
-	public CadastrarUsuarioUseCase(UsuarioRepository ur, RegistrarArquivoPort rap, PasswordEncoder pe, UsuarioMapper um,
-			EntityManager em) {
-		this.usrRep = ur;
-		this.rgtArqPrt = rap;
-		this.pwdEnc = pe;
-		this.usrMpr = um;
-		this.entMng = em;
+	public CadastrarUsuarioUseCase(RegistrarArquivoPort rap, SalvarConfiguracoesAcessibilidadePort scap,
+			PasswordEncoder pe, UsuarioMapper um, UsuarioRepository ur, EntityManager em) {
+		this.rap = rap;
+		this.scap = scap;
+		this.pe = pe;
+		this.um = um;
+		this.ur = ur;
+		this.em = em;
 	}
 
 	/**
@@ -54,32 +57,33 @@ public class CadastrarUsuarioUseCase {
 		UsuarioEntity usrEntSanitized = null;
 
 		// Caso haja valores incoerentes, pode ser erro de mapeamento DTO <--> Entidade
-		usrEntSanitized = usrMpr.toEntity(reqDto);
+		usrEntSanitized = um.toEntity(reqDto);
 
-		// só id - tá certo
-		Optional<IdUsuarioCVO> result = usrRep.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
+		Optional<IdUsuarioCVO> result = ur.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
 				usrEntSanitized.getEmail(), usrEntSanitized.getTelefone());
 
 		if (result.isPresent())
 			throw new GestaoUsuarioException("Esse usuário já existe!");
 
-		usrEntSanitized.setSenha(pwdEnc.encode(reqDto.senha()));
+		usrEntSanitized.setSenha(pe.encode(reqDto.senha()));
 
-		entMng.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by DEFERRED;")
+		em.createNativeQuery("SET CONSTRAINTS storage.fk_s_storage_t_tb_arquivo_c_created_by DEFERRED;")
 				.executeUpdate();
 
-		UsuarioEntity usrEntSaved = usrRep.save(usrEntSanitized);
+		UsuarioEntity usrEntSaved = ur.save(usrEntSanitized);
 
 		if (mptFile != null && !mptFile.isEmpty()) {
 			FotoPerfilInfo fotoSalva;
-			fotoSalva = rgtArqPrt.registrarFotoPerfilUsuario(mptFile, ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(),
+			fotoSalva = rap.registrarFotoPerfilUsuario(mptFile, ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(),
 					usrEntSaved.getId());
 
 			if (fotoSalva == null)
 				throw new GestaoUsuarioException("Houve um erro ao submeter o arquivo. Verifique-o e tente novamente.");
 
-			usrRep.updateFotoById(fotoSalva.id(), usrEntSaved.getId());
+			ur.updateFotoById(fotoSalva.id(), usrEntSaved.getId());
 		}
+		
+		scap.todas(usrEntSaved.getId());
 
 		return new UsuarioCadastradoDTO(usrEntSaved.getId(), usrEntSaved.getEmail(), usrEntSaved.getNome());
 	}

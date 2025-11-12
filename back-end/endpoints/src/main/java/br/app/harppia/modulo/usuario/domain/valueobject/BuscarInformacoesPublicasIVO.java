@@ -2,7 +2,7 @@ package br.app.harppia.modulo.usuario.domain.valueobject;
 
 import java.util.UUID;
 
-public interface BuscarInformacoesPublicasVO {
+public interface BuscarInformacoesPublicasIVO {
 	UUID setId();
 	UUID getId();
 	String setNome();

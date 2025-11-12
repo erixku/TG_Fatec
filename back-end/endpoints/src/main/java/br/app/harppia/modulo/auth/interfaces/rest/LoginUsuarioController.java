@@ -46,7 +46,7 @@ public class LoginUsuarioController {
 	}
 
 	@PostMapping("/refresh")
-	public ResponseEntity<RefreshTokenResponse> atualizar(@RequestBody RefreshTokenRequest request){
+	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request){
 		
 		RefreshTokenResponse response = authService.atualizarToken(request);
 		

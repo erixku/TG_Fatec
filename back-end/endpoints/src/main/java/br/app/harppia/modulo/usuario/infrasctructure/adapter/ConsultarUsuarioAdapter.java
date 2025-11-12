@@ -5,24 +5,29 @@ import java.util.UUID;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.app.harppia.defaults.custom.aop.UseRole;
+import br.app.harppia.defaults.custom.roles.DatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesLoginUsuario;
+import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
 import br.app.harppia.modulo.usuario.application.usecases.ConsultarUsuarioUseCase;
 import br.app.harppia.modulo.usuario.domain.dto.login.InformacoesLoginUsuarioBanco;
 
 @Component
 public class ConsultarUsuarioAdapter implements ConsultarUsuarioPort {
-	private ConsultarUsuarioUseCase consultarUsuarioService;
+	private ConsultarUsuarioUseCase cuuc;
 
-	public ConsultarUsuarioAdapter(ConsultarUsuarioUseCase consultarUsuarioService) {
-		this.consultarUsuarioService = consultarUsuarioService;
+	public ConsultarUsuarioAdapter(ConsultarUsuarioUseCase conUsrUC) {
+		this.cuuc = conUsrUC;
 	}
-
+	
 	@Override
-	public InformacoesLoginUsuario findByCpfOrEmailOrTelefone(String cpf, String email, String Telefone) {
+	@Transactional
+	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	public InformacoesAutenticacaoUsuario informacoesAutenticacao(String cpf, String email, String telefone) {
 
-		InformacoesLoginUsuarioBanco user = consultarUsuarioService.buscarInformacoesLogin(cpf, email, Telefone);
+		InformacoesLoginUsuarioBanco user = cuuc.informacoesAutenticacaoLogin(cpf, email, telefone);
 
 		// = = = = = = = = = = = = = = = = = = = = = =//
 		// IMPLEMENTAR A BUSCA PELOS ROLES DO USUÁRIO //
@@ -30,18 +35,20 @@ public class ConsultarUsuarioAdapter implements ConsultarUsuarioPort {
 		// ...
 		if(user == null) return null;
 		
-		return new InformacoesLoginUsuario(user.id(), user.nome(), user.email(), user.senha(),
+		return new InformacoesAutenticacaoUsuario(user.id(), user.email(), user.senha(),
 				List.of(new SimpleGrantedAuthority("LEVITA")));
 	}
 
 	@Override
-	public InformacoesLoginUsuario findById(UUID id) {
-		InformacoesLoginUsuarioBanco user = consultarUsuarioService.buscarPorId(id);
+	@Transactional
+	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	public InformacoesAutenticacaoUsuario porId(UUID id) {
+		InformacoesLoginUsuarioBanco user = cuuc.porId(id);
 
 		if(user == null) 
 			return null;
 		
-		return new InformacoesLoginUsuario(user.id(), user.nome(), user.email(), user.senha(),
+		return new InformacoesAutenticacaoUsuario(user.id(), user.email(), user.senha(),
 				List.of(new SimpleGrantedAuthority("LEVITA")));
 	}
 

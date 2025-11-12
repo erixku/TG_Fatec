@@ -2,12 +2,15 @@ package br.app.harppia.modulo.auth.application.usecases;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.LoginUsuarioException;
+import br.app.harppia.defaults.custom.roles.DatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
 import br.app.harppia.modulo.auth.application.services.RefreshTokenService;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesLoginUsuario;
+import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
 import br.app.harppia.modulo.auth.domain.login.request.LoginUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasDTO;
@@ -16,36 +19,38 @@ import br.app.harppia.modulo.auth.infrastructure.mappers.UsuarioLoginMapper;
 @Service
 public class LogarUsuarioUseCase {
 
-	private final ConsultarUsuarioPort consultarUsuarioPort;
-	private final PasswordEncoder passEncoder;
-	private final UsuarioLoginMapper userMapper;
-	private final AutenticarUsuarioService authService;
+	private final ConsultarUsuarioPort cup;
+	private final PasswordEncoder pe;
+	private final UsuarioLoginMapper ulm;
+	private final AutenticarUsuarioService aus;
 	private final RefreshTokenService rts;
 
-	public LogarUsuarioUseCase(ConsultarUsuarioPort consultarUsuarioPort, PasswordEncoder passEncoder,
-			UsuarioLoginMapper userMapper, AutenticarUsuarioService authService,
-			RefreshTokenService rts) {
-		this.consultarUsuarioPort = consultarUsuarioPort;
-		this.passEncoder = passEncoder;
-		this.userMapper = userMapper;
-		this.authService = authService;
-		this.rts = rts;
+	public LogarUsuarioUseCase(ConsultarUsuarioPort conUsrPort, PasswordEncoder pwdEnc,
+			UsuarioLoginMapper usrMpr, AutenticarUsuarioService autSvc,
+			RefreshTokenService rfsTokSvc) {
+		this.cup = conUsrPort;
+		this.pe = pwdEnc;
+		this.ulm = usrMpr;
+		this.aus = autSvc;
+		this.rts = rfsTokSvc;
 	}
 
-	public LoginUsuarioResponse execute(LoginUsuarioRequest loginUserDTO) {
+	@Transactional
+	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	public LoginUsuarioResponse execute(LoginUsuarioRequest lgnUserDTO) {
 
-		InformacoesLoginSanitizadasDTO dtoSanitizado = userMapper.toSanitizedDto(loginUserDTO);
+		InformacoesLoginSanitizadasDTO infLgnSntDto = ulm.toSanitizedDto(lgnUserDTO);
 
-		InformacoesLoginUsuario userBanco = consultarUsuarioPort.findByCpfOrEmailOrTelefone(dtoSanitizado.cpf(),
-				dtoSanitizado.email(), dtoSanitizado.telefone());
+		InformacoesAutenticacaoUsuario infLgnUsrBanco = cup.informacoesAutenticacao(infLgnSntDto.cpf(),
+				infLgnSntDto.email(), infLgnSntDto.telefone());
 
-		if (userBanco == null)
+		if (infLgnUsrBanco == null)
 			throw new LoginUsuarioException("Usuário não encontrado!");
 
-		if (!saoMesmaSenha(userBanco.senha(), dtoSanitizado.senha()))
+		if (!saoMesmaSenha(infLgnUsrBanco.senha(), infLgnSntDto.senha()))
 			throw new LoginUsuarioException("Senha ou login inválidos!");
 
-		LoginUsuarioResponse loginResponse = authService.autenticar(userBanco);
+		LoginUsuarioResponse loginResponse = aus.autenticar(infLgnUsrBanco);
 		
 		rts.salvarRefreshToken(loginResponse.id(), loginResponse.refreshToken());		
 		
@@ -53,6 +58,6 @@ public class LogarUsuarioUseCase {
 	}
 
 	private boolean saoMesmaSenha(String senhaArmazenadaEncriptada, String senhaPuraInserida) {
-		return (passEncoder.matches(senhaPuraInserida, senhaArmazenadaEncriptada));
+		return (pe.matches(senhaPuraInserida, senhaArmazenadaEncriptada));
 	}
 }

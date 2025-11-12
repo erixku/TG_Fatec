@@ -9,9 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Builder;
 
 @Builder
-public record InformacoesLoginUsuario (
+public record InformacoesAutenticacaoUsuario (
 		UUID id,
-		String nome,
 		String login,
 		String senha,
 		Collection<? extends GrantedAuthority> roles

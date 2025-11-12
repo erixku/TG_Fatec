@@ -27,25 +27,26 @@ import jakarta.validation.Valid;
 @RequestMapping("/v1/users")
 public class UsuarioController {
 
-	private final CadastrarUsuarioUseCase cadastroService;
-	private final ConsultarUsuarioUseCase consultaService;
-	private final AtualizarUsuarioUseCase atualizarService;
-	private final DeletarUsuarioUseCase deletarService;
+	private final CadastrarUsuarioUseCase cadUsrUC;
+	private final ConsultarUsuarioUseCase conUsrUC;
+	private final AtualizarUsuarioUseCase atuUsrUC;
+	private final DeletarUsuarioUseCase delUsrUC;
 
-	public UsuarioController(CadastrarUsuarioUseCase userCadService, ConsultarUsuarioUseCase consultaService,
-			AtualizarUsuarioUseCase atualizarService, DeletarUsuarioUseCase deletarService) {
-		this.cadastroService = userCadService;
-		this.consultaService = consultaService;
-		this.atualizarService = atualizarService;
-		this.deletarService = deletarService;
+	public UsuarioController(CadastrarUsuarioUseCase cadUsrUC, ConsultarUsuarioUseCase conUsrUC,
+			AtualizarUsuarioUseCase atuUsrUC, DeletarUsuarioUseCase delUsrUC) {
+		this.cadUsrUC = cadUsrUC;
+		this.conUsrUC = conUsrUC;
+		this.atuUsrUC = atuUsrUC;
+		this.delUsrUC = delUsrUC;
 	}
 
+	//Registro
 	@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<UsuarioCadastradoDTO> cadastrar(
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {
 
-		UsuarioCadastradoDTO userCadastrado = cadastroService.execute(usrCadDTO, file);
+		UsuarioCadastradoDTO userCadastrado = cadUsrUC.execute(usrCadDTO, file);
 
 		if (userCadastrado == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -53,11 +54,12 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userCadastrado);
 	}
 
+	//Consulta
 	@GetMapping(value = "/find")
 	public ResponseEntity<InformacaoPublicaUsuarioDTO> buscar(@RequestParam("key") String key) {
 
 		InformacaoPublicaUsuarioDTO response = null;
-		response = consultaService.buscarUsuarioPorCpfOuEmailOuTelefone(key);
+		response = conUsrUC.porCpfOuEmailOuTelefone(key);
 
 		if (response == null)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -82,7 +84,7 @@ public class UsuarioController {
 
 		boolean response;
 
-		response = atualizarService.execute(dto);
+		response = atuUsrUC.execute(dto);
 
 		if (!response)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -92,6 +94,6 @@ public class UsuarioController {
 	
 	@DeleteMapping("/delete/{id}")
 	public void deletarUsuario(String uuid){
-		deletarService.getClass();
+		delUsrUC.getClass();
 	}
 }

@@ -8,8 +8,6 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -25,34 +23,33 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(of = {"id"})
-@EqualsAndHashCode(of = {"id"})
-public class AcessibilidadeAuditiva {
+@ToString(of = {"idDonoConfig"})
+@EqualsAndHashCode(of = {"idDonoConfig"})
+public class AcessibilidadeAuditivaEntity {
 
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 5L;
 	
 	@Id
 	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
-	
 	@Generated(event = EventType.INSERT)
+	private UUID idDonoConfig;
+	
 	@Column(name = "updated_at", nullable = false, insertable = false)
-	private OffsetDateTime updateAt;
+	private OffsetDateTime updatedAt;
 	
-	@Column(name = "modo_flash", nullable = false)
-	private Boolean modoFlash = false;
+	@Column(name = "modo_flash", nullable = false, insertable = false)
+	private Boolean modoFlash;
 
-	@Column(name = "intensidade_flash", nullable = false)
-	private Character intensidadeFlash = '3';
+	@Column(name = "intensidade_flash", nullable = false, insertable = false)
+	private Character intensidadeFlash;
 	
-	@Column(name = "transcricao_audio", nullable = false)
-	private Boolean transcricaoAudio = false;
+	@Column(name = "transcricao_audio", nullable = false, insertable = false)
+	private Boolean transcricaoAudio;
 	
-	@Column(name = "vibracao_aprimorada", nullable = false)
-	private Boolean vibracaoAprimorada = false;
+	@Column(name = "vibracao_aprimorada", nullable = false, insertable = false)
+	private Boolean vibracaoAprimorada;
 
-	@Column(name = "alertas_visuais", nullable = false)
-	private Boolean alertasVisuais = false;
+	@Column(name = "alertas_visuais", nullable = false, insertable = false)
+	private Boolean alertasVisuais;
 }
