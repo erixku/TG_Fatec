@@ -25,35 +25,10 @@ services:
       - .:/app # Monta o diretório atual do host para /app dentro do contêiner
       - /app/target # Evita que a pasta 'target' (com o JAR) no contêiner sobrescreva a do host
     
-    # Define as variáveis de ambiente para a sua aplicação Spring Boot
-    # Estas são as credenciais que sua API usará para se conectar ao PostgreSQL
-    # Atenção: Mantenha esses valores apenas para AMBIENTE LOCAL de desenvolvimento.
-    # Em produção, essas variáveis são gerenciadas pela sua plataforma de hospedagem (Render, K8s, etc.)
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydatabase # 'db' é o nome do serviço do PostgreSQL no Compose
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: mysecretpassword
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update # Para desenvolvimento local, 'update' pode ser útil para auto-criação de tabelas.
-      # Em produção, use 'none' ou 'validate'.
-    
-    # Garante que o serviço 'db' (PostgreSQL) esteja rodando antes de iniciar 'app'
-    depends_on:
-      - db
-    
   # Serviço para o banco de dados PostgreSQL
   db:
     # Usa a imagem oficial do PostgreSQL do Docker Hub
     image: postgres:16-alpine # 16 é a versão, -alpine é uma imagem leve
-    
-    # Mapeia portas (opcional, útil para acessar o DB com ferramentas como DBeaver)
-    - "5432:5432"
-    
-    # Define as variáveis de ambiente para o PostgreSQL
-    # Essas variáveis configuram o superusuário e o banco de dados inicial
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mysecretpassword
     
     # Monta um volume para persistir os dados do banco de dados
     # Isso garante que seus dados não sejam perdidos se o contêiner do DB for removido
