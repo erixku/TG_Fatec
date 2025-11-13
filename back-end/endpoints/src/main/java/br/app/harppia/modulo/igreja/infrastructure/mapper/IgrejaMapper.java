@@ -9,19 +9,18 @@ import br.app.harppia.modulo.igreja.infrastructure.repository.entities.IgrejaEnt
 @Mapper(componentModel = "spring")
 public interface IgrejaMapper {
 
-	
-	@Mapping(target="id", ignore = true)
-	@Mapping(target="createdAt", ignore = true)
-	@Mapping(target="updatedAt", ignore = true)
-	@Mapping(target="deletedAt", ignore = true)
-	@Mapping(target="deletedBy", ignore = true)
-	@Mapping(target="isDeleted", ignore = true)
-	@Mapping(target="idFoto", ignore = true)
-	@Mapping(target="outraDenominacao", ignore = true)
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "updatedAt", ignore = true)
+	@Mapping(target = "deletedAt", ignore = true)
+	@Mapping(target = "deletedBy", ignore = true)
+	@Mapping(target = "isDeleted", ignore = true)
+	@Mapping(target = "idFoto", ignore = true)
+	@Mapping(target = "outraDenominacao", ignore = true)
 
-	@Mapping(source="idDono", target="createdBy")
-	@Mapping(source="idDono", target="updatedBy")
-	@Mapping(source="idDono", target="idProprietario")
-	@Mapping(source="nomeIgreja", target="nome")
+	@Mapping(source = "idCriador", target = "createdBy")
+	@Mapping(source = "idCriador", target = "updatedBy")
+	@Mapping(source = "idCriador", target = "idProprietario")
+	@Mapping(source = "nome", target = "nome")
 	IgrejaEntity toEntity(CadastroIgrejaRequest dto);
 }

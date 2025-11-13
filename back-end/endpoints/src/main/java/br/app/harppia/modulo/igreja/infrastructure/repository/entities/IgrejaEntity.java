@@ -3,14 +3,13 @@ package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
+import org.hibernate.annotations.ColumnTransformer;
 
+import br.app.harppia.defaults.custom.converters.enums.denominacao.ConversorEnumDenominacaoIgreja;
 import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EDenominacaoIgreja;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,21 +32,20 @@ public class IgrejaEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id", insertable = false, updatable = false)
 	private UUID id; 
 	
 	//---------------//
 	// DADOS DE LOGS //
 	//---------------//
-	@Generated(event = EventType.INSERT)
 	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
 	@Column(name = "updated_at", nullable = false, insertable = false)
 	private OffsetDateTime updatedAt;
 
-	@Column(name = "deleted_at")
-	private OffsetDateTime deletedAt = null;
+	@Column(name = "deleted_at", insertable = false)
+	private OffsetDateTime deletedAt;
 
 	@Column(name = "created_by", nullable = false, updatable = false)
 	private UUID createdBy;
@@ -55,14 +53,14 @@ public class IgrejaEntity {
 	@Column(name = "updated_by", nullable = false)
 	private UUID updatedBy;
 	
-	@Column(name = "deleted_by")
-	private UUID deletedBy = null;
+	@Column(name = "deleted_by", insertable = false)
+	private UUID deletedBy;
 
 	//-----------------//
 	// DADOS DA IGREJA //
 	//-----------------//
-	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
 
 	@Column(name = "cnpj", nullable = false)
 	private String cnpj;
@@ -70,8 +68,9 @@ public class IgrejaEntity {
 	@Column(name = "nome", nullable = false)	
 	private String nome;
 	
-	@Enumerated(EnumType.STRING)
+	@Convert(converter = ConversorEnumDenominacaoIgreja.class)
 	@Column(name = "denominacao", nullable = false)
+	@ColumnTransformer(write = "CAST(? as utils.s_church_t_tb_igreja_e_denominacao)")
 	private EDenominacaoIgreja denominacao;
 	
 	@Column(name = "outra_denominacao")

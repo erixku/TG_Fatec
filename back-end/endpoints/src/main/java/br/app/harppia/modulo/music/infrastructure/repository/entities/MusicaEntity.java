@@ -4,18 +4,17 @@ import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.generator.EventType;
 import org.hibernate.type.SqlTypes;
 
+import br.app.harppia.defaults.custom.converters.enums.tonalidade.ConversorEnumTonalidadeMusica;
 import br.app.harppia.modulo.music.infrastructure.repository.enums.ETonalidadeMusica;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -35,22 +34,20 @@ public class MusicaEntity {
 	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", unique = true, insertable = false, updatable = false)
 	private Integer id;
 	
 	//--------------//
 	// DADOS DE LOG //
 	//--------------//
-	@Generated(event = EventType.INSERT)
-	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+	@Column(name = "created_at", insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
-	@Column(name = "updated_at", nullable = false, insertable = false, updatable = false)
+	@Column(name = "updated_at", insertable = false, updatable = false)
 	private OffsetDateTime updatedAt;
 	
-	@Column(name = "deleted_at")
+	@Column(name = "deleted_at", insertable = false)
 	private OffsetDateTime deletedAt;
 	
 	@Column(name = "created_by", nullable = false)
@@ -59,8 +56,8 @@ public class MusicaEntity {
 	//-----------------//
 	// DADOS DA MUSICA //
 	//-----------------//
-	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
 	
 	@Column(name = "nome", nullable = false)	
 	private String nome;
@@ -71,6 +68,9 @@ public class MusicaEntity {
 	@Column(name = "tem_artista_secundario", nullable = false)	
 	private Boolean temArtistaSecundario;
 
+	@Column(name = "album")
+	private String album;
+	
 	@JdbcTypeCode(SqlTypes.INTERVAL_SECOND)
 	@Column(name = "duracao", nullable = false)	
 	private Duration duracao;
@@ -82,27 +82,24 @@ public class MusicaEntity {
 	@Column(name = "bpm")
 	private Integer bpm;
 	
-	@Enumerated(EnumType.STRING)
+	@Convert(converter = ConversorEnumTonalidadeMusica.class)
 	@Column(name = "tonalidade")
+	@ColumnTransformer(write = "CAST(? AS utils.s_song_e_tonalidade)")
 	private ETonalidadeMusica tonalidade;
 	
-	@JdbcTypeCode(SqlTypes.DISTINCT)
 	@Column(name = "link_musica", columnDefinition = "\"utils\".\"domain_link\"" , nullable = false)
 	private String linkMusica;
 	
-	@JdbcTypeCode(SqlTypes.DISTINCT)
 	@Column(name = "link_letra", columnDefinition = "\"utils\".\"domain_link\"")
 	private String linkLetra;
 	
-	@JdbcTypeCode(SqlTypes.DISTINCT)
 	@Column(name = "link_cifra", columnDefinition = "\"utils\".\"domain_link\"")
 	private String linkCifra;
 	
-	@JdbcTypeCode(SqlTypes.DISTINCT)
 	@Column(name = "link_partitura", columnDefinition = "\"utils\".\"domain_link\"")
 	private String linkPartitura;
 	
-	@Column(name = "compoe_medley", nullable = false)
+	@Column(name = "parte_de_medley", nullable = false)
 	private Boolean compoeMedley;
 	
 	//-------------------//

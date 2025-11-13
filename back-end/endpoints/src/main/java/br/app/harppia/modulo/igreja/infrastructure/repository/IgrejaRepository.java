@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import br.app.harppia.modulo.igreja.infrastructure.repository.entities.IgrejaEntity;
 
 @Repository
-public interface IgrejaRepository  extends JpaRepository<IgrejaEntity, UUID>{
+public interface IgrejaRepository extends JpaRepository<IgrejaEntity, UUID> {
 
 }

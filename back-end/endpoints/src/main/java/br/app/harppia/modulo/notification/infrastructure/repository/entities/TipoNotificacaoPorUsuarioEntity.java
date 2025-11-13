@@ -9,8 +9,6 @@ import org.hibernate.generator.EventType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -26,27 +24,27 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "isDisabled", "tipoNotificacao", "idUsuario"})
 @EqualsAndHashCode(of = "id")
-public class TipoNotificacaoPorUsuario {
+public class TipoNotificacaoPorUsuarioEntity {
 
 	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 4L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", nullable = false)
 	private Long id;
 
 	// --------------//
 	// DADOS DE LOGS //
 	// --------------//
-	@Generated(event = EventType.INSERT)
 	@Column(name = "updated_at", nullable = false, insertable = false)
 	private OffsetDateTime updatedAt;
 
 	// --------------------------//
 	// DADOS DO TIPO POR USUARIO //
 	// --------------------------//
-	@Column(name = "is_disabled", nullable = false)
-	private Boolean isDisabled = false;
+	@Column(name = "is_disabled", nullable = false, insertable = false)
+	private Boolean isDisabled;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tip_id", nullable = false)

@@ -71,12 +71,12 @@ public class ArquivoEntity {
 	private String link;
 	
 	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
-	@Column(nullable = false, updatable = false)
+	@Column(name = "mime_type", nullable = false, updatable = false)
     @ColumnTransformer(write = "CAST(? AS utils.s_storage_t_tb_arquivo_e_mime_type)")
 	private EMimeTypeArquivo mimeType;
 
 	@Convert(converter = ConversorEnumMimeTypeArquivo.class)
-	@Column(nullable = false, updatable = false)
+	@Column(name = "extensao", nullable = false, updatable = false)
     @ColumnTransformer(write = "CAST(? AS utils.s_storage_t_tb_arquivo_e_extensao)")
 	private EExtensaoArquivo extensao;
 	

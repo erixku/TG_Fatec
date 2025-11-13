@@ -6,23 +6,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
 public enum ETonalidadeMusica implements EnumPersistivel {
-    // Tonalidades maiores
-    C("C"), C_SHARP("C#"),
-    D("D"), D_SHARP("D#"),
-    E("E"),
-    F("F"), F_SHARP("F#"),
-    G("G"), G_SHARP("G#"),
-    A("A"), A_SHARP("A#"),
-    B("B"),
+	// Tonalidades maiores
+	C("c"), C_SHARP("c#"),
+	D("d"), D_SHARP("d#"),
+	E("e"),
+	F("f"), F_SHARP("f#"),
+	G("g"), G_SHARP("g#"),
+	A("a"), A_SHARP("a#"),
+	B("b"),
 
-    // Tonalidades menores
-    AM("Am"), A_SHARP_M("A#m"),
-    BM("Bm"),
-    CM("Cm"), C_SHARP_M("C#m"),
-    DM("Dm"), D_SHARP_M("D#m"),
-    EM("Em"),
-    FM("Fm"), F_SHARP_M("F#m"),
-    GM("Gm"), G_SHARP_M("G#m");
+	// Tonalidades menores
+	AM("am"), A_SHARP_M("a#m"),
+	BM("bm"),
+	CM("cm"), C_SHARP_M("c#m"),
+	DM("dm"), D_SHARP_M("d#m"),
+	EM("em"),
+	FM("fm"), F_SHARP_M("f#m"),
+	GM("gm"), G_SHARP_M("g#m");
 
     private final String value;
 

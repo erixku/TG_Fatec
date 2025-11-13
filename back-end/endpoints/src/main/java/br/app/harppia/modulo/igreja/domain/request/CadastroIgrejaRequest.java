@@ -4,6 +4,11 @@ import java.util.UUID;
 
 import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EDenominacaoIgreja;
 
-public record CadastroIgrejaRequest(String cnpj, String nomeIgreja, UUID idDono, EDenominacaoIgreja denominacao) {
-
+public record CadastroIgrejaRequest(
+		// Dados da igreja
+		UUID idCriador, String cnpj, String nome, EDenominacaoIgreja denominacao, String outraDenominacao, UUID idFoto,
+		UUID idDono,
+		
+		// Dados do endereço da igreja
+		CadastroEnderecoIgrejaRequest cadEndIgrReq) {
 }

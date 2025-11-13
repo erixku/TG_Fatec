@@ -9,8 +9,6 @@ import org.hibernate.generator.EventType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -32,24 +30,23 @@ import lombok.ToString;
 @Setter
 @ToString(of = {"id", "logradouro", "cidade", "uf"})
 @EqualsAndHashCode(of = "id")
-public class EnderecoIgreja  {
+public class EnderecoIgrejaEntity  {
 
 	@SuppressWarnings("unused")
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Generated(event = EventType.INSERT)
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+    private Integer id;
+
+    @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     @Generated(event = EventType.INSERT)
-    @Column(name = "updated_at", nullable = false, insertable = false)
+    @Column(name = "updated_at", insertable = false)
     private OffsetDateTime updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "deleted_at", insertable = false)
     private OffsetDateTime deletedAt = null;
 
     @Column(name = "created_by", nullable = false, updatable = false)
@@ -58,14 +55,14 @@ public class EnderecoIgreja  {
     @Column(name = "updated_by", nullable = false)
     private UUID updatedBy;
 
-    @Column(name = "deleted_by")
+    @Column(name = "deleted_by", insertable = false)
     private UUID deletedBy;
 
     //-------------------//
     // DADOS DO ENDERECO //
     //-------------------//
-    @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
 
     @Column(name = "cep", nullable = false)
     private String cep;
@@ -85,7 +82,7 @@ public class EnderecoIgreja  {
     @Column(name = "numero", nullable = false)
     private String numero;
 
-    @Column
+    @Column(name = "complemento")
     private String complemento;
 
     @Column(name = "is_endereco_principal", nullable = false)
