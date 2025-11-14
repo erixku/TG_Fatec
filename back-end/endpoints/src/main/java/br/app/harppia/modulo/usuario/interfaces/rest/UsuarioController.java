@@ -46,7 +46,10 @@ public class UsuarioController {
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {
 
+		System.err.println("Arquivo: " + ( (file != null)  ? file.getName() : "ausente!" ) );
+		
 		UsuarioCadastradoDTO userCadastrado = cadUsrUC.execute(usrCadDTO, file);
+		
 
 		if (userCadastrado == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

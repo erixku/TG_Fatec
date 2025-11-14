@@ -1,0 +1,19 @@
+{
+  "cpf": "246.757.770-82",
+  "nomeCompleto": "Juliana Costa Silva",
+  "nomeSocialCompleto": "Jú Costa",
+  "sexo": "F",
+  "dataNascimento": "1992-03-25",
+  "email": "juliana.costa92@gmail.com",
+  "telefone": "(11) 98877-1234",
+  "senha": "Jcs@1992!",
+  "endereco": {
+    "cep": "01311000",
+    "uf": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Bela Vista",
+    "logradouro": "Avenida Paulista",
+    "numero": "1500",
+    "complemento": "Apto 81"
+  }
+}

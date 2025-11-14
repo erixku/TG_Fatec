@@ -43,7 +43,6 @@ public record UsuarioCadastroDTO (
 	
 	@NotBlank(message = "Telefone é obrigatório!")
 	@Size(min = 11, max = 25, message = "Telefone deve ter entre 11 e 25 dígitos.")
-	@Pattern(regexp = "^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}", message = "Telefone deve estar no formato '(99) 99999-9999'.")
 	String telefone,
 	
 	@NotBlank(message = "Senha é obrigatória!")

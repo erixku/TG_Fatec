@@ -22,7 +22,7 @@ public class UfValidator implements ConstraintValidator<ValidUF, String> {
 		if (value == null || value.trim().isEmpty() || value.trim().length() != 2)
 			return false;
 		
-		return UFs_VALIDAS.contains(value);
+		return UFs_VALIDAS.contains(value.toUpperCase());
 	}
 
 }

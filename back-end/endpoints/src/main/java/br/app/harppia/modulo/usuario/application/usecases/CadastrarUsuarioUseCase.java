@@ -74,6 +74,9 @@ public class CadastrarUsuarioUseCase {
 
 		if (mptFile != null && !mptFile.isEmpty()) {
 			FotoPerfilInfo fotoSalva;
+			
+			System.err.println("Temporário: chegou arquivo de foto aqui!!!");
+			
 			fotoSalva = rap.registrarFotoPerfilUsuario(mptFile, ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(),
 					usrEntSaved.getId());
 

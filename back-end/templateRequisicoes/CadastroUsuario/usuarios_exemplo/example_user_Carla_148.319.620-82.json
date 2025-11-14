@@ -1,0 +1,19 @@
+{
+  "cpf": "148.319.620-82",
+  "nomeCompleto": "Carla Dias Antunes",
+  "nomeSocialCompleto": "Carla Dias",
+  "sexo": "F",
+  "dataNascimento": "1999-05-20",
+  "email": "carladias.dev@outlook.com",
+  "telefone": "(21) 97654-1212",
+  "senha": "Carla@Antunes99",
+  "endereco": {
+    "cep": "20031050",
+    "uf": "RJ",
+    "cidade": "Rio de Janeiro",
+    "bairro": "Centro",
+    "logradouro": "Avenida Almirante Barroso",
+    "numero": "90",
+    "complemento": "10º andar"
+  }
+}
