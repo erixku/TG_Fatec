@@ -34,7 +34,7 @@ public class TipoNotificacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Short id;
 	
 	//---------------//
 	// DADOS DE LOGS //
