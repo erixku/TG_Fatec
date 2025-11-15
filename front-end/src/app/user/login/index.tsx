@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { View, Text, useColorScheme, Pressable, ScrollView } from "react-native";
+import { View, Text, useColorScheme, Pressable, ScrollView, Alert } from "react-native";
 import ThemedHarppiaLogo from '@/components/ThemedHarppiaLogo'
 import { CustomButton } from "@/components/CustomButtom";
 import Animated, { SlideInRight, SlideOutLeft, SlideOutRight } from "react-native-reanimated";
 import { ArrowLeftIcon, IdentificationIcon, PhoneIcon, EnvelopeIcon } from "react-native-heroicons/solid"
 import { CustomMaskedInput, CustomPasswordTextInput, CustomTextInput } from "@/components/CustomInput";
-import { useRouter } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import { useFormContext } from "react-hook-form";
 import { RegisterUserFormData } from "@/schemas/registerUserSchema";
+import { findUserByKey } from "@/api/findUser";
 
 export default function Register() {
   const colorScheme = useColorScheme();
   const router = useRouter();
   const [email, setEmail] = useState<string>(null);
   const [password, setPassword] = useState<string>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [cellphone, setCellphone] = useState<string>(null);
   const [cpf, setCpf] = useState<string>(null);
   const { trigger, setError } = useFormContext<RegisterUserFormData>()
@@ -23,33 +25,57 @@ export default function Register() {
   const baseColor = colorScheme === "dark" ? "#dbeafe" : "#0f172a";
   const contrastColor = colorScheme === "dark" ? "#93c5fd" : "#1d4ed8";
 
+  async function attemptLogin(key: string) {
+    setIsLoading(true);
+    try {
+      const userData = await findUserByKey(key = "rafaelcosta@yahoo.com");
+      // TODO: Adicionar validação de senha aqui antes de redirecionar
+      Alert.alert("Login bem-sucedido!", `Bem-vindo, ${userData.nomeCompleto}`);
+      router.push('homeMenu/(tabs)');
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || "Não foi possível conectar ao servidor.";
+      Alert.alert(
+        "Erro no Login",
+        errorMessage
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function handleLogin() {
     switch (loginMode) {
       case 'email':
-        await validateLogin(email, null, null) === true? router.push('/homeMenu'):null ;
+        if (await validateLogin(email)){
+          attemptLogin(email);
+        }
         break;
       case 'cellphone':
-        await validateLogin(null, cellphone, null) === true? router.push('/homeMenu'):null;
+        if (await validateLogin(undefined, cellphone)){
+          attemptLogin(cellphone);
+        }
         break;
       case 'cpf':
-        await validateLogin(null, null, cpf) === true? router.push('/homeMenu'):null;
+        if (await validateLogin(undefined, undefined, cpf)){
+          attemptLogin(cpf);
+        }
         break;
     }
   }
 
-  async function validateLogin(email?: string, cpf?: string, telefone?: string) {
+  async function validateLogin(email?: string, telefone?: string, cpf?: string) {
     let isValid;
     
     if(email){
         isValid = await trigger(['email', 'senha']);
         return isValid;
     }
-    if(cpf){
-        isValid = await trigger(['cpf', 'senha']);
-        return isValid;
-    }
     if(telefone){
         isValid = await trigger(['telefone', 'senha']);
+        return isValid;
+    }
+    if(cpf){
+        isValid = await trigger(['cpf', 'senha']);
         return isValid;
     }
   }
@@ -146,10 +172,9 @@ export default function Register() {
 
         </View>
         <View className="flex justify-center flex-row gap-x-4 mt-5">
-            <CustomButton label="Entrar" onPress={() => router.push('homeMenu/(tabs)')}/>
+            <CustomButton label="Entrar" onPress={() => {router.push({pathname: '/homeMenu/(tabs)'})}}/>
         </View>
       </View>
     </View>
   );
 }
-

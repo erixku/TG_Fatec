@@ -7,12 +7,15 @@ import { CalendarIcon, ChevronRightIcon, FunnelIcon, ListBulletIcon } from "reac
 import { boolean } from "zod";
 import ScheduleItens from "@/components/home&others/schedues/ScheduleItens";
 import { mockItens } from "@/mocks/itensScheduleCommitmend";
+import SortPopUp from "@/components/home&others/SortPopUp";
 
 export default function SchedulePage() {
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const [isCalendar, setIsCalendar] = useState<boolean>(false)
     const colorScheme = useColorScheme();
     const baseColor = colorScheme === 'dark' ? '#dbeafe' : '#0f172a';
+    const [isSortVisible, setIsSortVisible] = useState<boolean>(false);
+    const [sortOption, setSortOption] = useState<string>('Mais Recentes');
 
     return (
         <AnimatedScreenWrapper>
@@ -22,10 +25,10 @@ export default function SchedulePage() {
                         <View className="flex-1 flex-col gap-y-2">
                             <View className={`flex-row ${!isCalendar? "justify-between":"justify-end"}`}>
                                 {!isCalendar && (        
-                                    <View className="flex-row items-center gap-x-2">
-                                        <Text className="text-2xl font-nunito-semibold dark:text-blue-100 text-slate-900">Recentes</Text>
+                                    <Pressable className="flex-row items-center gap-x-2" onPress={() => setIsSortVisible(true)}>
+                                        <Text className="text-2xl font-nunito-semibold dark:text-blue-100 text-slate-900">{sortOption}</Text>
                                         <ChevronRightIcon size={20} color={baseColor}/>
-                                    </View>
+                                    </Pressable>
                                 )}
                                 <View className="flex-row gap-x-2">
                                     <Pressable>
@@ -60,6 +63,16 @@ export default function SchedulePage() {
                     </View>
                 </View>
             </View>
+            <SortPopUp
+                visible={isSortVisible}
+                options={['Mais Recentes', 'Mais Antigos', 'A-Z', 'Z-A']}
+                onClose={() => setIsSortVisible(false)}
+                onSelect={(option:string) => {
+                    // Lógica de ordenação aqui
+                    setSortOption(option);
+                    console.log('Opção selecionada:', option);
+                }}
+            />
         </AnimatedScreenWrapper>
     );
 }

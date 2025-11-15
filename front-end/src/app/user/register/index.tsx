@@ -1,14 +1,16 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Pressable, useColorScheme, ScrollView, LayoutChangeEvent, Alert } from 'react-native';
-import { useRouter } from "expo-router";
+import { useRouter } from 'expo-router';
 import ThemedHarppiaLogo from "@/components/ThemedHarppiaLogo";
 import { CustomButton } from "@/components/CustomButtom";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import RegisterFormUser from "@/components/login&register/RegisterFormUser";
 import RegisterFormEmail from "@/components/login&register/RegisterFormEmail";
 import { useFormContext } from "react-hook-form";
-import { buildUserPayload, RegisterUserFormData } from "@/schemas/registerUserSchema";
+import { RegisterUserFormData } from "@/schemas/registerUserSchema";
+import axios from 'axios';
+import { registerUser } from '@/api/registerUser';
 
 export default function Register() {
   const colorScheme = useColorScheme();
@@ -63,53 +65,26 @@ export default function Register() {
         // Última etapa: Enviar para a API
         setIsLoading(true);
         try {
-          const values = getValues();
-          const { arquivo, ...userData } = values;
-          const userPayload = buildUserPayload(userData);
-
-          const body = new FormData();
-
-          console.log("Dados para user_data:", userData);
-          console.log("Payload enviado para a API:", JSON.stringify(userPayload, null, 2));
-          // 1. Adiciona os dados do usuário como um Blob JSON para garantir o Content-Type correto
-          const userPayloadBlob = new Blob([JSON.stringify(userPayload)], { type: 'application/json' });
-          body.append('user_data', userPayloadBlob as any);
-
-
-          // 2. Adiciona a foto, se existir
-          if (arquivo?.caminho) {
-            const photo = {
-              uri: arquivo.caminho,
-              type: arquivo.mimeType || 'image/jpeg',
-              name: arquivo.bucketArquivo?.nome || 'profile.jpg',
-            } as any;
-            console.log("Dados para profile_photo:", photo);
-            body.append('profile_photo', photo);
-          }
-
-          // Substitua 'URL_DA_SUA_API/register' pelo seu endpoint real
-          const response = await fetch('https://harppia-endpoints.onrender.com/v1/users/register', {
-            method: 'POST',
-            body: body,
-            
-          });
-
-          if (!response.ok) {
-            // Se a resposta da API não for de sucesso (ex: status 400, 500)
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Ocorreu um erro ao realizar o cadastro.');
-          }
+          const formData = getValues();
+          const responseData = await registerUser(formData);
 
           // Se a resposta for sucesso (status 2xx)
-          console.log("Cadastro realizado com sucesso!");
+          console.log("Cadastro realizado com sucesso!", responseData);
           router.push({
             pathname: "/user",
-            params: { email: values.email, telefone: values.telefone, rota: "register" },
+            params: { email: formData.email, telefone: formData.telefone, rota: "register" },
           });
           reset(); // Limpa o formulário
         } catch (error: any) {
-          Alert.alert("Erro no Cadastro", error.message || "Não foi possível conectar ao servidor. Tente novamente.");
-          console.log("Erro ao cadastrar:", error);
+          // Loga o erro no console para depuração, independentemente do tipo.
+          console.error("Falha no processo de cadastro:", error);
+
+          let errorMessage = "Não foi possível conectar ao servidor. Tente novamente.";
+          if (axios.isAxiosError(error)) {
+              errorMessage = error.response?.data?.message || error.message || errorMessage;
+          }
+          Alert.alert("Erro no Cadastro", errorMessage);
+
         } finally {
           setIsLoading(false);
         }
@@ -149,6 +124,30 @@ export default function Register() {
           <CustomButton 
             label={step === steps.length - 1 ? "Finalizar" : "Próximo"} 
             onPress={handleNext}
+            disabled={isLoading}
+          />
+          <CustomButton
+            label='Teste'
+            onPress={async() => {
+              try {
+                const r = await axios.get("https://harppia-endpoints.onrender.com");
+                console.log("OK", r.data);
+              } catch (e) {
+                console.log("ERRO GET:", e);
+              }
+
+              const test = new FormData();
+              test.append("foo", "bar");
+
+              await axios.post(
+                "https://harppia-endpoints.onrender.com/v1/users/register",
+                test,
+                {
+                  headers: { Accept: "application/json" },
+                  transformRequest: (d) => d,
+                }
+              );
+            }}
           />
         </View>
       </View>

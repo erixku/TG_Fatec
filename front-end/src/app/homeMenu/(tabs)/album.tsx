@@ -5,7 +5,8 @@ import MusicItens, { LayoutType } from "@/components/home&others/album/MuiscsIte
 import { itensMusics } from "@/mocks/itensMusics";
 import { itensArtists } from "@/mocks/itensArtists";
 import { ChevronRightIcon, UserIcon, UsersIcon, Squares2X2Icon, ListBulletIcon, FunnelIcon } from "react-native-heroicons/solid";
-import SortPopUp from "@/components/home&others/album/SortPopUp";
+import SortPopUp from "@/components/home&others/SortPopUp";
+import { set } from "zod";
 
 export default function HomePage() {
     const colorScheme = useColorScheme();
@@ -14,6 +15,7 @@ export default function HomePage() {
     const [isPublic, setIsPublic] = useState<boolean>(false);
     const [layout, setLayout] = useState<LayoutType>('list');
     const [isSortVisible, setIsSortVisible] = useState<boolean>(false);
+    const [sortOption, setSortOption] = useState<string>('Mais Recentes');
     
     return (
         <AnimatedScreenWrapper>
@@ -23,7 +25,7 @@ export default function HomePage() {
                         <View className=" flex-1 flex-col gap-y-2">
                             <View className="flex-row justify-between">
                                 <Pressable className="flex-row items-center gap-x-2" onPress={() => setIsSortVisible(true)}>
-                                    <Text className="text-2xl font-nunito-semibold dark:text-blue-100 text-slate-900">Recentes</Text>
+                                    <Text className="text-2xl font-nunito-semibold dark:text-blue-100 text-slate-900">{sortOption}</Text>
                                     <ChevronRightIcon size={20} color={baseColor} />
                                 </Pressable>
                                 <View className="flex-row items-center gap-x-2">
@@ -51,6 +53,7 @@ export default function HomePage() {
                 onClose={() => setIsSortVisible(false)}
                 onSelect={(option:string) => {
                     // Lógica de ordenação aqui
+                    setSortOption(option);
                     console.log('Opção selecionada:', option);
                 }}
             />
