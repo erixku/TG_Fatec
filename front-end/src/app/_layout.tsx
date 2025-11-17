@@ -15,7 +15,26 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 // Impede que a tela de splash se esconda automaticamente.
 SplashScreen.preventAutoHideAsync();
 
+// Carrega polyfills apenas em runtime (evita executar require de módulos
+// nativos durante a análise de rotas pelo Metro bundler.
+
 export default function Layout() {
+  // Load polyfills dynamically at runtime so Metro route parsing doesn't
+  // attempt to require native modules during bundling.
+  useEffect(() => {
+    (async () => {
+      try {
+        const poly = await import('../polyfills');
+        if (poly && typeof poly.initBlobPolyfills === 'function') {
+          await poly.initBlobPolyfills();
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.info('polyfills not loaded at runtime:', e);
+      }
+    })();
+  }, []);
+
   const { colorScheme } = useColorScheme();
   const baseColor = colorScheme === 'light' ? '#cbd5e1' : '#1e293b'
   const myTheme = {
