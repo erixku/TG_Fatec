@@ -49,7 +49,6 @@ public class UsuarioController {
 		System.err.println("Arquivo: " + ( (file != null)  ? file.getName() : "ausente!" ) );
 		
 		UsuarioCadastradoDTO userCadastrado = cadUsrUC.execute(usrCadDTO, file);
-		
 
 		if (userCadastrado == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

@@ -60,8 +60,8 @@ public abstract class UsuarioMapper {
 	}
 
 	@Named("tratarSexo")
-	protected Character tratarSexo(Character sex) {
-		return Character.toLowerCase(sex);
+	protected Character tratarSexo(String sex) {
+		return sex.toUpperCase().charAt(0);
 	}
 	
 	@AfterMapping

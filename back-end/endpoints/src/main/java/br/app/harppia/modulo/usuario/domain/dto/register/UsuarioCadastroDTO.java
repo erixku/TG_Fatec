@@ -29,8 +29,8 @@ public record UsuarioCadastroDTO (
     @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]*$", message = "Nome social só pode conter letras e espaços")	
 	String nomeSocialCompleto,
 	
-	@NotNull(message = "Sexo inválido!")
-	Character sexo,
+	@NotNull(message = "Sexo ausente!")
+	String sexo,
 	
 	@NotNull(message = "Data de nascimento é obrigatória!")
 	@Past(message = "Data de nascimento inválida.")
