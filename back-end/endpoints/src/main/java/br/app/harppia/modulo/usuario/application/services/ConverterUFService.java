@@ -46,7 +46,7 @@ public class ConverterUFService {
 		Map.entry("tocantins", "TO")
 	);
 
-	public String paraSigla(String value) {
+	public static String paraSigla(String value) {
 
 		if (value == null || value.trim().isEmpty() || value.trim().length() < 2)
 			return null;
