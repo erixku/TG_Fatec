@@ -25,5 +25,6 @@ CREATE TYPE
 AS ENUM (
   'png', 'jpg', 'jpeg', 'svg',
   'mp3', 'wav', 'ogg',  'flac', 'm4a', 'alac',
+  'mp4', 'mov',
   'pdf'
 );

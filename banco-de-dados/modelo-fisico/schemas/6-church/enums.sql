@@ -38,7 +38,7 @@ AS ENUM (
 CREATE TYPE
   utils.s_church_t_tb_categoria_e_tipo
 AS ENUM (
-  'agendamento', 'compromisso', 'classificação de música'
+  'agendamento', 'compromisso', 'classificação de faixas'
 );
 
 CREATE TYPE
@@ -57,5 +57,8 @@ AS ENUM (
 CREATE TYPE
   utils.s_church_t_tb_instrumento_e_familia
 AS ENUM (
-  'cordas'
+  'cordas',
+  'madeiras',
+  'metais',
+  'percussao'
 );
