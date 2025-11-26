@@ -46,9 +46,10 @@ CREATE TABLE notification.tb_notificacao (
   was_readed BOOLEAN      NOT NULL DEFAULT FALSE,
 
   -- chaves estrangeiras
-  tip_id                            SMALLINT NOT NULL,
-  s_auth_t_tb_usuario_c_notificado  UUID     NOT NULL,
-  s_auth_t_tb_usuario_c_notificador UUID     NOT NULL,
+  tip_id                                    SMALLINT NOT NULL,
+  s_auth_t_tb_usuario_c_notificado          UUID     NOT NULL,
+  s_auth_t_tb_usuario_c_notificador         UUID         NULL,
+  s_church_t_tb_ministerio_louvor_c_min_lou UUID         NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_notification_t_tb_notificacao_c_id PRIMARY KEY (id),
@@ -71,6 +72,13 @@ CREATE TABLE notification.tb_notificacao (
   CONSTRAINT fk_s_notification_t_tb_notificacao_c_notificador
     FOREIGN KEY (s_auth_t_tb_usuario_c_notificador)
     REFERENCES auth.tb_usuario (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_notification_t_tb_notificacao_c_min_lou
+    FOREIGN KEY (s_church_t_tb_ministerio_louvor_c_min_lou)
+    REFERENCES church.tb_ministerio_louvor (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
