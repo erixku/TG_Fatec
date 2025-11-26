@@ -10,6 +10,7 @@ type Endereco = {
     localidade: string;
     estado: string;
     cep: string;
+    uf: string;
 }
 
 type UseCepValidationReturn = {

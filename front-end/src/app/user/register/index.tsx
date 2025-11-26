@@ -10,7 +10,7 @@ import RegisterFormEmail from "@/components/login&register/RegisterFormEmail";
 import { useFormContext } from "react-hook-form";
 import { RegisterUserFormData } from "@/schemas/registerUserSchema";
 import axios from 'axios';
-import { registerUserDry, registerUserDryAsBlob, registerUser } from '@/api/registerUser';
+import { registerUser } from '@/api/registerUser';
 
 export default function Register() {
   const colorScheme = useColorScheme();
@@ -21,8 +21,6 @@ export default function Register() {
   const [step, setStep] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  // durante testes podemos alternar como os dados serão enviados
-  const [submitMode, setSubmitMode] = useState<'multipart' | 'dry' | 'blob'>('blob');
 
   const steps = [
     { component: <RegisterFormUser />, fields: ['arquivo', 'nomeCompleto', 'nomeCompletoSocial', 'cpf', 'dataNascimento', 'sexo', 'telefone', 'endereco.cep', 'endereco.rua', 'endereco.numero', 'endereco.complemento', 'endereco.bairro', 'endereco.cidade', 'endereco.uf'] },
@@ -68,15 +66,8 @@ export default function Register() {
         setIsLoading(true);
           try {
             const formData = getValues();
-            let responseData: any;
-
-            if (submitMode === 'multipart') {
-              responseData = await registerUser(formData);
-            } else if (submitMode === 'dry') {
-              responseData = await registerUserDry(formData);
-            } else {
-              responseData = await registerUserDryAsBlob(formData);
-            }
+            console.log("\n\n Dados enviados para a API de cadastro:", formData, "\n\n");
+            const responseData = await registerUser(formData);
 
             // Se a resposta for sucesso (status 2xx)
             console.log("Cadastro realizado com sucesso!", responseData);
@@ -131,7 +122,6 @@ export default function Register() {
 
         {/* Rodapé */}
         <View className="flex justify-center flex-row gap-x-4">
-            
           <CustomButton 
             label={step === steps.length - 1 ? "Finalizar" : "Próximo"} 
             onPress={handleNext}
@@ -141,39 +131,17 @@ export default function Register() {
             label='Ligar a API'
             onPress={async() => {
               try {
+                console.log('🔌 Testando conexão com API...');
                 const r = await axios.get("https://harppia-endpoints.onrender.com");
-                console.log("OK", r.data);
-              } catch (e) {
-                console.log("ERRO GET:", e);
+                console.log("✅ API respondeu:", r.status, r.data);
+                Alert.alert("Conexão OK", "API está online e respondendo!");
+              } catch (e: any) {
+                console.log("❌ Erro ao conectar:", e.message);
+                Alert.alert("Erro de Conexão", e.message || "Não foi possível conectar à API");
               }
-
-              const test = new FormData();
-              test.append("foo", "bar");
-
-              await axios.post(
-                "https://harppia-endpoints.onrender.com/v1/users/register",
-                test,
-                {
-                  headers: { Accept: "application/json" },
-                  transformRequest: (d) => d,
-                }
-              );
             }}
           />
         </View>
-          {/* Modo de envio - apenas para testes (temporário) */}
-            <View className="left-6 top-6 flex-row items-center">
-              <Text className="mr-2 text-sm">Modo:</Text>
-              <Pressable onPress={() => setSubmitMode('multipart')} className={`px-2 py-1 mr-2 rounded ${submitMode==='multipart' ? 'bg-blue-600' : 'bg-slate-200'}`}>
-                <Text className={`${submitMode==='multipart' ? 'text-white' : 'text-black'}`}>Multipart</Text>
-              </Pressable>
-              <Pressable onPress={() => setSubmitMode('dry')} className={`px-2 py-1 mr-2 rounded ${submitMode==='dry' ? 'bg-blue-600' : 'bg-slate-200'}`}>
-                <Text className={`${submitMode==='dry' ? 'text-white' : 'text-black'}`}>JSON</Text>
-              </Pressable>
-              <Pressable onPress={() => setSubmitMode('blob')} className={`px-2 py-1 rounded ${submitMode==='blob' ? 'bg-blue-600' : 'bg-slate-200'}`}>
-                <Text className={`${submitMode==='blob' ? 'text-white' : 'text-black'}`}>Blob</Text>
-              </Pressable>
-            </View>
       </View>
     </View>
   );

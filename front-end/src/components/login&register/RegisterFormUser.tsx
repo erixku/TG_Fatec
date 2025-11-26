@@ -24,7 +24,7 @@ export default function RegisterFormUser() {
             setValue("endereco.rua" ,endereco.logradouro);
             setValue("endereco.bairro" ,endereco.bairro);
             setValue("endereco.cidade" ,endereco.localidade);
-            setValue("endereco.uf" ,endereco.estado);
+            setValue("endereco.uf" ,endereco.uf);
         }
 
         if (error) console.log('Possível erro no CEP: '+error)
