@@ -1,22 +1,29 @@
 package br.app.harppia.modulo.auth.application.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.app.harppia.defaults.custom.aop.UseRole;
+import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
-import br.app.harppia.modulo.auth.domain.auth.request.RefreshTokenRequest;
-import br.app.harppia.modulo.auth.domain.auth.response.RefreshTokenResponse;
-import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
+import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.domain.request.AutenticarUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
+import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 
 @Service
 public class AutenticarUsuarioService {
 	
-	private final JwtService jwtService;
-	private final RefreshTokenService refreshTokenService;
+	private final ConsultarUsuarioAuthPort conUsrPort;
+	private final JwtService jwtSvc;
+	private final RefreshTokenService rfsTokSvc;
 
-	public AutenticarUsuarioService(JwtService jwtService, RefreshTokenService refreshTokenService) {
-		this.jwtService = jwtService;
-		this.refreshTokenService = refreshTokenService;
+	public AutenticarUsuarioService(JwtService jwtService, RefreshTokenService rfsTokSvc, ConsultarUsuarioAuthPort conUsrPort) {
+		this.jwtSvc = jwtService;
+		this.rfsTokSvc = rfsTokSvc;
+		this.conUsrPort = conUsrPort;
 	}
 
 	/**
@@ -24,26 +31,59 @@ public class AutenticarUsuarioService {
 	 * @param request
 	 * @return
 	 */
-	public LoginUsuarioResponse autenticar(InformacoesAutenticacaoUsuario request) {
+	@Transactional(readOnly = true)
+	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	public RefreshTokenResponse autenticar(InformacoesAutenticacaoUsuarioRVO request) {
 
-		String accessToken = jwtService.generateAccessToken(request);
-		String refreshToken = jwtService.generateRefreshToken(request);
+		String accessToken = jwtSvc.generateAccessToken(request);
+		String refreshToken = jwtSvc.generateRefreshToken(request);
 
-		refreshTokenService.salvarRefreshToken(request.id(), refreshToken);
-
-		return LoginUsuarioResponse.builder()
-				.id(request.id())
-				.email(request.login())
+		rfsTokSvc.salvarRefreshToken(request.id(), refreshToken);
+		
+		return RefreshTokenResponse.builder()
 				.accessToken(accessToken)
 				.refreshToken(refreshToken)
 				.build();
 	}
 	
+	/**
+	 * Usado para validar as credenciais do usuário ao navegar pelo aplicativo.
+	 * @param autUsrReq os dados prévios da sessão do usuário (tokens)
+	 * @return um novo par de tokens, se o usuário for válido
+	 */
+	@Transactional(readOnly = true)
+	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	public RefreshTokenResponse autenticar(AutenticarUsuarioRequest autUsrReq) {
+
+		if(autUsrReq == null)
+			throw new GestaoAutenticacaoException("Dados para autenticação ausentes!");
+		
+		InformacoesAutenticacaoUsuarioRVO infLogUsrRVO = conUsrPort.porId(autUsrReq.idUsuario());
+		
+		if(!jwtSvc.isTokenValid(autUsrReq.refreshToken(), infLogUsrRVO))
+			throw new GestaoAutenticacaoException("Refresh token expirado. Por favor, faça login novamente!");
+		
+		RefreshTokenResponse rfsTknResAUpdated = rfsTokSvc.atualizarRefreshToken(
+				new RefreshTokenRequest(
+						autUsrReq.idUsuario(), 
+						autUsrReq.refreshToken()
+					)
+				);
+
+		return new RefreshTokenResponse(
+				infLogUsrRVO.id(), 
+				rfsTknResAUpdated.accessToken(),
+				rfsTknResAUpdated.refreshToken()
+			);
+	}
+	
+	@Transactional(readOnly = true)
+	@UseRole(role = DatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse atualizarToken(RefreshTokenRequest request) {
 		
 		if(request == null || request.userId() == null || request.rawRefreshToken().trim().isEmpty())
 			throw new JwtServiceExcpetion("Impossível atualizar o token: informações ausentes!");
 		
-		return refreshTokenService.atualizarRefreshToken(request);
+		return rfsTokSvc.atualizarRefreshToken(request);
 	}
 }

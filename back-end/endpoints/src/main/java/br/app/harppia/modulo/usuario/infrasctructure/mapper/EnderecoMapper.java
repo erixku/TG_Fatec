@@ -15,6 +15,7 @@ public abstract class EnderecoMapper {
 	@Mapping(target = "updatedAt", ignore = true)
 
 	@Mapping(source = "uf", target = "uf", qualifiedByName = "mapUf")
+	@Mapping(source = "cep", target = "cep", qualifiedByName = "mapCep")
 	abstract EnderecoUsuarioEntity toEntity(EnderecoCadastroDTO endCadDTO);
 
 	@Named("mapUf")
@@ -24,5 +25,14 @@ public abstract class EnderecoMapper {
 			return null;
 
 		return (uf.length() != 2) ? ConverterUFService.paraSigla(uf) : uf.toUpperCase();
+	}
+	
+	@Named("mapCep")
+	String mapCep(String cep) {
+
+		if (cep == null || cep.trim().isEmpty() || (cep.length() < 2))
+			return null;
+
+		return cep.trim().replaceAll("\\D", "");
 	}
 }

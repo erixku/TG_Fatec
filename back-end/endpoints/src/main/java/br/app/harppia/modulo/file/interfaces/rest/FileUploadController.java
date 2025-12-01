@@ -13,31 +13,47 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
+import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 
 @RestController
 @RequestMapping("/v1/files")
 public class FileUploadController {
 
-	private final SalvarFotoPerfilUseCase salvarFotoPerfilUseCase;
+	private final SalvarFotoPerfilUseCase slvFotoPrfUC;
 
-	public FileUploadController(SalvarFotoPerfilUseCase salvarFotoPerfilUseCase) {
-		this.salvarFotoPerfilUseCase = salvarFotoPerfilUseCase;
+	public FileUploadController(SalvarFotoPerfilUseCase slvFotoPrfUsrUC) {
+		this.slvFotoPrfUC = slvFotoPrfUsrUC;
+	}
+
+	@PostMapping(value = "/upload/user_profile_photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<ArquivoPersistidoResponse> uploadFotoPerfilUsuario(
+				@RequestPart("file") MultipartFile file,
+				@RequestPart("id_criador") UUID idCriador
+			) {
+			
+		ArquivoPersistidoResponse arqPstRes;
+		arqPstRes = slvFotoPrfUC.proceder(file, ENomeBucket.FOTO_PERFIL_USUARIO.getCustomValue(), idCriador);
+
+		return ResponseEntity.status( 
+				(arqPstRes != null) 
+					? HttpStatus.CREATED
+					: HttpStatus.BAD_REQUEST
+			).body(arqPstRes);
 	}
 
 	@PostMapping(value = "/upload/profile_picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<ArquivoPersistidoResponse> uploadProfilePictureFile(
-				@RequestPart("file") MultipartFile file,
-				@RequestPart("bucket") String bucketToSave,
-				@RequestPart("id-criador") UUID idCriador) {
-			
-		ArquivoPersistidoResponse arquivoSalvo = null;
+	public ResponseEntity<ArquivoPersistidoResponse> uploadFotoPerfilIgreja(
+			@RequestPart("file") MultipartFile file,
+			@RequestPart("id_criador") UUID idCriador
+		) {
 		
-		arquivoSalvo = salvarFotoPerfilUseCase.salvar(file, bucketToSave, idCriador);
-
+		ArquivoPersistidoResponse arqPstRes;
+		arqPstRes = slvFotoPrfUC.proceder(file, ENomeBucket.FOTO_PERFIL_IGREJA.getCustomValue(), idCriador);
+		
 		return ResponseEntity.status( 
-				(arquivoSalvo != null) 
-					? HttpStatus.CREATED
-					: HttpStatus.INTERNAL_SERVER_ERROR
-			).body(arquivoSalvo);
+				(arqPstRes != null) 
+				? HttpStatus.CREATED
+				: HttpStatus.BAD_REQUEST
+				).body(arqPstRes);
 	}
 }

@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.app.harppia.modulo.file.application.usecases.BuscarBucketUseCase;
+import br.app.harppia.modulo.file.application.service.BuscarBucketService;
 import br.app.harppia.modulo.file.domain.valueobjects.ArquivoCadastroDTO;
 import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEntity;
 
@@ -12,7 +12,7 @@ import br.app.harppia.modulo.file.infrastructure.repository.entities.ArquivoEnti
 public abstract class ArquivoMapper {
 
     @Autowired
-    protected BuscarBucketUseCase buscarBucketUseCase;
+    protected BuscarBucketService buscarBucketUseCase;
     
     //----------------------------------------//
     // CONVERSÃO DE <<DTO>> PARA >>ENTIDADE<< //

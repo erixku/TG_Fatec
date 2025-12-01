@@ -2,7 +2,6 @@ package br.app.harppia.modulo.usuario.domain.dto.register;
 
 import br.app.harppia.defaults.custom.annotations.ValidUF;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -13,8 +12,6 @@ import jakarta.validation.constraints.Size;
  */
 public record EnderecoCadastroDTO (
 	@NotBlank(message = "CEP é obrigatório!")
-	@Size(min = 8, max = 8, message = "O CEP deve ter 8 dígitos!")
-	@Pattern(regexp = "^\\d{8}$", message = "O CEP deve ter apenas números (ex: 12345012)!")
 	String cep,
 	
 	@ValidUF

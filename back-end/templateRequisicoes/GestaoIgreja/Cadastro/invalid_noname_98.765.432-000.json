@@ -1,0 +1,18 @@
+{
+  "idCriador": "UUID-INVALIDO",
+  "cnpj": "98.765.432/000",
+  "nome": "Igreja Luz do Caminho",
+  "denominacao": "BATISTA",
+  "outraDenominacao": "",
+  "idDono": "1234",
+  "cadEndIgrReq": {
+    "cep": "99999-999",
+    "uf": "XX",
+    "cidade": "Rio de Janeiro",
+    "bairro": "Centro",
+    "logradouro": "Av. Atlântica",
+    "numero": "quinze",
+    "complemento": null,
+    "isEnderecoPrincipal": true
+  }
+}

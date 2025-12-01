@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
 import br.app.harppia.modulo.auth.application.usecases.LogarUsuarioUseCase;
-import br.app.harppia.modulo.auth.domain.auth.request.RefreshTokenRequest;
-import br.app.harppia.modulo.auth.domain.auth.response.RefreshTokenResponse;
-import br.app.harppia.modulo.auth.domain.login.request.LoginUsuarioRequest;
-import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
+import br.app.harppia.modulo.auth.domain.request.AutenticarUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
+import br.app.harppia.modulo.auth.domain.response.LoginUsuarioResponse;
+import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
 
 /**
  * Responsável por receber todas as requisições relacionadas ao LOGIN de
@@ -25,7 +26,7 @@ import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
  */
 
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/v1/users/auth")
 public class LoginUsuarioController {
 
 	private final LogarUsuarioUseCase loginService;
@@ -37,22 +38,30 @@ public class LoginUsuarioController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<LoginUsuarioResponse> login(@RequestBody LoginUsuarioRequest loginDto) {
-		LoginUsuarioResponse response = loginService.execute(loginDto);
+	public ResponseEntity<LoginUsuarioResponse> logar(@RequestBody LoginUsuarioRequest loginDto) {
+		LoginUsuarioResponse response = loginService.proceder(loginDto);
 
 		return (response == null) 
 				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
-				: ResponseEntity.status(HttpStatus.FOUND).body(response);
+				: ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@PostMapping("/authenticate")
+	public ResponseEntity<RefreshTokenResponse> autenticar(@RequestBody AutenticarUsuarioRequest request) {
+		RefreshTokenResponse rfsTknRes = authService.autenticar(request);
+
+		return (rfsTknRes == null) 
+				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
+				: ResponseEntity.status(HttpStatus.OK).body(rfsTknRes);
 	}
 
 	@PostMapping("/refresh")
-	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request){
-		
+	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request) {
 		RefreshTokenResponse response = authService.atualizarToken(request);
-		
+
 		return (response == null) 
 				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
-				: ResponseEntity.status(HttpStatus.CREATED).body(response);
+				: ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 }

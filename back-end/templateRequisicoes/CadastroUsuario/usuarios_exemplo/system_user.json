@@ -1,0 +1,19 @@
+{
+  "cpf": "115.143.010-24",
+  "nomeCompleto": "System Admin",
+  "nomeSocialCompleto": null,
+  "sexo": "O",
+  "dataNascimento": "1990-12-31",
+  "email": "harppia.system.management@hotmail.com",
+  "telefone": "(95) 97652-7344",
+  "senha": "H@rppia_2025.2!",
+  "endereco": {
+    "cep": "16308-070",
+    "uf": "SP",
+    "cidade": "Penápolis",
+    "bairro": "Conjunto Habitacional 1",
+    "logradouro": "Rua Irmãos Chrisóstomo de Oliveira",
+    "numero": "0",
+    "complemento": "Endereço fictício."
+  }
+}

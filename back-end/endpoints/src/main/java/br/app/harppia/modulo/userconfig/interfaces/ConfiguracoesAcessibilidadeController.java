@@ -38,7 +38,6 @@ public class ConfiguracoesAcessibilidadeController {
 				new SalvarAcessibilidadeIntelectualRequest(idDonoCfgStr)
 			);
 		
-		
 		return ResponseEntity.ok(idDonoCfg);
 	}
 }

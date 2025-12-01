@@ -84,9 +84,7 @@ public class UsuarioController {
 		if (dto == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-		boolean response;
-
-		response = atuUsrUC.execute(dto);
+		boolean response = atuUsrUC.execute(dto);
 
 		if (!response)
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

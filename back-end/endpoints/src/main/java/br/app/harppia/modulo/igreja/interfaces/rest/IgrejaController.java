@@ -1,36 +1,41 @@
 package br.app.harppia.modulo.igreja.interfaces.rest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.modulo.igreja.application.usecase.BuscarIgrejaUseCase;
 import br.app.harppia.modulo.igreja.application.usecase.CriarIgrejaUseCase;
 import br.app.harppia.modulo.igreja.domain.request.BuscarIgrejaRequest;
 import br.app.harppia.modulo.igreja.domain.request.CadastroIgrejaRequest;
-import br.app.harppia.modulo.igreja.domain.response.BuscarIgrejaResponse;
+import br.app.harppia.modulo.igreja.domain.response.BuscarListaIgrejasResponse;
 import br.app.harppia.modulo.igreja.domain.response.CadastroIgrejaResponse;
 
 @RestController
 @RequestMapping("/v1/church")
 public class IgrejaController {
 	
-	private final CriarIgrejaUseCase cius;
-	private final BuscarIgrejaUseCase bius;
+	private final CriarIgrejaUseCase criIgrUS;
+	private final BuscarIgrejaUseCase bscIgrUS;
 
-	public IgrejaController(CriarIgrejaUseCase cius, BuscarIgrejaUseCase bius) {
-		this.cius = cius;
-		this.bius = bius;
+	public IgrejaController(CriarIgrejaUseCase criIgrUS, BuscarIgrejaUseCase bscIgrUS) {
+		this.criIgrUS = criIgrUS;
+		this.bscIgrUS = bscIgrUS;
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<CadastroIgrejaResponse> cadastrarIgreja(@RequestBody CadastroIgrejaRequest cadIgrReq){
+	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<CadastroIgrejaResponse> cadastrarIgreja(
+			@RequestPart(value = "church_data") CadastroIgrejaRequest cadIgrReq,
+			@RequestPart(value = "church_photo") MultipartFile mtpFileFoto
+		){
 		
-		CadastroIgrejaResponse responseDto = cius.cadastrar(cadIgrReq);
+		CadastroIgrejaResponse responseDto = criIgrUS.proceder(cadIgrReq, mtpFileFoto);
 		
 		return cadIgrReq != null
 				? ResponseEntity.status(HttpStatus.CREATED).body(responseDto)
@@ -38,11 +43,11 @@ public class IgrejaController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<BuscarIgrejaResponse> buscarIgreja(BuscarIgrejaRequest requestDto){
-		BuscarIgrejaResponse responseDto = bius.buscar(requestDto);
+	public ResponseEntity<BuscarListaIgrejasResponse> buscarIgrejas(BuscarIgrejaRequest requestDto){
+		BuscarListaIgrejasResponse responseDto = bscIgrUS.listaContendoNome(requestDto);
 		
 		return requestDto != null
-				? ResponseEntity.status(HttpStatus.CREATED).body(responseDto)
+				? ResponseEntity.status(HttpStatus.OK).body(responseDto)
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		
 	}

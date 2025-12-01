@@ -5,59 +5,80 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
-import br.app.harppia.defaults.custom.exceptions.LoginUsuarioException;
+import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
 import br.app.harppia.defaults.custom.roles.DatabaseRoles;
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarIgrejaAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
 import br.app.harppia.modulo.auth.application.services.RefreshTokenService;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
-import br.app.harppia.modulo.auth.domain.login.request.LoginUsuarioRequest;
-import br.app.harppia.modulo.auth.domain.login.response.LoginUsuarioResponse;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasDTO;
+import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.response.LoginUsuarioResponse;
+import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
+import br.app.harppia.modulo.auth.domain.valueobjects.IgrejasUsuarioFazParteRVO;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacaoUsuarioLoginRVO;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasRVO;
 import br.app.harppia.modulo.auth.infrastructure.mappers.UsuarioLoginMapper;
 
 @Service
 public class LogarUsuarioUseCase {
 
-	private final ConsultarUsuarioPort cup;
-	private final PasswordEncoder pe;
-	private final UsuarioLoginMapper ulm;
-	private final AutenticarUsuarioService aus;
-	private final RefreshTokenService rts;
+	private final ConsultarUsuarioAuthPort conUsrAuthPort;
+	private final ConsultarIgrejaAuthPort conIgrAuthPort;
+	private final PasswordEncoder pwdEnc;
+	private final UsuarioLoginMapper usrLogMpr;
+	private final AutenticarUsuarioService autUsrSvc;
+	private final RefreshTokenService rfsTokSvc;
 
-	public LogarUsuarioUseCase(ConsultarUsuarioPort conUsrPort, PasswordEncoder pwdEnc,
-			UsuarioLoginMapper usrMpr, AutenticarUsuarioService autSvc,
+	public LogarUsuarioUseCase(ConsultarUsuarioAuthPort conUsrAuthPort, 
+			ConsultarIgrejaAuthPort conIgrAuthPort, PasswordEncoder pwdEnc,
+			UsuarioLoginMapper usrLogMpr, AutenticarUsuarioService autUsrSvc,
 			RefreshTokenService rfsTokSvc) {
-		this.cup = conUsrPort;
-		this.pe = pwdEnc;
-		this.ulm = usrMpr;
-		this.aus = autSvc;
-		this.rts = rfsTokSvc;
+		this.conUsrAuthPort = conUsrAuthPort;
+		this.conIgrAuthPort = conIgrAuthPort;
+		this.pwdEnc = pwdEnc;
+		this.usrLogMpr = usrLogMpr;
+		this.autUsrSvc = autUsrSvc;
+		this.rfsTokSvc = rfsTokSvc;
 	}
 
 	@Transactional
 	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
-	public LoginUsuarioResponse execute(LoginUsuarioRequest lgnUserDTO) {
+	public LoginUsuarioResponse proceder(LoginUsuarioRequest logUsrReq) {
 
-		InformacoesLoginSanitizadasDTO infLgnSntDto = ulm.toSanitizedDto(lgnUserDTO);
+		InformacoesLoginSanitizadasRVO infLgnSntDto = usrLogMpr.mapRequest(logUsrReq);
 
-		InformacoesAutenticacaoUsuario infLgnUsrBanco = cup.informacoesAutenticacao(infLgnSntDto.cpf(),
+		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthPort.informacoesAutenticacao(infLgnSntDto.cpf(),
 				infLgnSntDto.email(), infLgnSntDto.telefone());
 
-		if (infLgnUsrBanco == null)
-			throw new LoginUsuarioException("Usuário não encontrado!");
+		if (infAutUsrBanco == null)
+			throw new GestaoAutenticacaoException("Usuário não encontrado!");
 
-		if (!saoMesmaSenha(infLgnUsrBanco.senha(), infLgnSntDto.senha()))
-			throw new LoginUsuarioException("Senha ou login inválidos!");
+		if (!saoMesmaSenha(infAutUsrBanco.senha(), infLgnSntDto.senha()))
+			throw new GestaoAutenticacaoException("Senha ou login inválidos!");
 
-		LoginUsuarioResponse loginResponse = aus.autenticar(infLgnUsrBanco);
+		RefreshTokenResponse rfsTknRes = autUsrSvc.autenticar(infAutUsrBanco);
 		
-		rts.salvarRefreshToken(loginResponse.id(), loginResponse.refreshToken());		
+		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		
 		
-		return loginResponse;
+		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.login(), infAutUsrBanco.nome());
+		IgrejasUsuarioFazParteRVO igrUsrFazPrt = conIgrAuthPort.vinculadasAoUsuario(infAutUsrBanco.id()); 
+		
+		return LoginUsuarioResponse.builder()
+				.infUsrLogRVO(infUsrLgnRVO)
+				.igrUsrFazPrtRVO(igrUsrFazPrt)
+				.accessToken(rfsTknRes.accessToken())
+				.refreshToken(rfsTknRes.refreshToken())
+				.build();
 	}
 
-	private boolean saoMesmaSenha(String senhaArmazenadaEncriptada, String senhaPuraInserida) {
-		return (pe.matches(senhaPuraInserida, senhaArmazenadaEncriptada));
+	/**
+	 * Confere se as duas senhas são a mesma, através do algoritmos usado para encriptação original.
+	 * @param strSenhaEncriptada a senha recuperada do banco (já encriptada)
+	 * @param strSenhaRequest a senha pura enviada pelo usuário
+	 * @return se conferem, <i>true</i>, senão, <i>false</i>.
+	 */
+	private boolean saoMesmaSenha(String strSenhaEncriptada, String strSenhaRequest) {
+		return (pwdEnc.matches(strSenhaRequest, strSenhaEncriptada));
 	}
 }

@@ -37,6 +37,7 @@ public class EnderecoIgrejaEntity  {
 
     @Id
     @Generated(event = EventType.INSERT)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "created_at", insertable = false, updatable = false)

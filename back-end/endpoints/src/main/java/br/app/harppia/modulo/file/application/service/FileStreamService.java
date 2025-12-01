@@ -59,9 +59,10 @@ public class FileStreamService {
 					: nomeArquivo[0]
 			);
 
+		// O nome gerado é igual para cada usuário. 
+		// Sempre que ele subir uma foto, ela será sempre sobrescrevida.
 		keyName = keyName.concat(folderToSave).concat("/");
-		keyName = keyName.concat(criador.toString()).concat("_");
-		keyName = keyName.concat(nomeNormalizado);
+		keyName = keyName.concat(criador.toString());
 
 		try(InputStream is = file.getInputStream()){
 			s3Template.upload(bucketName, keyName, is);			

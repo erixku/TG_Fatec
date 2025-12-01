@@ -1,0 +1,18 @@
+{
+  "idCriador": null,
+  "cnpj": null,
+  "nome": "Igreja Muito Grandeeeeeeeeeeeeeeee ",
+  "denominacao": "pentecostal-reformada-irregular",
+  "outraDenominacao": "TESTE123",
+  "idDono": null,
+  "cadEndIgrReq": {
+    "cep": "123",
+    "uf": "",
+    "cidade": null,
+    "bairro": "Bairro Inexistente",
+    "logradouro": null,
+    "numero": "",
+    "complemento": "",
+    "isEnderecoPrincipal": false
+  }
+}

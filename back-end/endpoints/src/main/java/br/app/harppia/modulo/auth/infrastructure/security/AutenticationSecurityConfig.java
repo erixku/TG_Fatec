@@ -15,8 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 
 @Configuration
 @EnableWebSecurity
@@ -65,9 +65,9 @@ public class AutenticationSecurityConfig {
      * @return
      */
     @Bean
-    protected UserDetailsService userDetailsService(ConsultarUsuarioPort conUsrPort) {
+    protected UserDetailsService userDetailsService(ConsultarUsuarioAuthPort conUsrPort) {
         return username -> {
-        	InformacoesAutenticacaoUsuario usuario = conUsrPort.informacoesAutenticacao(username, username, username);
+        	InformacoesAutenticacaoUsuarioRVO usuario = conUsrPort.informacoesAutenticacao(username, username, username);
             if (usuario == null) {
                 throw new UsernameNotFoundException("Usuário não encontrado");
             }

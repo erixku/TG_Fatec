@@ -11,12 +11,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -68,9 +65,8 @@ public class UsuarioFuncaoEntity {
     //-----------//
     // CHAVES FK //
     //-----------//
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "min_lou_id", nullable = false)
-    private MinisterioLouvorEntity ministerioLouvor;
+    @Column(name = "min_lou_id", nullable = false)
+    private UUID idMinisterio;
 
     @Column(name = "s_auth_t_tb_usuario_c_lev", nullable = false)
     private UUID idLevita;

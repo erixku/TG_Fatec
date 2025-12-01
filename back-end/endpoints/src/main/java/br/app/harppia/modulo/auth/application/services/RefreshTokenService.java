@@ -7,10 +7,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
-import br.app.harppia.modulo.auth.domain.auth.request.RefreshTokenRequest;
-import br.app.harppia.modulo.auth.domain.auth.response.RefreshTokenResponse;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
+import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 
 @Service
 public class RefreshTokenService {
@@ -19,13 +19,13 @@ public class RefreshTokenService {
 	private final RedisTemplate<String, String> rdsTmp;
 
 	private final JwtService jwtSvc;
-	private final ConsultarUsuarioPort cup;
+	private final ConsultarUsuarioAuthPort conUsrAuthPort;
 
 	public RefreshTokenService(RedisTemplate<String, String> redisTemplate, JwtService jwtService,
-			ConsultarUsuarioPort cup) {
+			ConsultarUsuarioAuthPort conUsrAuthPort) {
 		this.rdsTmp = redisTemplate;
 		this.jwtSvc = jwtService;
-		this.cup = cup;
+		this.conUsrAuthPort = conUsrAuthPort;
 	}
 
 	public void salvarRefreshToken(UUID userId, String refreshToken) {
@@ -47,14 +47,15 @@ public class RefreshTokenService {
 			throw new JwtServiceExcpetion("Refresh Token inválido ou expirado.");
 
 		if (!userIdFromRedis.equals(request.userId().toString())) {
+			
 			// implementar lógica de deletar todos os tokens do userIdFromRedis
 			// ...
+			rdsTmp.delete(redisKey);
 
-			throw new SecurityException(
-					"Violação de segurança: Tentativa de refresh de token com ID de usuário incorreto.");
+			throw new SecurityException("Violação de segurança: Tentativa de refresh de token com ID de usuário incorreto.");
 		}
 
-		InformacoesAutenticacaoUsuario userInfo = cup.porId(request.userId());
+		InformacoesAutenticacaoUsuarioRVO userInfo = conUsrAuthPort.porId(request.userId());
 
 		String newAccessToken = jwtSvc.generateAccessToken(userInfo);
 		String newRefreshToken = jwtSvc.generateRefreshToken(userInfo);

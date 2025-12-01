@@ -4,14 +4,14 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import br.app.harppia.defaults.custom.converters.enums.denominacao.ConversorEnumDenominacaoIgreja;
 import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EDenominacaoIgreja;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -31,7 +31,7 @@ public class IgrejaEntity {
 	private static final long serialVersionUID = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
+	@Generated(event = EventType.INSERT)
 	@Column(name = "id", insertable = false, updatable = false)
 	private UUID id; 
 	

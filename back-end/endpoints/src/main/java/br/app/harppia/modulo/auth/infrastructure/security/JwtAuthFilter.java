@@ -9,9 +9,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
 import br.app.harppia.modulo.auth.application.services.JwtService;
-import br.app.harppia.modulo.auth.domain.auth.request.InformacoesAutenticacaoUsuario;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,10 +20,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-	private final ConsultarUsuarioPort userService;
+	private final ConsultarUsuarioAuthPort userService;
 	private final JwtService jwtService;
 	
-	public JwtAuthFilter(ConsultarUsuarioPort userService, JwtService jwtService) {
+	public JwtAuthFilter(ConsultarUsuarioAuthPort userService, JwtService jwtService) {
 		this.userService = userService;
 		this.jwtService = jwtService;
 	}
@@ -51,7 +51,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
         	
-        	InformacoesAutenticacaoUsuario userDetails = userService.informacoesAutenticacao(username, username, username);
+        	InformacoesAutenticacaoUsuarioRVO userDetails = userService.informacoesAutenticacao(username, username, username);
 	
 	        if (jwtService.isTokenValid(jwt, userDetails)) {
 	            var authToken = new UsernamePasswordAuthenticationToken(

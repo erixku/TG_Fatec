@@ -6,27 +6,28 @@ import org.mapstruct.Named;
 import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
-import br.app.harppia.modulo.auth.domain.login.request.LoginUsuarioRequest;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasDTO;
+import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasRVO;
 
 @Mapper(componentModel = "spring")
 public abstract class UsuarioLoginMapper {
 
-	// -------------------------
-	// DTO -> Entidade de dominio
-	// ---------
-
-	// Campos do DTO que precisam ser tratados:
+	/**
+	 * Este método, além de mapear, também já sanitiza alguns dados.
+	 * Estes são: CPF, email, telefone e senha.
+	 * A senha é apenas encriptada.
+	 * @param dto
+	 * @return
+	 */
 	@Mapping(source = "cpf", target = "cpf", qualifiedByName = "sanitizarCpf")
 	@Mapping(source = "email", target = "email", qualifiedByName = "sanitizarEmail")
 	@Mapping(source = "telefone", target = "telefone", qualifiedByName = "sanitizarTelefone")
 	@Mapping(source = "senha", target = "senha", qualifiedByName = "encriptarSenha")
-	public abstract InformacoesLoginSanitizadasDTO toSanitizedDto(LoginUsuarioRequest dto);
+	public abstract InformacoesLoginSanitizadasRVO mapRequest(LoginUsuarioRequest lgnUsrReqMapped);
 
 	// --------------------------------------------
 	// MÉTODOS PARA TRATAR/FORMATAR OS DADOS
-	// --------------------
-	
+	// --------------------	
 	@Named("sanitizarCpf")
 	protected String tratarCpf(String cpfMalFormatado) {
 		return (cpfMalFormatado == null || cpfMalFormatado.trim().isEmpty())

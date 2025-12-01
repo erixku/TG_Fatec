@@ -1,7 +1,5 @@
 package br.app.harppia.modulo.igreja.domain.request;
 
-import java.util.UUID;
-
-public record BuscarIgrejaRequest(UUID idIgreja) {
+public record BuscarIgrejaRequest(String nome) {
 
 }

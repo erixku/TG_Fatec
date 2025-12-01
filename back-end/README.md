@@ -8,6 +8,7 @@ Este documento contempla explanações acerca da arquitetura de diretórios e pr
 ## Sumário
 Esse artigo abrange os seguintes tópicos:
 - [Sobre Este Arquivo](#sobre-este-arquivo);
+- [Lista de Endpoints](#lista-de-endpoints)
 - [Ficha Técnica do Projeto](#ficha-técnica-do-projeto)
 - [Introdução](#introdução);
 - [Arquitetura do projeto](#arquitetura-do-projeto);
@@ -17,11 +18,31 @@ Esse artigo abrange os seguintes tópicos:
 - [Gestão de exceções](#gestão-de-exceções);
 
 
+## Introdução
+Essa API pode ser consumida de qualquer origem, seja através de clientes mobiles ou navegadores.
+
+
+## Lista de Endpoints
+A API possui métodos de GET, POST, PUT e DELETE. Eles estão listados a seguir, agrupados por categoria. A URL base é "https://harppia-endpoints.onrender.com".
+
+### USUARIO
+- "/v1/users/register"
+- "/v1/users/find"
+
+### IGREJA
+- "/v1/church/create"
+- "/v1/church/search"
+
+### MUSICA
+
+### ATIVIDADES
+
+
 ## Ficha Técnica do Projeto
 
 
 
-## Introdução
+
 
 
 

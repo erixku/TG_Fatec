@@ -8,12 +8,9 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,9 +58,8 @@ public class AdministradorIgrejaEntity {
 	//-----//
 	// FKs //
 	//-----//
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "igr_id", nullable = false)
-	private IgrejaEntity igreja;
+	@Column(name = "igr_id", nullable = false)
+	private UUID idIgreja;
 	
 	@Column(name = "s_auth_t_tb_usuario_c_adm", nullable = false)
 	private UUID idAdmin;
