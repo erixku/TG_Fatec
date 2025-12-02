@@ -6,13 +6,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.app.harppia.defaults.custom.converters.enums.statususuario.ConversorEnumStatusUsuario;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.enums.EStatusUsuario;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -61,11 +65,13 @@ public class UsuarioEntity implements UserDetails {
 	//------------------//
 	// DADOS DO USUÁRIO //
 	//------------------//
-	@Column(name = "is_deleted", nullable = false, insertable = false)
-	private Boolean isDeleted;
-
 	@Column(name = "cpf", nullable = false, unique = true, updatable = false)
 	private String cpf;
+
+	@Convert(converter = ConversorEnumStatusUsuario.class)
+	@Column(name = "status", nullable = false)
+	@ColumnTransformer(write = "CAST ? AS utils.s_auth_t_tb_usuario_e_status")
+	private EStatusUsuario status;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -88,8 +94,14 @@ public class UsuarioEntity implements UserDetails {
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
+	@Column(name = "is_email_verificado", nullable = false, unique = true)
+	private Boolean emailVerificado;
+
 	@Column(name = "telefone", nullable = false, unique = true)
 	private String telefone;
+	
+	@Column(name = "is_telefone_verificado", nullable = false, unique = true)
+	private Boolean telefoneVerificado;
 
 	@Column(name = "senha", nullable = false)
 	private String senha;

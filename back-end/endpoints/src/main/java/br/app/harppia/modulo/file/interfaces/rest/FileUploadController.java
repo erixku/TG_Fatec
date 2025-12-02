@@ -41,7 +41,7 @@ public class FileUploadController {
 			).body(arqPstRes);
 	}
 
-	@PostMapping(value = "/upload/profile_picture", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PostMapping(value = "/upload/church_profile_photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<ArquivoPersistidoResponse> uploadFotoPerfilIgreja(
 			@RequestPart("file") MultipartFile file,
 			@RequestPart("id_criador") UUID idCriador

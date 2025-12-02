@@ -28,7 +28,7 @@ public class MusicaController {
 		this.busMusUC = busMusUC;
 	}
 
-	@PostMapping("/register")
+	@PostMapping("/create")
 	public ResponseEntity<CadastroMusicaResponse> salvar(@RequestBody CadastroMusicaRequest requestDto) {
 		CadastroMusicaResponse cadMusRes = cadMusUC.salvar(requestDto);
 
@@ -38,7 +38,7 @@ public class MusicaController {
 	}
 	
 	@GetMapping("/find")
-	public ResponseEntity<BuscarMusicaResponse> buscar(@RequestParam("nomeMusica") String nome){
+	public ResponseEntity<BuscarMusicaResponse> buscar(@RequestParam("nome") String nome){
 		
 		BuscarMusicaResponse busMusRes = busMusUC.buscar(new BuscarMusicaRequest(nome));
 		

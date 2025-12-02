@@ -1,12 +1,12 @@
 {
-  "idCriador": "1c3f7b9a-927b-4acd-bc51-bf3dc909fa75",
-  "cnpj": "12345678900000",
-  "nome": "",
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "58.643.283/0001-70",
+  "nome": "aaaa mem irmoes",
   "denominacao": "CATOLICA",
   "outraDenominacao": null,
-  "idDono": "1c3f7b9a-927b-4acd-bc51-bf3dc909fa75",
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
   "cadEndIgrReq": {
-    "cep": "01A0B1-00C",
+    "cep": "01101-001",
     "uf": "sp",
     "cidade": "São Paulo",
     "bairro": "Sé",

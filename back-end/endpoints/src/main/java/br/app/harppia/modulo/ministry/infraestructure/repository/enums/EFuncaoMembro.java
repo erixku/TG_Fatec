@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.igreja.infrastructure.repository.enums;
+package br.app.harppia.modulo.ministry.infraestructure.repository.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import br.app.harppia.defaults.utils.InternalEnumParser;
 import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
-public enum EFuncaoUsuario implements EnumPersistivel {
+public enum EFuncaoMembro implements EnumPersistivel {
 	LIDER("lider"),
 	MINISTRO("ministro"),
 	LEVITA("levita");
 
 	private String funcao;
 	
-	EFuncaoUsuario(String funcao){
+	EFuncaoMembro(String funcao){
 		this.funcao = funcao;
 	}
 
@@ -24,7 +24,7 @@ public enum EFuncaoUsuario implements EnumPersistivel {
 	}
 	
     @JsonCreator
-    public static EFuncaoUsuario fromValue(String value) {
-    	return InternalEnumParser.fromValue(EFuncaoUsuario.class, value);
+    public static EFuncaoMembro fromValue(String value) {
+    	return InternalEnumParser.fromValue(EFuncaoMembro.class, value);
     }
 }

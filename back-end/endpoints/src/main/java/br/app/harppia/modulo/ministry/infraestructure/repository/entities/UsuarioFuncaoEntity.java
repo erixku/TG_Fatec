@@ -1,16 +1,17 @@
-package br.app.harppia.modulo.igreja.infrastructure.repository.entities;
+package br.app.harppia.modulo.ministry.infraestructure.repository.entities;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.modulo.igreja.infrastructure.repository.enums.EFuncaoUsuario;
+import br.app.harppia.defaults.custom.converters.enums.funcao.ConversorEnumFuncaoMembro;
+import br.app.harppia.modulo.ministry.infraestructure.repository.enums.EFuncaoMembro;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -58,9 +59,10 @@ public class UsuarioFuncaoEntity {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = false;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = ConversorEnumFuncaoMembro.class)
+    @ColumnTransformer(write = "CAST(? AS utils.s_song_e_tonalidade)")
     @Column(name = "funcao", nullable = false)
-    private EFuncaoUsuario funcao;
+    private EFuncaoMembro funcao;
 
     //-----------//
     // CHAVES FK //

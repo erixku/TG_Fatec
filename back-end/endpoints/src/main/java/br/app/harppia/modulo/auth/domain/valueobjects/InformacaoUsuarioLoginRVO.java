@@ -5,5 +5,5 @@ import java.util.UUID;
 import lombok.Builder;
 
 @Builder
-public record InformacaoUsuarioLoginRVO(UUID id, String nome, String email) {
+public record InformacaoUsuarioLoginRVO(UUID id, String email) {
 }

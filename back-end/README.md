@@ -23,19 +23,57 @@ Essa API pode ser consumida de qualquer origem, seja através de clientes mobile
 
 
 ## Lista de Endpoints
-A API possui métodos de GET, POST, PUT e DELETE. Eles estão listados a seguir, agrupados por categoria. A URL base é "https://harppia-endpoints.onrender.com".
+A API possui métodos de GET, POST, PUT e DELETE. Eles estão listados a seguir, agrupados por categoria. Além disso, eles podem ser encontrados e verificados manualmente em todas as classes com sufixo "Controller". A URL base é "https://harppia-endpoints.onrender.com".
 
-### USUARIO
-- "/v1/users/register"
-- "/v1/users/find"
 
-### IGREJA
-- "/v1/church/create"
-- "/v1/church/search"
+### MODULO USUÁRIO:
 
-### MUSICA
+- /v1/users/register
+- /v1/users/find
+- /v1/users/update/{uuid}
+- /v1/users/delete/{uuid}
 
-### ATIVIDADES
+
+### MODULO CONFIGURAÇÕES:
+
+- /v1/config/save
+
+
+### MODULO NOTIFICAÇÕES:
+
+- /v1/notification/create
+
+
+### MODULO MUSICA:
+
+- /v1/song/create
+- /v1/song/find
+
+
+### MODULO MINISTERIO:
+
+- /v1/ministry/create
+- /v1/ministry/search
+- /v1/ministry/search/all
+- /v1/ministry/add/member
+
+
+### MODULO IGREJA:
+- /v1/church/create
+- /v1/church/search
+
+
+### MODULO ARQUIVO:
+
+- /v1/files/upload/user_profile_photo
+- /v1/files/upload/upload/church_profile_photo
+
+
+### MODULO AUTENTICACAO:
+
+- /v1/users/auth/login
+- /v1/users/auth/authenticate
+- /v1/users/auth/refresh
 
 
 ## Ficha Técnica do Projeto

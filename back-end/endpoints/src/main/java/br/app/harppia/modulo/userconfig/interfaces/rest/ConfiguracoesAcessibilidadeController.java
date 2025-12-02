@@ -1,4 +1,4 @@
-package br.app.harppia.modulo.userconfig.interfaces;
+package br.app.harppia.modulo.userconfig.interfaces.rest;
 
 import java.util.UUID;
 
