@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoMinisterioException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.ministry.domain.request.AdicionarMembroRequest;
 import br.app.harppia.modulo.ministry.domain.response.AdicionarMembroResponse;
 import br.app.harppia.modulo.ministry.infraestructure.mapper.UsuarioFuncaoMapper;
@@ -24,7 +24,7 @@ public class AdicionarMembroMinisterioUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public AdicionarMembroResponse adicionarUm(AdicionarMembroRequest adcMemReq) {
 		
 		if(adcMemReq == null)

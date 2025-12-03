@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
 import br.app.harppia.modulo.auth.domain.request.AutenticarUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
@@ -32,7 +32,7 @@ public class AutenticarUsuarioService {
 	 * @return
 	 */
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse autenticar(InformacoesAutenticacaoUsuarioRVO request) {
 
 		String accessToken = jwtSvc.generateAccessToken(request);
@@ -52,7 +52,7 @@ public class AutenticarUsuarioService {
 	 * @return um novo par de tokens, se o usuário for válido
 	 */
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse autenticar(AutenticarUsuarioRequest autUsrReq) {
 
 		if(autUsrReq == null)
@@ -78,7 +78,7 @@ public class AutenticarUsuarioService {
 	}
 	
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse atualizarToken(RefreshTokenRequest request) {
 		
 		if(request == null || request.userId() == null || request.rawRefreshToken().trim().isEmpty())

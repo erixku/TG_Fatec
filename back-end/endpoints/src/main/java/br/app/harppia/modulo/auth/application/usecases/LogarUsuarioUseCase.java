@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarIgrejaAuthPort;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
@@ -43,7 +43,7 @@ public class LogarUsuarioUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public LoginUsuarioResponse proceder(LoginUsuarioRequest logUsrReq) {
 
 		InformacoesLoginSanitizadasRVO infLgnSntDto = usrLogMpr.mapRequest(logUsrReq);

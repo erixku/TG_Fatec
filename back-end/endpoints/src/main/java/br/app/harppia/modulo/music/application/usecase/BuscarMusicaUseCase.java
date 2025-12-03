@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoMusicaException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.music.domain.request.BuscarMusicaRequest;
 import br.app.harppia.modulo.music.domain.response.BuscarMusicaResponse;
 import br.app.harppia.modulo.music.domain.valueobject.InformacoesBasicasMusicaRVO;
@@ -23,7 +23,7 @@ public class BuscarMusicaUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public BuscarMusicaResponse buscar(BuscarMusicaRequest busMusReq) {
 		if (busMusReq == null)
 			throw new GestaoMusicaException("Nenhuma informação base para buscar a(s) música(s)!");

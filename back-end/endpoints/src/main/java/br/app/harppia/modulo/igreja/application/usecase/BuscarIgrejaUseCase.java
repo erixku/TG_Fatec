@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.igreja.domain.request.BuscarIgrejaRequest;
 import br.app.harppia.modulo.igreja.domain.response.BuscarIgrejaResponse;
 import br.app.harppia.modulo.igreja.domain.response.BuscarListaIdsIgrejasResponse;
@@ -28,7 +28,7 @@ public class BuscarIgrejaUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public BuscarListaIgrejasResponse listaContendoNome(BuscarIgrejaRequest requestDto) {
 
 		if (requestDto == null)
@@ -40,7 +40,7 @@ public class BuscarIgrejaUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public BuscarIgrejaResponse porId(UUID idIgreja) {
 
 		if (idIgreja == null)
@@ -65,7 +65,7 @@ public class BuscarIgrejaUseCase {
 	}
 	
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public BuscarListaIdsIgrejasResponse listaIgrejasVinculadasAoUsuario(UUID idUsuario) {
 		if(idUsuario == null)
 			throw new GestaoIgrejaException("Não foi possível buscar pela igreja: dados ausentes!");

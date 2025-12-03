@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 import br.app.harppia.modulo.usuario.application.usecases.ConsultarUsuarioUseCase;
@@ -32,7 +32,7 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthPort {
 	
 	@Override
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesAutenticacaoUsuarioRVO informacoesAutenticacao(String cpf, String email, String telefone) {
 
 		InformacoesLoginUsuarioBanco user = conUsrUC.informacoesAutenticacaoLogin(cpf, email, telefone);
@@ -50,7 +50,7 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthPort {
 
 	@Override
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesAutenticacaoUsuarioRVO porId(UUID id) {
 		
 		InformacoesLoginUsuarioBanco user = conUsrUC.porId(id);
@@ -59,6 +59,14 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthPort {
 		
 		return (user == null) ? null
 				: new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), roles						);
+	}
+
+	@Override
+	@Transactional
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public UUID porEmail(String email) {
+		
+		return conUsrUC.porEmail(email);
 	}
 
 }

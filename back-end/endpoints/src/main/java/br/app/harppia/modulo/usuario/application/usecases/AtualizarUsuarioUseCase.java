@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.usuario.domain.dto.AtualizarUsuarioDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
@@ -23,7 +23,7 @@ public class AtualizarUsuarioUseCase {
 		this.passEncoder = passEncoder;
 	}
 
-	@UseRole(role = DatabaseRoles.ROLE_USUARIO)
+	@UseRole(role = EDatabaseRoles.ROLE_USUARIO)
 	@Transactional
 	public boolean execute(AtualizarUsuarioDTO newUserData) {
 

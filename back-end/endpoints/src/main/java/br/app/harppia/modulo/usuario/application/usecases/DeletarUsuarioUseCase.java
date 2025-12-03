@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.usuario.domain.request.DeletarUsuarioRequest;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
 
@@ -17,7 +17,7 @@ public class DeletarUsuarioUseCase {
 		this.ur = ur;
 	}
 	
-	@UseRole(role = DatabaseRoles.ROLE_USUARIO)
+	@UseRole(role = EDatabaseRoles.ROLE_USUARIO)
 	@Transactional
 	public boolean deletar(DeletarUsuarioRequest requestDto) {
 		

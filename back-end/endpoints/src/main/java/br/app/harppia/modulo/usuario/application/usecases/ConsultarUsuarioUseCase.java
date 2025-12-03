@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
@@ -28,7 +28,7 @@ public class ConsultarUsuarioUseCase {
 	}
 
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_USUARIO)
+	@UseRole(role = EDatabaseRoles.ROLE_USUARIO)
 	public InformacaoPublicaUsuarioDTO porCpfOuEmailOuTelefone(String key) {
 
 		if (key == null || key.trim().isEmpty()) {
@@ -67,7 +67,7 @@ public class ConsultarUsuarioUseCase {
 	}
 
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesLoginUsuarioBanco informacoesAutenticacaoLogin(String cpf, String email, String telefone) {
 
 		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findAuthInfoByCpfOrEmailOrTelefone(cpf, email,
@@ -78,12 +78,21 @@ public class ConsultarUsuarioUseCase {
 	}
 
 	@Transactional(readOnly = true)
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesLoginUsuarioBanco porId(UUID id) {
 
 		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findAuthInfoById(id);
 
 		return (user.isEmpty()) ? null
 				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
+	}
+	
+	@Transactional(readOnly = true)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public UUID porEmail(String email) {
+
+		Optional<UUID> user = userRepo.findIdByEmail(email);
+
+		return (user.isEmpty()) ? null : user.get();
 	}
 }

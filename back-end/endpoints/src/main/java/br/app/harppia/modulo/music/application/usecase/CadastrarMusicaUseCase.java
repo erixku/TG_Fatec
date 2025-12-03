@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.music.domain.request.CadastroMusicaRequest;
 import br.app.harppia.modulo.music.domain.response.CadastroMusicaResponse;
 import br.app.harppia.modulo.music.infrastructure.mapper.MusicaMapper;
@@ -23,7 +23,7 @@ public class CadastrarMusicaUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public CadastroMusicaResponse salvar(CadastroMusicaRequest cadMusReq) {
 		if(cadMusReq == null)
 			return null;

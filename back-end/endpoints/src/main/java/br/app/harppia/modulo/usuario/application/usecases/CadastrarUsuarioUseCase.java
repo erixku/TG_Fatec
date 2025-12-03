@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.usuario.application.port.out.RegistrarFotoPerfilUsuarioPort;
 import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadePort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilUsuarioRVO;
@@ -50,7 +50,7 @@ public class CadastrarUsuarioUseCase {
 	 * @param reqDto os dados do usuário
 	 * @return Um objeto com UUID, email e nome do usuário cadastrado.
 	 */
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	@Transactional
 	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO reqDto, MultipartFile mptFile) {
 

@@ -2,6 +2,7 @@ package br.app.harppia.modulo.music.interfaces.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class MusicaController {
 	}
 
 	@PostMapping("/create")
+	@PreAuthorize("hasRole('MINISTRO')")
 	public ResponseEntity<CadastroMusicaResponse> salvar(@RequestBody CadastroMusicaRequest requestDto) {
 		CadastroMusicaResponse cadMusRes = cadMusUC.salvar(requestDto);
 
@@ -38,6 +40,7 @@ public class MusicaController {
 	}
 	
 	@GetMapping("/find")
+	@PreAuthorize("hasRole('LEVITA')")
 	public ResponseEntity<BuscarMusicaResponse> buscar(@RequestParam("nome") String nome){
 		
 		BuscarMusicaResponse busMusRes = busMusUC.buscar(new BuscarMusicaRequest(nome));
@@ -45,6 +48,5 @@ public class MusicaController {
 		return busMusRes != null
 				? ResponseEntity.status(HttpStatus.OK).body(busMusRes)
 				: ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		
 	}
 }

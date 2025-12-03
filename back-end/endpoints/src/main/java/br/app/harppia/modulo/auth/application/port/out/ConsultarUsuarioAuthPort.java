@@ -8,5 +8,7 @@ public interface ConsultarUsuarioAuthPort {
 		
 	InformacoesAutenticacaoUsuarioRVO porId(UUID id);
 	
+	UUID porEmail(String email);
+	
 	InformacoesAutenticacaoUsuarioRVO informacoesAutenticacao(String cpf, String email, String Telefone);
 }

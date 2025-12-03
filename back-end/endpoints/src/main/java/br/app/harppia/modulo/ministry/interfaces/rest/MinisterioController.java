@@ -3,6 +3,7 @@ package br.app.harppia.modulo.ministry.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,7 @@ public class MinisterioController {
 	}
 
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PreAuthorize("hasRole('LEVITA')")
 	public ResponseEntity<CriarMinisterioResponse> criar(
 			@RequestPart("ministry_data") CriarMinisterioRequest criMinReq,
 			@RequestPart("ministry_photo") MultipartFile mtpFile
@@ -59,6 +61,7 @@ public class MinisterioController {
 	}
 	
 	@GetMapping("/search")
+	@PreAuthorize("hasRole('LEVITA')")
 	public ResponseEntity<BuscarMinisterioResponse> buscar(BuscarMinisterioRequest busMinReq) {	
 		
 		BuscarMinisterioResponse lstMinRes = conMinUC.porNome(busMinReq);
@@ -67,6 +70,7 @@ public class MinisterioController {
 	}
 	
 	@GetMapping("/search/all")
+	@PreAuthorize("hasRole('LIDER')")
 	public ResponseEntity<ListarMinisteriosResponse> listarTodos(BuscarMinisterioRequest busMinReq) {
 		
 		ListarMinisteriosResponse lstMinRes = conMinUC.listarPorNome(busMinReq);
@@ -75,6 +79,7 @@ public class MinisterioController {
 	}
 
 	@PostMapping("/add/member")
+	@PreAuthorize("hasRole('LIDER')")
 	public ResponseEntity<AdicionarMembroResponse> adicionarMembro(@RequestBody AdicionarMembroRequest adcMbmReq) {
 
 		AdicionarMembroResponse adcMbmRes = adcMemMinUC.adicionarUm(adcMbmReq);

@@ -3,6 +3,7 @@ package br.app.harppia.modulo.userconfig.interfaces.rest;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class ConfiguracoesAcessibilidadeController {
 	}
 
 	@PostMapping("/save")
+	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<String> salvarTodas(@RequestParam("idDonoConfig") String idDonoCfg){
 		
 		UUID idDonoCfgStr = UUID.fromString(idDonoCfg);

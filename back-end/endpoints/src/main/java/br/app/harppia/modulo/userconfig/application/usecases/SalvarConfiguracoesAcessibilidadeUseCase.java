@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoConfiguracoesAcessibilidadeExcpetion;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeAuditivaRequest;
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeIntelectualRequest;
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeVisualRequest;
@@ -28,7 +28,7 @@ public class SalvarConfiguracoesAcessibilidadeUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public void todas(SalvarAcessibilidadeAuditivaRequest slvAcbAudReq, SalvarAcessibilidadeVisualRequest slvAcbAudVis,
 			SalvarAcessibilidadeIntelectualRequest slvAcbInt) {
 		auditiva(slvAcbAudReq);
@@ -37,7 +37,7 @@ public class SalvarConfiguracoesAcessibilidadeUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public void auditiva(SalvarAcessibilidadeAuditivaRequest slvAcbAudReq) {
 		if (slvAcbAudReq == null)
 			throw new GestaoConfiguracoesAcessibilidadeExcpetion("Nenhuma configuração auditiva presente!");
@@ -46,7 +46,7 @@ public class SalvarConfiguracoesAcessibilidadeUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public void visual(SalvarAcessibilidadeVisualRequest slvAcbVisReq) {
 		if (slvAcbVisReq == null)
 			throw new GestaoConfiguracoesAcessibilidadeExcpetion("Nenhuma configuração visual presente!");
@@ -55,7 +55,7 @@ public class SalvarConfiguracoesAcessibilidadeUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public void intelectual(SalvarAcessibilidadeIntelectualRequest slvAcbIntReq) {
 		if (slvAcbIntReq == null)
 			throw new GestaoConfiguracoesAcessibilidadeExcpetion("Nenhuma configuração intelectual presente!");

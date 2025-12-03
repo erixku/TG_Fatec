@@ -38,8 +38,8 @@ public class LoginUsuarioController {
 		this.authService = authService;
 	}
 
-	@PreAuthorize("hasRole('ANONIMO')")
 	@PostMapping("/login")
+	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<LoginUsuarioResponse> logar(@RequestBody LoginUsuarioRequest loginDto) {
 		LoginUsuarioResponse response = loginService.proceder(loginDto);
 
@@ -48,8 +48,8 @@ public class LoginUsuarioController {
 				: ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@PreAuthorize("hasRole('ANONIMO')")
 	@PostMapping("/authenticate")
+	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<RefreshTokenResponse> autenticar(@RequestBody AutenticarUsuarioRequest request) {
 		RefreshTokenResponse rfsTknRes = authService.autenticar(request);
 
@@ -58,8 +58,8 @@ public class LoginUsuarioController {
 				: ResponseEntity.status(HttpStatus.OK).body(rfsTknRes);
 	}
 
-	@PreAuthorize("hasRole('ANONIMO')")
 	@PostMapping("/refresh")
+	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request) {
 		RefreshTokenResponse response = authService.atualizarToken(request);
 

@@ -31,7 +31,7 @@ public class UsuarioController {
 	private final CadastrarUsuarioUseCase cadUsrUC;
 	private final ConsultarUsuarioUseCase conUsrUC;
 	private final AtualizarUsuarioUseCase atuUsrUC;
-	private final DeletarUsuarioUseCase delUsrUC;
+	private final DeletarUsuarioUseCase   delUsrUC;
 
 	public UsuarioController(CadastrarUsuarioUseCase cadUsrUC, ConsultarUsuarioUseCase conUsrUC,
 			AtualizarUsuarioUseCase atuUsrUC, DeletarUsuarioUseCase delUsrUC) {
@@ -41,59 +41,50 @@ public class UsuarioController {
 		this.delUsrUC = delUsrUC;
 	}
 
-	//Registro
 	@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<UsuarioCadastradoDTO> cadastrar(
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {
-		
-		UsuarioCadastradoDTO userCadastrado = cadUsrUC.execute(usrCadDTO, file);
 
-		if (userCadastrado == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		UsuarioCadastradoDTO usrCadDto = cadUsrUC.execute(usrCadDTO, file);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(userCadastrado);
+		return ResponseEntity.status((usrCadDto != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST).body(usrCadDto);
 	}
 
-	//Consulta
-	@PreAuthorize("hasAnyRole('LEVITA', 'MINISTRO', 'ADMINISTRADOR')")
 	@GetMapping(value = "/find")
+	@PreAuthorize("@churchSecurity.check(authentication, #churchId, 'LEVITA')")
 	public ResponseEntity<InformacaoPublicaUsuarioDTO> buscar(@RequestParam("key") String key) {
 
-		InformacaoPublicaUsuarioDTO response = null;
-		response = conUsrUC.porCpfOuEmailOuTelefone(key);
+		InformacaoPublicaUsuarioDTO response = conUsrUC.porCpfOuEmailOuTelefone(key);
 
-		if (response == null)
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		return ResponseEntity.status((response != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(response);
 
-		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	/**
-	 * Os dados de um usuário só podem ser atualizados na tela de:
-	 * 		- informações pessoais;
-	 * 		- redefinição de senha;
-	 * 		- toda vez que ele entrar/sair da aplicação.
+	 * Os dados de um usuário só podem ser atualizados na tela de: - informações
+	 * pessoais; - redefinição de senha; - toda vez que ele entrar/sair da
+	 * aplicação.
 	 * 
-	 * Obs: se ele excluir a própria conta, ele apenas atualiza o campo "is_disabled" (ou equivalente) para 'true'
+	 * Obs: se ele excluir a própria conta, ele apenas atualiza o campo
+	 * "is_disabled" (ou equivalente) para 'true'
+	 * 
 	 * @param dto
 	 * @return
 	 */
 	@PutMapping(value = "/update/{key}")
+	@PreAuthorize("@churchSecurity.check(authentication, #churchId, 'LEVITA')")
 	public ResponseEntity<Boolean> atualizarUsuario(AtualizarUsuarioDTO dto) {
-		if (dto == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
 		boolean response = atuUsrUC.execute(dto);
 
-		if (!response)
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-		return ResponseEntity.status(HttpStatus.FOUND).body(response);
+		return ResponseEntity.status((response) ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(response);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public void deletarUsuario(String uuid){
+	@PreAuthorize("@churchSecurity.check(authentication, #churchId, 'LEVITA')")
+	public void deletarUsuario(String uuid) {
 		delUsrUC.getClass();
 	}
 }

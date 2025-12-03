@@ -1,6 +1,6 @@
 package br.app.harppia.defaults.custom.roles;
 
-public enum DatabaseRoles {
+public enum EDatabaseRoles {
 	ROLE_ANONIMO("r_anonimo"),
 	ROLE_USUARIO("r_usuario"),
 	ROLE_LEVITA("r_levita"),
@@ -13,7 +13,7 @@ public enum DatabaseRoles {
 	
 	private String role;
 	
-	DatabaseRoles(String role) {
+	EDatabaseRoles(String role) {
 		this.role = role;
 	}
 	

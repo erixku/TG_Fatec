@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.file.application.service.BuscarBucketService;
 import br.app.harppia.modulo.file.application.service.FileStreamService;
 import br.app.harppia.modulo.file.application.service.FotoPerfilFileValidatorService;
@@ -36,7 +36,7 @@ public class SalvarFotoPerfilUseCase {
 		this.fileStmSvc = fileStmSvc;
 	}
 
-	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	@Transactional
 	public ArquivoPersistidoResponse proceder(MultipartFile file, String bucket, UUID criador) {
 

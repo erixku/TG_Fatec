@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
-import br.app.harppia.defaults.custom.roles.DatabaseRoles;
+import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.igreja.application.port.RegistrarFotoPerfilIgrejaPort;
 import br.app.harppia.modulo.igreja.domain.request.CadastroIgrejaRequest;
 import br.app.harppia.modulo.igreja.domain.response.CadastroIgrejaResponse;
@@ -44,7 +44,7 @@ public class CriarIgrejaUseCase {
 	}
 
 	@Transactional
-	@UseRole(role = DatabaseRoles.ROLE_OWNER)
+	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public CadastroIgrejaResponse proceder(CadastroIgrejaRequest cadIgrReq, MultipartFile mtpFileFoto) {
 		
 		if (cadIgrReq == null)

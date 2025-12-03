@@ -31,6 +31,7 @@ public class IgrejaController {
 	}
 
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@PreAuthorize("hasRole('LEVITA')")
 	public ResponseEntity<CadastroIgrejaResponse> cadastrarIgreja(
 			@RequestPart(value = "church_data") CadastroIgrejaRequest cadIgrReq,
 			@RequestPart(value = "church_photo") MultipartFile mtpFileFoto
