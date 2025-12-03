@@ -16,14 +16,14 @@ import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsu
 @Service
 public class AutenticarUsuarioService {
 	
-	private final ConsultarUsuarioAuthPort conUsrPort;
+	private final ConsultarUsuarioAuthPort conUsrAuthPort;
 	private final JwtService jwtSvc;
 	private final RefreshTokenService rfsTokSvc;
 
-	public AutenticarUsuarioService(JwtService jwtService, RefreshTokenService rfsTokSvc, ConsultarUsuarioAuthPort conUsrPort) {
+	public AutenticarUsuarioService(JwtService jwtService, RefreshTokenService rfsTokSvc, ConsultarUsuarioAuthPort conUsrAuthPort) {
 		this.jwtSvc = jwtService;
 		this.rfsTokSvc = rfsTokSvc;
-		this.conUsrPort = conUsrPort;
+		this.conUsrAuthPort = conUsrAuthPort;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class AutenticarUsuarioService {
 		if(autUsrReq == null)
 			throw new GestaoAutenticacaoException("Dados para autenticação ausentes!");
 		
-		InformacoesAutenticacaoUsuarioRVO infLogUsrRVO = conUsrPort.porId(autUsrReq.idUsuario());
+		InformacoesAutenticacaoUsuarioRVO infLogUsrRVO = conUsrAuthPort.porId(autUsrReq.idUsuario());
 		
 		if(!jwtSvc.isTokenValid(autUsrReq.refreshToken(), infLogUsrRVO))
 			throw new GestaoAutenticacaoException("Refresh token expirado. Por favor, faça login novamente!");

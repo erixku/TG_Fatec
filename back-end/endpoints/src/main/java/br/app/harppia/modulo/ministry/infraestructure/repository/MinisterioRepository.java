@@ -7,17 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.app.harppia.modulo.ministry.domain.valueobject.InformacaoMinisterioRVO;
 import br.app.harppia.modulo.ministry.infraestructure.repository.entities.MinisterioEntity;
+import br.app.harppia.modulo.ministry.infraestructure.repository.projection.InformacaoMinisterioProjection;
 
 @Repository
 public interface MinisterioRepository extends JpaRepository<MinisterioEntity, UUID> {
 
 	@Transactional(readOnly = true)
-	public InformacaoMinisterioRVO findByNameContainingIgnoreCase( String nome );
+	public InformacaoMinisterioProjection findByNomeContainingIgnoreCase( String nome );
 
 	@Transactional(readOnly = true)
-	public List<InformacaoMinisterioRVO> findMinisteriosByNameContainingIgnoreCase( String nome );
-	public List<InformacaoMinisterioRVO> findAllIds();
+	public List<InformacaoMinisterioProjection> findAllByNomeContainingIgnoreCase( String nome );
 	
 }

@@ -9,6 +9,7 @@ import br.app.harppia.modulo.ministry.domain.request.BuscarMinisterioResponse;
 import br.app.harppia.modulo.ministry.domain.response.ListarMinisteriosResponse;
 import br.app.harppia.modulo.ministry.domain.valueobject.InformacaoMinisterioRVO;
 import br.app.harppia.modulo.ministry.infraestructure.repository.MinisterioRepository;
+import br.app.harppia.modulo.ministry.infraestructure.repository.projection.InformacaoMinisterioProjection;
 
 @Service
 public class ConsultarMinisterioUseCase {
@@ -20,15 +21,13 @@ public class ConsultarMinisterioUseCase {
 	}
 	
 	public BuscarMinisterioResponse porNome(BuscarMinisterioRequest busMinReq){
-		InformacaoMinisterioRVO infMinRVO = minRep.findByNameContainingIgnoreCase(busMinReq.nome());
+		InformacaoMinisterioProjection infMinRVO = minRep.findByNomeContainingIgnoreCase(busMinReq.nome());
 		 
-		return new BuscarMinisterioResponse(infMinRVO.idMinisterio(), infMinRVO.nome());
+		return new BuscarMinisterioResponse(infMinRVO.getId(), infMinRVO.getNome());
 	}
 
 	public ListarMinisteriosResponse listarPorNome(BuscarMinisterioRequest busMinReq){
-//		List<InformacaoMinisterioRVO> infMinRVO = minRep.findMinisteriosByNameContainingIgnoreCase(busMinReq.nome());
-		List<InformacaoMinisterioRVO> infMinRVO = minRep.findAllIds();
-		 
+		List<InformacaoMinisterioProjection> infMinRVO = minRep.findAllByNomeContainingIgnoreCase(busMinReq.nome());		 
 		return new ListarMinisteriosResponse(infMinRVO);
 	}
 }

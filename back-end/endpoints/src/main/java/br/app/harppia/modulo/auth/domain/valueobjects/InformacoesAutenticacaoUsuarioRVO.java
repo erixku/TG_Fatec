@@ -11,8 +11,7 @@ import lombok.Builder;
 @Builder
 public record InformacoesAutenticacaoUsuarioRVO (
 		UUID id,
-		String nome,
-		String login,
+		String email,
 		String senha,
 		Collection<? extends GrantedAuthority> roles
 		) implements UserDetails {
@@ -29,6 +28,6 @@ public record InformacoesAutenticacaoUsuarioRVO (
 	
 	@Override
 	public String getUsername() {
-		return nome.trim().isEmpty() ? null : login();
+		return email;
 	}
 }

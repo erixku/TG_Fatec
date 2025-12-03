@@ -16,10 +16,18 @@ import br.app.harppia.modulo.usuario.domain.dto.login.InformacoesLoginUsuarioBan
 
 @Component
 public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthPort {
-	private ConsultarUsuarioUseCase conUsrUC;
+	
+	private final ConsultarUsuarioUseCase conUsrUC;
 
+	private final List<SimpleGrantedAuthority> DEFAULT_ROLES;
+	
 	public ConsultarUsuarioAuthAdapter(ConsultarUsuarioUseCase conUsrUC) {
 		this.conUsrUC = conUsrUC;
+		
+		DEFAULT_ROLES = List.of(
+					new SimpleGrantedAuthority("ANONIMO"),
+					new SimpleGrantedAuthority("LEVITA")
+				);
 	}
 	
 	@Override
@@ -33,22 +41,24 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthPort {
 		// IMPLEMENTAR A BUSCA PELOS ROLES DO USUÁRIO //
 		// = = = = = = = = = = = = = = = = = = = = = =//
 		// ...
+		List<SimpleGrantedAuthority> roles = DEFAULT_ROLES;
+		
 		if(user == null) return null;
 		
-		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.nome(), user.email(), user.senha(),
-				List.of(new SimpleGrantedAuthority("LEVITA")));
+		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), roles);
 	}
 
 	@Override
 	@Transactional
 	@UseRole(role = DatabaseRoles.ROLE_ANONIMO)
 	public InformacoesAutenticacaoUsuarioRVO porId(UUID id) {
+		
 		InformacoesLoginUsuarioBanco user = conUsrUC.porId(id);
 		
-		return (user == null) 
-				? null
-				: new InformacoesAutenticacaoUsuarioRVO(user.id(), user.nome(), user.email(), user.senha(),
-						List.of(new SimpleGrantedAuthority("LEVITA")));
+		List<SimpleGrantedAuthority> roles = DEFAULT_ROLES;
+		
+		return (user == null) ? null
+				: new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), roles						);
 	}
 
 }

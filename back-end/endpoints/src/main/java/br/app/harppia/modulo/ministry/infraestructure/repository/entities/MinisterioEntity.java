@@ -8,8 +8,6 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -32,17 +30,16 @@ public class MinisterioEntity {
     // CHAVE PRIMÁRIA //
     //----------------//
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "id", insertable = false, updatable = false)
     private UUID id;
 
     //---------------//
     // DADOS DE LOGS //
     //---------------//
-    @Generated(event = EventType.INSERT)
     @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
-    @Generated(event = EventType.INSERT)
     @Column(name = "updated_at", nullable = false)
     private OffsetDateTime updatedAt;
 
@@ -70,7 +67,8 @@ public class MinisterioEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "codigo", nullable = false, insertable = false, updatable = false)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "codigo", insertable = false, updatable = false)
     private String codigo;
 
     //-----//

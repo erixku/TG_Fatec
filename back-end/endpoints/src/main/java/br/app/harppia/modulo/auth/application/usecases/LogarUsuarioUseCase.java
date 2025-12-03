@@ -61,7 +61,7 @@ public class LogarUsuarioUseCase {
 		
 		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		
 		
-		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.login());
+		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.email());
 		IgrejasUsuarioFazParteRVO igrUsrFazPrt = conIgrAuthPort.vinculadasAoUsuario(infAutUsrBanco.id()); 
 		
 		return LoginUsuarioResponse.builder()

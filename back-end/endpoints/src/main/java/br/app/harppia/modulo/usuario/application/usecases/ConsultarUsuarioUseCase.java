@@ -74,7 +74,7 @@ public class ConsultarUsuarioUseCase {
 				telefone);
 
 		return (user.isEmpty()) ? null
-				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getNome(), user.get().getEmail(), user.get().getSenha());
+				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
 	}
 
 	@Transactional(readOnly = true)
@@ -84,6 +84,6 @@ public class ConsultarUsuarioUseCase {
 		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findAuthInfoById(id);
 
 		return (user.isEmpty()) ? null
-				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getNome(), user.get().getEmail(), user.get().getSenha());
+				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
 	}
 }

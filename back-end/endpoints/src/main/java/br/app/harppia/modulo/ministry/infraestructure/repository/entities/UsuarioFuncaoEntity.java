@@ -60,7 +60,7 @@ public class UsuarioFuncaoEntity {
     private Boolean isDeleted = false;
 
     @Convert(converter = ConversorEnumFuncaoMembro.class)
-    @ColumnTransformer(write = "CAST(? AS utils.s_song_e_tonalidade)")
+    @ColumnTransformer(write = "CAST(? AS utils.s_church_t_tb_usuario_funcao_e_funcao)")
     @Column(name = "funcao", nullable = false)
     private EFuncaoMembro funcao;
 

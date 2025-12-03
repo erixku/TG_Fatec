@@ -83,11 +83,11 @@ public class WarningController {
     @ExceptionHandler(GestaoIgrejaException.class)
     public ResponseEntity<ErrorResponse> handleIgrejaError(GestaoIgrejaException ex) {
         log.error("Erro ao processar transação de igreja", ex);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(
                     "Erro ao completar transação",
                     ex.getMessage(),
-                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.BAD_REQUEST.value(),
                     OffsetDateTime.now().toString()
                 ));
     }

@@ -3,6 +3,7 @@ package br.app.harppia.modulo.usuario.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,8 +46,6 @@ public class UsuarioController {
 	public ResponseEntity<UsuarioCadastradoDTO> cadastrar(
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {
-
-		System.err.println("Arquivo: " + ( (file != null)  ? file.getName() : "ausente!" ) );
 		
 		UsuarioCadastradoDTO userCadastrado = cadUsrUC.execute(usrCadDTO, file);
 
@@ -57,6 +56,7 @@ public class UsuarioController {
 	}
 
 	//Consulta
+	@PreAuthorize("hasAnyRole('LEVITA', 'MINISTRO', 'ADMINISTRADOR')")
 	@GetMapping(value = "/find")
 	public ResponseEntity<InformacaoPublicaUsuarioDTO> buscar(@RequestParam("key") String key) {
 
