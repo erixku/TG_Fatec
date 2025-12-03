@@ -55,10 +55,10 @@ public class AutenticarUsuarioService {
 	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse autenticar(AutenticarUsuarioRequest autUsrReq) {
 
-		if(autUsrReq == null)
+		if(autUsrReq == null || autUsrReq.email() == null)
 			throw new GestaoAutenticacaoException("Dados para autenticação ausentes!");
 		
-		InformacoesAutenticacaoUsuarioRVO infLogUsrRVO = conUsrAuthPort.porId(autUsrReq.idUsuario());
+		InformacoesAutenticacaoUsuarioRVO infLogUsrRVO = conUsrAuthPort.informacoesAutenticacao("", autUsrReq.email(), "");
 		
 		if(!jwtSvc.isTokenValid(autUsrReq.refreshToken(), infLogUsrRVO))
 			throw new GestaoAutenticacaoException("Refresh token expirado. Por favor, faça login novamente!");

@@ -2,7 +2,6 @@ package br.app.harppia.modulo.auth.interfaces.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,6 @@ public class LoginUsuarioController {
 	}
 
 	@PostMapping("/login")
-	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<LoginUsuarioResponse> logar(@RequestBody LoginUsuarioRequest loginDto) {
 		LoginUsuarioResponse response = loginService.proceder(loginDto);
 
@@ -49,7 +47,6 @@ public class LoginUsuarioController {
 	}
 
 	@PostMapping("/authenticate")
-	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<RefreshTokenResponse> autenticar(@RequestBody AutenticarUsuarioRequest request) {
 		RefreshTokenResponse rfsTknRes = authService.autenticar(request);
 
@@ -59,7 +56,6 @@ public class LoginUsuarioController {
 	}
 
 	@PostMapping("/refresh")
-	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request) {
 		RefreshTokenResponse response = authService.atualizarToken(request);
 

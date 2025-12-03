@@ -63,7 +63,10 @@ public class AutenticationSecurityConfig {
         		// ENDPOINTS ANÔNIMOS  //
         		// - - - - - - - - - - //
                 .requestMatchers(
-                    "/v1/users/auth/login"
+                		"/v1/users/register",
+	            		"/v1/users/auth/login",
+	            		"/v1/users/auth/authenticate",
+	            		"/v1/users/auth/refresh"
                 ).permitAll()
 
                 // - - - - - - - -  //

@@ -42,7 +42,6 @@ public class UsuarioController {
 	}
 
 	@PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@PreAuthorize("hasRole('ANONIMO')")
 	public ResponseEntity<UsuarioCadastradoDTO> cadastrar(
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {

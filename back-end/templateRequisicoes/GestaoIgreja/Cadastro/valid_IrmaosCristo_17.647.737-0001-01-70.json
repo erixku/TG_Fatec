@@ -1,0 +1,18 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "17.647.737/0001-01",
+  "nome": "Irmãos em Cristo",
+  "denominacao": "Bastista",
+  "outraDenominacao": null,
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cadEndIgrReq": {
+    "cep": "01101-001",
+    "uf": "sp",
+    "cidade": "São Paulo",
+    "bairro": "Sé",
+    "logradouro": "Rua da Matrix",
+    "numero": "s/n",
+    "complemento": "",
+    "isEnderecoPrincipal": false
+  }
+}
