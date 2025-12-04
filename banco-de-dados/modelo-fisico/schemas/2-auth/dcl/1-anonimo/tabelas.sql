@@ -25,7 +25,9 @@ GRANT
     id,
     cpf,
     email,
+    is_email_verificado,
     telefone,
+    is_telefone_verificado,
     senha
   )
   ON TABLE auth.tb_usuario
@@ -34,6 +36,9 @@ GRANT
 GRANT
   UPDATE (
     updated_at,
+    status,
+    is_email_verificado,
+    is_telefone_verificado,
     senha,
     s_storage_t_tb_arquivo_c_foto
   )

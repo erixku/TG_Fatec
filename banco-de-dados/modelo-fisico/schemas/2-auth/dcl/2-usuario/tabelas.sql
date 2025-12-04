@@ -6,7 +6,7 @@ GRANT USAGE ON SCHEMA auth TO r_usuario;
 GRANT
   SELECT (
     id,
-    is_deleted,
+    status,
     cpf,
     nome,
     sobrenome,
@@ -15,7 +15,9 @@ GRANT
     sexo,
     data_nascimento,
     email,
+    is_email_verificado,
     telefone,
+    is_telefone_verificado,
     senha,
     s_storage_t_tb_arquivo_c_foto
   )
@@ -27,13 +29,15 @@ GRANT
     updated_at,
     deleted_at,
     last_access,
-    is_deleted,
+    status,
     nome,
     sobrenome,
     nome_social,
     sobrenome_social,
     data_nascimento,
+    is_email_verificado,
     telefone,
+    is_telefone_verificado,
     senha,
     s_storage_t_tb_arquivo_c_foto
   )
