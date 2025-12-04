@@ -55,3 +55,22 @@ ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_telefone
 CHECK (
   utils.s_auth_f_validador_telefone(telefone)
 );
+
+ALTER TABLE auth.tb_usuario
+ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_status_c_is_verificado
+CHECK (
+  (
+    status = 'em verificação'
+    AND NOT is_email_verificado
+    AND NOT is_telefone_verificado
+  )
+  OR
+  (
+    status = 'ativo' AND
+    (is_email_verificado OR is_telefone_verificado)
+  )
+  OR
+  (
+    status = 'deletado'
+  )
+);
