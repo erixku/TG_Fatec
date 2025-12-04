@@ -21,6 +21,7 @@ GRANT
   INSERT (
     created_by,
     nome,
+    link,
     mime_type,
     extensao,
     tamanho_em_bytes,

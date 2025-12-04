@@ -14,6 +14,7 @@ DECLARE
     'r_administrador',
     'r_api',
     'r_manutencao',
+    'r_hibernate',
     'r_sistema'
   ];
   nome_role TEXT;

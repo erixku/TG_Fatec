@@ -1,12 +1,10 @@
-GRANT USAGE ON SCHEMA auth TO r_usuario;
+GRANT USAGE ON SCHEMA auth TO r_anonimo;
 
 
 
 -- tb_usuario
 GRANT
-  SELECT (
-    id,
-    is_deleted,
+  INSERT (
     cpf,
     nome,
     sobrenome,
@@ -20,31 +18,38 @@ GRANT
     s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
-  TO r_usuario;
+  TO r_anonimo;
+
+GRANT
+  SELECT (
+    id,
+    cpf,
+    email,
+    is_email_verificado,
+    telefone,
+    is_telefone_verificado,
+    senha
+  )
+  ON TABLE auth.tb_usuario
+  TO r_anonimo;
 
 GRANT
   UPDATE (
     updated_at,
-    deleted_at,
-    last_access,
-    is_deleted,
-    nome,
-    sobrenome,
-    nome_social,
-    sobrenome_social,
-    data_nascimento,
-    telefone,
+    status,
+    is_email_verificado,
+    is_telefone_verificado,
     senha,
     s_storage_t_tb_arquivo_c_foto
   )
   ON TABLE auth.tb_usuario
-  TO r_usuario;
+  TO r_anonimo;
 
 
 
 -- tb_endereco
 GRANT
-  SELECT (
+  INSERT (
     id,
     cep,
     uf,
@@ -55,18 +60,4 @@ GRANT
     complemento
   )
   ON TABLE auth.tb_endereco
-  TO r_usuario;
-
-GRANT
-  UPDATE (
-    updated_at,
-    cep,
-    uf,
-    cidade,
-    bairro,
-    logradouro,
-    numero,
-    complemento
-  )
-  ON TABLE auth.tb_endereco
-  TO r_usuario;
+  TO r_anonimo;

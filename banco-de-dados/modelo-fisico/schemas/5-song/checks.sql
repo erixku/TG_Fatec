@@ -47,7 +47,7 @@ CHECK (
 ALTER TABLE song.tb_medley
 ADD CONSTRAINT ck_s_song_t_tb_medley_c_quantidade_musicas
 CHECK (
-  quantidade_musicas > 0 AND
+  quantidade_musicas >= 0 AND
   quantidade_musicas <= 20
 );
 

@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION
   utils.s_church_f_validador_nome (
+    IN is_null        BOOLEAN,
     IN nome           TEXT,
     IN tipo           TEXT,
     IN tamanho_minimo SMALLINT,
@@ -24,6 +25,10 @@ DECLARE
     'outro modelo de instrumento'
   ];
 BEGIN
+  IF is_null IS TRUE THEN
+    RETURN TRUE;
+  END IF;
+
   IF tipo IS NULL THEN
     RAISE EXCEPTION 'Tipo inválido: não pode ser nulo';
   END IF;

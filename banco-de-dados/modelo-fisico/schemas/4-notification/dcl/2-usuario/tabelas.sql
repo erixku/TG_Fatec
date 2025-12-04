@@ -21,7 +21,8 @@ GRANT
     link,
     tip_id,
     s_auth_t_tb_usuario_c_notificado,
-    s_auth_t_tb_usuario_c_notificador
+    s_auth_t_tb_usuario_c_notificador,
+    s_church_t_tb_ministerio_louvor_c_min_lou
   )
   ON TABLE notification.tb_notificacao
   TO r_usuario;
@@ -35,7 +36,8 @@ GRANT
     was_readed,
     tip_id,
     s_auth_t_tb_usuario_c_notificado,
-    s_auth_t_tb_usuario_c_notificador
+    s_auth_t_tb_usuario_c_notificador,
+    s_church_t_tb_ministerio_louvor_c_min_lou
   )
   ON TABLE notification.tb_notificacao
   TO r_usuario;

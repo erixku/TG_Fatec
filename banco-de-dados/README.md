@@ -96,8 +96,9 @@ Os diretórios do projeto foram divididos visando separação de responsabilidad
     - 📁 **algum-schema/** - diretório de algum schema  
       - 📁 **dcl/** - configurações de permissionamento  
         - 📁 **algum-role/** - diretório de algum ROLE  
-          - 📄 **grants.sql** - grants do ROLE  
           - 📄 **policies.sql** - policies associadas ao ROLE  
+          - 📄 **rotinas.sql** - grants do ROLE em rotinas  
+          - 📄 **tabelas.sql** - grants do ROLE em tabelas e schemas  
       - 📁 **funcoes-default/** - funções usadas em DEFAULT de colunas  
       - 📁 **funcoes-validacoes/** - funções usadas em CKs  
       - 📄 **checks.sql** - validações de dados  
@@ -111,7 +112,7 @@ Os diretórios do projeto foram divididos visando separação de responsabilidad
   - 📄 **.env** — configuração de variáveis de ambiente  
   - 📄 **.env.example** — exemplo de configuração de variáveis de ambiente  
   - 📄 **ddl.sql** — criação do banco  
-  - 📄 **extensions.sql** — extensões PostgreSQL utilizadas  
+  - 📄 **extensoes.sql** — extensões PostgreSQL utilizadas  
   - 📄 **variaveis-sessao.sql** — rotinas de SET e GET de variáveis de sessão  
 
 - 📄 **.gitignore** - arquivo .gitignore do projeto  
@@ -134,7 +135,7 @@ Todos os ambientes estão hospedados na plataforma Serverless [Neon](https://neo
 O fluxo de deploy segue a sequência: DEV -> QA -> PROD.
 
 
- 
+
 ## Integrações Externas
  
 O banco de dados comunica-se exclusivamente com a API utilizada pelo sistema Harppia. A interação entre banco e API é mediada pelo **Hibernate**.
@@ -166,7 +167,7 @@ Adicionalmente, são utilizadas outras estratégias de controle de acesso:
 
  
 ## ROLEs
- 
+
 As ROLEs do sistema Harppia foram definidas de forma hierárquica, com base em princípios de **least privilege** e segregação de funções. A seguir, estão descritas suas categorias e responsabilidades.
 
 ### ROLE SUPERUSER
@@ -190,7 +191,7 @@ Abaixo, constam ROLEs que não possuem permissão de `LOGIN` configurada, mas qu
 - **r_administrador**: utilizada por usuários autenticados que possuem perfil de administrador em suas igrejas;
 
 - **r_sistema**: utilizada pelo sistema em rotinas `SECURITY DEFINER`, em backups e em manutenções automáticas agendadas.
- 
+
 ### ROLEs com LOGIN habilitado
  
 Abaixo, constam ROLEs com permissão de `LOGIN` configurada, que não possuem permissões próprias, mas que assumem papéis de ROLEs não autenticáveis. São elas:
@@ -281,7 +282,7 @@ Todas as convenções descritas nesta seção devem ser seguidas integralmente e
  
 1. Chaves primárias, sem a declaração de sua `CONSTRAINT`;
  
-2. Colunas de log, nesta ordem: `created_at`, `updated_at`, `deleted_at`, `is_disabled`, `created_by`, `updated_by`, `deleted_by` e `disabled_by`. Caso alguma dessas colunas de log não fizer sentido para a tabela, basta não adicioná-la. Caso seja necessário adicionar outro log para uma tabela em específico, adicione nesta seção, numa posição que faça sentido;
+2. Colunas de log, nesta ordem: `created_at`, `updated_at`, `deleted_at`, `is_disabled`, `created_by`, `updated_by`, `deleted_by` e `disabled_by`. Caso alguma dessas colunas de log não fizer sentido para a tabela, basta não a adicionar. Caso seja necessário adicionar outro log para uma tabela em específico, adicione nesta seção, numa posição que faça sentido;
  
 3. Colunas com conteúdo relacionado à entidade que a tabela cuida. Caso seja necessário adicionar colunas `is_deleted` ou `is_disabled` a tabela, elas devem estar nesta etapa, antes dos dados da entidade, vindo primeiro o `is_deleted` e depois o `is_disabled`;
  
