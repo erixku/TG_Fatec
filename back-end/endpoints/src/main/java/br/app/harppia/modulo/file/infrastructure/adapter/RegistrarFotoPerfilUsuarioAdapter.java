@@ -9,11 +9,11 @@ import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
-import br.app.harppia.modulo.usuario.application.port.out.RegistrarFotoPerfilUsuarioPort;
+import br.app.harppia.modulo.usuario.application.port.out.RegistrarFotoPerfilUsuarioToFilePort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilUsuarioRVO;
 
 @Component
-public class RegistrarFotoPerfilUsuarioAdapter implements RegistrarFotoPerfilUsuarioPort {
+public class RegistrarFotoPerfilUsuarioAdapter implements RegistrarFotoPerfilUsuarioToFilePort {
 
 	private final SalvarFotoPerfilUseCase slvFotoPrfUC;
 	

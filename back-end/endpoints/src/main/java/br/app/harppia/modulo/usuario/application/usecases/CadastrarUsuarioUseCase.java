@@ -9,8 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
-import br.app.harppia.modulo.usuario.application.port.out.RegistrarFotoPerfilUsuarioPort;
-import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadePort;
+import br.app.harppia.modulo.usuario.application.port.out.EnviarEmailUsuarioToNotificationPort;
+import br.app.harppia.modulo.usuario.application.port.out.GerarSalvarCodigoUsuarioToAuthPort;
+import br.app.harppia.modulo.usuario.application.port.out.RegistrarFotoPerfilUsuarioToFilePort;
+import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadeUsuarioToUserconfigPort;
 import br.app.harppia.modulo.usuario.domain.dto.FotoPerfilUsuarioRVO;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastradoDTO;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
@@ -20,27 +22,21 @@ import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepositor
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CadastrarUsuarioUseCase {
 
-	private final RegistrarFotoPerfilUsuarioPort regFotoPrfUsrPort;
-	private final SalvarConfiguracoesAcessibilidadePort slvCfgAcbPort;
+	private final RegistrarFotoPerfilUsuarioToFilePort regFotoPrfUsrPort;
+	private final SalvarConfiguracoesAcessibilidadeUsuarioToUserconfigPort slvCfgAcbPort;
+	private final EnviarEmailUsuarioToNotificationPort envEmlUsrPort;
+	private final GerarSalvarCodigoUsuarioToAuthPort gerSlvCodUsrAuthPort;
+	
 	private final PasswordEncoder pwdEnc;
 	private final UsuarioMapper usrMpr;
 	private final UsuarioRepository usrRep;
 	private final EntityManager entMng;
-
-	public CadastrarUsuarioUseCase(RegistrarFotoPerfilUsuarioPort regFotoPrfUsrPort,
-			SalvarConfiguracoesAcessibilidadePort slvCfgAcbPort, PasswordEncoder pwdEnc, 
-			UsuarioMapper usrMpr, UsuarioRepository usrRep, EntityManager entMng) {
-		this.regFotoPrfUsrPort = regFotoPrfUsrPort;
-		this.slvCfgAcbPort = slvCfgAcbPort;
-		this.pwdEnc = pwdEnc;
-		this.usrMpr = usrMpr;
-		this.usrRep = usrRep;
-		this.entMng = entMng;
-	}
 
 	/**
 	 * Recebe um DTO com todos os dados de cadastro do usuário, verifica se ele já
@@ -52,7 +48,7 @@ public class CadastrarUsuarioUseCase {
 	 */
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	@Transactional
-	public UsuarioCadastradoDTO execute(UsuarioCadastroDTO reqDto, MultipartFile mptFile) {
+	public UsuarioCadastradoDTO proceder(UsuarioCadastroDTO reqDto, MultipartFile mptFile) {
 
 		UsuarioEntity usrEntSanitized = null;
 
@@ -82,9 +78,16 @@ public class CadastrarUsuarioUseCase {
 
 			usrRep.updateFotoById(fotoSalva.id(), usrEntSaved.getId());
 		}
-
+		
 		slvCfgAcbPort.todas(usrEntSaved.getId());
+		
+		String strEmail = usrEntSaved.getEmail();
+		String strCodigo = gerSlvCodUsrAuthPort.proceder(strEmail);
+		
+		String strMensagem = "Olá, tudo bem?<br>Segue seu código de verificação: " + strCodigo;
+		
+		envEmlUsrPort.enviar(strEmail, "Código de Verificação", strMensagem);
 
-		return new UsuarioCadastradoDTO(usrEntSaved.getId(), usrEntSaved.getEmail(), usrEntSaved.getNome());
+		return new UsuarioCadastradoDTO(usrEntSaved.getId(), strEmail, usrEntSaved.getNome());
 	}
 }

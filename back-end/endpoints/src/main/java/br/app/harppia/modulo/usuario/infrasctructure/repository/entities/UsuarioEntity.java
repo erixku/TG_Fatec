@@ -69,7 +69,7 @@ public class UsuarioEntity implements UserDetails {
 	private String cpf;
 
 	@Convert(converter = ConversorEnumStatusUsuario.class)
-	@Column(name = "status", nullable = false)
+	@Column(name = "status", insertable = false)
 	@ColumnTransformer(write = "CAST ? AS utils.s_auth_t_tb_usuario_e_status")
 	private EStatusUsuario status;
 
@@ -94,13 +94,13 @@ public class UsuarioEntity implements UserDetails {
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-	@Column(name = "is_email_verificado", nullable = false, unique = true)
+	@Column(name = "is_email_verificado", insertable = false)
 	private Boolean emailVerificado;
 
 	@Column(name = "telefone", nullable = false, unique = true)
 	private String telefone;
 	
-	@Column(name = "is_telefone_verificado", nullable = false, unique = true)
+	@Column(name = "is_telefone_verificado", insertable = false)
 	private Boolean telefoneVerificado;
 
 	@Column(name = "senha", nullable = false)

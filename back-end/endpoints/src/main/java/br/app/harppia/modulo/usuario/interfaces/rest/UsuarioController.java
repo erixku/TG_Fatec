@@ -46,7 +46,7 @@ public class UsuarioController {
 			@RequestPart(value = "user_data") @Valid UsuarioCadastroDTO usrCadDTO,
 			@RequestPart(value = "profile_photo", required = false) MultipartFile file) {
 
-		UsuarioCadastradoDTO usrCadDto = cadUsrUC.execute(usrCadDTO, file);
+		UsuarioCadastradoDTO usrCadDto = cadUsrUC.proceder(usrCadDTO, file);
 
 		return ResponseEntity.status((usrCadDto != null) ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST).body(usrCadDto);
 	}

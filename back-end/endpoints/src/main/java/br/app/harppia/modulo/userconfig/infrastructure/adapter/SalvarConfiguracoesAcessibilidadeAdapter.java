@@ -8,10 +8,10 @@ import br.app.harppia.modulo.userconfig.application.usecases.SalvarConfiguracoes
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeAuditivaRequest;
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeIntelectualRequest;
 import br.app.harppia.modulo.userconfig.domain.request.SalvarAcessibilidadeVisualRequest;
-import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadePort;
+import br.app.harppia.modulo.usuario.application.port.out.SalvarConfiguracoesAcessibilidadeUsuarioToUserconfigPort;
 
 @Component
-public class SalvarConfiguracoesAcessibilidadeAdapter implements SalvarConfiguracoesAcessibilidadePort {
+public class SalvarConfiguracoesAcessibilidadeAdapter implements SalvarConfiguracoesAcessibilidadeUsuarioToUserconfigPort {
 
 	private final SalvarConfiguracoesAcessibilidadeUseCase scaus;
 
