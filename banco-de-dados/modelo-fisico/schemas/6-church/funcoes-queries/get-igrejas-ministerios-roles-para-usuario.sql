@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION
 RETURNS TABLE (
   igreja              UUID,
   ministerio          UUID,
-  funcao              INTEGER,
+  funcao              utils.s_church_t_tb_usuario_funcao_e_funcao,
   role_usuario_igreja VARCHAR(16)
 )
 LANGUAGE sql
@@ -18,7 +18,7 @@ AS $$
       SELECT
         i.id AS igreja,
         m.id AS ministerio,
-        uf.id AS funcao,
+        uf.funcao AS funcao,
         'membro'::VARCHAR(16) AS role_usuario_igreja
       FROM
         church.tb_usuario_funcao uf
@@ -39,7 +39,7 @@ AS $$
       SELECT
         i.id AS igreja,
         NULL::UUID AS ministerio,
-        NULL::INTEGER AS funcao,
+        NULL::utils.s_church_t_tb_usuario_funcao_e_funcao AS funcao,
         'adm_proprietario'::VARCHAR(16) AS role_usuario_igreja
       FROM
         church.tb_igreja i
@@ -51,7 +51,7 @@ AS $$
       SELECT
         i.id AS igreja,
         NULL::UUID AS ministerio,
-        NULL::INTEGER AS funcao,
+        NULL::utils.s_church_t_tb_usuario_funcao_e_funcao AS funcao,
         'administrador'::VARCHAR(16) AS role_usuario_igreja
       FROM
         church.tb_igreja i
