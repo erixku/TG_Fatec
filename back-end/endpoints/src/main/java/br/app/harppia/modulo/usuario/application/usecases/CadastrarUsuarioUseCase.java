@@ -32,7 +32,7 @@ public class CadastrarUsuarioUseCase {
 	private final SalvarConfiguracoesAcessibilidadeUsuarioToUserconfigPort slvCfgAcbPort;
 	private final EnviarEmailUsuarioToNotificationPort envEmlUsrPort;
 	private final GerarSalvarCodigoUsuarioToAuthPort gerSlvCodUsrAuthPort;
-	
+
 	private final PasswordEncoder pwdEnc;
 	private final UsuarioMapper usrMpr;
 	private final UsuarioRepository usrRep;
@@ -78,16 +78,28 @@ public class CadastrarUsuarioUseCase {
 
 			usrRep.updateFotoById(fotoSalva.id(), usrEntSaved.getId());
 		}
-		
-		slvCfgAcbPort.todas(usrEntSaved.getId());
-		
-		String strEmail = usrEntSaved.getEmail();
-		String strCodigo = gerSlvCodUsrAuthPort.proceder(strEmail);
-		
-		String strMensagem = "Olá, tudo bem?<br>Segue seu código de verificação: " + strCodigo;
-		
-		envEmlUsrPort.enviar(strEmail, "Código de Verificação", strMensagem);
 
-		return new UsuarioCadastradoDTO(usrEntSaved.getId(), strEmail, usrEntSaved.getNome());
+		slvCfgAcbPort.todas(usrEntSaved.getId());
+
+		String strEmail = null;
+		if (usrEntSaved.getEmail() != null && !usrEntSaved.getEmail().trim().isBlank()) {
+			
+			strEmail = usrEntSaved.getEmail();
+			
+			String strCodigo = gerSlvCodUsrAuthPort.proceder(strEmail);
+
+			String strMensagem = "Olá, tudo bem?<br>Segue seu código de verificação: " + strCodigo;
+
+			envEmlUsrPort.enviar(strEmail, "Código de Verificação", strMensagem);
+		}
+
+		return new UsuarioCadastradoDTO(
+				usrEntSaved.getId(), 
+				(strEmail != null) 
+					? strEmail
+					: (usrEntSaved.getTelefone() != null) 
+							? usrEntSaved.getTelefone()
+							: usrEntSaved.getCpf(),
+				usrEntSaved.getNome());
 	}
 }

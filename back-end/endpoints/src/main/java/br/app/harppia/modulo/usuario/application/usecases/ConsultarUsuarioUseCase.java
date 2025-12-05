@@ -86,13 +86,23 @@ public class ConsultarUsuarioUseCase {
 		return (user.isEmpty()) ? null
 				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
 	}
-	
+
 	@Transactional(readOnly = true)
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
-	public UUID porEmail(String email) {
+	public UUID idPorEmail(String email) {
 
 		Optional<UUID> user = userRepo.findIdByEmail(email);
 
 		return (user.isEmpty()) ? null : user.get();
+	}
+
+	@Transactional(readOnly = true)
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public InformacoesLoginUsuarioBanco porEmail(String email) {
+
+		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findByEmail(email);
+
+		return (user.isEmpty()) ? null
+				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
 	}
 }

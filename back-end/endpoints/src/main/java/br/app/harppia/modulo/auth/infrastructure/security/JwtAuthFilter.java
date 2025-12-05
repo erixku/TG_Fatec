@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.JwtService;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 import jakarta.servlet.FilterChain;
@@ -20,12 +20,12 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-	private final ConsultarUsuarioAuthPort userService;
-	private final JwtService jwtService;
+	private final ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort;
+	private final JwtService jwtSvc;
 	
-	public JwtAuthFilter(ConsultarUsuarioAuthPort userService, JwtService jwtService) {
-		this.userService = userService;
-		this.jwtService = jwtService;
+	public JwtAuthFilter(ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort, JwtService jwtSvc) {
+		this.conUsrAuthToUsrPort = conUsrAuthToUsrPort;
+		this.jwtSvc = jwtSvc;
 	}
 	
     @Override
@@ -43,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String username; // <-- email do usuário
 
         try {
-            username = jwtService.extractUsername(jwt);
+            username = jwtSvc.extractUsername(jwt);
         } catch (Exception e) {
         	filterChain.doFilter(request, response);
             return;
@@ -51,9 +51,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) { 
         	
-        	InformacoesAutenticacaoUsuarioRVO userDetails = userService.informacoesAutenticacao(username, username, username);
+        	InformacoesAutenticacaoUsuarioRVO userDetails = conUsrAuthToUsrPort.informacoesAutenticacao(username, username, username);
 	
-	        if (jwtService.isTokenValid(jwt, userDetails)) {
+	        if (jwtSvc.isTokenValid(jwt, userDetails)) {
 	            var authToken = new UsernamePasswordAuthenticationToken(
 	                    userDetails, null, userDetails.getAuthorities());
 	

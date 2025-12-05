@@ -21,7 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
 import br.app.harppia.modulo.auth.infrastructure.security.JwtAuthFilter;
 
@@ -63,6 +63,7 @@ public class AutenticationSecurityConfig {
         		// ENDPOINTS ANÔNIMOS  //
         		// - - - - - - - - - - //
                 .requestMatchers(
+                		"/",
                 		"/v1/users/register",
 	            		"/v1/users/auth/login",
 	            		"/v1/users/auth/authenticate",
@@ -108,7 +109,7 @@ public class AutenticationSecurityConfig {
      * @return
      */
     @Bean
-    protected UserDetailsService userDetailsService(ConsultarUsuarioAuthPort conUsrPort) {
+    protected UserDetailsService userDetailsService(ConsultarUsuarioAuthToUsuarioPort conUsrPort) {
         return username -> {
         	InformacoesAutenticacaoUsuarioRVO usuario = conUsrPort.informacoesAutenticacao(username, username, username);
             if (usuario == null) {

@@ -26,8 +26,9 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
 	int updateFotoById(@Param("idFotoPerfil") UUID idFotoPerfil, @Param("id") UUID id);
 	
 	// Usado para autenticação
-	public Optional<BuscarInformacoesAutenticacaoIVO> findAuthInfoById(UUID id);
 	public Optional<UUID> findIdByEmail(String email);
+	public Optional<BuscarInformacoesAutenticacaoIVO> findByEmail(String email);
+	public Optional<BuscarInformacoesAutenticacaoIVO> findAuthInfoById(UUID id);
 	public Optional<BuscarInformacoesAutenticacaoIVO> findAuthInfoByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
 	
 	// usado para buscar os roles do usuário para validar as roles nos endpoints

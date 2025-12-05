@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.GestaoMinisterioException;
+import br.app.harppia.modulo.church.domain.valueobject.InformacaoIgrejaRVO;
 import br.app.harppia.modulo.file.domain.valueobjects.FotoPerfilMinisterioRVO;
-import br.app.harppia.modulo.igreja.domain.valueobject.InformacaoIgrejaRVO;
-import br.app.harppia.modulo.ministry.application.port.ConsultarIgrejaMinistryPort;
+import br.app.harppia.modulo.ministry.application.port.ConsultarIgrejaMinistryToChurchPort;
 import br.app.harppia.modulo.ministry.application.port.RegistrarFotoPerfilMinisterioPort;
 import br.app.harppia.modulo.ministry.domain.request.CriarMinisterioRequest;
 import br.app.harppia.modulo.ministry.domain.response.CriarMinisterioResponse;
@@ -24,12 +24,12 @@ public class CriarMinisterioUseCase {
 	private final MinisterioMapper minMpr;
 
 	private final RegistrarFotoPerfilMinisterioPort regFotoPrfMinPort;
-	private final ConsultarIgrejaMinistryPort conIgrMinPort;
+	private final ConsultarIgrejaMinistryToChurchPort conIgrMinPort;
 
 	private final static UUID ID_FOTO_PADRAO = UUID.fromString("4633f137-3d8a-43d2-90f2-2bfb53b4e8fc");
 
 	public CriarMinisterioUseCase(MinisterioRepository minRep, MinisterioMapper minMpr,
-			RegistrarFotoPerfilMinisterioPort regFotoPrfMinPort, ConsultarIgrejaMinistryPort conIgrPort) {
+			RegistrarFotoPerfilMinisterioPort regFotoPrfMinPort, ConsultarIgrejaMinistryToChurchPort conIgrPort) {
 		this.minRep = minRep;
 		this.minMpr = minMpr;
 		this.regFotoPrfMinPort = regFotoPrfMinPort;

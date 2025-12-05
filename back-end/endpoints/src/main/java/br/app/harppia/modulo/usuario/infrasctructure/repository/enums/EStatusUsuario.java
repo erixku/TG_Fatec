@@ -4,15 +4,19 @@ import br.app.harppia.defaults.utils.rules.EnumPersistivel;
 
 public enum EStatusUsuario implements EnumPersistivel {
 	
-	EM_VERIFICACAO,
-	ATIVO,
-	DELETADO,
-	;
+	EM_VERIFICACAO("em_verificacao"),
+	ATIVO("ativo"),
+	DELETADO("deletado");
+	
+	private String status;
+	
+	private EStatusUsuario(String valor) {
+		this.status = valor;
+	}
 
 	@Override
 	public String getCustomValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.status;
 	}
 
 }

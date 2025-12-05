@@ -6,25 +6,24 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.ministry.application.port.ConsultarMembroMinstryToUsuarioPort;
 import br.app.harppia.modulo.ministry.infraestructure.repository.MembroRepository;
 import br.app.harppia.modulo.ministry.infraestructure.repository.entities.UsuarioFuncaoEntity;
 import br.app.harppia.modulo.ministry.infraestructure.repository.enums.EFuncaoMembro;
 import lombok.RequiredArgsConstructor;
-
 
 @Service
 @RequiredArgsConstructor
 public class MembroService {
 
     private final MembroRepository memRep;
-    private final ConsultarUsuarioAuthPort conUsrAuthPort;
+    private final ConsultarMembroMinstryToUsuarioPort conMemMinToUsrPort;
 
     @Transactional
     @CacheEvict(value = "churchPermissions", key = "#churchId + ':' + #email")
     public void atualizarCargo(Long churchId, String email, EFuncaoMembro novoPerfil) {
         
-    	UUID idUsuario = conUsrAuthPort.porEmail(email);
+    	UUID idUsuario = conMemMinToUsrPort.idPorEmail(email);
     	
         UsuarioFuncaoEntity usrFncEntParaAtualizar = memRep.findRoleMembroByIdLevita(idUsuario);
             
@@ -37,7 +36,7 @@ public class MembroService {
     @CacheEvict(value = "churchPermissions", key = "#churchId + ':' + #email")
     public int removerMembro(UUID idRemovedor, UUID churchId, String email) {
     	
-        UsuarioFuncaoEntity membro = memRep.findRoleMembroByIdLevita(conUsrAuthPort.porEmail(email));
+        UsuarioFuncaoEntity membro = memRep.findRoleMembroByIdLevita(conMemMinToUsrPort.idPorEmail(email));
             
         return memRep.markDeletedById(membro.getId(), idRemovedor);
     }

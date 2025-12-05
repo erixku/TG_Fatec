@@ -7,11 +7,8 @@ public abstract class CpfSanitizer {
 	 * digitos verificadores.
 	 */
 	public static String sanitize(String cpf) {
-		if (cpf.trim() == null)
-			throw new IllegalArgumentException("CPF inválido: não pode ser nulo");
-
-		if (cpf.isEmpty())
-			throw new IllegalArgumentException("CPF inválido: não pode ser vazio");
+		if (cpf.trim() == null || cpf.isEmpty())
+			return null;
 
 		cpf = cpf.replaceAll("[^0-9]", "");
 

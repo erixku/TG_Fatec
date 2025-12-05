@@ -1,0 +1,19 @@
+{
+  "cpf": "199.906.870-05",
+  "nomeCompleto": "José Pereira Oliveira",
+  "nomeSocialCompleto": null,
+  "sexo": "M",
+  "dataNascimento": "1985-11-12",
+  "email": "bomdiao53@outlook.com",
+  "telefone": "(11) 94321-6711",
+  "senha": "Oliva_Jose@85",
+  "endereco": {
+    "cep": "22041010",
+    "uf": "RJ",
+    "cidade": "Rio de Janeiro",
+    "bairro": "Copacabana",
+    "logradouro": "Rua Barata Ribeiro",
+    "numero": "412",
+    "complemento": "Bloco B, ap 204"
+  }
+}

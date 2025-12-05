@@ -1,33 +1,36 @@
 package br.app.harppia.modulo.usuario.application.usecases;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
+import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.usuario.domain.dto.AtualizarUsuarioDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.usuario.infrasctructure.repository.enums.EStatusUsuario;
 import jakarta.transaction.Transactional;
 
 @Service
 public class AtualizarUsuarioUseCase {
 
-	private UsuarioRepository usuarioRepository;
-	private PasswordEncoder passEncoder;
+	private UsuarioRepository usrRep;
+	private PasswordEncoder pwdEnc;
 
-	public AtualizarUsuarioUseCase(UsuarioRepository usuarioRepository, PasswordEncoder passEncoder) {
-		this.usuarioRepository = usuarioRepository;
-		this.passEncoder = passEncoder;
+	public AtualizarUsuarioUseCase(UsuarioRepository usrRep, PasswordEncoder pwdEnc) {
+		this.usrRep = usrRep;
+		this.pwdEnc = pwdEnc;
 	}
 
 	@UseRole(role = EDatabaseRoles.ROLE_USUARIO)
 	@Transactional
 	public boolean execute(AtualizarUsuarioDTO newUserData) {
 
-		Optional<UsuarioEntity> optionalUserData = usuarioRepository.findById(newUserData.idUsuario());
+		Optional<UsuarioEntity> optionalUserData = usrRep.findById(newUserData.idUsuario());
 
 		if (optionalUserData.isEmpty())
 			return false;
@@ -39,6 +42,25 @@ public class AtualizarUsuarioUseCase {
 		return foiAtualizado;
 	}
 
+	@Transactional
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public int marcarUsuarioComoAtivo(UUID id) {
+		
+		Optional<UsuarioEntity> optUsrData = usrRep.findById(id);
+		
+		if(optUsrData.isEmpty())
+			throw new GestaoUsuarioException("Erro ao ativar conta de usuário: id inexistente!");
+		
+		if(optUsrData.get().getStatus() == EStatusUsuario.ATIVO)
+			return 1;
+		
+		optUsrData.get().setStatus(EStatusUsuario.ATIVO);
+		
+		UsuarioEntity usrEntSaved = usrRep.save(optUsrData.get());
+		
+		return (usrEntSaved.getStatus() == EStatusUsuario.ATIVO) ? 1 : 0;
+	}
+	
 	private boolean atualizarEntidade(AtualizarUsuarioDTO newData, UsuarioEntity entity) {
 
 		boolean foiModificado = false;
@@ -72,8 +94,8 @@ public class AtualizarUsuarioUseCase {
 		}
 
 		if (newData.senha() != null && !newData.senha().isEmpty()) {
-			if (!passEncoder.matches(newData.senha(), entity.getSenha())) {
-				entity.setSenha(passEncoder.encode(newData.senha()));
+			if (!pwdEnc.matches(newData.senha(), entity.getSenha())) {
+				entity.setSenha(pwdEnc.encode(newData.senha()));
 				foiModificado = true;
 			}
 		}
@@ -85,4 +107,6 @@ public class AtualizarUsuarioUseCase {
 
 		return foiModificado;
 	}
+	
+	
 }

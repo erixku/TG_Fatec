@@ -27,9 +27,8 @@ public abstract class TelefoneSanitizer {
     ));
 
     public static String sanitize(String telefone) throws IllegalArgumentException{
-        if (telefone == null) {
-            throw new IllegalArgumentException("Telefone inválido: não pode ser nulo");
-        }
+        if (telefone == null)
+        	return null;
 
         // Remover caracteres invisíveis (tabs, \n, etc.)
         telefone = telefone.replaceAll("\\p{C}", "");

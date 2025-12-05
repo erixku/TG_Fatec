@@ -8,7 +8,7 @@ import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarIgrejaAuthPort;
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
 import br.app.harppia.modulo.auth.application.services.RefreshTokenService;
 import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
@@ -23,18 +23,18 @@ import br.app.harppia.modulo.auth.infrastructure.mappers.UsuarioLoginMapper;
 @Service
 public class LogarUsuarioUseCase {
 
-	private final ConsultarUsuarioAuthPort conUsrAuthPort;
+	private final ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort;
 	private final ConsultarIgrejaAuthPort conIgrAuthPort;
 	private final PasswordEncoder pwdEnc;
 	private final UsuarioLoginMapper usrLogMpr;
 	private final AutenticarUsuarioService autUsrSvc;
 	private final RefreshTokenService rfsTokSvc;
 
-	public LogarUsuarioUseCase(ConsultarUsuarioAuthPort conUsrAuthPort, 
+	public LogarUsuarioUseCase(ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort, 
 			ConsultarIgrejaAuthPort conIgrAuthPort, PasswordEncoder pwdEnc,
 			UsuarioLoginMapper usrLogMpr, AutenticarUsuarioService autUsrSvc,
 			RefreshTokenService rfsTokSvc) {
-		this.conUsrAuthPort = conUsrAuthPort;
+		this.conUsrAuthToUsrPort = conUsrAuthToUsrPort;
 		this.conIgrAuthPort = conIgrAuthPort;
 		this.pwdEnc = pwdEnc;
 		this.usrLogMpr = usrLogMpr;
@@ -44,11 +44,11 @@ public class LogarUsuarioUseCase {
 
 	@Transactional
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
-	public LoginUsuarioResponse proceder(LoginUsuarioRequest logUsrReq) {
+	public LoginUsuarioResponse loginPadrao(LoginUsuarioRequest logUsrReq) {
 
 		InformacoesLoginSanitizadasRVO infLgnSntDto = usrLogMpr.mapRequest(logUsrReq);
 
-		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthPort.informacoesAutenticacao(infLgnSntDto.cpf(),
+		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthToUsrPort.informacoesAutenticacao(infLgnSntDto.cpf(),
 				infLgnSntDto.email(), infLgnSntDto.telefone());
 
 		if (infAutUsrBanco == null)
@@ -57,6 +57,32 @@ public class LogarUsuarioUseCase {
 		if (!saoMesmaSenha(infAutUsrBanco.senha(), infLgnSntDto.senha()))
 			throw new GestaoAutenticacaoException("Senha ou login inválidos!");
 
+		RefreshTokenResponse rfsTknRes = autUsrSvc.autenticar(infAutUsrBanco);
+		
+		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		
+		
+		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.email());
+		IgrejasUsuarioFazParteRVO igrUsrFazPrt = conIgrAuthPort.vinculadasAoUsuario(infAutUsrBanco.id()); 
+		
+		return LoginUsuarioResponse.builder()
+				.infUsrLogRVO(infUsrLgnRVO)
+				.igrUsrFazPrtRVO(igrUsrFazPrt)
+				.accessToken(rfsTknRes.accessToken())
+				.refreshToken(rfsTknRes.refreshToken())
+				.build();
+	}
+	
+	@Transactional
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public LoginUsuarioResponse aposValidarEmail(String email, String senha) {
+		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthToUsrPort.porEmail(email);
+		
+		if (infAutUsrBanco == null)
+			throw new GestaoAutenticacaoException("Usuário não encontrado!");
+
+		if (!saoMesmaSenha(infAutUsrBanco.senha(), senha))
+			throw new GestaoAutenticacaoException("Senha ou login inválidos!");
+		
 		RefreshTokenResponse rfsTknRes = autUsrSvc.autenticar(infAutUsrBanco);
 		
 		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		

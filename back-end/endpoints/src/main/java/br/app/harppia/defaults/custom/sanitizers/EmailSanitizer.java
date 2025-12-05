@@ -12,9 +12,8 @@ public abstract class EmailSanitizer {
 	private static final Set<String> DOMINIOS_VALIDOS = Set.of("yahoo.com", "hotmail.com", "outlook.com", "gmail.com");
 
 	public static String sanitize(String email) {
-		if (email == null) {
-			throw new IllegalArgumentException("E-mail inválido: não pode ser nulo");
-		}
+		if (email == null) 
+			return null;
 
 		email = email.trim().toLowerCase();
 		email = email.replaceAll("\\p{C}", "");

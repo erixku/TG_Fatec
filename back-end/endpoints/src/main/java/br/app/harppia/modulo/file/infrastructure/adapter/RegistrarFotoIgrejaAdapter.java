@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
+import br.app.harppia.modulo.church.application.port.RegistrarFotoPerfilChurchToFilePort;
+import br.app.harppia.modulo.church.domain.valueobject.FotoPerfilIgrejaRVO;
 import br.app.harppia.modulo.file.application.usecases.SalvarFotoPerfilUseCase;
 import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
-import br.app.harppia.modulo.igreja.application.port.RegistrarFotoPerfilIgrejaPort;
-import br.app.harppia.modulo.igreja.domain.valueobject.FotoPerfilIgrejaRVO;
 
 @Component
-public class RegistrarFotoIgrejaAdapter implements RegistrarFotoPerfilIgrejaPort{
+public class RegistrarFotoIgrejaAdapter implements RegistrarFotoPerfilChurchToFilePort {
 
 	private final SalvarFotoPerfilUseCase slvFotoPflIgrUC;
 	

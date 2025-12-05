@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
+import br.app.harppia.modulo.auth.application.services.ValidarEmailService;
 import br.app.harppia.modulo.auth.application.usecases.LogarUsuarioUseCase;
 import br.app.harppia.modulo.auth.domain.request.AutenticarUsuarioRequest;
+import br.app.harppia.modulo.auth.domain.request.ConfirmarEmailRequest;
 import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
+import br.app.harppia.modulo.auth.domain.response.ConfirmarEmailResponse;
 import br.app.harppia.modulo.auth.domain.response.LoginUsuarioResponse;
 import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Responsável por receber todas as requisições relacionadas ao LOGIN de
@@ -27,19 +31,16 @@ import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
 
 @RestController
 @RequestMapping("/v1/users/auth")
+@RequiredArgsConstructor
 public class LoginUsuarioController {
 
-	private final LogarUsuarioUseCase loginService;
-	private final AutenticarUsuarioService authService;
-
-	public LoginUsuarioController(LogarUsuarioUseCase loginService, AutenticarUsuarioService authService) {
-		this.loginService = loginService;
-		this.authService = authService;
-	}
+	private final LogarUsuarioUseCase lgnUsrUC;
+	private final AutenticarUsuarioService autUsrSvc;
+	private final ValidarEmailService vldEmlSvc;
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginUsuarioResponse> logar(@RequestBody LoginUsuarioRequest loginDto) {
-		LoginUsuarioResponse response = loginService.proceder(loginDto);
+		LoginUsuarioResponse response = lgnUsrUC.loginPadrao(loginDto);
 
 		return (response == null) 
 				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
@@ -48,7 +49,7 @@ public class LoginUsuarioController {
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<RefreshTokenResponse> autenticar(@RequestBody AutenticarUsuarioRequest request) {
-		RefreshTokenResponse rfsTknRes = authService.autenticar(request);
+		RefreshTokenResponse rfsTknRes = autUsrSvc.autenticar(request);
 
 		return (rfsTknRes == null) 
 				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
@@ -57,11 +58,21 @@ public class LoginUsuarioController {
 
 	@PostMapping("/refresh")
 	public ResponseEntity<RefreshTokenResponse> renovar(@RequestBody RefreshTokenRequest request) {
-		RefreshTokenResponse response = authService.atualizarToken(request);
+		RefreshTokenResponse response = autUsrSvc.atualizarToken(request);
 
 		return (response == null) 
 				? ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null)
 				: ResponseEntity.status(HttpStatus.OK).body(response);
 	}
+	
+	@PostMapping("/confirm-email")
+	public ResponseEntity<ConfirmarEmailResponse> confirmarEmail(ConfirmarEmailRequest cnfEmlReq){
+		
+		ConfirmarEmailResponse cnfEmlRes = vldEmlSvc.proceder(cnfEmlReq);
+		
+		return ResponseEntity.status( (cnfEmlRes != null) ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(cnfEmlRes);
+		
+	}
 
+	
 }

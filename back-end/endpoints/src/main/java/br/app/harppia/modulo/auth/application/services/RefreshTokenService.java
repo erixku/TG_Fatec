@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
-import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
 import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
 import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
@@ -19,13 +19,13 @@ public class RefreshTokenService {
 	private final RedisTemplate<String, String> rdsTmp;
 
 	private final JwtService jwtSvc;
-	private final ConsultarUsuarioAuthPort conUsrAuthPort;
+	private final ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort;
 
 	public RefreshTokenService(RedisTemplate<String, String> redisTemplate, JwtService jwtService,
-			ConsultarUsuarioAuthPort conUsrAuthPort) {
+			ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort) {
 		this.rdsTmp = redisTemplate;
 		this.jwtSvc = jwtService;
-		this.conUsrAuthPort = conUsrAuthPort;
+		this.conUsrAuthToUsrPort = conUsrAuthToUsrPort;
 	}
 
 	public void salvarRefreshToken(UUID userId, String refreshToken) {
@@ -55,7 +55,7 @@ public class RefreshTokenService {
 			throw new SecurityException("Violação de segurança: Tentativa de refresh de token com ID de usuário incorreto.");
 		}
 
-		InformacoesAutenticacaoUsuarioRVO userInfo = conUsrAuthPort.porId(request.userId());
+		InformacoesAutenticacaoUsuarioRVO userInfo = conUsrAuthToUsrPort.porId(request.userId());
 
 		String newAccessToken = jwtSvc.generateAccessToken(userInfo);
 		String newRefreshToken = jwtSvc.generateRefreshToken(userInfo);
