@@ -1,5 +1,7 @@
 package br.app.harppia.modulo.auth.application.usecases;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,40 +9,31 @@ import org.springframework.transaction.annotation.Transactional;
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoAutenticacaoException;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
-import br.app.harppia.modulo.auth.application.port.out.ConsultarIgrejaAuthPort;
+import br.app.harppia.modulo.auth.application.port.out.ConsultarIgrejaAuthToChurchPort;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.application.services.AutenticarUsuarioService;
 import br.app.harppia.modulo.auth.application.services.RefreshTokenService;
 import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.response.LoginUsuarioResponse;
 import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
-import br.app.harppia.modulo.auth.domain.valueobjects.IgrejasUsuarioFazParteRVO;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacaoUsuarioLoginRVO;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.IgrejasUsuarioFazParteRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacaoUsuarioLoginRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesLoginSanitizadasRVO;
 import br.app.harppia.modulo.auth.infrastructure.mappers.UsuarioLoginMapper;
+import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class LogarUsuarioUseCase {
 
 	private final ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort;
-	private final ConsultarIgrejaAuthPort conIgrAuthPort;
+	private final ConsultarIgrejaAuthToChurchPort conIgrAuthPort;
 	private final PasswordEncoder pwdEnc;
 	private final UsuarioLoginMapper usrLogMpr;
 	private final AutenticarUsuarioService autUsrSvc;
 	private final RefreshTokenService rfsTokSvc;
-
-	public LogarUsuarioUseCase(ConsultarUsuarioAuthToUsuarioPort conUsrAuthToUsrPort, 
-			ConsultarIgrejaAuthPort conIgrAuthPort, PasswordEncoder pwdEnc,
-			UsuarioLoginMapper usrLogMpr, AutenticarUsuarioService autUsrSvc,
-			RefreshTokenService rfsTokSvc) {
-		this.conUsrAuthToUsrPort = conUsrAuthToUsrPort;
-		this.conIgrAuthPort = conIgrAuthPort;
-		this.pwdEnc = pwdEnc;
-		this.usrLogMpr = usrLogMpr;
-		this.autUsrSvc = autUsrSvc;
-		this.rfsTokSvc = rfsTokSvc;
-	}
 
 	@Transactional
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
@@ -61,7 +54,7 @@ public class LogarUsuarioUseCase {
 		
 		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		
 		
-		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.email());
+		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.login());
 		IgrejasUsuarioFazParteRVO igrUsrFazPrt = conIgrAuthPort.vinculadasAoUsuario(infAutUsrBanco.id()); 
 		
 		return LoginUsuarioResponse.builder()
@@ -87,7 +80,7 @@ public class LogarUsuarioUseCase {
 		
 		rfsTokSvc.salvarRefreshToken(infAutUsrBanco.id(), rfsTknRes.refreshToken());		
 		
-		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.email());
+		InformacaoUsuarioLoginRVO infUsrLgnRVO = new InformacaoUsuarioLoginRVO(infAutUsrBanco.id(), infAutUsrBanco.login());
 		IgrejasUsuarioFazParteRVO igrUsrFazPrt = conIgrAuthPort.vinculadasAoUsuario(infAutUsrBanco.id()); 
 		
 		return LoginUsuarioResponse.builder()

@@ -10,7 +10,7 @@ import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
 import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
 import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesAutenticacaoUsuarioRVO;
 
 @Service
 public class RefreshTokenService {
@@ -57,7 +57,7 @@ public class RefreshTokenService {
 
 		InformacoesAutenticacaoUsuarioRVO userInfo = conUsrAuthToUsrPort.porId(request.userId());
 
-		String newAccessToken = jwtSvc.generateAccessToken(userInfo);
+		String newAccessToken = jwtSvc.generateAccessToken(userInfo.rolesIgreja(), userInfo);
 		String newRefreshToken = jwtSvc.generateRefreshToken(userInfo);
 
 		salvarRefreshToken(userInfo.id(), newRefreshToken);

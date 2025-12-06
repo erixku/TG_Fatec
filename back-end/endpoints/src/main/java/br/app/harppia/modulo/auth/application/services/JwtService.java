@@ -2,8 +2,10 @@ package br.app.harppia.modulo.auth.application.services;
 
 import java.security.Key;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
@@ -14,12 +16,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
 	@Value("${application.security.jwt.secret-key}")
@@ -31,7 +38,9 @@ public class JwtService {
 	@Value("${application.security.jwt.refresh-token.expiration}")
 	private Long refreshExpiration;
 
-	public String generateAccessToken(UserDetails userDetails) {
+	private final ObjectMapper objMpr;
+	
+	public String generateAccessToken(List<RolesMembroPorIgrejaMinisterioRVO> rolesIgreja, UserDetails userDetails) {
 
 		HashMap<String, Object> extraClaims = new HashMap<>();
 
@@ -39,6 +48,7 @@ public class JwtService {
 		extraClaims.put("jti", UUID.randomUUID().toString());
 		extraClaims.put("iss", "harppia-api");
 		extraClaims.put("aud", "harppia-client");
+		extraClaims.put("roles_igreja", rolesIgreja);
 
 		return generateAccessToken(extraClaims, userDetails);
 	}
@@ -79,6 +89,21 @@ public class JwtService {
 		return extractClaim(token, Claims::getExpiration);
 	}
 
+	public List<RolesMembroPorIgrejaMinisterioRVO> extractRolesIgreja(String token) {
+        return extractClaim(token, claims -> {
+
+        	List<?> rawList = claims.get("roles_igreja", List.class);
+            
+            if (rawList == null) {
+                return Collections.emptyList();
+            }
+
+            return rawList.stream()
+                .map(obj -> objMpr.convertValue(obj, RolesMembroPorIgrejaMinisterioRVO.class))
+                .toList();
+        });
+    }
+	
 	private Claims extractAllClaims(String token) {
 		return Jwts.parser().verifyWith((SecretKey) getSignInKey()).build().parseSignedClaims(token).getPayload();
 	}

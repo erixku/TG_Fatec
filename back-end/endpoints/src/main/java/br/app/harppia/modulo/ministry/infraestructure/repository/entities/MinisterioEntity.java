@@ -24,7 +24,7 @@ import lombok.ToString;
 public class MinisterioEntity {
 
     @SuppressWarnings("unused")
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
 
     //----------------//
     // CHAVE PRIMÁRIA //
@@ -37,13 +37,13 @@ public class MinisterioEntity {
     //---------------//
     // DADOS DE LOGS //
     //---------------//
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", insertable = false)
     private OffsetDateTime updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "deleted_at", insertable = false)
     private OffsetDateTime deletedAt;
 
     @Column(name = "created_by", nullable = false)
@@ -52,14 +52,14 @@ public class MinisterioEntity {
     @Column(name = "updated_by", nullable = false)
     private UUID updatedBy;
 
-    @Column(name = "deleted_by")
+    @Column(name = "deleted_by", insertable = false)
     private UUID deletedBy;
 
     //-------------------------------//
     // DADOS DO MINISTÉRIO DE LOUVOR //
     //-------------------------------//
-    @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
 
     @Column(name = "nome", nullable = false)
     private String nome;

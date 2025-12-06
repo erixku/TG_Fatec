@@ -1,7 +1,7 @@
 package br.app.harppia.modulo.auth.domain.response;
 
-import br.app.harppia.modulo.auth.domain.valueobjects.IgrejasUsuarioFazParteRVO;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacaoUsuarioLoginRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.IgrejasUsuarioFazParteRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacaoUsuarioLoginRVO;
 import lombok.Builder;
 
 @Builder

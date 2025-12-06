@@ -19,7 +19,7 @@ public class CpfValidator implements ConstraintValidator<ValidCPF, String> {
 
 		// O CPF não deve ser nulo ou vazio
 		if (cpf == null || cpf.trim().isEmpty())
-			return buildViolation(context, "O CPF não pode ser nulo/branco!");
+			return true;
 
 		// O CPF deve conter apenas dígitos numéricos, ponto ou hífen
 		if (!cpf.matches("[\\d.\\-]+"))

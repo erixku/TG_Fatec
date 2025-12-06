@@ -44,11 +44,11 @@ public class CriarMinisterioUseCase {
 		MinisterioEntity minEntMapped = minMpr.toEntity(criMinReq);
 
 		InformacaoIgrejaRVO infIgrRVO = conIgrMinPort.porId(criMinReq.idIgreja());
-		if(infIgrRVO == null || infIgrRVO.id() == null)
+		if (infIgrRVO == null || infIgrRVO.id() == null)
 			throw new GestaoMinisterioException("Erro ao cadastrar ministério: igreja inexistente!");
-		
+
 		minEntMapped.setIdIgreja(infIgrRVO.id());
-		
+
 		if (mtpFile == null || mtpFile.isEmpty()) {
 			minEntMapped.setIdFoto(ID_FOTO_PADRAO);
 		} else {
@@ -56,14 +56,22 @@ public class CriarMinisterioUseCase {
 			minEntMapped.setIdFoto(fotoPrfMinRVO.idFoto());
 		}
 
-		MinisterioEntity minEntSaved = minRep.save(minEntMapped);
+		MinisterioEntity minEntSaved;
 
-		CriarMinisterioResponse criMinRes = CriarMinisterioResponse.builder()
-					.idMinisterio(minEntSaved.getId())
-					.nome(minEntSaved.getNome())
-					.descricao(minEntSaved.getDescricao())
-					.build();
-		
+		try {
+			
+			minEntSaved = minRep.save(minEntMapped);
+			
+		} catch (Exception sqlEx) {
+
+			throw new GestaoMinisterioException(
+					"Não foi possível cadastrar o ministério. "
+					+ "Talvez já exista outro ministério com mesmo nome em sua igreja...");
+		}
+
+		CriarMinisterioResponse criMinRes = CriarMinisterioResponse.builder().idMinisterio(minEntSaved.getId())
+				.nome(minEntSaved.getNome()).descricao(minEntSaved.getDescricao()).build();
+
 		return criMinRes;
 	}
 

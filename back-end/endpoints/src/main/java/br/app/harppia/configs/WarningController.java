@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.app.harppia.defaults.custom.exceptions.CPFValidationException;
 import br.app.harppia.defaults.custom.exceptions.GestaoArquivoException;
 import br.app.harppia.defaults.custom.exceptions.GestaoIgrejaException;
+import br.app.harppia.defaults.custom.exceptions.GestaoMinisterioException;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.exceptions.JwtServiceExcpetion;
 
@@ -86,6 +87,18 @@ public class WarningController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(
                     "Erro ao completar transação",
+                    ex.getMessage(),
+                    HttpStatus.BAD_REQUEST.value(),
+                    OffsetDateTime.now().toString()
+                ));
+    }
+    
+    @ExceptionHandler(GestaoMinisterioException.class)
+    public ResponseEntity<ErrorResponse> handleMinisterioError(GestaoMinisterioException ex) {
+        log.error("Erro ao gerenciar ministério.", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(
+                    "Houve algum erro no processamento dos dados.",
                     ex.getMessage(),
                     HttpStatus.BAD_REQUEST.value(),
                     OffsetDateTime.now().toString()

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.modulo.church.domain.valueobject.InformacaoIgrejaRVO;
 import br.app.harppia.modulo.church.infrastructure.repository.entities.IgrejaEntity;
+import br.app.harppia.modulo.church.infrastructure.repository.projection.AllRolesMembroIVO;
 
 @Repository
 public interface IgrejaRepository extends JpaRepository<IgrejaEntity, UUID> {
@@ -42,4 +43,10 @@ public interface IgrejaRepository extends JpaRepository<IgrejaEntity, UUID> {
 	public List<UUID> findIdIgrejasByAssociationWithUser(@Param("id") UUID idUsuario);
 
 
+	@Transactional(readOnly = true)
+	@Query(
+		value = "SELECT * FROM utils.s_church_f_get_igrejas_ministerios_roles_para_usuario (:id)",
+		nativeQuery = true
+	)
+	public List<AllRolesMembroIVO> findRolesMembroById(@Param("id") UUID idMembro);
 }

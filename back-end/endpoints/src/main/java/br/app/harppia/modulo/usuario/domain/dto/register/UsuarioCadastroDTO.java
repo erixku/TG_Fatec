@@ -16,7 +16,6 @@ import jakarta.validation.constraints.Size;
  */
 public record UsuarioCadastroDTO (
 	
-	@NotBlank(message = "CPF é obrigatório!")
 	@ValidCPF
 	String cpf,
 	
@@ -36,13 +35,10 @@ public record UsuarioCadastroDTO (
 	@Past(message = "Data de nascimento inválida.")
 	LocalDate dataNascimento,
 	
-	@NotBlank(message = "Email é obrigatório!")
 	@Email(message = "Email deve ser válido.")
 	@Size(max = 50, message = "Tamanho limite do email: 50 dígitos.")
 	String email,
 	
-	@NotBlank(message = "Telefone é obrigatório!")
-	@Size(min = 11, max = 25, message = "Telefone deve ter entre 11 e 25 dígitos.")
 	String telefone,
 	
 	@NotBlank(message = "Senha é obrigatória!")

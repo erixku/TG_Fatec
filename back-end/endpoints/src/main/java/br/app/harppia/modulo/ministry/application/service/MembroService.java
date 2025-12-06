@@ -31,7 +31,6 @@ public class MembroService {
         memRep.save(usrFncEntParaAtualizar);        
     }
 
-
     @Transactional
     @CacheEvict(value = "churchPermissions", key = "#churchId + ':' + #email")
     public int removerMembro(UUID idRemovedor, UUID churchId, String email) {

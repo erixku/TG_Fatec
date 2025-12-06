@@ -1,24 +1,27 @@
-package br.app.harppia.modulo.auth.domain.valueobjects;
+package br.app.harppia.modulo.auth.domain.valueobject;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
 import lombok.Builder;
 
 @Builder
 public record InformacoesAutenticacaoUsuarioRVO (
 		UUID id,
-		String email,
+		String login,
 		String senha,
-		Collection<? extends GrantedAuthority> roles
-		) implements UserDetails {
-
+		Collection<? extends GrantedAuthority> rolesGerais,
+		List<RolesMembroPorIgrejaMinisterioRVO> rolesIgreja
+	) implements UserDetails {
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.isEmpty() ? null : roles();
+		return ( rolesGerais == null || rolesGerais.isEmpty() ) ? null : rolesGerais();
 	}
 
 	@Override
@@ -28,6 +31,6 @@ public record InformacoesAutenticacaoUsuarioRVO (
 	
 	@Override
 	public String getUsername() {
-		return email;
+		return login;
 	}
 }

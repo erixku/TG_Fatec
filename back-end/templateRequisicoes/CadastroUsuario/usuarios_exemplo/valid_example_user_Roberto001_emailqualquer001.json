@@ -1,12 +1,12 @@
 {
-  "cpf": "199.906.870-05",
-  "nomeCompleto": "José Pereira Oliveira",
+  "cpf": null,
+  "nomeCompleto": "Roberto Amorim",
   "nomeSocialCompleto": null,
   "sexo": "M",
   "dataNascimento": "1985-11-12",
   "email": "umemailqualquer001@outlook.com",
-  "telefone": "(11) 94321-6711",
-  "senha": "Oliva_Jose@85",
+  "telefone": null,
+  "senha": "Roberto_001_@25",
   "endereco": {
     "cep": "22041010",
     "uf": "RJ",

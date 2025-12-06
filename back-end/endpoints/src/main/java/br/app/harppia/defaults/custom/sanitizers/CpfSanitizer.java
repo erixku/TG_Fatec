@@ -7,7 +7,7 @@ public abstract class CpfSanitizer {
 	 * digitos verificadores.
 	 */
 	public static String sanitize(String cpf) {
-		if (cpf.trim() == null || cpf.isEmpty())
+		if (cpf == null || cpf.trim().isEmpty())
 			return null;
 
 		cpf = cpf.replaceAll("[^0-9]", "");

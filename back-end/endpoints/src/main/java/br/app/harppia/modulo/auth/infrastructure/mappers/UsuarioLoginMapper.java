@@ -7,7 +7,7 @@ import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
 import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
 import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesLoginSanitizadasRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesLoginSanitizadasRVO;
 
 @Mapper(componentModel = "spring")
 public abstract class UsuarioLoginMapper {

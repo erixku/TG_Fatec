@@ -11,7 +11,7 @@ import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsu
 import br.app.harppia.modulo.auth.domain.request.AutenticarUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.request.RefreshTokenRequest;
 import br.app.harppia.modulo.auth.domain.response.RefreshTokenResponse;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesAutenticacaoUsuarioRVO;
 
 @Service
 public class AutenticarUsuarioService {
@@ -37,8 +37,8 @@ public class AutenticarUsuarioService {
 	@Transactional(readOnly = true)
 	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse autenticar(InformacoesAutenticacaoUsuarioRVO request) {
-
-		String accessToken = jwtSvc.generateAccessToken(request);
+		
+		String accessToken = jwtSvc.generateAccessToken(request.rolesIgreja(), request);
 		String refreshToken = jwtSvc.generateRefreshToken(request);
 
 		rfsTokSvc.salvarRefreshToken(request.id(), refreshToken);

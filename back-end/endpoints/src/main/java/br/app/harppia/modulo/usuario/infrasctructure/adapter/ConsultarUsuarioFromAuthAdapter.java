@@ -3,29 +3,25 @@ package br.app.harppia.modulo.usuario.infrasctructure.adapter;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
 import br.app.harppia.modulo.auth.application.port.out.ConsultarUsuarioAuthToUsuarioPort;
-import br.app.harppia.modulo.auth.domain.valueobjects.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.auth.domain.valueobject.InformacoesAutenticacaoUsuarioRVO;
+import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
+import br.app.harppia.modulo.usuario.application.port.out.ConsultarIgrejaUserToChurchPort;
 import br.app.harppia.modulo.usuario.application.usecases.ConsultarUsuarioUseCase;
 import br.app.harppia.modulo.usuario.domain.dto.login.InformacoesLoginUsuarioBanco;
+import lombok.RequiredArgsConstructor;
 
 @Component
-public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthToUsuarioPort {
+@RequiredArgsConstructor
+public class ConsultarUsuarioFromAuthAdapter implements ConsultarUsuarioAuthToUsuarioPort {
 
 	private final ConsultarUsuarioUseCase conUsrUC;
-
-	private final List<SimpleGrantedAuthority> DEFAULT_ROLES;
-
-	public ConsultarUsuarioAuthAdapter(ConsultarUsuarioUseCase conUsrUC) {
-		this.conUsrUC = conUsrUC;
-
-		DEFAULT_ROLES = List.of(new SimpleGrantedAuthority("LIDER"));
-	}
+	private final ConsultarIgrejaUserToChurchPort conIgrAuthPort;
 
 	@Override
 	@Transactional
@@ -34,16 +30,9 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthToUsuari
 
 		InformacoesLoginUsuarioBanco user = conUsrUC.informacoesAutenticacaoLogin(cpf, email, telefone);
 
-		// = = = = = = = = = = = = = = = = = = = = = =//
-		// IMPLEMENTAR A BUSCA PELOS ROLES DO USUÁRIO //
-		// = = = = = = = = = = = = = = = = = = = = = =//
-		// ...
-		List<SimpleGrantedAuthority> roles = DEFAULT_ROLES;
-
-		if (user == null)
-			return null;
-
-		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), roles);
+		List<RolesMembroPorIgrejaMinisterioRVO> rolUsrPorIgrRVO = conIgrAuthPort.rolesMembro(user.id());
+		
+		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), null, rolUsrPorIgrRVO);
 	}
 
 	@Override
@@ -52,11 +41,11 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthToUsuari
 	public InformacoesAutenticacaoUsuarioRVO porId(UUID id) {
 
 		InformacoesLoginUsuarioBanco user = conUsrUC.porId(id);
-
-		List<SimpleGrantedAuthority> roles = DEFAULT_ROLES;
+		
+		List<RolesMembroPorIgrejaMinisterioRVO> rolUsrPorIgrRVO = conIgrAuthPort.rolesMembro(user.id());
 
 		return (user == null) ? null
-				: new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), roles);
+				: new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), null, rolUsrPorIgrRVO);
 	}
 
 	@Override
@@ -66,13 +55,13 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthToUsuari
 
 		InformacoesLoginUsuarioBanco infLgnUsrBnc = conUsrUC.porEmail(email);
 
-		// implementar a busca por roles
-		List<SimpleGrantedAuthority> roles = DEFAULT_ROLES;
+		List<RolesMembroPorIgrejaMinisterioRVO> rolUsrPorIgrRVO = conIgrAuthPort.rolesMembro(infLgnUsrBnc.id());
 		
 		return (infLgnUsrBnc != null)
 				? new InformacoesAutenticacaoUsuarioRVO(
 						infLgnUsrBnc.id(), infLgnUsrBnc.email(), 
-						infLgnUsrBnc.senha(), roles)
+						infLgnUsrBnc.senha(), null,
+						rolUsrPorIgrRVO)
 				: null;
 	}
 
@@ -80,5 +69,8 @@ public class ConsultarUsuarioAuthAdapter implements ConsultarUsuarioAuthToUsuari
 	public UUID idPorEmail(String email) {
 		return conUsrUC.idPorEmail(email);
 	}
-
 }
+
+
+
+
