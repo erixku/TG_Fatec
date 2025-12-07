@@ -57,11 +57,11 @@ public class RefreshTokenService {
 
 		InformacoesAutenticacaoUsuarioRVO userInfo = conUsrAuthToUsrPort.porId(request.userId());
 
-		String newAccessToken = jwtSvc.generateAccessToken(userInfo.rolesIgreja(), userInfo);
+		String newAccessToken = jwtSvc.generateAccessToken(userInfo.getChurchRoles(), userInfo);
 		String newRefreshToken = jwtSvc.generateRefreshToken(userInfo);
 
-		salvarRefreshToken(userInfo.id(), newRefreshToken);
+		salvarRefreshToken(userInfo.getId(), newRefreshToken);
 
-		return new RefreshTokenResponse(userInfo.id(), newAccessToken, newRefreshToken);
+		return new RefreshTokenResponse(userInfo.getId(), newAccessToken, newRefreshToken);
 	}
 }

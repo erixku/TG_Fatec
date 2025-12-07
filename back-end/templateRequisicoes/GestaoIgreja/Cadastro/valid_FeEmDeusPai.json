@@ -1,0 +1,18 @@
+{
+  "idCriador": "fc312d9c-adcc-4f5b-a29a-39a51a3abfc4",
+  "cnpj": "81260774000153",
+  "nome": "Fé em Deus Pai",
+  "denominacao": "outra",
+  "outraDenominacao": "Espírita",
+  "idDono": "fc312d9c-adcc-4f5b-a29a-39a51a3abfc4",
+  "cadEndIgrReq": {
+    "cep": "01101-001",
+    "uf": "sp",
+    "cidade": "São Paulo",
+    "bairro": "Sé",
+    "logradouro": "Rua da Matrix",
+    "numero": "s/n",
+    "complemento": "",
+    "isEnderecoPrincipal": false
+  }
+}

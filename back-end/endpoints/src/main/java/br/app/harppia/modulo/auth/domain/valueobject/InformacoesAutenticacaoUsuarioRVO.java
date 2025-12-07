@@ -8,20 +8,29 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Builder
-public record InformacoesAutenticacaoUsuarioRVO (
-		UUID id,
-		String login,
-		String senha,
-		Collection<? extends GrantedAuthority> rolesGerais,
-		List<RolesMembroPorIgrejaMinisterioRVO> rolesIgreja
-	) implements UserDetails {
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Builder(access = AccessLevel.PUBLIC)
+@Getter(value = AccessLevel.PUBLIC)
+@Setter(value = AccessLevel.PUBLIC)
+public class InformacoesAutenticacaoUsuarioRVO implements UserDetails {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private UUID id;
+	private String login;
+	private String senha;
+	private Collection<? extends GrantedAuthority> systemRoles;
+	private List<RolesMembroPorIgrejaMinisterioRVO> churchRoles;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return ( rolesGerais == null || rolesGerais.isEmpty() ) ? null : rolesGerais();
+		return ( systemRoles == null || systemRoles.isEmpty() ) ? null : systemRoles;
 	}
 
 	@Override

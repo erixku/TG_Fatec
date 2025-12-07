@@ -44,6 +44,6 @@ public class CustomSecurityService {
 			return List.of();
 
 		String token = authHeader.substring(7);
-		return jwtService.extractRolesIgreja(token);
+		return jwtService.extractChurchRoles(token);
 	}
 }

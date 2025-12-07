@@ -38,10 +38,10 @@ public class AutenticarUsuarioService {
 	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public RefreshTokenResponse autenticar(InformacoesAutenticacaoUsuarioRVO request) {
 		
-		String accessToken = jwtSvc.generateAccessToken(request.rolesIgreja(), request);
+		String accessToken = jwtSvc.generateAccessToken(request.getChurchRoles(), request);
 		String refreshToken = jwtSvc.generateRefreshToken(request);
 
-		rfsTokSvc.salvarRefreshToken(request.id(), refreshToken);
+		rfsTokSvc.salvarRefreshToken(request.getId(), refreshToken);
 
 		return RefreshTokenResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
 	}
@@ -68,7 +68,7 @@ public class AutenticarUsuarioService {
 		RefreshTokenResponse rfsTknResAUpdated = rfsTokSvc
 				.atualizarRefreshToken(new RefreshTokenRequest(autUsrReq.idUsuario(), autUsrReq.refreshToken()));
 
-		return new RefreshTokenResponse(infLogUsrRVO.id(), rfsTknResAUpdated.accessToken(),
+		return new RefreshTokenResponse(infLogUsrRVO.getId(), rfsTknResAUpdated.accessToken(),
 				rfsTknResAUpdated.refreshToken());
 	}
 

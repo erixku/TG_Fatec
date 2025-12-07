@@ -24,9 +24,11 @@ import br.app.harppia.modulo.ministry.domain.request.CriarMinisterioRequest;
 import br.app.harppia.modulo.ministry.domain.response.AdicionarMembroResponse;
 import br.app.harppia.modulo.ministry.domain.response.CriarMinisterioResponse;
 import br.app.harppia.modulo.ministry.domain.response.ListarMinisteriosResponse;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/v1/ministry")
+@RequiredArgsConstructor
 public class MinisterioController {
 
 	private final CriarMinisterioUseCase criMinUC;
@@ -35,18 +37,9 @@ public class MinisterioController {
 	private final DeletarMinisterioUseCase delMinUC;
 	private final AdicionarMembroMinisterioUseCase adcMemMinUC;
 
-	public MinisterioController(CriarMinisterioUseCase criMinUC, ConsultarMinisterioUseCase conMinUC,
-			AtualizarMinisterioUseCase atuMinUC, DeletarMinisterioUseCase delMinUC,
-			AdicionarMembroMinisterioUseCase adcMemMinUC) {
-		this.criMinUC = criMinUC;
-		this.conMinUC = conMinUC;
-		this.atuMinUC = atuMinUC;
-		this.delMinUC = delMinUC;
-		this.adcMemMinUC = adcMemMinUC;
-	}
-
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@PreAuthorize("hasRole('LEVITA')")
+	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
+			+ "&& @harppiaSecurityService.hasChurchRole(#criMinReq.idIgreja, 'ADM_PROPRIETARIO')")
 	public ResponseEntity<CriarMinisterioResponse> criar(
 			@RequestPart("ministry_data") CriarMinisterioRequest criMinReq,
 			@RequestPart("ministry_photo") MultipartFile mtpFile
@@ -61,7 +54,8 @@ public class MinisterioController {
 	}
 	
 	@GetMapping("/search")
-	@PreAuthorize("hasRole('LEVITA')")
+	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
+			+ "&& @harppiaSecurityService.hasChurchRole(#criMinReq.idIgreja, 'levita')")
 	public ResponseEntity<BuscarMinisterioResponse> buscar(BuscarMinisterioRequest busMinReq) {	
 		
 		BuscarMinisterioResponse lstMinRes = conMinUC.porNome(busMinReq);

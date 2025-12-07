@@ -27,16 +27,16 @@ public interface IgrejaRepository extends JpaRepository<IgrejaEntity, UUID> {
 	@Transactional(readOnly = true)
 	@Query(
 	    value = """
-	        SELECT DISTINCT igr.id
-	        FROM church.tb_igreja AS igr
-	        LEFT JOIN church.tb_ministerio_louvor AS min_lou
-	            ON min_lou.igr_id = igr.id
-	        LEFT JOIN church.tb_administrador AS admins
-	            ON admins.igr_id = igr.id
-	        LEFT JOIN church.tb_usuario_funcao AS usr_func
-	            ON usr_func.min_lou_id = min_lou.id
-	        WHERE admins.s_auth_t_tb_usuario_c_adm = :id
-	           OR usr_func.s_auth_t_tb_usuario_c_lev = :id
+				SELECT i.id
+				FROM church.tb_igreja AS i
+				LEFT JOIN church.tb_ministerio_louvor AS m
+					ON m.igr_id = i.id
+				LEFT JOIN church.tb_administrador AS a
+					ON a.igr_id = i.id
+				LEFT JOIN church.tb_usuario_funcao AS f
+					ON f.min_lou_id = m.id
+				WHERE i.s_auth_t_tb_usuario_c_adm_proprietario = :id
+				   OR f.s_auth_t_tb_usuario_c_lev = :id
 	        """,
 	    nativeQuery = true
 	)

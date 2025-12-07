@@ -31,7 +31,7 @@ public class IgrejaController {
 	}
 
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	@PreAuthorize("hasRole('LEVITA')")
+	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO')")
 	public ResponseEntity<CadastroIgrejaResponse> cadastrarIgreja(
 			@RequestPart(value = "church_data") CadastroIgrejaRequest cadIgrReq,
 			@RequestPart(value = "church_photo") MultipartFile mtpFileFoto
@@ -45,7 +45,7 @@ public class IgrejaController {
 	}
 	
 	@GetMapping("/search")
-	@PreAuthorize("hasAnyRole('LEVITA')")
+	@PreAuthorize("@churchSecurityService.hasSystemRole('USUARIO')")
 	public ResponseEntity<BuscarListaIgrejasResponse> buscarIgrejas(BuscarIgrejaRequest requestDto){
 		BuscarListaIgrejasResponse responseDto = bscIgrUS.listaContendoNome(requestDto);
 		

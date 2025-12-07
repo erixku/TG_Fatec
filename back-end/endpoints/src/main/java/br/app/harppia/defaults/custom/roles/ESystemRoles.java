@@ -2,10 +2,7 @@ package br.app.harppia.defaults.custom.roles;
 
 public enum ESystemRoles {
     ANONIMO(0),
-    LEVITA(1),
-    MINISTRO(2),
-    LIDER(3),
-    ADMINISTRADOR(4);
+    USUARIO(1);
 
     private final int nivel;
 

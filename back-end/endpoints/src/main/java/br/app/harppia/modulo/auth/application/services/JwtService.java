@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.app.harppia.modulo.church.domain.valueobject.RolesMembroPorIgrejaMinisterioRVO;
@@ -40,15 +41,15 @@ public class JwtService {
 
 	private final ObjectMapper objMpr;
 	
-	public String generateAccessToken(List<RolesMembroPorIgrejaMinisterioRVO> rolesIgreja, UserDetails userDetails) {
+	public String generateAccessToken(List<RolesMembroPorIgrejaMinisterioRVO> churchRoles, UserDetails userDetails) {
 
 		HashMap<String, Object> extraClaims = new HashMap<>();
 
-		extraClaims.put("roles", userDetails.getAuthorities());
 		extraClaims.put("jti", UUID.randomUUID().toString());
 		extraClaims.put("iss", "harppia-api");
 		extraClaims.put("aud", "harppia-client");
-		extraClaims.put("roles_igreja", rolesIgreja);
+		extraClaims.put("system_roles", userDetails.getAuthorities());
+		extraClaims.put("church_roles", churchRoles);
 
 		return generateAccessToken(extraClaims, userDetails);
 	}
@@ -89,10 +90,31 @@ public class JwtService {
 		return extractClaim(token, Claims::getExpiration);
 	}
 
-	public List<RolesMembroPorIgrejaMinisterioRVO> extractRolesIgreja(String token) {
+	public List<String> extractSystemRoles(String token) {
+	    return extractClaim(token, claims -> {
+	        List<?> rawList = claims.get("system_roles", List.class);
+	        
+	        if (rawList == null) {
+	            return Collections.emptyList();
+	        }
+
+	        return rawList.stream()
+	            .map(obj -> {
+	                Map<String, String> map = objMpr.convertValue(
+	                    obj, 
+	                    new TypeReference<Map<String, String>>() {} 
+	                );
+	                
+	                return map.get("authority");
+	            })
+	            .toList();
+	    });
+	}
+	
+	public List<RolesMembroPorIgrejaMinisterioRVO> extractChurchRoles(String token) {
         return extractClaim(token, claims -> {
 
-        	List<?> rawList = claims.get("roles_igreja", List.class);
+        	List<?> rawList = claims.get("church_roles", List.class);
             
             if (rawList == null) {
                 return Collections.emptyList();
