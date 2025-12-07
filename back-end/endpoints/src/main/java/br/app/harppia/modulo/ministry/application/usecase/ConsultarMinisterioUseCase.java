@@ -33,7 +33,7 @@ public class ConsultarMinisterioUseCase {
 	@Transactional
 	@UseRole(role = EDatabaseRoles.ROLE_OWNER)
 	public ListarMinisteriosResponse listarPorNome(BuscarMinisterioRequest busMinReq){
-		List<InformacaoMinisterioProjection> infMinRVO = minRep.findAllByNomeContainingIgnoreCase(busMinReq.nome());		 
+		List<InformacaoMinisterioProjection> infMinRVO = minRep.findAllByNomeContainingIgnoreCase(busMinReq.idIgreja(), busMinReq.nome());		 
 		return new ListarMinisteriosResponse(infMinRVO);
 	}
 }

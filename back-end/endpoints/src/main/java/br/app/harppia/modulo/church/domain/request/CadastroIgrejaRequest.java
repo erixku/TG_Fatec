@@ -6,7 +6,7 @@ public record CadastroIgrejaRequest(
 		// Dados da igreja
 		UUID idCriador, String cnpj, String nome, 
 		String denominacao, String outraDenominacao, 
-		UUID idFoto, UUID idDono,
+		UUID idFoto,
 		
 		// Dados do endereço da igreja
 		CadastroEnderecoIgrejaRequest cadEndIgrReq) {

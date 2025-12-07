@@ -55,7 +55,7 @@ public class MinisterioController {
 	
 	@GetMapping("/search")
 	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
-			+ "&& @harppiaSecurityService.hasChurchRole(#criMinReq.idIgreja, 'levita')")
+			+ "&& @harppiaSecurityService.hasChurchRole(#busMinReq.idIgreja, 'levita')")
 	public ResponseEntity<BuscarMinisterioResponse> buscar(BuscarMinisterioRequest busMinReq) {	
 		
 		BuscarMinisterioResponse lstMinRes = conMinUC.porNome(busMinReq);
@@ -64,7 +64,8 @@ public class MinisterioController {
 	}
 	
 	@GetMapping("/search/all")
-	@PreAuthorize("hasRole('LIDER')")
+	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
+			+ "&& @harppiaSecurityService.hasChurchRole(#busMinReq.idIgreja, 'levita')")
 	public ResponseEntity<ListarMinisteriosResponse> listarTodos(BuscarMinisterioRequest busMinReq) {
 		
 		ListarMinisteriosResponse lstMinRes = conMinUC.listarPorNome(busMinReq);
@@ -73,7 +74,8 @@ public class MinisterioController {
 	}
 
 	@PostMapping("/add/member")
-	@PreAuthorize("hasRole('LIDER')")
+	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
+			+ "&& @harppiaSecurityService.hasMinistryRole(#adcMbmReq.idMinisterio, 'lider')")
 	public ResponseEntity<AdicionarMembroResponse> adicionarMembro(@RequestBody AdicionarMembroRequest adcMbmReq) {
 
 		AdicionarMembroResponse adcMbmRes = adcMemMinUC.adicionarUm(adcMbmReq);

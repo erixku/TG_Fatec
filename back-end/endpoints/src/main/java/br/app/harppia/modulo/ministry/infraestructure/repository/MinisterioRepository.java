@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,9 @@ public interface MinisterioRepository extends JpaRepository<MinisterioEntity, UU
 	public InformacaoMinisterioProjection findByNomeContainingIgnoreCase( String nome );
 
 	@Transactional(readOnly = true)
-	public List<InformacaoMinisterioProjection> findAllByNomeContainingIgnoreCase( String nome );
-	
+	@Query(
+	    value = "SELECT * FROM church.tb_ministerio_louvor WHERE igr_id = :id AND nome ILIKE CONCAT('%', :nome, '%')",
+	    nativeQuery = true
+	)
+	public List<InformacaoMinisterioProjection> findAllByNomeContainingIgnoreCase(UUID id, String nome);
 }

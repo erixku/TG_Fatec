@@ -13,13 +13,13 @@ import br.app.harppia.modulo.file.domain.response.ArquivoPersistidoResponse;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 
 @Component
-public class RegistrarFotoIgrejaAdapter implements RegistrarFotoPerfilChurchToFilePort {
+public class RegistrarFotoPerfilIgrejaFromChurchAdapter implements RegistrarFotoPerfilChurchToFilePort {
 
 	private final SalvarFotoPerfilUseCase slvFotoPflIgrUC;
 	
 	private final static ENomeBucket eNomeBkt = ENomeBucket.FOTO_PERFIL_IGREJA; 
 
-	public RegistrarFotoIgrejaAdapter(SalvarFotoPerfilUseCase fileService) {
+	public RegistrarFotoPerfilIgrejaFromChurchAdapter(SalvarFotoPerfilUseCase fileService) {
 		this.slvFotoPflIgrUC = fileService;
 	}
 

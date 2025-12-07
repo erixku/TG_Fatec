@@ -1,5 +1,7 @@
 package br.app.harppia.modulo.ministry.domain.request;
 
-public record BuscarMinisterioRequest(String nome) {
+import java.util.UUID;
+
+public record BuscarMinisterioRequest(UUID idIgreja, String nome) {
 
 }
