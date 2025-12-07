@@ -1,6 +1,6 @@
 package br.app.harppia.modulo.usuario.application.usecases;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -55,10 +55,10 @@ public class CadastrarUsuarioUseCase {
 		// Caso haja valores incoerentes, pode ser erro de mapeamento DTO <--> Entidade
 		usrEntSanitized = usrMpr.toEntity(reqDto);
 
-		Optional<IdUsuarioCVO> result = usrRep.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
+		List<IdUsuarioCVO> result = usrRep.findIdUsuarioByCpfOrEmailOrTelefone(usrEntSanitized.getCpf(),
 				usrEntSanitized.getEmail(), usrEntSanitized.getTelefone());
 
-		if (result.isPresent())
+		if (!result.isEmpty())
 			throw new GestaoUsuarioException("Esse usuário já existe!");
 
 		usrEntSanitized.setSenha(pwdEnc.encode(reqDto.senha()));

@@ -26,18 +26,6 @@ public class ConsultarUsuarioFromAuthAdapter implements ConsultarUsuarioAuthToUs
 	@Override
 	@Transactional
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
-	public InformacoesAutenticacaoUsuarioRVO informacoesAutenticacao(String cpf, String email, String telefone) {
-
-		InformacoesLoginUsuarioBanco user = conUsrUC.informacoesAutenticacaoLogin(cpf, email, telefone);
-
-		List<RolesMembroPorIgrejaMinisterioRVO> rolUsrPorIgrRVO = conIgrAuthPort.rolesMembro(user.id());
-		
-		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), null, rolUsrPorIgrRVO);
-	}
-
-	@Override
-	@Transactional
-	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesAutenticacaoUsuarioRVO porId(UUID id) {
 
 		InformacoesLoginUsuarioBanco user = conUsrUC.porId(id);
@@ -68,6 +56,18 @@ public class ConsultarUsuarioFromAuthAdapter implements ConsultarUsuarioAuthToUs
 	@Override
 	public UUID idPorEmail(String email) {
 		return conUsrUC.idPorEmail(email);
+	}
+
+	@Override
+	@Transactional
+	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
+	public InformacoesAutenticacaoUsuarioRVO informacoesAutenticacao(String cpf, String email, String telefone) {
+
+		InformacoesLoginUsuarioBanco user = conUsrUC.informacoesAutenticacaoLogin(cpf, email, telefone);
+
+		List<RolesMembroPorIgrejaMinisterioRVO> rolUsrPorIgrRVO = conIgrAuthPort.rolesMembro(user.id());
+		
+		return new InformacoesAutenticacaoUsuarioRVO(user.id(), user.email(), user.senha(), null, rolUsrPorIgrRVO);
 	}
 }
 

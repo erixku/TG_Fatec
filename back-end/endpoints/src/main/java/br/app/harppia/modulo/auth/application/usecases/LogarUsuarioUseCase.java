@@ -42,8 +42,8 @@ public class LogarUsuarioUseCase {
 
 		InformacoesLoginSanitizadasRVO infLgnSntDto = usrLogMpr.mapRequest(logUsrReq);
 
-		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthToUsrPort.informacoesAutenticacao(infLgnSntDto.cpf(),
-				infLgnSntDto.email(), infLgnSntDto.telefone());
+		InformacoesAutenticacaoUsuarioRVO infAutUsrBanco = conUsrAuthToUsrPort.informacoesAutenticacao(
+				infLgnSntDto.cpf(), infLgnSntDto.email(), infLgnSntDto.telefone());
 
 		if (infAutUsrBanco == null)
 			throw new GestaoAutenticacaoException("Usuário não encontrado!");

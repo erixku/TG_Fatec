@@ -1,5 +1,6 @@
 package br.app.harppia.modulo.usuario.application.usecases;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,9 +32,8 @@ public class ConsultarUsuarioUseCase {
 	@UseRole(role = EDatabaseRoles.ROLE_USUARIO)
 	public InformacaoPublicaUsuarioDTO porCpfOuEmailOuTelefone(String key) {
 
-		if (key == null || key.trim().isEmpty()) {
+		if (key == null || key.trim().isEmpty()) 
 			throw new GestaoUsuarioException("Ao menos um identificador deve ser declarado!");
-		}
 
 		String cpf = "";
 		String email = "";
@@ -41,40 +41,47 @@ public class ConsultarUsuarioUseCase {
 
 		try {
 			email = EmailSanitizer.sanitize(key);
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) { }
 
 		try {
 			cpf = CpfSanitizer.sanitize(key);
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) { }
 
 		try {
 			telefone = TelefoneSanitizer.sanitize(key);
-		} catch (Exception ex) {
-		}
+		} catch (Exception ex) { }
 
-		if (cpf.isEmpty() && email.isEmpty() && telefone.isEmpty()) {
+		if (cpf.isEmpty() && email.isEmpty() && telefone.isEmpty()) 
 			throw new GestaoUsuarioException("Identificador inválido ou em formato não reconhecido!");
-		}
 
-		Optional<BuscarInformacoesPublicasIVO> user = userRepo.findPublicInfoByCpfOrEmailOrTelefone(cpf, email,
+		Optional<BuscarInformacoesPublicasIVO> usersFound = userRepo.findPublicInfoByCpfOrEmailOrTelefone(cpf, email,
 				telefone);
 
-		return (user.isEmpty()) ? null
-				: new InformacaoPublicaUsuarioDTO(user.get().getId(), user.get().getNome(), user.get().getNomeSocial(),
-						user.get().getEmail(), user.get().getIdFotoPerfil());
+		if(usersFound.isEmpty())
+			throw new GestaoUsuarioException("Nenhum usuário encontrado!");
+		
+		BuscarInformacoesPublicasIVO user = usersFound.get();
+		
+		return new InformacaoPublicaUsuarioDTO(user.getId(), user.getNome(), user.getNomeSocial(),
+						user.getEmail(), user.getIdFotoPerfil());
 	}
 
 	@Transactional(readOnly = true)
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesLoginUsuarioBanco informacoesAutenticacaoLogin(String cpf, String email, String telefone) {
 
-		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findAuthInfoByCpfOrEmailOrTelefone(cpf, email,
+		List<BuscarInformacoesAutenticacaoIVO> users = userRepo.findAuthInfoByCpfOrEmailOrTelefone(cpf, email,
 				telefone);
 
-		return (user.isEmpty()) ? null
-				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
+		if(users.isEmpty())
+			return null;
+		
+		if(users.size() > 1)
+			System.err.println(users.toString());
+		
+		BuscarInformacoesAutenticacaoIVO user = users.getFirst();
+			
+		return new InformacoesLoginUsuarioBanco(user.getId(), user.getEmail(), user.getSenha());
 	}
 
 	@Transactional(readOnly = true)
@@ -91,18 +98,21 @@ public class ConsultarUsuarioUseCase {
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public UUID idPorEmail(String email) {
 
-		Optional<UUID> user = userRepo.findIdByEmail(email);
+		List<UUID> user = userRepo.findIdByEmail(email);
 
-		return (user.isEmpty()) ? null : user.get();
+		return (user.isEmpty()) ? null : user.getFirst();
 	}
 
 	@Transactional(readOnly = true)
 	@UseRole(role = EDatabaseRoles.ROLE_ANONIMO)
 	public InformacoesLoginUsuarioBanco porEmail(String email) {
 
-		Optional<BuscarInformacoesAutenticacaoIVO> user = userRepo.findByEmail(email);
+		List<BuscarInformacoesAutenticacaoIVO> users = userRepo.findByEmail(email);
 
-		return (user.isEmpty()) ? null
-				: new InformacoesLoginUsuarioBanco(user.get().getId(), user.get().getEmail(), user.get().getSenha());
+		if(users.isEmpty()) return null;
+		
+		BuscarInformacoesAutenticacaoIVO user = users.getFirst();
+		
+		return new InformacoesLoginUsuarioBanco(user.getId(), user.getEmail(), user.getSenha());
 	}
 }

@@ -20,16 +20,14 @@ import br.app.harppia.modulo.usuario.infrasctructure.repository.projection.Roles
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
 	
-	@Modifying
-	@Transactional
-	@Query("update tb_usuario u set u.idFotoPerfil = :idFotoPerfil where u.id = :id")
-	int updateFotoById(@Param("idFotoPerfil") UUID idFotoPerfil, @Param("id") UUID id);
-	
+	// Usado para validar se um usuário já existe
+	public List<IdUsuarioCVO> findIdUsuarioByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
+
 	// Usado para autenticação
-	public Optional<UUID> findIdByEmail(String email);
-	public Optional<BuscarInformacoesAutenticacaoIVO> findByEmail(String email);
+	public List<UUID> findIdByEmail(String email);
+	public List<BuscarInformacoesAutenticacaoIVO> findByEmail(String email);
 	public Optional<BuscarInformacoesAutenticacaoIVO> findAuthInfoById(UUID id);
-	public Optional<BuscarInformacoesAutenticacaoIVO> findAuthInfoByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
+	public List<BuscarInformacoesAutenticacaoIVO> findAuthInfoByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
 	
 	// usado para buscar os roles do usuário para validar as roles nos endpoints
 	@Query(value = "SELECT igreja, ministerio, funcao, role_usuario_igreja " +
@@ -37,10 +35,12 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
     nativeQuery = true)
 	public List<RolesUsuarioIgrejaMinisterioProjection> findRolesUsuarioById(UUID id);
 	
-	
 	// Usado para pesquisa de perfil de usuário
     public Optional<BuscarInformacoesPublicasIVO> findPublicInfoByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
     
-    // Usado para validar se um usuário já existe
-    public Optional<IdUsuarioCVO> findIdUsuarioByCpfOrEmailOrTelefone(String cpf, String email, String telefone);
+	@Modifying
+	@Transactional
+	@Query("update tb_usuario u set u.idFotoPerfil = :idFotoPerfil where u.id = :id")
+	int updateFotoById(@Param("idFotoPerfil") UUID idFotoPerfil, @Param("id") UUID id);
+	
 }

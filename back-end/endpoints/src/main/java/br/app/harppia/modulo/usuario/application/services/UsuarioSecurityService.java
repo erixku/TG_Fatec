@@ -1,7 +1,6 @@
 package br.app.harppia.modulo.usuario.application.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -37,12 +36,12 @@ public class UsuarioSecurityService {
             throw new GestaoUsuarioException("Role configurada inválida: " + roleName);
         }
 
-        Optional<UUID> optIdUser = usrRep.findIdByEmail(emailUsuario);
+        List<UUID> optIdUser = usrRep.findIdByEmail(emailUsuario);
         
         if(optIdUser.isEmpty())
         	return false;
         
-        List<RolesUsuarioIgrejaMinisterioProjection> lstRoleUsrIgrMinPjt = usrRep.findRolesUsuarioById(optIdUser.get());
+        List<RolesUsuarioIgrejaMinisterioProjection> lstRoleUsrIgrMinPjt = usrRep.findRolesUsuarioById(optIdUser.getFirst());
 
         ESystemRoles eSysRolUser = null;
         for(RolesUsuarioIgrejaMinisterioProjection row : lstRoleUsrIgrMinPjt) {
