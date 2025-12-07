@@ -28,10 +28,54 @@ A API possui métodos de GET, POST, PUT e DELETE. Eles estão listados a seguir,
 
 ### MODULO USUÁRIO:
 
+Endpoints disponíveis:
 - /v1/users/register
 - /v1/users/find
 - /v1/users/update/{uuid}
 - /v1/users/delete/{uuid}
+
+#### /v1/users/register
+
+1. Descrição:
+Realiza o cadastro de usuários no sistema. Caso dê certo, retorna status 200 (OK).
+Caso algum login fornecido pelo usuário já exista no banco, retorna um erro 400 (bad request).
+Para qualquer outro tipo de erro, a API pode retornar 500 (internal server error).
+
+2. Requisitos de Acesso:
+Nenhum. A requisição pode ser feita de forma anônima.
+ 
+3. Parâmetros:
+Esse endpoint é "multpart-form data" e requer dois parâmetros: `user_data` e `user_photo`.
+O `user_data` é obrigatório e deve ter as informações do usuário em formato de JSON. Já o
+segundo é opcional e deve ser enviado como um arquivo (ou em binário, no cliente mobile).
+
+4. Exemplo do campo `user_data`:
+{
+  "cpf": "111.222.333-44",
+  "nomeCompleto": "Nome Completo da Pessoa",
+  "nomeSocialCompleto": "Algum Apelido",
+  "sexo": "F",
+  "dataNascimento": "2000-10-30",
+  "email": "um.email.exemplar@hotmail.com",
+  "telefone": "(11) 12345-0987",
+  "senha": "UmaSenh@F0rte",
+  "endereco": {
+    "cep": "09123-432",
+    "uf": "UF",
+    "cidade": "Cidade",
+    "bairro": "Bairro",
+    "logradouro": "Logradouro ou Rua",
+    "numero": "10",
+    "complemento": "Complemento"
+  }
+}
+
+5. Exemplo do campo `user_photo`:
+{
+  "uri": "uma_uri_bem_grande_aqui",
+  "mime_type": "tipo_arquivo",
+  "name": "nome do arquivo"
+}
 
 
 ### MODULO CONFIGURAÇÕES:
