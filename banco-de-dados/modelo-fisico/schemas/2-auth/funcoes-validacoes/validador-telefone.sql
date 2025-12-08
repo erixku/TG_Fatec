@@ -23,7 +23,7 @@ DECLARE
   ]::CHAR(2)[];
 BEGIN
   IF telefone IS NULL THEN
-    RAISE EXCEPTION 'Telefone inválido: não pode ser nulo';
+    RETURN TRUE;
   END IF;
 
   telefone := trim(telefone);

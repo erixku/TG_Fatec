@@ -13,7 +13,7 @@ DECLARE
   i INT;
 BEGIN
   IF cpf IS NULL THEN
-    RAISE EXCEPTION 'CPF inválido: não pode ser nulo';
+    RETURN TRUE;
   END IF;
 
   cpf := trim(cpf);

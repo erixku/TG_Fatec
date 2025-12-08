@@ -8,7 +8,7 @@ SET search_path = pg_catalog
 AS $$
 BEGIN
   IF email IS NULL THEN
-    RAISE EXCEPTION 'E-mail inválido: não pode ser nulo';
+    RETURN TRUE;
   END IF;
 
   email := trim(email);

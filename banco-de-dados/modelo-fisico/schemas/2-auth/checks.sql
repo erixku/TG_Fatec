@@ -57,6 +57,14 @@ CHECK (
 );
 
 ALTER TABLE auth.tb_usuario
+ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_cpf_c_email_c_telefone
+CHECK (
+  cpf      IS NOT NULL OR
+  email    IS NOT NULL OR
+  telefone IS NOT NULL
+);
+
+ALTER TABLE auth.tb_usuario
 ADD CONSTRAINT ck_s_auth_t_tb_usuario_c_status_c_is_verificado
 CHECK (
   (
