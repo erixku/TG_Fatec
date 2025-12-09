@@ -64,7 +64,8 @@ CREATE TABLE schedule.tb_publicacao (
   descricao  VARCHAR(2000)                           NOT NULL,
 
   -- chaves estrangeiras
-  s_church_t_tb_igreja_c_igreja UUID NOT NULL,
+  s_church_t_tb_igreja_c_igreja             UUID NOT NULL,
+  s_church_t_tb_ministerio_louvor_c_min_lou UUID     NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_schedule_t_tb_publicacao_c_id PRIMARY KEY (id),
@@ -95,6 +96,13 @@ CREATE TABLE schedule.tb_publicacao (
   CONSTRAINT fk_s_schedule_t_tb_publicacao_c_igreja
     FOREIGN KEY (s_church_t_tb_igreja_c_igreja)
     REFERENCES church.tb_igreja (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_schedule_t_tb_publicacao_c_min_lou
+    FOREIGN KEY (s_church_t_tb_ministerio_louvor_c_min_lou)
+    REFERENCES church.tb_ministerio_louvor (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -321,7 +329,8 @@ CREATE TABLE schedule.tb_escala (
   quantidade_atividades SMALLINT      NOT NULL,
 
   -- chaves estrangeiras
-  s_church_t_tb_igreja_c_igreja UUID NOT NULL,
+  s_church_t_tb_igreja_c_igreja             UUID NOT NULL,
+  s_church_t_tb_ministerio_louvor_c_min_lou UUID     NULL,
 
   -- declaração de chaves primárias
   CONSTRAINT pk_s_schedule_t_tb_escala_c_id PRIMARY KEY (id),
@@ -352,6 +361,13 @@ CREATE TABLE schedule.tb_escala (
   CONSTRAINT fk_s_schedule_t_tb_escala_c_igreja
     FOREIGN KEY (s_church_t_tb_igreja_c_igreja)
     REFERENCES church.tb_igreja (id)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+    NOT DEFERRABLE INITIALLY IMMEDIATE,
+
+  CONSTRAINT fk_s_schedule_t_tb_escala_c_min_lou
+    FOREIGN KEY (s_church_t_tb_ministerio_louvor_c_min_lou)
+    REFERENCES church.tb_ministerio_louvor (id)
     ON UPDATE RESTRICT
     ON DELETE RESTRICT
     NOT DEFERRABLE INITIALLY IMMEDIATE
