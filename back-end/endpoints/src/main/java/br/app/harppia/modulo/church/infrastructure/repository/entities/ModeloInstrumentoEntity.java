@@ -7,12 +7,7 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,28 +23,27 @@ import lombok.ToString;
 public class ModeloInstrumentoEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", insertable = false, updatable = false)
 	private Integer id;
 
 	//---------------//
 	// DADOS DE LOGS //
 	//---------------//
-	@Generated(event = EventType.INSERT)
-	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+	@Column(name = "created_at", insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
-	@Column(name = "updated_at", nullable = false)
+	@Column(name = "updated_at", insertable = false)
 	private OffsetDateTime updatedAt;
 
-	@Column(name = "deleted_at")
+	@Column(name = "deleted_at", insertable = false)
 	private OffsetDateTime deletedAt;
 
 	//--------------------------------//
 	// DADOS DO MODELO DO INSTRUMENTO //
 	//--------------------------------//
-	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
 
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -57,7 +51,6 @@ public class ModeloInstrumentoEntity {
 	//-----//
 	// FKs //
 	//-----//
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ins_mar_id", nullable = false)
-	private MarcaInstrumentoEntity instrumentoMarca;
+	@Column(name = "ins_mar_id", nullable = false)
+	private Integer idInstrumentoMarca;
 }

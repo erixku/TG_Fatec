@@ -8,10 +8,7 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,23 +34,22 @@ public class EnderecoIgrejaEntity  {
 
     @Id
     @Generated(event = EventType.INSERT)
-    @Column(name = "id")
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
     @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
-    @Generated(event = EventType.INSERT)
     @Column(name = "updated_at", insertable = false)
     private OffsetDateTime updatedAt;
 
     @Column(name = "deleted_at", insertable = false)
-    private OffsetDateTime deletedAt = null;
+    private OffsetDateTime deletedAt;
 
     @Column(name = "created_by", nullable = false, updatable = false)
     private UUID createdBy;
 
-    @Column(name = "updated_by", nullable = false)
+    @Column(name = "updated_by", insertable = false)
     private UUID updatedBy;
 
     @Column(name = "deleted_by", insertable = false)
@@ -92,7 +88,6 @@ public class EnderecoIgrejaEntity  {
     //-----//
     // FKs //
     //-----//
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_id", nullable = false)
-    private IgrejaEntity igreja;
+    @Column(name = "igr_id", nullable = false)
+    private UUID idIgreja;
 }

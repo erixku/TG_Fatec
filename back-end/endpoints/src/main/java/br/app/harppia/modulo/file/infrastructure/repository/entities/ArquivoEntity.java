@@ -7,7 +7,7 @@ import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.defaults.custom.converters.enums.mimetypearquivo.ConversorEnumMimeTypeArquivo;
+import br.app.harppia.modulo.file.infrastructure.converter.ConversorEnumMimeTypeArquivo;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EExtensaoArquivo;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.EMimeTypeArquivo;
 import jakarta.persistence.Column;

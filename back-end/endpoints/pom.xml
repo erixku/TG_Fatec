@@ -138,6 +138,13 @@
 		    <artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		
+		<!-- Mapeador de Tipo TSTZRANGE -->
+		<dependency>
+		    <groupId>io.hypersistence</groupId>
+		    <artifactId>hypersistence-utils-hibernate-63</artifactId>
+    		<version>3.7.0</version> 
+    	</dependency>
+		
 		<!-- Gerador de Boilerplate -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>

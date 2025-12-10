@@ -3,8 +3,8 @@ package br.app.harppia.modulo.userconfig.infrastructure.repository.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import br.app.harppia.defaults.utils.InternalEnumParser;
-import br.app.harppia.defaults.utils.rules.EnumPersistivel;
+import br.app.harppia.defaults.custom.enums.InternalEnumParser;
+import br.app.harppia.defaults.custom.enums.rules.EnumPersistivel;
 
 /**
  * Essa enum representa os tipos de daltonismos existentes (até 02/10/2025).

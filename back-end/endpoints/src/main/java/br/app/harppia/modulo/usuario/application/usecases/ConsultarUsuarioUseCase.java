@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 import br.app.harppia.defaults.custom.aop.UseRole;
 import br.app.harppia.defaults.custom.exceptions.GestaoUsuarioException;
 import br.app.harppia.defaults.custom.roles.EDatabaseRoles;
-import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
 import br.app.harppia.modulo.usuario.domain.dto.InformacaoPublicaUsuarioDTO;
 import br.app.harppia.modulo.usuario.domain.dto.login.InformacoesLoginUsuarioBanco;
 import br.app.harppia.modulo.usuario.domain.valueobject.BuscarInformacoesAutenticacaoIVO;
 import br.app.harppia.modulo.usuario.domain.valueobject.BuscarInformacoesPublicasIVO;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.UsuarioRepository;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.CpfSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.EmailSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.TelefoneSanitizer;
 
 @Service
 public class ConsultarUsuarioUseCase {

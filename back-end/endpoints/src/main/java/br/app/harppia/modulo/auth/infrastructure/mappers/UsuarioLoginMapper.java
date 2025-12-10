@@ -3,11 +3,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
 import br.app.harppia.modulo.auth.domain.request.LoginUsuarioRequest;
 import br.app.harppia.modulo.auth.domain.valueobject.InformacoesLoginSanitizadasRVO;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.CpfSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.EmailSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.TelefoneSanitizer;
 
 @Mapper(componentModel = "spring")
 public abstract class UsuarioLoginMapper {

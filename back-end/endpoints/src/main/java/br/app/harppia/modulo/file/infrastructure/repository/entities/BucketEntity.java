@@ -2,7 +2,7 @@ package br.app.harppia.modulo.file.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
 
-import br.app.harppia.defaults.custom.converters.enums.nomebucket.ConversorEnumNomeBucket;
+import br.app.harppia.modulo.file.infrastructure.converter.ConversorEnumNomeBucket;
 import br.app.harppia.modulo.file.infrastructure.repository.enums.ENomeBucket;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

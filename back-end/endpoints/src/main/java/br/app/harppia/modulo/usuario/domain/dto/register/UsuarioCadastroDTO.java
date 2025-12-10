@@ -2,7 +2,7 @@ package br.app.harppia.modulo.usuario.domain.dto.register;
 
 import java.time.LocalDate;
 
-import br.app.harppia.defaults.custom.annotations.ValidCPF;
+import br.app.harppia.modulo.usuario.infrasctructure.annotation.ValidCPF;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,7 @@
 package br.app.harppia.modulo.church.infrastructure.repository.entities;
 
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -9,12 +10,9 @@ import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,18 +32,17 @@ public class FaixaMusicalIgrejaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Long id;
 
     //---------------//
     // DADOS DE LOGS //
     //---------------//
-    @Generated(event = EventType.INSERT)
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
     @Generated(event = EventType.INSERT)
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", insertable = false)
     private OffsetDateTime updatedAt;
 
     @Column(name = "deleted_at", insertable = false)
@@ -57,22 +54,21 @@ public class FaixaMusicalIgrejaEntity {
     //--------------//
     // DADOS GERAIS //
     //--------------//
-    @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
 
-    @Column(name = "is_disabled", nullable = false)
-    private Boolean isDisabled = false;
+    @Column(name = "is_disabled", insertable = false)
+    private Boolean isDisabled;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "snapshot")
+    @Column(name = "snapshot_inicial", nullable = false)
     private String snapshot;
 
     //-----//
     // FKs //
     //-----//
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "igr_id", nullable = false)
-    private IgrejaEntity igreja;
+    @Column(name = "igr_id", nullable = false)
+    private UUID idIgreja;
 
     @Column(name = "s_song_t_tb_musica_c_mus")
     private Integer idMusica;

@@ -7,8 +7,6 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -28,28 +26,27 @@ public class MarcaInstrumentoEntity {
 	private static final long serialVersionUID = 2L;
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Generated(event = EventType.INSERT)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
     //---------------//
     // DADOS DE LOGS //
     //---------------//
-    @Generated(event = EventType.INSERT)
-    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+    @Column(name = "created_at", insertable = false, updatable = false)
     private OffsetDateTime createdAt;
 
-    @Generated(event = EventType.INSERT)
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", insertable = false)
     private OffsetDateTime updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "deleted_at", insertable = false)
     private OffsetDateTime deletedAt;
 
     //-------------------------------//
     // DADOS DA MARCA DO INSTRUMENTO //
     //-------------------------------//
-    @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted = false;
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
 
     @Column(name = "nome", nullable = false)
     private String nome;

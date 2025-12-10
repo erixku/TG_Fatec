@@ -4,11 +4,9 @@ import java.util.Arrays;
 
 public enum EChurchAndMinistryRoles {
     
-    LEVITA("levita", 0),
-    MINISTRO("ministro", 1),
-    LIDER("lider", 2),
-    ADMINISTRADOR("administrador", 3),
-    ADM_PROPRIETARIO("adm_proprietario", 4);
+    MEMBRO("membro", 0),
+    ADMINISTRADOR("administrador", 1),
+    ADM_PROPRIETARIO("adm_proprietario", 2);
 
     private final String roleKey; 
     private final int nivel;

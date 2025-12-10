@@ -8,8 +8,6 @@ import org.hibernate.generator.EventType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -29,31 +27,30 @@ public class AdministradorIgrejaEntity {
 	private static long serialVersion = 2L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", insertable = false, updatable = false)
 	private Long id;
 	
 	//---------------//
 	// DADOS DE LOGS //
 	//---------------//
-	@Generated(event = EventType.INSERT)
-	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+	@Column(name = "created_at", insertable = false, updatable = false)
 	private OffsetDateTime createdAt;
 
-	@Generated(event = EventType.INSERT)
-	@Column(name = "deleted_at")
+	@Column(name = "deleted_at", insertable = false)
 	private OffsetDateTime deletedAt;
 	
 	@Column(name = "created_by", nullable = false)
 	private UUID createdBy;
 	
-	@Column(name = "deleted_by")
+	@Column(name = "deleted_by", insertable = false)
 	private UUID deletedBy;
 	
 	//----------------//
 	// DADOS DO ADMIN //
 	//----------------//
-	@Column(name = "is_deleted", nullable = false)
-	private Boolean isDeleted = false;
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
 	
 	//-----//
 	// FKs //

@@ -69,7 +69,7 @@ public class GenericSecurityService {
 	
 	
 	public boolean hasMinistryRole(UUID idMinisterio, String roleEsperadaString) {
-	    if (idMinisterio == null || roleEsperadaString == null) return false;
+	    if (idMinisterio == null || roleEsperadaString == null) return true;
 
 	    List<RolesMembroPorIgrejaMinisterioRVO> contexto = getChurchTokenContext();
 

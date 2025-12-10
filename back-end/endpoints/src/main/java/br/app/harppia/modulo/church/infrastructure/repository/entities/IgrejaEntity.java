@@ -7,7 +7,7 @@ import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.defaults.custom.converters.enums.denominacao.ConversorEnumDenominacaoIgreja;
+import br.app.harppia.modulo.church.infrastructure.converter.ConversorEnumDenominacaoIgreja;
 import br.app.harppia.modulo.church.infrastructure.repository.enums.EDenominacaoIgreja;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

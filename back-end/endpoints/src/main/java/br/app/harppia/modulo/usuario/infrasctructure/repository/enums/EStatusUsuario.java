@@ -1,6 +1,6 @@
 package br.app.harppia.modulo.usuario.infrasctructure.repository.enums;
 
-import br.app.harppia.defaults.utils.rules.EnumPersistivel;
+import br.app.harppia.defaults.custom.enums.rules.EnumPersistivel;
 
 public enum EStatusUsuario implements EnumPersistivel {
 	

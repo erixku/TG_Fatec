@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.app.harppia.defaults.custom.converters.enums.statususuario.ConversorEnumStatusUsuario;
+import br.app.harppia.modulo.auth.infrastructure.converter.ConversorEnumStatusUsuario;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.enums.EStatusUsuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

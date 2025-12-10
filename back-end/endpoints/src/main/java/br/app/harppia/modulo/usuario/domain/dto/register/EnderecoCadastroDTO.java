@@ -1,6 +1,6 @@
 package br.app.harppia.modulo.usuario.domain.dto.register;
 
-import br.app.harppia.defaults.custom.annotations.ValidUF;
+import br.app.harppia.modulo.usuario.infrasctructure.annotation.ValidUF;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 

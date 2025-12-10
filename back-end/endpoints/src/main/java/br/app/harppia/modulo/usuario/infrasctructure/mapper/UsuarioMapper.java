@@ -6,11 +6,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
-import br.app.harppia.defaults.custom.sanitizers.CpfSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.EmailSanitizer;
-import br.app.harppia.defaults.custom.sanitizers.TelefoneSanitizer;
 import br.app.harppia.modulo.usuario.domain.dto.register.UsuarioCadastroDTO;
 import br.app.harppia.modulo.usuario.infrasctructure.repository.entities.UsuarioEntity;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.CpfSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.EmailSanitizer;
+import br.app.harppia.modulo.usuario.infrasctructure.sanitizer.TelefoneSanitizer;
 
 @Mapper(componentModel = "spring", uses = { EnderecoMapper.class })
 public abstract class UsuarioMapper {

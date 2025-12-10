@@ -65,7 +65,7 @@ public class CriarIgrejaUseCase {
 		IgrejaEntity igrEntSaved = igrRep.save(igrEntMapped);
 
 		EnderecoIgrejaEntity endIgrEntMapped = endIgrMpr.toEntity(cadIgrReq.cadEndIgrReq());
-		endIgrEntMapped.setIgreja(igrEntSaved);
+		endIgrEntMapped.setIdIgreja(igrEntSaved.getId());
 		endIgrEntMapped.setCreatedBy(igrEntSaved.getCreatedBy());
 		endIgrEntMapped.setUpdatedBy(igrEntSaved.getCreatedBy());
 		

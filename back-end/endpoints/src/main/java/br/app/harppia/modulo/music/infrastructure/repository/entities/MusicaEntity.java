@@ -10,7 +10,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.generator.EventType;
 import org.hibernate.type.SqlTypes;
 
-import br.app.harppia.defaults.custom.converters.enums.tonalidade.ConversorEnumTonalidadeMusica;
+import br.app.harppia.modulo.music.infrastructure.converter.ConversorEnumTonalidadeMusica;
 import br.app.harppia.modulo.music.infrastructure.repository.enums.ETonalidadeMusica;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

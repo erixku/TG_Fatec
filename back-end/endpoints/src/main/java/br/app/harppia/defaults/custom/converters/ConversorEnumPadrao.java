@@ -3,7 +3,7 @@ package br.app.harppia.defaults.custom.converters;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.app.harppia.defaults.utils.rules.EnumPersistivel;
+import br.app.harppia.defaults.custom.enums.rules.EnumPersistivel;
 import jakarta.persistence.AttributeConverter;
 
 public abstract class ConversorEnumPadrao<E extends Enum<E> & EnumPersistivel> implements AttributeConverter<E, String>{

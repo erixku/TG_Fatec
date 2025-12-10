@@ -39,7 +39,7 @@ public class MinisterioController {
 
 	@PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@PreAuthorize("@harppiaSecurityService.hasSystemRole('USUARIO') "
-			+ "&& @harppiaSecurityService.hasChurchRole(#criMinReq.idIgreja, 'ADM_PROPRIETARIO')")
+			+ "&& @harppiaSecurityService.hasChurchRole(#criMinReq.idIgreja, 'ADMINISTRADOR')")
 	public ResponseEntity<CriarMinisterioResponse> criar(
 			@RequestPart("ministry_data") CriarMinisterioRequest criMinReq,
 			@RequestPart("ministry_photo") MultipartFile mtpFile
@@ -47,10 +47,11 @@ public class MinisterioController {
 
 		CriarMinisterioResponse criMinResCriado = criMinUC.proceder(criMinReq, mtpFile);
 
-		if (criMinResCriado == null)
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(criMinResCriado);
-
-		return ResponseEntity.status(HttpStatus.OK).body(criMinResCriado);
+		return ResponseEntity.status(
+					(criMinResCriado == null)
+						? HttpStatus.BAD_REQUEST
+						: HttpStatus.OK
+				).body(criMinResCriado);
 	}
 	
 	@GetMapping("/search")
@@ -60,7 +61,11 @@ public class MinisterioController {
 		
 		BuscarMinisterioResponse lstMinRes = conMinUC.porNome(busMinReq);
 		
-		return ResponseEntity.status((lstMinRes == null) ? HttpStatus.BAD_REQUEST : HttpStatus.OK).body(lstMinRes);		
+		return ResponseEntity.status(
+					(lstMinRes == null) 
+						? HttpStatus.BAD_REQUEST 
+						: HttpStatus.OK
+				).body(lstMinRes);		
 	}
 	
 	@GetMapping("/search/all")
@@ -70,7 +75,11 @@ public class MinisterioController {
 		
 		ListarMinisteriosResponse lstMinRes = conMinUC.listarPorNome(busMinReq);
 		
-		return ResponseEntity.status((lstMinRes == null) ? HttpStatus.BAD_REQUEST : HttpStatus.OK).body(lstMinRes);		
+		return ResponseEntity.status(
+					(lstMinRes == null) 
+						? HttpStatus.BAD_REQUEST 
+						: HttpStatus.OK
+				).body(lstMinRes);		
 	}
 
 	@PostMapping("/add/member")
@@ -80,7 +89,11 @@ public class MinisterioController {
 
 		AdicionarMembroResponse adcMbmRes = adcMemMinUC.adicionarUm(adcMbmReq);
 
-		return ResponseEntity.status((adcMbmRes == null) ? HttpStatus.BAD_REQUEST : HttpStatus.OK).body(adcMbmRes);
+		return ResponseEntity.status(
+					(adcMbmRes == null) 
+						? HttpStatus.BAD_REQUEST 
+						: HttpStatus.OK
+				).body(adcMbmRes);
 	}
 
 }

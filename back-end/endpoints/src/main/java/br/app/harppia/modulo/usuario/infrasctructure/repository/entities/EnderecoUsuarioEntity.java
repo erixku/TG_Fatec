@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 
-import br.app.harppia.defaults.custom.annotations.ValidUF;
+import br.app.harppia.modulo.usuario.infrasctructure.annotation.ValidUF;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -3,7 +3,7 @@ package br.app.harppia.modulo.music.infrastructure.repository.enums;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import br.app.harppia.defaults.utils.rules.EnumPersistivel;
+import br.app.harppia.defaults.custom.enums.rules.EnumPersistivel;
 
 public enum ETonalidadeMusica implements EnumPersistivel {
 	// Tonalidades maiores

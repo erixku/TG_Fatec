@@ -17,7 +17,7 @@ public interface EnderecoIgrejaMapper {
 	@Mapping(target = "updatedBy", ignore = true)
 	@Mapping(target = "deletedBy", ignore = true)
 	@Mapping(target = "isDeleted", ignore = true)
-	@Mapping(target = "igreja", ignore = true)
+	@Mapping(target = "idIgreja", ignore = true)
 
 	@Mapping(source = "isEnderecoPrincipal", target = "isPrincipal")
 	EnderecoIgrejaEntity toEntity(CadastroEnderecoIgrejaRequest cadEndIgrReq);
