@@ -3,13 +3,13 @@ import React from "react";
 import { KeyboardAvoidingView, Platform, useColorScheme } from "react-native";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterUserFormData, registerUserSchema } from "@/schemas/registerUserSchema";
+import { RegisterUserFormInput, registerUserSchema } from "@/schemas/registerUserSchema";
 
 export default function RegisterLayout() {
     const colorScheme = useColorScheme();
 
     // Inicializa o formulário aqui para compartilhar o contexto entre as telas de registro
-    const methods = useForm<RegisterUserFormData>({
+    const methods = useForm<RegisterUserFormInput>({
       resolver: zodResolver(registerUserSchema),
       mode: 'onChange',
     });

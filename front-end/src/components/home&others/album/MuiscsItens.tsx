@@ -3,6 +3,7 @@ import { View, Text, useColorScheme, Pressable, FlatList, Modal, Linking, Alert,
 import { Image } from "expo-image";
 import { ChevronRightIcon, ExclamationCircleIcon, UsersIcon } from "react-native-heroicons/solid";
 import { getAlbumCoverSafe } from "@/services/itunes";
+import { loadCache } from "@/services/localCache";
 
 export type GenericMusic = {
   _id?: number;
@@ -18,6 +19,7 @@ export type GenericMusic = {
   youtubeLink?: string;
   lyricsLink?: string;
   chordsLink?: string;
+  createdBy?: string;
 };
 
 export type LayoutType = 'list' | 'grid'
@@ -57,11 +59,64 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
   const [musicList, setMusicList] = useState<GenericMusic[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedMusic, setSelectedMusic] = useState<GenericMusic | null>(null);
+  const [creatorName, setCreatorName] = useState<string>('Carregando...');
+  const [creatorNamesMap, setCreatorNamesMap] = useState<Record<string, string>>({});
   
   const numColumns = layoutProp === 'list' ? 1 : 3;
 
   const colorScheme = useColorScheme();
   const baseColor = colorScheme === "dark" ? "#dbeafe" : "#0f172a";
+
+  // Load all creator names when component mounts or musics change
+  useEffect(() => {
+    const loadCreatorNames = async () => {
+      try {
+        const cache = await loadCache();
+        const namesMap: Record<string, string> = {};
+        
+        // Get unique creator IDs from musics
+        const creatorIds = [...new Set(musics.map(m => m.createdBy).filter(Boolean))];
+        
+        // For now, we only have the current user in cache
+        // In the future, this should load all users from a users collection
+        if (cache.user) {
+          creatorIds.forEach(id => {
+            if (id === cache.user?.id) {
+              namesMap[id] = cache.user.nomeSocial || cache.user.nome;
+            } else {
+              namesMap[id] = 'Usuário desconhecido';
+            }
+          });
+        }
+        
+        setCreatorNamesMap(namesMap);
+        console.log('🎵 Nomes dos criadores carregados:', namesMap);
+      } catch (error) {
+        console.error('Erro ao carregar nomes dos criadores:', error);
+      }
+    };
+    loadCreatorNames();
+  }, [musics]);
+
+  useEffect(() => {
+    const loadCreatorName = async () => {
+      if (selectedMusic?.createdBy) {
+        try {
+          const cache = await loadCache();
+          const creator = cache.user?.id === selectedMusic.createdBy ? cache.user : null;
+          if (creator) {
+            setCreatorName(creator.nomeSocial || creator.nome);
+          } else {
+            setCreatorName('Usuário desconhecido');
+          }
+        } catch (error) {
+          console.error('Erro ao carregar nome do criador:', error);
+          setCreatorName('Erro ao carregar');
+        }
+      }
+    };
+    loadCreatorName();
+  }, [selectedMusic]);
 
   const artistMap = useMemo<ArtistMap>(() => {
     return artists.reduce((m, a) => { m[a.id] = a.name; return m; }, {} as ArtistMap);
@@ -109,6 +164,7 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
 
   const renderItem = ({ item }: { item: GenericMusic }) => {
     const { combined } = getArtistNames(item, artistMap);
+    const ownerName = item.createdBy ? (creatorNamesMap[item.createdBy] || 'Carregando...') : 'Desconhecido';
 
     return (
       <View className={layoutProp==='grid'&&("flex-1 py-4")}>
@@ -146,7 +202,7 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
 
               {isPublic && (
                 <Text className="font-nunito text-slate-600/70 dark:text-slate-300/70 text-center" numberOfLines={1} ellipsizeMode="tail">
-                  Pastor Marcos Horse
+                  {ownerName}
                 </Text>
               )}
             </View>
@@ -182,7 +238,7 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
                     </Text>
                     {isPublic && (
                       <Text className="font-nunito text-xs text-slate-600/70 dark:text-slate-300/70 text-center" numberOfLines={1} ellipsizeMode="tail">
-                        Pastor Marcos Horse
+                        {ownerName}
                       </Text>
                     )}
                 </View>
@@ -256,33 +312,39 @@ export default function MusicItens({ musics, artists, gallery: isGallery = false
                         </View>
                       </View>
 
-                      <View>
-                        <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à música</Text>
-                        <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.youtubeLink })}>
-                          <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.youtubeLink}</Text>
-                          <ChevronRightIcon color={baseColor} size={20}/>
-                        </Pressable>
-                      </View>
+                      {selectedMusic.youtubeLink && (
+                        <View>
+                          <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à música</Text>
+                          <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.youtubeLink })}>
+                            <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.youtubeLink}</Text>
+                            <ChevronRightIcon color={baseColor} size={20}/>
+                          </Pressable>
+                        </View>
+                      )}
 
-                      <View>
-                        <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à letra</Text>
-                        <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.lyricsLink })}>
-                          <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.lyricsLink}</Text>
-                          <ChevronRightIcon color={baseColor} size={20}/>
-                        </Pressable>
-                      </View>
+                      {selectedMusic.lyricsLink && (
+                        <View>
+                          <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à letra</Text>
+                          <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.lyricsLink })}>
+                            <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.lyricsLink}</Text>
+                            <ChevronRightIcon color={baseColor} size={20}/>
+                          </Pressable>
+                        </View>
+                      )}
 
-                      <View>
-                        <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à partitura</Text>
-                        <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.chordsLink })}>
-                          <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.chordsLink}</Text>
-                          <ChevronRightIcon color={baseColor} size={20}/>
-                        </Pressable>
-                      </View>                      
+                      {selectedMusic.chordsLink && (
+                        <View>
+                          <Text className="font-nunito-light dark:text-blue-100/50 text-slate-900/50">Acesso à partitura</Text>
+                          <Pressable className="flex-row w-full justify-between items-center gap-2" onPress={() => navigateToUrl({ url: selectedMusic.chordsLink })}>
+                            <Text className="font-nunito text-lg dark:text-blue-100 text-slate-900 overflow-clip max-w-[75%]" ellipsizeMode="tail" numberOfLines={1} >{selectedMusic.chordsLink}</Text>
+                            <ChevronRightIcon color={baseColor} size={20}/>
+                          </Pressable>
+                        </View>
+                      )}
 
                     </View>
                   </ScrollView>
-                  <Text className="font-nunito-light mt-2 text-sm dark:text-blue-100/70 text-slate-900/70">Criado por: Padre Caraglio</Text>
+                  <Text className="font-nunito-light mt-2 text-sm dark:text-blue-100/70 text-slate-900/70">Criado por: {creatorName}</Text>
                 </>
               )
             }

@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Pressable, useColorScheme } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import ThemedHarppiaLogo from "@/components/ThemedHarppiaLogo";
 import { CustomButton } from "@/components/CustomButtom";
@@ -10,6 +10,9 @@ import {PlusIcon, HomeIcon, UserGroupIcon} from "react-native-heroicons/solid"
 export default function ChurchMenu() {
     const router = useRouter();
     const colorScheme = useColorScheme();
+    const { userId } = useLocalSearchParams<{ userId?: string }>();
+    
+    console.log('🏠 [ChurchMenu] userId recebido:', userId);
     
     const baseColor:string = colorScheme === 'dark' ? '#dbeafe' : '#0f172a';
     const contrastColor:string = colorScheme === 'dark' ? '#93c5fd' : '#1d4ed8';
@@ -26,7 +29,13 @@ export default function ChurchMenu() {
                     </View>
                 </View>
                 <View className="flex flex-1 w-full items-center justify-center gap-y-3"> 
-                    <Pressable onPress={() => router.push("/church/register")} className="flex-row p-2 px-6 h-10 gap-x-4 w-[90%] items-center justify-around bg-blue-400 dark:bg-blue-600 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
+                    <Pressable onPress={() => {
+                        console.log('➡️ [ChurchMenu] Navegando para /church/register com userId:', userId);
+                        router.push({
+                            pathname: "/church/register",
+                            params: { userId: userId || "" }
+                        });
+                    }} className="flex-row p-2 px-6 h-10 gap-x-4 w-[90%] items-center justify-around bg-blue-400 dark:bg-blue-600 active:bg-blue-300 active:dark:bg-blue-700 rounded-xl">
                         <PlusIcon color={baseColor}/>
                         <Text className="font-nunito text-lg text-slate-900 dark:text-blue-100">Cadastrar nova igreja</Text>
                     </Pressable>

@@ -12,9 +12,9 @@ export const registerChurchSchema = z.object({
         cidade: z.string().nonempty("Campo obrigatório"),
         bairro: z.string().nonempty("Campo obrigatório"),
         rua: z.string().nonempty("Campo obrigatório"),
-        numero: z.string().nullable().transform((val) => val.trim() === "" ? "S/N" : val).optional(),
-        complemento: z.string().max(30, "O complemento deve ter no máximo 30 caracteres").nullable().optional(),
-        endereco_principal: z.boolean().optional().default(false),
+        endereco_principal: z.boolean().default(false),
+        numero: z.string().optional().nullable().transform((val) => val?.trim() === "" ? "S/N" : val),
+        complemento: z.string().max(30, "O complemento deve ter no máximo 30 caracteres").optional().nullable(),
     }),
     arquivo: z.object({
         caminho: z.string().nullable(),
@@ -27,4 +27,7 @@ export const registerChurchSchema = z.object({
     }).optional()
 });
 
-export type RegisterChurchFormData = z.infer<typeof registerChurchSchema>;
+// Tipo de entrada do formulário (antes dos transforms)
+export type RegisterChurchFormInput = z.input<typeof registerChurchSchema>;
+// Tipo de saída do formulário (após transforms)
+export type RegisterChurchFormData = z.output<typeof registerChurchSchema>;

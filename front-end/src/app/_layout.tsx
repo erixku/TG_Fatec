@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'; // deve ser o primeiro import
 import "../global.css";
-import { useEffect } from 'react';
-import { Stack } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -11,6 +11,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native"
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { checkAuthentication } from '@/api/loginUser';
 
 // Impede que a tela de splash se esconda automaticamente.
 SplashScreen.preventAutoHideAsync();
@@ -19,6 +20,11 @@ SplashScreen.preventAutoHideAsync();
 // nativos durante a análise de rotas pelo Metro bundler.
 
 export default function Layout() {
+  const router = useRouter();
+  const segments = useSegments();
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   // Load polyfills dynamically at runtime so Metro route parsing doesn't
   // attempt to require native modules during bundling.
   useEffect(() => {
@@ -34,6 +40,65 @@ export default function Layout() {
       }
     })();
   }, []);
+
+  // Verifica autenticação ao iniciar o app
+  useEffect(() => {
+    checkAuthOnStartup();
+  }, []);
+
+  // Redireciona baseado no estado de autenticação
+  useEffect(() => {
+    if (!isAuthChecked) return;
+
+    const inAuthGroup = segments[0] === 'user' || segments[0] === 'church';
+    const inHomeGroup = segments[0] === 'homeMenu';
+    const inIndexPage = segments.length === 0; // Página inicial
+
+    console.log('📍 Segmentos atuais:', segments);
+    console.log('🔐 Autenticado:', isAuthenticated);
+    console.log('📂 Grupo:', { inAuthGroup, inHomeGroup, inIndexPage });
+
+    // Permite navegação livre para telas de auth (user/church) a partir da página inicial
+    if (inAuthGroup) {
+      console.log('✅ Navegação para tela de autenticação permitida');
+      return;
+    }
+
+    // Se mudou para homeMenu, reverifica autenticação para garantir estado atualizado
+    if (inHomeGroup) {
+      console.log('🔄 Reverificando autenticação ao entrar em homeMenu...');
+      checkAuthOnStartup();
+      return; // Aguarda a reverificação antes de redirecionar
+    }
+
+    if (!isAuthenticated && inHomeGroup) {
+      // Usuário não autenticado tentando acessar home
+      console.log('➡️ Redirecionando para login (não autenticado)');
+      router.replace('/user/login');
+    }
+    // Removido o redirecionamento automático de usuários autenticados das telas de auth
+    // Isso permite que usuários autenticados naveguem livremente para login/registro se desejarem
+  }, [isAuthChecked, isAuthenticated, segments]);
+
+  const checkAuthOnStartup = async () => {
+    try {
+      console.log('🔍 Verificando autenticação ao iniciar app...');
+      const isAuth = await checkAuthentication();
+      
+      if (isAuth) {
+        console.log('✅ Usuário autenticado');
+        setIsAuthenticated(true);
+      } else {
+        console.log('❌ Usuário não autenticado');
+        setIsAuthenticated(false);
+      }
+    } catch (error) {
+      console.warn('⚠️ Erro ao verificar autenticação:', error);
+      setIsAuthenticated(false);
+    } finally {
+      setIsAuthChecked(true);
+    }
+  };
 
   const { colorScheme } = useColorScheme();
   const baseColor = colorScheme === 'light' ? '#cbd5e1' : '#1e293b'
@@ -61,9 +126,9 @@ export default function Layout() {
   });
 
   useEffect(() => {
-    if (!fontsLoaded) return;
+    if (!fontsLoaded || !isAuthChecked) return;
 
-    // assim que as fonts estiverem prontas:
+    // assim que as fonts estiverem prontas e auth verificada:
     (async () => {
       try {
         // define a cor do root view (fora da árvore React) — evita o branco entre splash e app
@@ -76,7 +141,7 @@ export default function Layout() {
         await SplashScreen.hideAsync();
       }
     })();
-  }, [fontsLoaded, myTheme.colors.background]);
+  }, [fontsLoaded, isAuthChecked, myTheme.colors.background]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

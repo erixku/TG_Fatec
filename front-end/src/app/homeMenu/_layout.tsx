@@ -16,7 +16,22 @@ export default function RootLayout() {
         name="(tabs)"
         options={{ drawerLabel: "Menu Principal" }}
       />
-      {/* Adicione aqui outras rotas secundárias do Drawer, se quiser */}
+      <Drawer.Screen
+        name="profileSettings"
+        options={{ drawerLabel: "Configurações de Perfil" }}
+      />
+      <Drawer.Screen
+        name="notificationSettings"
+        options={{ drawerLabel: "Configurações de Notificações" }}
+      />
+      <Drawer.Screen
+        name="birthdays"
+        options={{ drawerLabel: "Aniversáriantes" }}
+      />
+      <Drawer.Screen
+        name="management"
+        options={{ drawerLabel: "Gerenciamento" }}
+      />
     </Drawer>
   );
 }

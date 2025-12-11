@@ -9,7 +9,6 @@ import RegisterFormUser from "@/components/login&register/RegisterFormUser";
 import RegisterFormEmail from "@/components/login&register/RegisterFormEmail";
 import { useFormContext } from "react-hook-form";
 import { RegisterUserFormData } from "@/schemas/registerUserSchema";
-import axios from 'axios';
 import { registerUser } from '@/api/registerUser';
 
 export default function Register() {
@@ -65,25 +64,67 @@ export default function Register() {
         // Última etapa: Enviar para a API
         setIsLoading(true);
           try {
-            const formData = getValues();
-            console.log("\n\n Dados enviados para a API de cadastro:", formData, "\n\n");
-            const responseData = await registerUser(formData);
+            const rawFormData = getValues();
+            console.log('📝 [REGISTER] Dados brutos do formulário:', {
+              nomeCompleto: rawFormData.nomeCompleto,
+              email: rawFormData.email,
+              telefone: rawFormData.telefone,
+              cpf: rawFormData.cpf,
+              temFoto: !!rawFormData.arquivo?.caminho
+            });
 
-            // Se a resposta for sucesso (status 2xx)
-            console.log("Cadastro realizado com sucesso!", responseData);
-          router.push({
-            pathname: "/user",
-            params: { email: formData.email, telefone: formData.telefone, rota: "register" },
-          });
-          reset(); // Limpa o formulário
+            // Valida e transforma os dados usando o schema Zod
+            const { registerUserSchema } = await import('@/schemas/registerUserSchema');
+            const validatedData = registerUserSchema.parse(rawFormData);
+            
+            console.log('✅ [REGISTER] Dados transformados pelo schema:', {
+              nome: validatedData.nome,
+              sobrenome: validatedData.sobrenome,
+              nomeSocial: validatedData.nomeSocial,
+              sobrenomeSocial: validatedData.sobrenomeSocial,
+              sexo: validatedData.sexo,
+              dataNascimento: validatedData.dataNascimento
+            });
+
+            const responseData = await registerUser(validatedData);
+
+            console.log('✅ [REGISTER] Cadastro realizado com sucesso!', responseData);
+            
+            // Extrai o ID do usuário criado
+            const userId = responseData.id;
+            console.log('🆔 [REGISTER] ID do usuário criado:', userId);
+
+            // Salva credenciais temporárias no cache local (AsyncStorage)
+            const { saveTempCredentials } = await import('@/services/localCache');
+            await saveTempCredentials({
+              email: validatedData.email,
+              senha: validatedData.senha,
+              telefone: validatedData.telefone
+            });
+            console.log('💾 [REGISTER] Credenciais temporárias salvas no cache local');
+
+            // Mostra sucesso ao usuário
+            Alert.alert(
+              'Cadastro Realizado!',
+              'Sua conta foi criada com sucesso. Você será redirecionado para autenticação.',
+              [{ text: 'OK' }]
+            );
+
+            router.push({
+              pathname: "/user",
+              params: { 
+                email: validatedData.email, 
+                telefone: validatedData.telefone, 
+                rota: "register",
+                userId: userId || ""
+              },
+            });
+            reset(); // Limpa o formulário
         } catch (error: any) {
-          // Loga o erro no console para depuração, independentemente do tipo.
+          // Loga o erro no console para depuração
           console.error("Falha no processo de cadastro:", error);
 
-          let errorMessage = "Não foi possível conectar ao servidor. Tente novamente.";
-          if (axios.isAxiosError(error)) {
-              errorMessage = error.response?.data?.message || error.message || errorMessage;
-          }
+          const errorMessage = error?.message || "Não foi possível realizar o cadastro. Tente novamente.";
           Alert.alert("Erro no Cadastro", errorMessage);
 
         } finally {
@@ -126,20 +167,6 @@ export default function Register() {
             label={step === steps.length - 1 ? "Finalizar" : "Próximo"} 
             onPress={handleNext}
             disabled={isLoading}
-          />
-          <CustomButton
-            label='Ligar a API'
-            onPress={async() => {
-              try {
-                console.log('🔌 Testando conexão com API...');
-                const r = await axios.get("https://harppia-endpoints.onrender.com");
-                console.log("✅ API respondeu:", r.status, r.data);
-                Alert.alert("Conexão OK", "API está online e respondendo!");
-              } catch (e: any) {
-                console.log("❌ Erro ao conectar:", e.message);
-                Alert.alert("Erro de Conexão", e.message || "Não foi possível conectar à API");
-              }
-            }}
           />
         </View>
       </View>

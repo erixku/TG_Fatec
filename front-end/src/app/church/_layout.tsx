@@ -1,39 +1,59 @@
 import { Stack } from "expo-router";
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { KeyboardAvoidingView, Platform, useColorScheme } from "react-native";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, UseFormReturn } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterChurchFormData, registerChurchSchema } from "@/schemas/registerChurchSchema";
+import { RegisterChurchFormInput, registerChurchSchema } from "@/schemas/registerChurchSchema";
+import { RegisterMinisteryFormData, registerMinisterySchema } from "@/schemas/registerMinisterySchema";
+
+// Context para o formulário de ministério
+const MinisteryFormContext = createContext<UseFormReturn<RegisterMinisteryFormData> | null>(null);
+
+export const useMinisteryForm = () => {
+    const context = useContext(MinisteryFormContext);
+    if (!context) {
+        throw new Error('useMinisteryForm must be used within MinisteryFormProvider');
+    }
+    return context;
+};
 
 export default function RegisterLayout() {
     const colorScheme = useColorScheme();
 
-    // Inicializa o formulário aqui para compartilhar o contexto entre as telas de registro
-    const methods = useForm<RegisterChurchFormData>({
+    // Inicializa o formulário de igreja
+    const churchMethods = useForm<RegisterChurchFormInput>({
       resolver: zodResolver(registerChurchSchema),
-      mode: 'onChange', // Opcional: para validar os campos em tempo real
+      mode: 'onChange',
+    });
+
+    // Inicializa o formulário de ministério
+    const ministeryMethods = useForm<RegisterMinisteryFormData>({
+      resolver: zodResolver(registerMinisterySchema),
+      mode: 'onChange',
     });
 
     // Cor de fundo consistente com o layout global
-  const backgroundColor = colorScheme === "dark" ? "#1e293b" : "#dbeafe";
+    const backgroundColor = colorScheme === "dark" ? "#1e293b" : "#dbeafe";
 
     return (
-        // Envolvemos o Stack com o FormProvider para compartilhar o contexto
-        <FormProvider {...methods}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                enabled
-            >
-                <Stack
-                    screenOptions={{
-                        headerShown: false,
-                        animation: "slide_from_right",
-                        presentation: "card",
-                        contentStyle: { backgroundColor, flex: 1 }
-                    }}
-                />
-            </KeyboardAvoidingView>
+        // Envolvemos com ambos os FormProviders
+        <FormProvider {...churchMethods}>
+            <MinisteryFormContext.Provider value={ministeryMethods}>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                    enabled
+                >
+                    <Stack
+                        screenOptions={{
+                            headerShown: false,
+                            animation: "slide_from_right",
+                            presentation: "card",
+                            contentStyle: { backgroundColor, flex: 1 }
+                        }}
+                    />
+                </KeyboardAvoidingView>
+            </MinisteryFormContext.Provider>
         </FormProvider>
     );
 }

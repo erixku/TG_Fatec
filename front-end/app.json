@@ -13,7 +13,8 @@
           "origin": "https://n"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-secure-store"
     ],
     "name": "Harppia",
     "slug": "Harppia",

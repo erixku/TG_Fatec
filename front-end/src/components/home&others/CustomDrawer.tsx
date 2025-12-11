@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, useColorScheme, Pressable, Modal, BackHandler} from 'react-native';
-import { XMarkIcon, UserCircleIcon, BellIcon, HandRaisedIcon, CakeIcon, ArrowLeftEndOnRectangleIcon, ChatBubbleOvalLeftEllipsisIcon, UserMinusIcon } from 'react-native-heroicons/solid';
+import { View, Text, TouchableOpacity, useColorScheme, Pressable, Modal, BackHandler } from 'react-native';
+import { XMarkIcon, UserCircleIcon, BellIcon, Cog8ToothIcon, CakeIcon, ArrowLeftEndOnRectangleIcon, WrenchIcon, UserMinusIcon } from 'react-native-heroicons/solid';
 import type { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { useRouter } from 'expo-router';
+import { logoutUser } from '@/api/loginUser';
 
 export default function CustomDrawerContent(props: DrawerContentComponentProps) {
     const colorScheme = useColorScheme();
@@ -13,7 +14,7 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
     const router = useRouter();
 
     return (
-        <View className='flex-1 p-6 justify-between'>
+        <View className='flex-1 p-6 justify-between mt-5'>
             <View className='gap-8'>
                 <View className='flex-row gap-5 items-center'>
                     <Pressable onPress={() => navigation.closeDrawer()}>
@@ -24,33 +25,49 @@ export default function CustomDrawerContent(props: DrawerContentComponentProps) 
                 <View className='p-3 gap-3 rounded-xl bg-slate-200 dark:bg-slate-700'>
                     <Text className='font-nunito-semibold text-slate-900/70 dark:text-blue-100/70'>Configurações</Text>
                     <View className='gap-5'>
-                        <Pressable className='flex-row gap-3 items-center'>
+                        <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                            navigation.closeDrawer();
+                            router.push('/homeMenu/profileSettings');
+                        }}>
                             <UserCircleIcon size={16} color={contrastColor}/>
                             <Text className='font-nunito-sembold text-2xl textslate-900 dark:text-blue-100'>Perfil</Text>
                         </Pressable>
-                        <Pressable className='flex-row gap-3 items-center'>
-                            <HandRaisedIcon size={16} color={contrastColor}/>
-                            <Text className='font-nunito-sembold text-2xl textslate-900 dark:text-blue-100'>Acessibilidade</Text>
-                        </Pressable>
-                        <Pressable className='flex-row gap-3 items-center'>
+                        <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                            navigation.closeDrawer();
+                            router.push('/homeMenu/notificationSettings');
+                        }}>
                             <BellIcon size={16} color={contrastColor}/>
                             <Text className='font-nunito-sembold text-2xl text-slate-900 dark:text-blue-100'>Notificações</Text>
                         </Pressable>
                     </View>
                 </View>
-                <Pressable className='flex-row gap-3 items-center'>
+                <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                    navigation.closeDrawer();
+                    router.push('/homeMenu/birthdays');
+                }}>
                     <CakeIcon size={20} color={contrastColor}/>
-                    <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Aniversatiantes</Text>
+                    <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Aniversáriantes</Text>
                 </Pressable>
-                <Pressable className='flex-row gap-3 items-center'>
-                    <ChatBubbleOvalLeftEllipsisIcon size={20} color={contrastColor}/>
-                    <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Conversas</Text>
+                <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                    navigation.closeDrawer();
+                    router.push('/homeMenu/management');
+                }}>
+                    <Cog8ToothIcon size={20} color={contrastColor}/>
+                    <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Gerenciamento</Text>
+                </Pressable>
+                <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                    navigation.closeDrawer();
+                    router.push('/homeMenu/tools');
+                }}>
+                    <WrenchIcon size={20} color={contrastColor}/>
+                    <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Ferramentas</Text>
                 </Pressable>
             </View>
             <View className='gap-8 mb-5'>
-                <Pressable className='flex-row gap-3 items-center' onPress={() => {
+                <Pressable className='flex-row gap-3 items-center' onPress={async () => {
                     navigation.closeDrawer();
-                    router.push('/');
+                    await logoutUser();
+                    router.replace('/');
                 }}>
                     <UserMinusIcon size={20} color={contrastColor}/>
                     <Text className='font-nunito-semibold text-2xl text-slate-900 dark:text-blue-100'>Sair da conta</Text>

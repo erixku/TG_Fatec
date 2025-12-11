@@ -45,11 +45,12 @@ export default function RegisterFormChurch() {
     const iconsColor = colorScheme == 'dark' ? '#dbeafe':'#0f172a'
     
     return(
-        <ScrollView
-            className="flex-1 w-full sm:w-[50%] lg:w-[50%] mt-4"
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-            contentContainerClassName="pb-10 items-center gap-y-3"
+        <View className="flex-1 w-full">
+            <ScrollView
+                className="w-full mt-4"
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+                contentContainerClassName="pb-10 items-center gap-y-3"
             >
                 <Controller 
                 control={control}
@@ -253,21 +254,22 @@ export default function RegisterFormChurch() {
                 )}
             />
 
-            <Controller 
-                control={control}
-                name="endereco.uf"
-                render={({field, fieldState}) => (
-                    <CustomTextInput
-                        value={field.value}
-                        onChangeText={field.onChange}
-                        label="Estado"
-                        placeholder="Digite o nome do seu estado"
-                        required
-                        error={fieldState.error?.message}
-                        disabled
-                    />
-                )}
-            />
-        </ScrollView>
+                <Controller 
+                    control={control}
+                    name="endereco.uf"
+                    render={({field, fieldState}) => (
+                        <CustomTextInput
+                            value={field.value}
+                            onChangeText={field.onChange}
+                            label="Estado"
+                            placeholder="Digite o nome do seu estado"
+                            required
+                            error={fieldState.error?.message}
+                            disabled
+                        />
+                    )}
+                />
+            </ScrollView>
+        </View>
     )
 }

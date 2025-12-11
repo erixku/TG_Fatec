@@ -50,7 +50,10 @@ export const registerUserSchema = z.object({
     }
 });
 
-export type RegisterUserFormData = z.infer<typeof registerUserSchema>;
+// Tipo de entrada do formulário (antes dos transforms)
+export type RegisterUserFormInput = z.input<typeof registerUserSchema>;
+// Tipo de saída do formulário (após transforms - inclui nome, sobrenome, etc)
+export type RegisterUserFormData = z.output<typeof registerUserSchema>;
 
 export function buildUserPayload(values: any) {
   // Normaliza sexo para apenas primeira letra (aplicar transform manualmente)

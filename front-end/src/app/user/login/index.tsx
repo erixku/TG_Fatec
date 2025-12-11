@@ -9,6 +9,7 @@ import { useRouter, useNavigation } from "expo-router";
 import { useFormContext } from "react-hook-form";
 import { RegisterUserFormData } from "@/schemas/registerUserSchema";
 import { findUserByKey } from "@/api/findUser";
+import { loginUser } from "@/api/loginUser";
 
 export default function Register() {
   const colorScheme = useColorScheme();
@@ -25,58 +26,81 @@ export default function Register() {
   const baseColor = colorScheme === "dark" ? "#dbeafe" : "#0f172a";
   const contrastColor = colorScheme === "dark" ? "#93c5fd" : "#1d4ed8";
 
-  async function attemptLogin(key: string) {
+  async function handleLogin() {
+    // Previne múltiplos cliques
+    if (isLoading) return;
+
+    // Validação básica dos campos
+    if (!password || password.trim() === '') {
+      Alert.alert('Erro', 'Por favor, digite sua senha.');
+      return;
+    }
+
+    let key: string = '';
+    
+    switch (loginMode) {
+      case 'email':
+        if (!email || email.trim() === '') {
+          Alert.alert('Erro', 'Por favor, digite seu e-mail.');
+          return;
+        }
+        key = email;
+        break;
+      case 'cellphone':
+        if (!cellphone || cellphone.trim() === '') {
+          Alert.alert('Erro', 'Por favor, digite seu telefone.');
+          return;
+        }
+        key = cellphone;
+        break;
+      case 'cpf':
+        if (!cpf || cpf.trim() === '') {
+          Alert.alert('Erro', 'Por favor, digite seu CPF.');
+          return;
+        }
+        key = cpf;
+        break;
+    }
+
     setIsLoading(true);
+
     try {
-      const userData = await findUserByKey(key = "rafaelcosta@yahoo.com");
-      // TODO: Adicionar validação de senha aqui antes de redirecionar
-      Alert.alert("Login bem-sucedido!", `Bem-vindo, ${userData.nomeCompleto}`);
-      router.push('homeMenu/(tabs)');
+      console.log('🔐 Tentando login com:', loginMode);
+      
+      // Montar credenciais de acordo com o método de login
+      const credentials: any = {
+        senha: password
+      };
+
+      switch (loginMode) {
+        case 'email':
+          credentials.email = email;
+          break;
+        case 'cellphone':
+          credentials.telefone = cellphone;
+          break;
+        case 'cpf':
+          credentials.cpf = cpf;
+          break;
+      }
+
+      const response = await loginUser(credentials);
+
+      console.log('✅ Login bem-sucedido!');
+      router.replace('/user/login/churchSelection');
+      
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || "Não foi possível conectar ao servidor.";
+      console.error('❌ Erro no login:', error);
+      
+      const errorMessage = error.message || "Não foi possível realizar o login.";
+      
       Alert.alert(
         "Erro no Login",
-        errorMessage
+        errorMessage,
+        [{ text: 'OK' }]
       );
     } finally {
       setIsLoading(false);
-    }
-  }
-
-  async function handleLogin() {
-    switch (loginMode) {
-      case 'email':
-        if (await validateLogin(email)){
-          attemptLogin(email);
-        }
-        break;
-      case 'cellphone':
-        if (await validateLogin(undefined, cellphone)){
-          attemptLogin(cellphone);
-        }
-        break;
-      case 'cpf':
-        if (await validateLogin(undefined, undefined, cpf)){
-          attemptLogin(cpf);
-        }
-        break;
-    }
-  }
-
-  async function validateLogin(email?: string, telefone?: string, cpf?: string) {
-    let isValid;
-    
-    if(email){
-        isValid = await trigger(['email', 'senha']);
-        return isValid;
-    }
-    if(telefone){
-        isValid = await trigger(['telefone', 'senha']);
-        return isValid;
-    }
-    if(cpf){
-        isValid = await trigger(['cpf', 'senha']);
-        return isValid;
     }
   }
   
@@ -172,7 +196,11 @@ export default function Register() {
 
         </View>
         <View className="flex justify-center flex-row gap-x-4 mt-5">
-            <CustomButton label="Entrar" onPress={() => {router.push({pathname: '/homeMenu/(tabs)'})}}/>
+            <CustomButton 
+              label={isLoading ? "Entrando..." : "Entrar"} 
+              onPress={handleLogin}
+              disabled={isLoading}
+            />
         </View>
       </View>
     </View>

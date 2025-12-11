@@ -32,14 +32,6 @@ export default function AuthScreen() {
 
           {/* Formulário */}
           <EnterChurchCode/>
-
-          {/* Rodapé */}
-          <View className="flex justify-center flex-row gap-x-4 mt-5">
-            <CustomButton
-              label="Finalizar"
-              onPress={() => router.push("/")}
-            />
-          </View>
         </View>
       </View>
     </View>
