@@ -1,0 +1,19 @@
+{
+  "cpf": "585.310.350-40",
+  "nomeCompleto": "Laura Costa Nunes",
+  "nomeSocialCompleto": "Laura",
+  "sexo": "F",
+  "dataNascimento": "2002-06-20",
+  "email": "laura.costa@yahoo.com",
+  "telefone": "(11) 95333-1711",
+  "senha": "Laur_Nun@02",
+  "endereco": {
+    "cep": "71662963",
+    "uf": "MG",
+    "cidade": "Belo Horizonte",
+    "bairro": "Savassi",
+    "logradouro": "Avenida do Contorno",
+    "numero": "559",
+    "complemento": ""
+  }
+}

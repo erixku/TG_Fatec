@@ -1,0 +1,18 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "24.033.668/0001-01",
+  "nome": "Igreja Esperança Viva",
+  "denominacao": "outra",
+  "outraDenominacao": "PENTECOSTAL",
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cadEndIgrReq": {
+    "cep": "01001-000",
+    "uf": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Sé",
+    "logradouro": "Praça da Sé",
+    "numero": "100",
+    "complemento": "Prédio principal",
+    "isEnderecoPrincipal": true
+  }
+}

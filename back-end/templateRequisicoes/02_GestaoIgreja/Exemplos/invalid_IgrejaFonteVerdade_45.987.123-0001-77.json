@@ -1,0 +1,18 @@
+{
+  "idCriador": "0a5575af-9ac1-4c0f-8df1-d29e7483a20d",
+  "cnpj": "45.987.123/0001-77",
+  "nome": "Igreja Fonte da Verdade",
+  "denominacao": "outra",
+  "outraDenominacao": "",
+  "idDono": "0a5575af-9ac1-4c0f-8df1-d29e7483a20d",
+  "cadEndIgrReq": {
+    "cep": "69900-123",
+    "uf": "SP",
+    "cidade": "Cruzeiro do Sul",
+    "bairro": "Centro",
+    "logradouro": "Rua Afonso Pena",
+    "numero": "200",
+    "complemento": null,
+    "isEnderecoPrincipal": true
+  }
+}

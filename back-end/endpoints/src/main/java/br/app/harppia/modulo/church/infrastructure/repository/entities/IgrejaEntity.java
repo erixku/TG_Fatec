@@ -1,0 +1,87 @@
+package br.app.harppia.modulo.church.infrastructure.repository.entities;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
+
+import br.app.harppia.modulo.church.infrastructure.converter.ConversorEnumDenominacaoIgreja;
+import br.app.harppia.modulo.church.infrastructure.repository.enums.EDenominacaoIgreja;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity(name = "tb_igreja")
+@Table(name = "tb_igreja", schema = "church")
+@Getter
+@Setter
+@ToString(of = {"id", "cnpj", "nome", "idProprietario"})
+@EqualsAndHashCode(of = "id")
+public class IgrejaEntity {
+
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 2L;
+	
+	@Id
+	@Generated(event = EventType.INSERT)
+	@Column(name = "id", insertable = false, updatable = false)
+	private UUID id; 
+	
+	//---------------//
+	// DADOS DE LOGS //
+	//---------------//
+	@Column(name = "created_at", nullable = false, insertable = false, updatable = false)
+	private OffsetDateTime createdAt;
+
+	@Column(name = "updated_at", nullable = false, insertable = false)
+	private OffsetDateTime updatedAt;
+
+	@Column(name = "deleted_at", insertable = false)
+	private OffsetDateTime deletedAt;
+
+	@Column(name = "created_by", nullable = false, updatable = false)
+	private UUID createdBy;
+
+	@Column(name = "updated_by", nullable = false)
+	private UUID updatedBy;
+	
+	@Column(name = "deleted_by", insertable = false)
+	private UUID deletedBy;
+
+	//-----------------//
+	// DADOS DA IGREJA //
+	//-----------------//
+	@Column(name = "is_deleted", insertable = false)
+	private Boolean isDeleted;
+
+	@Column(name = "cnpj", nullable = false)
+	private String cnpj;
+	
+	@Column(name = "nome", nullable = false)	
+	private String nome;
+	
+	@Convert(converter = ConversorEnumDenominacaoIgreja.class)
+	@Column(name = "denominacao", nullable = false)
+	@ColumnTransformer(write = "CAST(? as utils.s_church_t_tb_igreja_e_denominacao)")
+	private EDenominacaoIgreja denominacao;
+	
+	@Column(name = "outra_denominacao")
+	private String outraDenominacao;
+	
+	//-----//
+	// FKs //
+	//-----//
+	@Column(name = "s_storage_t_tb_arquivo_c_foto", nullable = false)
+	private UUID idFoto;
+
+	@Column(name = "s_auth_t_tb_usuario_c_adm_proprietario", nullable = false)
+	private UUID idProprietario;
+}

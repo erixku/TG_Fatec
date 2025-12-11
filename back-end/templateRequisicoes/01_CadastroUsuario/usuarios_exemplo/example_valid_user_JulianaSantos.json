@@ -1,0 +1,19 @@
+{
+  "cpf": "706.009.940-90",
+  "nomeCompleto": "Juliana Pereira Santos",
+  "nomeSocialCompleto": "Juh Santos",
+  "sexo": "F",
+  "dataNascimento": "1995-07-25",
+  "email": "juliana.santos@gmail.com",
+  "telefone": "(11) 99123-4567",
+  "senha": "Juh_Pereira@95",
+  "endereco": {
+    "cep": "05407001",
+    "uf": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Pinheiros",
+    "logradouro": "Rua Cristiano Viana",
+    "numero": "500",
+    "complemento": "Bloco B, Conjunto 21"
+  }
+}

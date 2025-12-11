@@ -1,0 +1,18 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "57.902.644/0001-92",
+  "nome": "Igreja da Alegria",
+  "denominacao": "outra",
+  "outraDenominacao": "Comunidade Apostólica Renovada",
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cadEndIgrReq": {
+    "cep": "12341-000",
+    "uf": "RJ",
+    "cidade": "Niterói",
+    "bairro": "Centro",
+    "logradouro": "Rua das Flores",
+    "numero": "12B",
+    "complemento": "Sala #404",
+    "isEnderecoPrincipal": "true"
+  }
+}

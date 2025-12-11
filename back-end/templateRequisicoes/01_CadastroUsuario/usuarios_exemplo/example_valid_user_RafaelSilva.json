@@ -1,0 +1,19 @@
+{
+  "cpf": null,
+  "nomeCompleto": "Rafael de Almeida Costa",
+  "nomeSocialCompleto": "Rafa Costa",
+  "sexo": "M",
+  "dataNascimento": "1992-03-14",
+  "email": "rafael.costa@yahoo.com",
+  "telefone": null,
+  "senha": "Rafa_Alm@92",
+  "endereco": {
+    "cep": "22250040",
+    "uf": "RJ",
+    "cidade": "Rio de Janeiro",
+    "bairro": "Botafogo",
+    "logradouro": "Rua São Clemente",
+    "numero": "155",
+    "complemento": "Apto 803"
+  }
+}

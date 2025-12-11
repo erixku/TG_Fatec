@@ -1,0 +1,19 @@
+{
+  "cpf": null,
+  "nomeCompleto": "Roberto Amorim",
+  "nomeSocialCompleto": null,
+  "sexo": "M",
+  "dataNascimento": "1985-11-12",
+  "email": "umemailqualquer001@outlook.com",
+  "telefone": null,
+  "senha": "Roberto_001_@25",
+  "endereco": {
+    "cep": "22041010",
+    "uf": "RJ",
+    "cidade": "Rio de Janeiro",
+    "bairro": "Copacabana",
+    "logradouro": "Rua Barata Ribeiro",
+    "numero": "412",
+    "complemento": "Bloco B, ap 204"
+  }
+}

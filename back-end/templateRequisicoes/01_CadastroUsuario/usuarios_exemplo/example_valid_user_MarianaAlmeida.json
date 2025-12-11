@@ -1,0 +1,19 @@
+{
+  "cpf": "327.601.530-70",
+  "nomeCompleto": "Mariana Silva Almeida",
+  "nomeSocialCompleto": "Mariana",
+  "sexo": "F",
+  "dataNascimento": "1993-07-02",
+  "email": "mariana.silva@gmail.com",
+  "telefone": "(11) 91488-2535",
+  "senha": "Mari_Alm@93",
+  "endereco": {
+    "cep": "39345092",
+    "uf": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Jardins",
+    "logradouro": "Avenida Paulista",
+    "numero": "287",
+    "complemento": "Apto 101"
+  }
+}

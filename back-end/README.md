@@ -1,0 +1,176 @@
+# PROJETO DE BACK-END - HARPPIA API
+
+
+## Sobre Este Arquivo
+Este documento contempla explanações acerca da arquitetura de diretórios e projeto, padrões de desenvolvimento, convenções utilizadas e outros tópicos relevantes para a utilização, desenvolvimento e testes deste projeto.  
+
+
+## Sumário
+Esse artigo abrange os seguintes tópicos:
+- [Sobre Este Arquivo](#sobre-este-arquivo);
+- [Lista de Endpoints](#lista-de-endpoints)
+- [Ficha Técnica do Projeto](#ficha-técnica-do-projeto)
+- [Introdução](#introdução);
+- [Arquitetura do projeto](#arquitetura-do-projeto);
+- [Padrão de nomenclatura de arquivos](#padrão-de-nomenclatura-de-arquivos);
+- [Padrão de nomenclatura de métodos](#padrão-de-nomenclatura-de-métodos);
+- [Padrão de nomenclatura de variáveis](#padrão-de-nomenclatura-de-variáveis);
+- [Gestão de exceções](#gestão-de-exceções);
+
+
+## Introdução
+Essa API pode ser consumida de qualquer origem, seja através de clientes mobiles ou navegadores.
+
+
+## Lista de Endpoints
+A API possui métodos de GET, POST, PUT e DELETE. Eles estão listados a seguir, agrupados por categoria. Além disso, eles podem ser encontrados e verificados manualmente em todas as classes com sufixo "Controller". A URL base é "https://harppia-endpoints.onrender.com".
+
+
+### MODULO USUÁRIO:
+
+Endpoints disponíveis:
+- /v1/users/register
+- /v1/users/find
+- /v1/users/update/{uuid}
+- /v1/users/delete/{uuid}
+
+#### /v1/users/register
+
+1. Descrição:
+Realiza o cadastro de usuários no sistema. Caso dê certo, retorna status 200 (OK).
+Caso algum login fornecido pelo usuário já exista no banco, retorna um erro 400 (bad request).
+Para qualquer outro tipo de erro, a API pode retornar 500 (internal server error).
+
+2. Requisitos de Acesso:
+Nenhum. A requisição pode ser feita de forma anônima.
+ 
+3. Parâmetros:
+Esse endpoint é "multpart-form data" e requer dois parâmetros: `user_data` e `user_photo`.
+O `user_data` é obrigatório e deve ter as informações do usuário em formato de JSON. Já o
+segundo é opcional e deve ser enviado como um arquivo (ou em binário, no cliente mobile).
+
+4. Exemplo do campo `user_data`:
+{
+  "cpf": "111.222.333-44",
+  "nomeCompleto": "Nome Completo da Pessoa",
+  "nomeSocialCompleto": "Algum Apelido",
+  "sexo": "F",
+  "dataNascimento": "2000-10-30",
+  "email": "um.email.exemplar@hotmail.com",
+  "telefone": "(11) 12345-0987",
+  "senha": "UmaSenh@F0rte",
+  "endereco": {
+    "cep": "09123-432",
+    "uf": "UF",
+    "cidade": "Cidade",
+    "bairro": "Bairro",
+    "logradouro": "Logradouro ou Rua",
+    "numero": "10",
+    "complemento": "Complemento"
+  }
+}
+
+5. Exemplo do campo `user_photo`:
+{
+  "uri": "uma_uri_bem_grande_aqui",
+  "mime_type": "tipo_arquivo",
+  "name": "nome do arquivo"
+}
+
+
+### MODULO CONFIGURAÇÕES:
+
+- /v1/config/save
+
+
+### MODULO NOTIFICAÇÕES:
+
+- /v1/notification/create
+
+
+### MODULO MUSICA:
+
+- /v1/song/create
+- /v1/song/find
+
+
+### MODULO MINISTERIO:
+
+- /v1/ministry/create
+- /v1/ministry/search
+- /v1/ministry/search/all
+- /v1/ministry/add/member
+
+
+### MODULO IGREJA:
+- /v1/church/create
+- /v1/church/search
+
+
+### MODULO ARQUIVO:
+
+- /v1/files/upload/user_profile_photo
+- /v1/files/upload/upload/church_profile_photo
+
+
+### MODULO AUTENTICACAO:
+
+- /v1/users/auth/login
+- /v1/users/auth/authenticate
+- /v1/users/auth/refresh
+
+
+## Ficha Técnica do Projeto
+
+
+
+
+
+
+
+
+## ARQUITETURA DO PROJETO
+A estrutura de arquivos do back-end acompanha a segregação usada no banco de dados - por módulos. Afim de auxiliar nessa separação lógicaa, foi utilizado princípios como Arquitetura Hexagonal, Domain Driven Design (DDD), Clean Architecture e, principalmente, o conceito de um monolito modular.
+
+A principal base para essa arquitetura é o de monolito modular e arquitetura hexagonal, que pode ser verificada através da implementação de módulos lógicos (auth, file, church, ...) e os adapters e ports, cada um pertencente a cada conceito, respectivamente.
+
+## NOMENCLATURA DE ARQUIVOS
+Baseado no conceito de segregação de responsabilidades, toda classe, enum, record ou outro tipo de arquivo é portador de um nome exclusivo e que deixe sua função nesse ecossistema explícita. 
+
+## NOMENCLATURA DE MÉTODOS
+Considerando que todo método, estático ou não, requer o nome da classe ou o nome da variável de referência antes, fora utilizado um conjunto de conceitos interligados (como "Redundancy-Free Naming Principle", "Contextual Method Naming" e "Command-Verb Naming Convention"), que contribui para evitar redundâncias óbvias, como acontece em "CadastrarUsuarioUseCase.cadastrarUsuario()" ou em "EmailSanitizer.sanitizarEmail()". Ambas classes já explicitam com o que elas lidam, portanto, basta dizer que ação ela fará naquele momento. Dito isso, os exemplos anteriores ficariam parecidos com "CadastrarUsuarioUseCase.cadastrar()" ou "CadastrarUsuarioUseCase.execute()" e "EmailSanitizer.sanitizar()" ou "EmailSanitizer.executar()".
+
+## NOMENCLATURA DE VARIÁVEIS
+Como toda declaração de variável em Java precisa conter seu tipo declarado junto, afim de melhorar a legibilidade, uso sempre um trigrama de cada palavra do tipo, concatenado pelo formato camelCase. Exemplo:
+
+- `Arquivo arq;`
+- `UsuarioRepository usrRep;`
+
+Para o caso de arquivos que possuem prefixos ou sufixos constantes, definidos por tipo de arquivo, eles serão abreviados com suas iniciais em maiúsculo. Exemplo:
+
+- `SalvarIgrejaUseCase slvIgrUC;`
+
+Caso eles possuam palavras com apenas quatro (4) letras, ou se faça necessário, a custo de legibilidade, pode-se usar a palavra inteira, como nos exemplos a seguir:
+
+- `MultipartFile mltPrtFile;`
+- `ENomeBucket nomeBkt;`
+
+### ATRIBUTOS
+Os atributos de classes seguem uma lógica diferente, sendo compostos por apenas as iniciais de suas palavras em minúsculo. Exemplo:
+- `AcessibilidadeAuditivaRepository aar;`
+- `AcessibilidadeVisualMapper avm;`
+- `AcessibilidadeIntelectualMapper aim;`
+
+### PARÂMETROS
+Seguem a lógica do trigrama.
+	
+### VARIÁVEIS DE MÉTODOS
+Seguem a lógica do trigrama.
+
+
+## GESTÃO DE EXCEÇÕES
+Afim de evitar uma desordem na gestão de exceções e sacrificando o nível de precisão de cada tipo de erro possível, cada módulo da API possui uma classe dedicada a cuidar das exceções lançadas (todas em tempo de runtime).
+
+Nesse projeto são usadas apenas exceções no nível de runtime (non-checked), que não requerem o uso de try/catch, o que melhora a legibilidade e reduzem o excesso de códigos (boilerplate). Entretanto, isso causa ...
+
+Sempre que uma exceção é lançada, por ser a nível de runtime, ela sempre chegará a classe "WarningController". Ela é responsável por interceptar todos os tipos de erros em toda a aplicação e retornar uma mensagem de erro mais amigável para o usuário ou utilizadores da API.

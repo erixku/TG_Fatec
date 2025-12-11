@@ -1,0 +1,19 @@
+{
+  "cpf": "509.239.080-80",
+  "nomeCompleto": "Lucas Ribeiro Santos",
+  "nomeSocialCompleto": "Lucas Ribeiro",
+  "sexo": "M",
+  "dataNascimento": "1995-09-05",
+  "email": "lucas.ribeiro@gmail.com",
+  "telefone": "(51) 99654-3210",
+  "senha": "Santos*Lucas95",
+  "endereco": {
+    "cep": "90010210",
+    "uf": "RS",
+    "cidade": "Porto Alegre",
+    "bairro": "Centro Histórico",
+    "logradouro": "Rua dos Andradas",
+    "numero": "1001",
+    "complemento": "Loja 04"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+    "cnpj": "85.916.531/0001-81",
+    "nome": "Primeira Igreja Batista do Sul",
+    "denominacao": "batista",
+    "outraDenominacao": "",
+    "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+    "cadEndIgrReq": {
+      "cep": "50030-230",
+      "uf": "PE",
+      "cidade": "Recife",
+      "bairro": "Boa Vista",
+      "logradouro": "Rua da Aurora",
+      "numero": "1200",
+      "complemento": null,
+      "isEnderecoPrincipal": true
+    }
+  }

@@ -1,0 +1,18 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "45723174000110",
+  "nome": "Igreja Luz do Caminho",
+  "denominacao": "Batista",
+  "outraDenominacao": "null",
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cadEndIgrReq": {
+    "cep": "30140-120",
+    "uf": "MG",
+    "cidade": "Belo Horizonte",
+    "bairro": "Savassi",
+    "logradouro": "Rua Pernambuco",
+    "numero": "850",
+    "complemento": "3º andar",
+    "isEnderecoPrincipal": true
+  }
+}
