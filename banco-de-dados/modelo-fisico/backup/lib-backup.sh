@@ -49,7 +49,6 @@ function fnInstalarPsql() {
       sudo apt update -y;
     fi;
 
-    echo "Instalando PSQL 17...";
     sleep 3;
     sudo apt install -y postgresql-client-17;
 

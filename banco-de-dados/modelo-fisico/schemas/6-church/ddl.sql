@@ -254,9 +254,10 @@ CREATE TABLE church.tb_faixa (
   disabled_at TIMESTAMPTZ     NULL DEFAULT NULL,
   
   -- dados da música da igreja
-  is_deleted  BOOLEAN NOT NULL DEFAULT FALSE,
-  is_disabled BOOLEAN NOT NULL DEFAULT FALSE,
-  snapshot    JSONB       NULL DEFAULT NULL,     
+  is_deleted       BOOLEAN NOT NULL DEFAULT FALSE,
+  is_disabled      BOOLEAN NOT NULL DEFAULT FALSE,
+  snapshot_inicial JSONB   NOT NULL,
+  dados            JSONB   NOT NULL,
 
   -- chaves estrangeiras
   igr_id                   UUID    NOT NULL,
