@@ -1,11 +1,11 @@
 {
-  "cpf": "641.615.970-88",
+  "cpf": null,
   "nomeCompleto": "Thiago Pereira Oliveira",
   "nomeSocialCompleto": "Thiago Oliveira",
   "sexo": "M",
   "dataNascimento": "1985-11-12",
   "email": "thiago.pereira@outlook.com",
-  "telefone": "(11) 94321-6784",
+  "telefone": null,
   "senha": "Thia_Oli@85",
   "endereco": {
     "cep": "22041010",

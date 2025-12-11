@@ -49,7 +49,7 @@ public class EnderecoIgrejaEntity  {
     @Column(name = "created_by", nullable = false, updatable = false)
     private UUID createdBy;
 
-    @Column(name = "updated_by", insertable = false)
+    @Column(name = "updated_by", nullable = false)
     private UUID updatedBy;
 
     @Column(name = "deleted_by", insertable = false)

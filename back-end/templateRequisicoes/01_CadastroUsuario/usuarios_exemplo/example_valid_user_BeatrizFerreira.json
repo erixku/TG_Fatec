@@ -1,11 +1,11 @@
 {
-  "cpf": "824.515.635-91",
+  "cpf": null,
   "nomeCompleto": "Beatriz Almeida Ferreira",
   "nomeSocialCompleto": "Bia Almeida",
   "sexo": "F",
   "dataNascimento": "2001-01-30",
   "email": "beatriz.a.ferreira@hotmail.com",
-  "telefone": "(71) 98111-2233",
+  "telefone": null,
   "senha": "BiaFerreira_2001",
   "endereco": {
     "cep": "40026010",

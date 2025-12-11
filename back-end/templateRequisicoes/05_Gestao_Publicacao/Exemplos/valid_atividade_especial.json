@@ -1,0 +1,13 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "idIgreja": "30b92e3a-4b92-4c28-aab0-aa5fdcd78479",
+  "idMinisterio": null,
+  "periodo": {
+    "inicio": "2025-12-14T19:00:00Z",
+    "fim": "2025-12-14T21:00:00Z"
+  },
+  "eTipoPublicacao": "AGENDAMENTO",
+  "eTipoAtividade": "AGENDAMENTO",
+  "titulo": "Alguma atividade especial de louvor",
+  "descricao": "Alguma descrição para a atividade especial de louvor"
+}

@@ -1,0 +1,18 @@
+{
+  "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cnpj": "66.186.466/0001-31",
+  "nome": "Assembleia de Deus Vitória",
+  "denominacao": "assembleia de deus",
+  "outraDenominacao": "",
+  "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+  "cadEndIgrReq": {
+    "cep": "69010-060",
+    "uf": "AM",
+    "cidade": "Manaus",
+    "bairro": "Centro",
+    "logradouro": "Avenida Eduardo Ribeiro",
+    "numero": "850",
+    "complemento": "Térreo",
+    "isEnderecoPrincipal": true
+  }
+}

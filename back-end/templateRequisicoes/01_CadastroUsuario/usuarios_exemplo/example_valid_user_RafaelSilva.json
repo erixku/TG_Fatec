@@ -1,11 +1,11 @@
 {
-  "cpf": "985.409.560-63",
+  "cpf": null,
   "nomeCompleto": "Rafael de Almeida Costa",
   "nomeSocialCompleto": "Rafa Costa",
   "sexo": "M",
   "dataNascimento": "1992-03-14",
   "email": "rafael.costa@yahoo.com",
-  "telefone": "(21) 98245-6678",
+  "telefone": null,
   "senha": "Rafa_Alm@92",
   "endereco": {
     "cep": "22250040",

@@ -1,0 +1,16 @@
+{
+  "idUsuarioCriador": "c33a2762-740c-4cc7-b03a-9d6cc5c6ded6",
+  "nome": "Luz da Manhã",
+  "artista": "João Ferreira",
+  "temArtistaSecundario": true,
+  "album": "Caminho da Aurora",
+  "duracaoMusica": "03:45",
+  "bpm": 120,
+  "tonalidade": "C#",
+  "linkMusica": "https://open.spotify.com/track/1234567890abcdef",
+  "linkLetra": "https://www.letras.mus.br/joao-ferreira/luz-da-manha/",
+  "linkCifra": "https://www.cifraclub.com.br/joao-ferreira/luz-da-manha/",
+  "linkPartitura": "https://www.sheetmusicplus.com/title/luz-da-manha-digital-sheet-music/1234567",
+  "parteDeMedley": false,
+  "idCapa": "aa8523f0-d9e6-46f7-aa40-ea6c9759ebc1"
+}

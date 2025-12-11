@@ -37,7 +37,7 @@ public class BuscarPublicacoesUseCase {
 		if (idMinisterio == null)
 			return null;
 		
-		List<DadosPublicacaoIVO> lstDadPubIVO = pubRep.getAllByIdIgrejaAndIdMinisterio(idMinisterio, idMinisterio);
+		List<DadosPublicacaoIVO> lstDadPubIVO = pubRep.getAllByIdIgrejaAndIdMinisterio(idIgreja, idMinisterio);
 		
 		return (!lstDadPubIVO.isEmpty()) ? new BuscarPublicacoesResponse(lstDadPubIVO) : null;
 	}

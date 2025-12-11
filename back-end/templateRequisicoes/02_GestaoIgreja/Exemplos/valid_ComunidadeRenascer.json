@@ -1,0 +1,18 @@
+{
+    "idCriador": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+    "cnpj": "40.471.444/0001-20",
+    "nome": "Comunidade Cristã Renascer",
+    "denominacao": "outra",
+    "outraDenominacao": "Comunidade Evangélica",
+    "idDono": "5699acd8-10f8-4901-8c2b-e92a102c46ca",
+    "cadEndIgrReq": {
+        "cep": "80020-310",
+        "uf": "PR",
+        "cidade": "Curitiba",
+        "bairro": "Centro",
+        "logradouro": "Praça Santos Andrade",
+        "numero": "50",
+        "complemento": "Sobreloja",
+        "isEnderecoPrincipal": true
+    }
+}
